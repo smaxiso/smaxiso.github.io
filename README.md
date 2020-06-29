@@ -1,2 +1,2 @@
 # smaxiso.github.io
-for you and me
+Personal Portfolio
