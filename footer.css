@@ -17,6 +17,16 @@
   margin: 4px;
   font-size: 90%;
 }
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 3px;
+  background-color: #cecece;
+  color: black;
+  text-align: center;
+}
 
 footer {
   text-align: center;
