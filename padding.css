@@ -2,3 +2,17 @@ pd1{
   border: 1px solid red; 
   margin-left: 20px;
 }
+div.container4 p {
+    margin: 0;
+    background: yellow;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+ P.blocktext {
+    margin-left: auto;
+    margin-right: auto;
+    width: 20em;
+    font-size: 30px;
+}
