@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {
+  margin: 0;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+/*.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+  border-radius: 20px ;
+  border: 2px solid black;
+  color: #000000
+}*/
+
+/**{
+  margin: 0;
+  padding: 0;
+  font-family: "Ubuntu", sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+}*/
+
+.profile-card{
+  margin-left: 24%;
+  width: 75%;
+  text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+  padding-top: 50px;
+}
+
+.card-header{
+  width: 75%;
+  background: #2c3a47;
+  padding: 60px 40px;
+  border-radius: 25px;
+}
+
+.pic{
+  display: inline-block;
+  padding: 10px;
+  background: linear-gradient(130deg, #74b9ff, #e66767);
+  margin: auto;
+  border-radius: 25px;
+  background-size: 200% 200%;
+  animation: animated-gradient 2s linear infinite;
+}
+
+.pic img{
+  display: block;
+  width: 100px;
+  height: 130px;
+  border-radius: 20px;
+}
+
+@keyframes animated-gradient{
+  25%{
+    background-position: left bottom;
+  }
+  50%{
+    background-position: right bottom;
+  }
+  75%{
+    background-position: right top;
+  }
+  100%{
+    background-position: left top;
+  }
+}
+
+.name{
+  color: #f2f2f2;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.desc{
+  font-size: 18px;
+  color: #e66767;
+}
+
+.sm{
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.sm a{
+  color: #f2f2f2;
+  width: 56px;
+  font-size: 24px;
+  transition: .3s linear;
+  text-decoration: none;
+}
+
+.sm a:hover{
+  color: #e66767;
+}
+
+.card-footer{
+  background: #f4f4f4;
+  padding: 60px 10px;
+}
