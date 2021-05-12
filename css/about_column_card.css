@@ -53,20 +53,16 @@ body {
   text-decoration: none;
 }*/
 
-.profile-card{
-  margin-left: 24%;
-  width: 75%;
-  text-align: center;
-  border-radius: 8px;
-  overflow: hidden;
-  padding-top: 50px;
-}
-
-.card-header{
-  width: 75%;
+.card-header{ 
+  width: 50%;
   background: #2c3a47;
-  padding: 60px 40px;
+  padding: 40px;
   border-radius: 25px;
+  margin: auto;
+  text-align: center;
+}
+.card-header:hover{
+  box-shadow: 24px 4px 24px 0 rgba(0, 0, 0, 0.8);
 }
 
 .pic{
@@ -81,8 +77,8 @@ body {
 
 .pic img{
   display: block;
-  width: 100px;
-  height: 130px;
+  width: 150px;
+  height: 200px;
   border-radius: 20px;
 }
 
