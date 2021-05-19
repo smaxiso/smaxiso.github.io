@@ -1,8 +1,10 @@
 /* Add some padding on document's body to prevent the content
     to go underneath the header and footer */
     body{        
-        padding-top: 100px;
-        padding-bottom: 40px;
+        /*padding-top: 100px;
+        padding-bottom: 40px;*/
+        /*padding-right: 0;
+        padding-left: 0;*/
     }
     .container{
         width: 100%;
@@ -11,7 +13,7 @@
     .fixed-header, .fixed-footer{
         font-family: Consolas;
         width: 100%;
-        position: fixed;      
+        /*position: sticky;      */
         background: #333;
         padding: 0px 0px;
         color: #fff;
@@ -23,18 +25,18 @@
         top: 0;
         left: 0;
         right: 0;
+        margin-bottom: 50px;
         padding-bottom: 5px;
     }
 
     .fixed-footer{
-        /*position: fixed;*/
-        /*margin-bottom: -100px;*/
         bottom: 0;
         right: 0;
         left: 0;
         text-align: center;
         font-family: Consolas;
         padding: 2px;
+        margin-top: 50px;
     }    
     /* Some more styles to beutify this example */
     nav a{
