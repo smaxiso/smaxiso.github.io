@@ -106,10 +106,22 @@ body {
   margin: 10px 0;
   text-shadow: 2px 2px 16px #000;
 }
+.text{
+  color: #f2f2f2;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px 0;
+  text-shadow: 2px 2px 16px #000;
+}
 
 .desc{
   font-size: 18px;
   color: #e66767;
+  font-family: consolas;
+}
+.connect{
+  font-size: 18px;
+  color: #f2f2f2;
   font-family: consolas;
 }
 
