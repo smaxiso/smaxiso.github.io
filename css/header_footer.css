@@ -6,9 +6,15 @@
         /*padding-right: 0;
         padding-left: 0;*/
     }
-    .container{
+    .containertop{
         width: 100%;
         /*margin: 0 auto;  Center the DIV horizontally */
+        text-align: right;
+    }
+    .containerbottom{
+        width: 100%;
+        /*margin: 0 auto;  Center the DIV horizontally */
+        text-align: center;
     }
     .fixed-header, .fixed-footer{
         font-family: Consolas;
