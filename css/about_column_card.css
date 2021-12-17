@@ -36,25 +36,6 @@ body {
   }
 }
 
-/* Style the counter cards */
-/*.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 16px;
-  text-align: center;
-  background-color: #f1f1f1;
-  border-radius: 20px ;
-  border: 2px solid black;
-  color: #000000
-}*/
-
-/**{
-  margin: 0;
-  padding: 0;
-  font-family: "Ubuntu", sans-serif;
-  box-sizing: border-box;
-  text-decoration: none;
-}*/
-
 .card-header{ 
   width: 80%;
   background: #2c3a47;
@@ -105,21 +86,21 @@ body {
   font-weight: 600;
   margin: 10px 0;
   text-shadow: 2px 2px 16px #000;
-  font-family: 'Segoe Print';
+  font-family: 'Segoe Print', Arial, sans-serif;
 }
 .text{
   color: #f2f2f2;
   font-size: 16px;
   font-weight: 600;
   margin: 10px 0;
-  font-family: 'Segoe Print';
+  font-family: 'Segoe Print', Arial, sans-serif;
   text-shadow: 2px 2px 16px #000;
 }
 
 .desc{
   font-size: 18px;
   color: #e66767;
-  font-family: 'Segoe Print';
+  font-family: 'Segoe Print', Arial, sans-serif;
   text-align: center;
   border: 1px solid #e66767;
   border-top-right-radius: 25px;
@@ -132,7 +113,7 @@ body {
 .connect{
   font-size: 18px;
   color: #f2f2f2;
-  font-family: 'Segoe Print';
+  font-family: 'Segoe Print', Arial, sans-serif;
   text-decoration: underline;
 }
 
