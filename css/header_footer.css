@@ -1,15 +1,9 @@
 /* Add some padding on document's body to prevent the content
     to go underneath the header and footer */
-    body{        
-        /*padding-top: 100px;
-        padding-bottom: 40px;*/
-        /*padding-right: 0;
-        padding-left: 0;*/
-    }
     .containertop{
-        width: 100%;
-        /*margin: 0 auto;  Center the DIV horizontally */
+        width: auto;
         text-align: right;
+        float: right;
     }
     .containerbottom{
         width: 100%;
@@ -84,4 +78,14 @@
         padding: 15px 10px 25px 10px;
         font-size: 30px;
         font-weight: bold;
+    }
+
+    .title a, .title img
+    {
+        border: 1px solid #e66767;
+        border-top-right-radius: 25px;
+        border-top-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        border-bottom-left-radius: 25px;
+        padding: 5px;
     }

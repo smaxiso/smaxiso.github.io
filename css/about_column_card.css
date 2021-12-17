@@ -118,13 +118,20 @@ body {
   font-size: 18px;
   color: #e66767;
   font-family: consolas;
-  text-align: left;
+  text-align: center;
+  border: 1px solid #e66767;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  padding: 5px;
 
 }
 .connect{
   font-size: 18px;
   color: #f2f2f2;
   font-family: consolas;
+  text-decoration: underline;
 }
 
 .sm{
