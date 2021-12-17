@@ -105,19 +105,21 @@ body {
   font-weight: 600;
   margin: 10px 0;
   text-shadow: 2px 2px 16px #000;
+  font-family: 'Segoe Print';
 }
 .text{
   color: #f2f2f2;
   font-size: 16px;
   font-weight: 600;
   margin: 10px 0;
+  font-family: 'Segoe Print';
   text-shadow: 2px 2px 16px #000;
 }
 
 .desc{
   font-size: 18px;
   color: #e66767;
-  font-family: consolas;
+  font-family: 'Segoe Print';
   text-align: center;
   border: 1px solid #e66767;
   border-top-right-radius: 25px;
@@ -130,7 +132,7 @@ body {
 .connect{
   font-size: 18px;
   color: #f2f2f2;
-  font-family: consolas;
+  font-family: 'Segoe Print';
   text-decoration: underline;
 }
 
