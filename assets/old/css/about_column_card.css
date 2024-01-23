@@ -1,0 +1,151 @@
+@font-face {
+  font-family: "Segoe Print";
+  src: url("//db.onlinewebfonts.com/t/c455d94eee43dc4ceeb83c0c0fd0d4c8.eot");
+  src: url("//db.onlinewebfonts.com/t/c455d94eee43dc4ceeb83c0c0fd0d4c8.eot?#iefix") format("embedded-opentype"),
+      url("//db.onlinewebfonts.com/t/c455d94eee43dc4ceeb83c0c0fd0d4c8.woff2") format("woff2"),
+      url("//db.onlinewebfonts.com/t/c455d94eee43dc4ceeb83c0c0fd0d4c8.woff") format("woff"),
+      url("//db.onlinewebfonts.com/t/c455d94eee43dc4ceeb83c0c0fd0d4c8.ttf") format("truetype"),
+      url("//db.onlinewebfonts.com/t/c455d94eee43dc4ceeb83c0c0fd0d4c8.svg#Segoe Print") format("svg");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  /*padding-left: 20px;
+  padding-right: 20px;*/
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {
+  margin: 0;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+.card-header{ 
+  width: 80%;
+  background: #2c3a47;
+  padding: 40px;
+  border-radius: 25px;
+  margin: auto;
+  text-align: center;
+}
+.card-header:hover{
+  box-shadow: 24px 4px 24px 0 rgba(0, 0, 0, 0.8);
+}
+
+.pic{
+  display: inline-block;
+  padding: 10px;
+  background: linear-gradient(130deg, #74b9ff, #e66767);
+  margin: auto;
+  border-radius: 25px;
+  background-size: 200% 200%;
+  animation: animated-gradient 2s linear infinite;
+}
+
+.pic img{
+  display: block;
+  width: 150px;
+  height: 200px;
+  border-radius: 20px;
+}
+
+@keyframes animated-gradient{
+  25%{
+    background-position: left bottom;
+  }
+  50%{
+    background-position: right bottom;
+  }
+  75%{
+    background-position: right top;
+  }
+  100%{
+    background-position: left top;
+  }
+}
+
+.name{
+  color: #f2f2f2;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 10px 0;
+  text-shadow: 2px 2px 16px #000;
+  font-family: 'Segoe Print', Arial, sans-serif;
+}
+.text{
+  color: #f2f2f2;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px 0;
+  font-family: 'Segoe Print', Arial, sans-serif;
+  text-shadow: 2px 2px 16px #000;
+}
+
+.desc{
+  font-size: 18px;
+  color: #e66767;
+  font-family: 'Segoe Print', Arial, sans-serif;
+  text-align: center;
+  border: 1px solid #e66767;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  padding: 5px;
+
+}
+.connect{
+  font-size: 18px;
+  color: #f2f2f2;
+  font-family: 'Segoe Print', Arial, sans-serif;
+  text-decoration: underline;
+}
+
+.sm{
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.sm a{
+  color: #f2f2f2;
+  width: 56px;
+  font-size: 24px;
+  transition: .3s linear;
+  text-decoration: none;
+}
+
+.sm a:hover{
+  color: #e66767;
+}
+
+.card-footer{
+  background: #f4f4f4;
+  padding: 60px 10px;
+}
