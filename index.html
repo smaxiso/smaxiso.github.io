@@ -82,41 +82,53 @@
             <!--===== ABOUT =====-->
             <section class="about section" id="about">
                 <h2 class="section-title">About</h2>
-
+            
                 <div class="about__container bd-grid">
                     <div class="about__img">
                         <img src="assets/img/about.jpg" alt="Sumit Kumar - Data Engineer">
                     </div>
-
+            
                     <div>
-                        <h2 class="about__subtitle">I'm Sumit</h2>
+                        <h2 class="about__subtitle">Data Engineer | Problem Solver</h2>
                         <p class="about__text">
-                            As a dedicated Data Engineer, I bring forth a unique blend of technical expertise and creative problem-solving. My academic journey includes a B.Tech in Computer Science from NIT Patna, where I earned a CGPA of 7.79.
-                            Currently, I am contributing my skills as a Data Engineer at Tata Consultancy Services for PayPal, specializing in data migration frameworks for AWS, GCS, and Big Query. I have successfully reduced data migration time by 20%, showcasing my commitment to efficiency and scalability.
-                            Notable among my college projects is the development of a joint image compression and encryption algorithm, achieving a compression ratio of 5.2 and demonstrating proficiency in Python, JPEG2000, and RC4 encryption.
-                            Proficient in Python, SQL, and cloud technologies (AWS, GCP), I excel in delivering impactful solutions. My skill set extends to C++, C, ML, Java, and collaborative development using tools like Git and Jenkins.
-                            I am passionate about leveraging technology to solve real-world challenges. My drive for continuous learning keeps me updated with the latest advancements in the field.
-                            Let's connect and explore how my skills and experience can contribute to innovative solutions in the realm of data engineering.
+                            I'm a data engineer passionate about building scalable data solutions that drive business impact. I leverage my strong technical expertise in Python, SQL, cloud platforms (AWS, GCP) and BigQuery to design and implement efficient data pipelines.
+            
+                            In my role at Tata Consultancy Services, I played a key role in optimizing data migration processes for a leading online payments company, reducing data migration time by 20%.
+            
+                            Beyond professional experience, I actively explore data science and machine learning. I developed a forest fire detection system using machine learning algorithms and fuzzy logic, showcasing my ability to apply technology to solve real-world challenges.
+            
+                            I am a proficient programmer with experience in Python, C++, Java, and adept at collaborative development using Git and Jenkins. I am a continuous learner, always striving to stay updated with the latest advancements in data engineering.
+            
+                            Let's connect and explore how I can leverage my skills and experience to contribute to innovative data solutions.
                         </p>
 
                         <div class="about__skills">
                             <h3 class="about__skills-title">Skills</h3>
                             <ul class="about__skills-list">
-                                <li>Python</li>
-                                <li>SQL</li>
-                                <li>AWS</li>
-                                <li>GCP</li>
-                                <li>C++</li>
-                                <li>C</li>
-                                <li>Java</li>
-                                <li>ML</li>
-                                <li>Git</li>
-                                <li>Jenkins</li>
+                                <li class="skill-category">Programming Languages:
+                                    <span class="skill-list">Python, C++, Java</span>
+                                </li>
+                                <li class="skill-category">Cloud Platforms:
+                                    <span class="skill-list">AWS, GCP</span>
+                                </li>
+                                <li class="skill-category">Data Engineering:
+                                    <span class="skill-list">BigQuery, ETL Frameworks</span>
+                                </li>
+                                <li class="skill-category">Databases:
+                                    <span class="skill-list">SQL</span>
+                                </li>
+                                <li class="skill-category">Version Control:
+                                    <span class="skill-list">Git</span>
+                                </li>
+                                <li class="skill-category">CI/CD:
+                                    <span class="skill-list">Jenkins</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
+
 
             <!--===== SKILLS =====-->
             <section class="skills section" id="skills">
@@ -259,28 +271,114 @@
             <!--===== WORK =====-->
             <section class="work section" id="work">
                 <h2 class="section-title">Work</h2>
-
                 <div class="work__container bd-grid">
-                    <a href="" class="work__img">
-                        <img src="assets/img/work1.jpg" alt="">
-                    </a>
-                    <a href="" class="work__img">
-                        <img src="assets/img/work2.jpg" alt="">
-                    </a>
-                    <a href="" class="work__img">
-                        <img src="assets/img/work3.jpg" alt="">
-                    </a>
-                    <a href="" class="work__img">
-                        <img src="assets/img/work4.jpg" alt="">
-                    </a>
-                    <a href="" class="work__img">
-                        <img src="assets/img/work5.jpg" alt="">
-                    </a>
-                    <a href="" class="work__img">
-                        <img src="assets/img/work6.jpg" alt="">
-                    </a>
+                    <!-- Data Migration Framework -->
+                    <div class="work__img" data-modal-target="#modal1">
+                        <img src="assets/img/work1.jpg" alt="Data Migration Framework">
+                        <div class="work__img-overlay">
+                            <h3 class="work__title">Data Migration Framework</h3>
+                            <p class="work__description">Developed for a leading global online payments company using Python, AWS,
+                                GCS, and BigQuery. Reduced data migration time by 20% and improved scalability by 30%.</p>
+                        </div>
+                    </div>
+                    <!-- Merchant Report Generation -->
+                    <div class="work__img" data-modal-target="#modal2">
+                        <img src="assets/img/work2.jpg" alt="Merchant Report Generation">
+                        <div class="work__img-overlay">
+                            <h3 class="work__title">Merchant Report Generation</h3>
+                            <p class="work__description">Implemented on-demand merchant reports project, increasing data accuracy
+                                and reducing report generation time by 40% using Python and SQL.</p>
+                        </div>
+                    </div>
+                    <!-- Forest Fire Detection System -->
+                    <div class="work__img" data-modal-target="#modal3">
+                        <img src="assets/img/work3.jpg" alt="Forest Fire Detection System">
+                        <div class="work__img-overlay">
+                            <h3 class="work__title">Forest Fire Detection System</h3>
+                            <p class="work__description">Developed a real-time forest fire detection system using machine learning
+                                algorithms and fuzzy logic, achieving an accuracy rate of 92%.</p>
+                        </div>
+                    </div>
+                    <!-- Joint Image Compression & Encryption -->
+                    <div class="work__img" data-modal-target="#modal4">
+                        <img src="assets/img/work4.jpg" alt="Joint Image Compression & Encryption">
+                        <div class="work__img-overlay">
+                            <h3 class="work__title">Joint Image Compression & Encryption</h3>
+                            <p class="work__description">Created an algorithm for joint image compression and encryption with a
+                                compression ratio of 5.2 using JPEG2000 and RC4 encryption techniques.</p>
+                        </div>
+                    </div>
+                    <!-- Image Classification using CNNs -->
+                    <div class="work__img" data-modal-target="#modal5">
+                        <img src="assets/img/work5.jpg" alt="Image Classification using CNNs">
+                        <div class="work__img-overlay">
+                            <h3 class="work__title">Image Classification using CNNs</h3>
+                            <p class="work__description">Implemented a CNN-based image classification project on the CIFAR10
+                                dataset, achieving an accuracy rate of 85%.</p>
+                        </div>
+                    </div>
+                    <!-- YouTube Spam Comment Filter -->
+                    <div class="work__img" data-modal-target="#modal6">
+                        <img src="assets/img/work6.jpg" alt="YouTube Spam Comment Filter">
+                        <div class="work__img-overlay">
+                            <h3 class="work__title">YouTube Spam Comment Filter</h3>
+                            <p class="work__description">Developed a binary classification algorithm for spam comment detection on
+                                YouTube, achieving a high accuracy rate using various datasets.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
+
+            <!-- Modals -->
+            <div class="modal" id="modal1">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h3 class="work__title">Data Migration Framework</h3>
+                    <p class="work__description">Developed for a leading global online payments company using Python, AWS, GCS, and
+                        BigQuery. Reduced data migration time by 20% and improved scalability by 30%.</p>
+                </div>
+            </div>
+            <div class="modal" id="modal2">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h3 class="work__title">Merchant Report Generation</h3>
+                    <p class="work__description">Implemented on-demand merchant reports project, increasing data accuracy and
+                        reducing report generation time by 40% using Python and SQL.</p>
+                </div>
+            </div>
+            <div class="modal" id="modal3">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h3 class="work__title">Forest Fire Detection System</h3>
+                    <p class="work__description">Developed a real-time forest fire detection system using machine learning
+                        algorithms and fuzzy logic, achieving an accuracy rate of 92%.</p>
+                </div>
+            </div>
+            <div class="modal" id="modal4">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h3 class="work__title">Joint Image Compression & Encryption</h3>
+                    <p class="work__description">Created an algorithm for joint image compression and encryption with a compression
+                        ratio of 5.2 using JPEG2000 and RC4 encryption techniques.</p>
+                </div>
+            </div>
+            <div class="modal" id="modal5">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h3 class="work__title">Image Classification using CNNs</h3>
+                    <p class="work__description">Implemented a CNN-based image classification project on the CIFAR10 dataset,
+                        achieving an accuracy rate of 85%.</p>
+                </div>
+            </div>
+            <div class="modal" id="modal6">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h3 class="work__title">YouTube Spam Comment Filter</h3>
+                    <p class="work__description">Developed a binary classification algorithm for spam comment detection on YouTube,
+                        achieving a high accuracy rate using various datasets.</p>
+                </div>
+            </div>
+
 
             <!--===== CONTACT =====-->
             <section class="contact section" id="contact">
