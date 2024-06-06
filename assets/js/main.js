@@ -126,31 +126,100 @@ function showErrorMessage() {
 
 /*===== WORK IMAGE MODAL =====*/
 document.addEventListener('DOMContentLoaded', () => {
-    const modalButtons = document.querySelectorAll('[data-modal-target]');
-    const closeButtons = document.querySelectorAll('.close-button');
-    const modals = document.querySelectorAll('.modal');
-
-    modalButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modal = document.querySelector(button.getAttribute('data-modal-target'));
-            const workImgSrc = button.querySelector('img').getAttribute('src');
-            modal.querySelector('.modal-content').style.backgroundImage = `url(${workImgSrc})`;
-            modal.style.display = 'flex';
-        });
-    });
-
-    closeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modal = button.closest('.modal');
-            modal.style.display = 'none';
-        });
-    });
-
-    window.addEventListener('click', (event) => {
-        modals.forEach(modal => {
-            if (event.target === modal) {
-                modal.style.display = 'none';
+    fetch('assets/data/work-data.json')  // Ensure this path is correct
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
             }
-        });
-    });
+            return response.json();
+        })
+        .then(data => {
+            const workContainer = document.getElementById('work-container');
+            const modalsContainer = document.getElementById('modals-container');
+
+            data.forEach(work => {
+                // Create work item
+                const workItem = document.createElement('div');
+                workItem.classList.add('work__img');
+                workItem.setAttribute('data-modal-target', `#${work.id}`);
+                workItem.innerHTML = `
+                    <img src="${work.image}" alt="${work.title}">
+                    <div class="work__img-overlay">
+                        <h3 class="work__title">${work.title}</h3>
+                        <p class="work__description hidden">${work.description}</p>
+                    </div>
+                `;
+                workContainer.appendChild(workItem);
+
+                // Create modal
+                const modal = document.createElement('div');
+                modal.classList.add('modal');
+                modal.id = work.id;
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <span class="close-button">&times;</span>
+                        <h3 class="work__title">${work.title}</h3>
+                        <p class="work__description">${work.description}</p>
+                    </div>
+                `;
+                modalsContainer.appendChild(modal);
+            });
+
+            // Add modal functionality
+            const modalButtons = document.querySelectorAll('[data-modal-target]');
+            const modals = document.querySelectorAll('.modal');
+            const closeButtons = document.querySelectorAll('.close-button');
+
+            modalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = document.querySelector(button.getAttribute('data-modal-target'));
+                    const workImgSrc = button.querySelector('img').getAttribute('src');
+                    modal.querySelector('.modal-content').style.backgroundImage = `url(${workImgSrc})`;
+                    modal.style.display = 'flex';
+                });
+            });
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    button.closest('.modal').style.display = 'none';
+                });
+            });
+
+            window.addEventListener('click', (event) => {
+                modals.forEach(modal => {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+        })
+        .catch(error => console.error('Error fetching work data:', error));
 });
+
+
+
+/*===== SKILLS DATA =====*/
+fetch('assets/data/skills-data.json')
+    .then(response => response.json())
+    .then(data => {
+        const skillsContainer = document.querySelector('.skills__container');
+
+        data.professional_skills.forEach(skill => {
+            const skillHTML = `
+        <!-- ${skill.name} -->
+        <div class="skills__data">
+          <div class="skills__names">
+            <i class="${skill.icon} skills__icon"></i>
+            <span class="skills__name">${skill.name}</span>
+          </div>
+          <div class="skills__bar" style="width: ${skill.percentage}%"></div>
+          <div>
+            <span class="skills__percentage">${skill.percentage}%</span>
+          </div>
+        </div>
+      `;
+
+            skillsContainer.insertAdjacentHTML('beforeend', skillHTML);
+        });
+    })
+    .catch(error => console.error('Error fetching skills data:', error));
