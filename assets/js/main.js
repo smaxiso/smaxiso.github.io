@@ -304,7 +304,7 @@ function initializePerfilSlideshow(imagePaths, svgContainer) {
 }
 
 // Call the function to initialize the slideshow
-initializePerfilSlideshow(perfilImagePaths, perfilSvgContainer);
+// initializePerfilSlideshow(perfilImagePaths, perfilSvgContainer);
 
 
 
@@ -361,4 +361,4 @@ const aboutImagePaths = [
 ];
 
 const aboutImgContainer = document.querySelector('.about__img img');
-initializeAboutSlideshow(aboutImagePaths, aboutImgContainer);
+// initializeAboutSlideshow(aboutImagePaths, aboutImgContainer);
