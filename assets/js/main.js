@@ -223,3 +223,142 @@ fetch('assets/data/skills-data.json')
         });
     })
     .catch(error => console.error('Error fetching skills data:', error));
+
+
+
+
+
+/*===== PERFILS IMAGES SLIDE SHOW =====*/
+// Array of image file paths
+const perfilImagePaths = [
+    "assets/img/perfils/perfil1.png",
+    "assets/img/perfils/perfil2.png"
+];
+
+// Select the SVG container
+const perfilSvgContainer = document.querySelector('.home__blob');
+// Function to initialize the slideshow
+function initializePerfilSlideshow(imagePaths, svgContainer) {
+    // Create and append image elements for each image path
+    imagePaths.forEach((path, index) => {
+        const image = document.createElementNS("http://www.w3.org/2000/svg", "image");
+        image.setAttribute("class", "home__blob-img");
+        image.setAttribute("x", "50");
+        image.setAttribute("y", "60");
+        image.setAttribute("href", path);
+        image.setAttribute("alt", `Profile Image ${index + 1}`);
+        svgContainer.querySelector('g').appendChild(image);
+    });
+
+    // Slideshow variables
+    let currentImageIndex = 0;
+    const fadeDuration = 500; // Fade duration in milliseconds
+    const intervalDuration = 3000; // Interval duration in milliseconds
+    const fadeSteps = 10; // Number of steps for fade effect
+    const fadeInterval = fadeDuration / fadeSteps; // Interval between each fade step
+
+    // Function to fade out current image
+    function fadeOut() {
+        const images = document.querySelectorAll('.home__blob-img');
+        const currentImage = images[currentImageIndex];
+        let opacity = 1;
+        const fadeOutInterval = setInterval(() => {
+            opacity -= 1 / fadeSteps;
+            currentImage.style.opacity = opacity;
+            if (opacity <= 0) {
+                clearInterval(fadeOutInterval);
+            }
+        }, fadeInterval);
+    }
+
+    // Function to fade in next image
+    function fadeIn() {
+        const images = document.querySelectorAll('.home__blob-img');
+        const nextImageIndex = (currentImageIndex + 1) % images.length;
+        const nextImage = images[nextImageIndex];
+        let opacity = 0;
+        const fadeInInterval = setInterval(() => {
+            opacity += 1 / fadeSteps;
+            nextImage.style.opacity = opacity;
+            if (opacity >= 1) {
+                clearInterval(fadeInInterval);
+            }
+        }, fadeInterval);
+        currentImageIndex = nextImageIndex;
+    }
+
+    // Function to start the slideshow
+    function startSlideshow() {
+        fadeOut(); // Clear the image array initially to avoid overlapping
+        // Set interval to fade in the next image
+        setInterval(() => {
+            fadeOut(); // Fade out the current image
+            setTimeout(() => {
+                fadeIn(); // Fade in the next image after fading out
+            }, fadeDuration);
+        }, intervalDuration);
+    }
+
+    // Start the slideshow
+    startSlideshow();
+}
+
+// Call the function to initialize the slideshow
+initializePerfilSlideshow(perfilImagePaths, perfilSvgContainer);
+
+
+
+
+/*===== ABOUT IMAGES SLIDE SHOW =====*/
+// Function to initialize the slideshow for the about section
+function initializeAboutSlideshow(imagePaths, aboutImgContainer) {
+    // Slideshow variables
+    let currentImageIndex = 0;
+    const fadeDuration = 700; // Fade duration in milliseconds
+    const intervalDuration = 4000; // Interval duration in milliseconds
+    const fadeSteps = 15; // Number of steps for fade effect
+    const fadeInterval = fadeDuration / fadeSteps; // Interval between each fade step
+
+    // Function to fade out current image
+    function fadeOut() {
+        aboutImgContainer.style.opacity = 0;
+    }
+
+    // Function to fade in next image
+    function fadeIn() {
+        aboutImgContainer.src = imagePaths[currentImageIndex];
+        let opacity = 0;
+        const fadeInInterval = setInterval(() => {
+            opacity += 1 / fadeSteps;
+            aboutImgContainer.style.opacity = opacity;
+            if (opacity >= 1) {
+                clearInterval(fadeInInterval);
+            }
+        }, fadeInterval);
+        currentImageIndex = (currentImageIndex + 1) % imagePaths.length;
+    }
+
+    // Function to start the slideshow
+    function startSlideshow() {
+        fadeOut(); // Clear the image initially to avoid overlapping
+        // Set interval to fade in the next image
+        setInterval(() => {
+            fadeOut(); // Fade out the current image
+            setTimeout(() => {
+                fadeIn(); // Fade in the next image after fading out
+            }, fadeDuration);
+        }, intervalDuration);
+    }
+
+    // Start the slideshow
+    startSlideshow();
+}
+
+// Example usage:
+const aboutImagePaths = [
+    "assets/img/about/about1.jpg",
+    "assets/img/about/about2.jpg"
+];
+
+const aboutImgContainer = document.querySelector('.about__img img');
+initializeAboutSlideshow(aboutImagePaths, aboutImgContainer);
