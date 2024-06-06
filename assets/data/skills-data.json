@@ -1,0 +1,54 @@
+{
+    "professional_skills": [
+        {
+            "name": "Python",
+            "icon": "bx bxl-python",
+            "percentage": "80"
+        },
+        {
+            "name": "SQL",
+            "icon": "bx bxl-sql",
+            "percentage": "75"
+        },
+        {
+            "name": "AWS",
+            "icon": "bx bxl-amazon",
+            "percentage": "70"
+        },
+        {
+            "name": "GCP",
+            "icon": "bx bxl-google-cloud",
+            "percentage": "65"
+        },
+        {
+            "name": "Machine Learning",
+            "icon": "bx bx-dna",
+            "percentage": "85"
+        },
+        {
+            "name": "C++",
+            "icon": "bx bxl-c-plus-plus",
+            "percentage": "70"
+        },
+        {
+            "name": "C",
+            "icon": "bx bxl-c",
+            "percentage": "60"
+        },
+        {
+            "name": "Java",
+            "icon": "bx bxl-java",
+            "percentage": "75"
+        },
+        {
+            "name": "Git",
+            "icon": "bx bxl-git",
+            "percentage": "80"
+        },
+        {
+            "name": "Jenkins",
+            "icon": "bx bxl-jenkins",
+            "percentage": "65"
+        }
+    ]
+}

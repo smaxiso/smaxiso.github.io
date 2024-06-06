@@ -243,6 +243,11 @@ img {
   box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.15);
 }
 
+
+
+
+
+
 /* ===== ABOUT =====*/
 .about__container {
   row-gap: 2rem;
@@ -264,54 +269,36 @@ img {
   margin-bottom: var(--mb-4);
   white-space: pre-line;
 }
+/* ABOUT SKILLS */
 .about__skills {
   margin-top: var(--mb-4);
 }
 .about__subtitle {
   margin-bottom: var(--mb-1);
 }
-.about__skills {
-  margin-top: var(--mb-4);
-}
-
-.about__subtitle {
-  margin-bottom: var(--mb-1);
-}
-
 .about__skills-list {
   list-style: none;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  /* Allow skills to wrap to next line if needed */
-  justify-content: flex-start;
-  /* Align skills to the left */
 }
-
 .about__skills-list li {
-  margin: 0.5rem 1rem;
-  /* Adjust spacing between skills */
   font-size: 1rem;
   color: var(--text-color);
-  position: relative;
+  margin-bottom: 0.5rem;
 }
-
 .skill-category {
-  font-weight: bold;
-  /* Bold for category labels */
-  margin-bottom: 0.25rem;
-  /* Add space between category and list */
+  color: #000;
 }
-
 .skill-list {
-  color: var(--secondary-color);
-  /* Different color for skills */
+  color: #ff9eb3;
+}
+.about__skills-list li:hover .skill-list {
+  text-decoration: underline;
 }
 
-.about__skills-list li:hover {
-  color: var(--first-color);
-  cursor: pointer;
-}
+
+
+
+
 
 /* ===== SKILLS =====*/
 .skills__container {
@@ -527,6 +514,10 @@ img {
   color: red;
   text-decoration: none;
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
 
 

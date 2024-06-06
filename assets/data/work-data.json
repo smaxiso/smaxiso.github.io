@@ -1,0 +1,38 @@
+[
+    {
+        "id": "modal1",
+        "title": "Data Migration Framework",
+        "description": "Developed for a leading global online payments company using Python, AWS, GCS, and BigQuery. Reduced data migration time by 20% and improved scalability by 30%.",
+        "image": "assets/img/work1.jpg"
+    },
+    {
+        "id": "modal2",
+        "title": "Merchant Report Generation",
+        "description": "Implemented on-demand merchant reports project, increasing data accuracy and reducing report generation time by 40% using Python and SQL.",
+        "image": "assets/img/work2.jpg"
+    },
+    {
+        "id": "modal3",
+        "title": "Forest Fire Detection System",
+        "description": "Developed a real-time forest fire detection system using machine learning algorithms and fuzzy logic, achieving an accuracy rate of 92%.",
+        "image": "assets/img/work3.jpg"
+    },
+    {
+        "id": "modal4",
+        "title": "Joint Image Compression & Encryption",
+        "description": "Created an algorithm for joint image compression and encryption with a compression ratio of 5.2 using JPEG2000 and RC4 encryption techniques.",
+        "image": "assets/img/work4.jpg"
+    },
+    {
+        "id": "modal5",
+        "title": "Image Classification using CNNs",
+        "description": "Implemented a CNN-based image classification project on the CIFAR10 dataset, achieving an accuracy rate of 85%.",
+        "image": "assets/img/work5.jpg"
+    },
+    {
+        "id": "modal6",
+        "title": "YouTube Spam Comment Filter",
+        "description": "Developed a binary classification algorithm for spam comment detection on YouTube, achieving a high accuracy rate using various datasets.",
+        "image": "assets/img/work6.jpg"
+    }
+]
