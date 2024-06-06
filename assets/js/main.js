@@ -122,3 +122,35 @@ function showErrorMessage() {
     errorMessageElement.style.display = 'block';
 }
 
+
+
+/*===== WORK IMAGE MODAL =====*/
+document.addEventListener('DOMContentLoaded', () => {
+    const modalButtons = document.querySelectorAll('[data-modal-target]');
+    const closeButtons = document.querySelectorAll('.close-button');
+    const modals = document.querySelectorAll('.modal');
+
+    modalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = document.querySelector(button.getAttribute('data-modal-target'));
+            const workImgSrc = button.querySelector('img').getAttribute('src');
+            modal.querySelector('.modal-content').style.backgroundImage = `url(${workImgSrc})`;
+            modal.style.display = 'flex';
+        });
+    });
+
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = button.closest('.modal');
+            modal.style.display = 'none';
+        });
+    });
+
+    window.addEventListener('click', (event) => {
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+});
