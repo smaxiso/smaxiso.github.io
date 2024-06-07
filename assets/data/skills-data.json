@@ -37,14 +37,14 @@
             },
             {
                 "name": "ETL Frameworks",
-                "icon": "bx bx-data",
+                "icon": "fas fa-exchange-alt",
                 "level": "Advanced"
             }
         ],
         "Databases": [
             {
                 "name": "SQL",
-                "icon": "bx bxl-sql",
+                "icon": "fas fa-database",
                 "level": "Advanced"
             }
         ],
@@ -58,7 +58,7 @@
         "CI/CD": [
             {
                 "name": "Jenkins",
-                "icon": "bx bxl-jenkins",
+                "icon": "fas fa-cogs",
                 "level": "Intermediate"
             }
         ]

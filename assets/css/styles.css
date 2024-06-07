@@ -358,6 +358,10 @@ img {
   color: var(--first-color);
   margin-bottom: 1rem;
   text-align: center;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .skills__category-list {
@@ -374,6 +378,11 @@ img {
   border-radius: 0.5rem;
   box-shadow: 0px 4px 25px rgba(14, 36, 49, 0.15);
   text-align: center;
+}
+
+.skills__data:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 25px rgba(14, 36, 49, 0.3);
 }
 
 .skills__icon {
@@ -442,7 +451,6 @@ img {
   margin-bottom: 2rem;
   display: flex;
   flex-wrap: wrap;
-  /*justify-content: space-between;*/
 }
 
 .work__img {
@@ -450,8 +458,9 @@ img {
   border-radius: 0.5rem;
   overflow: hidden;
   position: relative;
-  width: calc(33% - 3rem);
+  width: calc(33% - 2rem);
   transition: transform 0.5s;
+  height: 250px;
   cursor: pointer;
   margin-bottom: 1rem;
   margin-top: 1rem;
@@ -461,10 +470,12 @@ img {
 
 .work__img img {
   width: 100%;
-  transition: transform 1s;
+  object-fit: cover;
+  transition: transform 0.5s;
 }
 
-.work__img img:hover {
+
+.work__img:hover img {
   transform: scale(1.1);
 }
 
@@ -480,12 +491,13 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  transition: opacity 0.5s;
+  opacity: 1;
+  transition: opacity 0.5s, transform 0.5s;
 }
 
 .work__img:hover .work__img-overlay {
-  opacity: 1;
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateY(-10px);
 }
 
 .work__title {
@@ -525,6 +537,21 @@ img {
   background-color: #fff;
   border-color: #fff;
   text-decoration: none;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .work__img {
+    width: 100%;
+    /* Full width on smaller screens */
+    height: auto;
+    /* Adjust height to maintain aspect ratio */
+  }
+
+  .work__container {
+    flex-direction: column;
+    /* Stack items vertically */
+  }
 }
 
 /* ===== MODAL ===== */
@@ -640,6 +667,11 @@ img {
 .hobby__description {
   font-size: 1rem;
   color: var(--text-color);
+}
+
+.hobby:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 25px rgba(14, 36, 49, 0.3);
 }
 
 @media screen and (max-width: 768px) {
