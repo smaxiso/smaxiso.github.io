@@ -124,9 +124,9 @@ function showErrorMessage() {
 
 
 
-/*===== WORK IMAGE MODAL =====*/
+/*===== WORK DETAILS =====*/
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('assets/data/work-data.json')  // Ensure this path is correct
+    fetch('assets/data/work-data.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -137,35 +137,53 @@ document.addEventListener('DOMContentLoaded', () => {
             const workContainer = document.getElementById('work-container');
             const modalsContainer = document.getElementById('modals-container');
 
-            data.forEach(work => {
-                // Create work item
-                const workItem = document.createElement('div');
-                workItem.classList.add('work__img');
-                workItem.setAttribute('data-modal-target', `#${work.id}`);
-                workItem.innerHTML = `
-                    <img src="${work.image}" alt="${work.title}">
-                    <div class="work__img-overlay">
-                        <h3 class="work__title">${work.title}</h3>
-                        <p class="work__description hidden">${work.description}</p>
-                    </div>
-                `;
-                workContainer.appendChild(workItem);
+            data.forEach(category => {
+                // Create category title
+                const categoryTitle = document.createElement('h3');
+                categoryTitle.classList.add('work__category');
+                categoryTitle.textContent = category.category;
+                workContainer.appendChild(categoryTitle);
 
-                // Create modal
-                const modal = document.createElement('div');
-                modal.classList.add('modal');
-                modal.id = work.id;
-                modal.innerHTML = `
-                    <div class="modal-content">
-                        <span class="close-button">&times;</span>
-                        <h3 class="work__title">${work.title}</h3>
-                        <p class="work__description">${work.description}</p>
-                    </div>
-                `;
-                modalsContainer.appendChild(modal);
+                // Create container for projects under the category
+                const projectContainer = document.createElement('div');
+                projectContainer.classList.add('work__project-container');
+                workContainer.appendChild(projectContainer);
+
+                // Create work items for each project in the category
+                category.projects.forEach(work => {
+                    // Create work item
+                    const workItem = document.createElement('div');
+                    workItem.classList.add('work__img');
+                    workItem.setAttribute('data-modal-target', `#${work.id}`);
+                    workItem.innerHTML = `
+                        <img src="${work.image}" alt="${work.title}">
+                        <div class="work__img-overlay">
+                            <h3 class="work__title">${work.title}</h3>
+                            <p class="work__description hidden">${work.description}</p>
+                            <p class="work__tech">${work.technologies.join(', ')}</p>
+                            ${work.website ? `<a href="${work.website}" target="_blank" class="work__link">Website</a>` : ''}
+                        </div>
+                    `;
+                    projectContainer.appendChild(workItem);
+
+                    // Create modal
+                    const modal = document.createElement('div');
+                    modal.classList.add('modal');
+                    modal.id = work.id;
+                    modal.innerHTML = `
+                        <div class="modal-content">
+                            <span class="close-button">&times;</span>
+                            <h3 class="work__title">${work.title}</h3>
+                            <p class="work__description">${work.description}</p>
+                            <p class="work__tech">Technologies used: ${work.technologies.join(', ')}</p>
+                            ${work.website ? `<a href="${work.website}" target="_blank" class="work__link">Website</a>` : ''}
+                        </div>
+                    `;
+                    modalsContainer.appendChild(modal);
+                });
             });
 
-            // Add modal functionality
+            // Add modal functionality (unchanged)
             const modalButtons = document.querySelectorAll('[data-modal-target]');
             const modals = document.querySelectorAll('.modal');
             const closeButtons = document.querySelectorAll('.close-button');
@@ -198,31 +216,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
 /*===== SKILLS DATA =====*/
 fetch('assets/data/skills-data.json')
     .then(response => response.json())
     .then(data => {
-        const skillsContainer = document.querySelector('.skills__container');
+        const skillsContainer = document.querySelector('.skills__categories-container');
 
-        data.professional_skills.forEach(skill => {
-            const skillHTML = `
-        <!-- ${skill.name} -->
-        <div class="skills__data">
-          <div class="skills__names">
-            <i class="${skill.icon} skills__icon"></i>
-            <span class="skills__name">${skill.name}</span>
-          </div>
-          <div class="skills__bar" style="width: ${skill.percentage}%"></div>
-          <div>
-            <span class="skills__percentage">${skill.percentage}%</span>
-          </div>
-        </div>
-      `;
+        // Loop through categories and render skills
+        for (const [category, skills] of Object.entries(data.professional_skills)) {
+            const categoryHTML = `
+            <div class="skills__category">
+                <h3 class="skills__category-title">${category}</h3>
+                <div class="skills__category-list">
+                    ${skills.map(skill => renderSkillHTML(skill)).join('')}
+                </div>
+            </div>`;
+            skillsContainer.insertAdjacentHTML('beforeend', categoryHTML);
+        }
 
-            skillsContainer.insertAdjacentHTML('beforeend', skillHTML);
-        });
+        // Define function to render skill HTML
+        function renderSkillHTML(skill) {
+            return `
+            <div class="skills__data">
+                <div class="skills__names">
+                    <i class="${skill.icon} skills__icon"></i>
+                    <span class="skills__name">${skill.name}</span>
+                </div>
+                <div class="skills__level">${skill.level}</div>
+            </div>`;
+        }
     })
     .catch(error => console.error('Error fetching skills data:', error));
+
+
+
+
+
+/*===== HOBBIES DATA =====*/
+fetch('assets/data/hobbies-data.json')
+    .then(response => response.json())
+    .then(data => {
+        const hobbiesContainer = document.querySelector('.hobbies__container');
+
+        data.hobbies.forEach(hobby => {
+            const hobbyHTML = `
+                <div class="hobby">
+                    <i class='${hobby.icon} hobby__icon'></i>
+                    <h3 class="hobby__title">${hobby.name}</h3>
+                    <p class="hobby__description">${hobby.description}</p>
+                </div>
+            `;
+            hobbiesContainer.insertAdjacentHTML('beforeend', hobbyHTML);
+        });
+    })
+    .catch(error => console.error('Error fetching hobbies data:', error));
+
 
 
 
