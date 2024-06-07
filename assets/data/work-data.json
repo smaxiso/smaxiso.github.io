@@ -1,38 +1,155 @@
 [
     {
-        "id": "modal1",
-        "title": "Data Migration Framework",
-        "description": "Developed for a leading global online payments company using Python, AWS, GCS, and BigQuery. Reduced data migration time by 20% and improved scalability by 30%.",
-        "image": "assets/img/work/work1.jpg"
+        "category": "Work Experience",
+        "position": "Data Engineer",
+        "company": "Tata Consultancy Services",
+        "location": "Bangalore, India",
+        "projects": [
+            {
+                "id": "modal1",
+                "title": "Data Migration Framework",
+                "startDate": "Mar 2023",
+                "endDate": "Present",
+                "description": "Developed a scalable Data Migration Framework for a leading global online payments company using Python, AWS, GCS, and BigQuery. Reduced data migration time by 20%, improving scalability by 30%.",
+                "technologies": [
+                    "Python",
+                    "AWS",
+                    "GCS",
+                    "BigQuery"
+                ],
+                "image": "assets/img/work/data_migration_framework.png"
+            },
+            {
+                "id": "modal2",
+                "title": "Reporting Framework",
+                "startDate": "Aug 2021",
+                "endDate": "Jan 2023",
+                "description": "Built on-demand merchant reports, increasing data accuracy by 15%. Decreased report generation time by 25%. Contributed to Argo Framework for report generation.",
+                "technologies": [
+                    "Python",
+                    "SQL",
+                    "Apache Spark",
+                    "GCP"
+                ],
+                "image": "assets/img/work/reporting_framework.png"
+            }
+        ]
     },
     {
-        "id": "modal2",
-        "title": "Merchant Report Generation",
-        "description": "Implemented on-demand merchant reports project, increasing data accuracy and reducing report generation time by 40% using Python and SQL.",
-        "image": "assets/img/work/work2.jpg"
+        "category": "Internship",
+        "position": "Research Intern",
+        "company": "NIT Patna",
+        "location": "Patna, India",
+        "projects": [
+            {
+                "id": "modal3",
+                "title": "Fuzzy Control System for Forest Fire Detection",
+                "startDate": "May 2020",
+                "endDate": "July 2020",
+                "description": "Developed a real-time forest fire detection system using Python-based machine learning algorithms and fuzzy logic. Achieved an accuracy rate of 90% in predicting the likelihood and severity of forest fires.",
+                "technologies": [
+                    "Python",
+                    "machine learning",
+                    "fuzzy logic"
+                ],
+                "image": "assets/img/work/fuzzy_control_system_for_forest_fire_detection.png"
+            }
+        ]
     },
     {
-        "id": "modal3",
-        "title": "Forest Fire Detection System",
-        "description": "Developed a real-time forest fire detection system using machine learning algorithms and fuzzy logic, achieving an accuracy rate of 92%.",
-        "image": "assets/img/work/work3.jpg"
+        "category": "College Projects",
+        "projects": [
+            {
+                "id": "modal4",
+                "title": "Joint Image Compression & Encryption",
+                "description": "Created an algorithm for joint image compression and encryption using lossless JPEG2000 and RC4 encryption. Achieved a compression ratio of 5.2, 99.69% NPCR, and 47.63% UACI in processed images.",
+                "technologies": [
+                    "Python",
+                    "Digital Image Processing",
+                    "JPEG2000",
+                    "RC4",
+                    "PIL Library"
+                ],
+                "image": "assets/img/work/joint_image_compression_and_encryption.jpg"
+            },
+            {
+                "id": "modal5",
+                "title": "Digital Image Compression",
+                "description": "Designed an algorithm for digital image compression using K-means clustering and PCA. Achieved a compression ratio of 2.8 with 55-70% compression and a PSNR of 30 and above. Collaborated with a team of 4 members.",
+                "technologies": [
+                    "Python",
+                    "Machine Learning",
+                    "Digital Image Processing",
+                    "K-means",
+                    "PCA",
+                    "PIL Library"
+                ],
+                "image": "assets/img/work/digital_image_compression.png"
+            },
+            {
+                "id": "modal6",
+                "title": "Image Classification using CNNs",
+                "description": "Led a team of 4 in developing a machine learning-based CNN model for image classification, utilizing the CIFAR10 dataset. Achieved a high accuracy rate of 87.44% on the training dataset and 82.5% on the testing dataset.",
+                "technologies": [
+                    "Python",
+                    "Machine Learning",
+                    "Digital Image Processing",
+                    "CNN"
+                ],
+                "image": "assets/img/work/image_classification_using_cnn.png"
+            },
+            {
+                "id": "modal7",
+                "title": "YouTube Spam Comment Filter",
+                "description": "Developed and implemented a machine learning algorithm for binary classification of spam and non-spam comments on YouTube videos. Achieved an accuracy rate of 96.21% through training on multiple datasets.",
+                "technologies": [
+                    "Python",
+                    "Machine Learning",
+                    "Binary Classification"
+                ],
+                "image": "assets/img/work/youtube_spam_comment_filtering.jpeg"
+            }
+        ]
     },
     {
-        "id": "modal4",
-        "title": "Joint Image Compression & Encryption",
-        "description": "Created an algorithm for joint image compression and encryption with a compression ratio of 5.2 using JPEG2000 and RC4 encryption techniques.",
-        "image": "assets/img/work/work4.jpg"
-    },
-    {
-        "id": "modal5",
-        "title": "Image Classification using CNNs",
-        "description": "Implemented a CNN-based image classification project on the CIFAR10 dataset, achieving an accuracy rate of 85%.",
-        "image": "assets/img/work/work5.jpg"
-    },
-    {
-        "id": "modal6",
-        "title": "YouTube Spam Comment Filter",
-        "description": "Developed a binary classification algorithm for spam comment detection on YouTube, achieving a high accuracy rate using various datasets.",
-        "image": "assets/img/work/work6.jpg"
+        "category": "Side Projects",
+        "projects": [
+            {
+                "id": "modal8",
+                "title": "School Chale Ham",
+                "description": "A comprehensive platform for academic blogs catering to K-12 education. Efficient blog creation, management, and presentation. Backend powered by Express.js with MongoDB data storage. Frontend developed using Next.js for optimal performance.",
+                "technologies": [
+                    "Express.js",
+                    "MongoDB",
+                    "Next.js"
+                ],
+                "website": "https://www.schoolchaleham.in/",
+                "image": "assets/img/work/school_chale_ham.png"
+            },
+            {
+                "id": "modal9",
+                "title": "Bihar COVID Help",
+                "description": "Built a website to share information about the official notifications released by the government during the COVID-19 pandemic. Shared resources like oxygen, medicine, hospital beds, etc. Gathered a workforce of volunteer doctors to provide help in emergency cases. Shared useful contacts.",
+                "technologies": [
+                    "HTML",
+                    "CSS",
+                    "JavaScript",
+                    "GitHub"
+                ],
+                "website": "https://biharcovidhelp.github.io/",
+                "image": "assets/img/work/bihar_covid_help.png"
+            },
+            {
+                "id": "modal10",
+                "title": "Android Bloatware Removal Guide",
+                "description": "A basic blog webpage created for the Android bloatware removal guide. Simple and informative design for easy navigation.",
+                "technologies": [
+                    "HTML",
+                    "CSS"
+                ],
+                "website": "https://android-bloatware-removal-guide.netlify.app/",
+                "image": "assets/img/work/android_bloatware_removal_guide.png"
+            }
+        ]
     }
 ]

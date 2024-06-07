@@ -1,54 +1,66 @@
 {
-    "professional_skills": [
-        {
-            "name": "Python",
-            "icon": "bx bxl-python",
-            "percentage": "80"
-        },
-        {
-            "name": "SQL",
-            "icon": "bx bxl-sql",
-            "percentage": "75"
-        },
-        {
-            "name": "AWS",
-            "icon": "bx bxl-amazon",
-            "percentage": "70"
-        },
-        {
-            "name": "GCP",
-            "icon": "bx bxl-google-cloud",
-            "percentage": "65"
-        },
-        {
-            "name": "Machine Learning",
-            "icon": "bx bx-dna",
-            "percentage": "85"
-        },
-        {
-            "name": "C++",
-            "icon": "bx bxl-c-plus-plus",
-            "percentage": "70"
-        },
-        {
-            "name": "C",
-            "icon": "bx bxl-c",
-            "percentage": "60"
-        },
-        {
-            "name": "Java",
-            "icon": "bx bxl-java",
-            "percentage": "75"
-        },
-        {
-            "name": "Git",
-            "icon": "bx bxl-git",
-            "percentage": "80"
-        },
-        {
-            "name": "Jenkins",
-            "icon": "bx bxl-jenkins",
-            "percentage": "65"
-        }
-    ]
+    "professional_skills": {
+        "Programming Languages": [
+            {
+                "name": "Python",
+                "icon": "bx bxl-python",
+                "level": "Expert"
+            },
+            {
+                "name": "C++",
+                "icon": "bx bxl-c-plus-plus",
+                "level": "Advanced"
+            },
+            {
+                "name": "Java",
+                "icon": "bx bxl-java",
+                "level": "Advanced"
+            }
+        ],
+        "Cloud Platforms": [
+            {
+                "name": "AWS",
+                "icon": "bx bxl-amazon",
+                "level": "Intermediate"
+            },
+            {
+                "name": "GCP",
+                "icon": "bx bxl-google-cloud",
+                "level": "Intermediate"
+            }
+        ],
+        "Data Engineering": [
+            {
+                "name": "BigQuery",
+                "icon": "bx bx-data",
+                "level": "Intermediate"
+            },
+            {
+                "name": "ETL Frameworks",
+                "icon": "bx bx-data",
+                "level": "Advanced"
+            }
+        ],
+        "Databases": [
+            {
+                "name": "SQL",
+                "icon": "bx bxl-sql",
+                "level": "Advanced"
+            }
+        ],
+        "Version Control": [
+            {
+                "name": "Git",
+                "icon": "bx bxl-git",
+                "level": "Advanced"
+            }
+        ],
+        "CI/CD": [
+            {
+                "name": "Jenkins",
+                "icon": "bx bxl-jenkins",
+                "level": "Intermediate"
+            }
+        ]
+    }
 }
