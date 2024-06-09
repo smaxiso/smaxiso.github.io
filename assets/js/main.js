@@ -267,6 +267,7 @@ fetch('assets/data/hobbies-data.json')
                     <i class='${hobby.icon} hobby__icon'></i>
                     <h3 class="hobby__title">${hobby.name}</h3>
                     <p class="hobby__description">${hobby.description}</p>
+                    ${hobby.link ? `<a href="${hobby.link}" class="button hobby__link" target="_blank">Learn More</a>` : ''}
                 </div>
             `;
             hobbiesContainer.insertAdjacentHTML('beforeend', hobbyHTML);
