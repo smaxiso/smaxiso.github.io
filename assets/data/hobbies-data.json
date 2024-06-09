@@ -18,7 +18,8 @@
         {
             "name": "Writing Poem",
             "icon": "bx bx-book-heart",
-            "description": "Writing poems allows me to express my emotions and creativity."
+            "description": "Writing poems allows me to express my emotions and creativity.",
+            "link": "https://smaxiso.medium.com/"
         },
         {
             "name": "Yoga",
