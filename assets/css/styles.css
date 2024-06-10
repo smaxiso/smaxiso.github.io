@@ -315,6 +315,7 @@ img {
   font-weight: var(--font-semi);
   border-radius: 0.5rem;
   transition: 0.3s;
+  margin-top: 1rem;
 }
 .button:hover {
   box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.5);
@@ -354,22 +355,36 @@ img {
 }
 
 /* Resume Download Button */
-.about .button {
+.download_resume_button {
+  display: inline-block;
+  font-weight: var(--font-semi);
+  align-items: center; 
+  gap: 0.5rem; 
   margin-top: 1rem;
   padding: 0.75rem 2rem;
   background-color: var(--first-color);
   color: #fff;
   text-decoration: none;
   border-radius: 0.5rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+  margin-top: 1rem;
 }
-.about .button:hover {
+.download_resume_button:hover {
   box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.5);
-  transform: translateY(-3px);
+  transform: translateY(-3px); 
 }
-.about .button:active {
-  transform: translateY(1px);
+.download_resume_button:active {
+  transform: translateY(1px); 
 }
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+  .download_resume_button, .button {
+    width: 80%; /* Ensuring buttons take up most of the screen width on mobile */
+    margin: 0.5rem 0; /* Adding margin to separate buttons */
+    text-align: center;
+  }
+}
+
 
 
 
