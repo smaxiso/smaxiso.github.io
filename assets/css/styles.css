@@ -353,7 +353,6 @@ img {
   margin-bottom: var(--mb-4);
   white-space: pre-line;
 }
-
 /* Resume Download Button */
 .download_resume_button {
   display: inline-block;
@@ -379,9 +378,18 @@ img {
 /* Media Query for Mobile Devices */
 @media (max-width: 768px) {
   .download_resume_button, .button {
-    width: 80%; /* Ensuring buttons take up most of the screen width on mobile */
-    margin: 0.5rem 0; /* Adding margin to separate buttons */
+    width: 80%; 
+    margin: 0.5rem 0;
     text-align: center;
+  }
+  .about__text {
+    font-size: 1rem; 
+    line-height: 1.6;
+    text-align: left;
+    margin: 1rem 1.5rem;
+  }
+  .about__container {
+    padding: 1rem;
   }
 }
 
