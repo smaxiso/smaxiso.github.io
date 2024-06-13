@@ -15,17 +15,37 @@
                 "name": "Java",
                 "icon": "bx bxl-java",
                 "level": "Advanced"
-            }
-        ],
-        "Cloud Platforms": [
+            },
             {
-                "name": "AWS",
-                "icon": "bx bxl-amazon",
+                "name": "JavaScript",
+                "icon": "bx bxl-javascript",
                 "level": "Intermediate"
             },
             {
-                "name": "GCP",
-                "icon": "bx bxl-google-cloud",
+                "name": "HTML",
+                "icon": "bx bxl-html5",
+                "level": "Intermediate"
+            },
+            {
+                "name": "CSS",
+                "icon": "bx bxl-css3",
+                "level": "Intermediate"
+            }
+        ],
+        "Web Frameworks": [
+            {
+                "name": "React.js",
+                "icon": "bx bxl-react",
+                "level": "Intermediate"
+            },
+            {
+                "name": "Next.js",
+                "icon": "bx bxl-react",
+                "level": "Intermediate"
+            },
+            {
+                "name": "Django",
+                "icon": "bx bxl-django",
                 "level": "Intermediate"
             }
         ],
@@ -39,6 +59,11 @@
                 "name": "ETL Frameworks",
                 "icon": "fas fa-exchange-alt",
                 "level": "Advanced"
+            },
+            {
+                "name": "Airflow",
+                "icon": "fas fa-wind",
+                "level": "Intermediate"
             }
         ],
         "Databases": [
@@ -59,6 +84,28 @@
             {
                 "name": "Jenkins",
                 "icon": "fas fa-cogs",
+                "level": "Intermediate"
+            }
+        ],
+        "Tools & Utilities": [
+            {
+                "name": "Unix Commands",
+                "icon": "fas fa-terminal",
+                "level": "Intermediate"
+            },
+            {
+                "name": "Shell Scripting",
+                "icon": "fas fa-terminal",
+                "level": "Intermediate"
+            },
+            {
+                "name": "VS Code",
+                "icon": "bx bxl-visual-studio",
+                "level": "Intermediate"
+            },
+            {
+                "name": "IntelliJ IDEA",
+                "icon": "bx bxl-idea",
                 "level": "Intermediate"
             }
         ]
