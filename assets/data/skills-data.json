@@ -1,81 +1,81 @@
 {
-    "professional_skills": {
-        "Programming Languages": [
-            {
-                "name": "Python",
-                "icon": "bx bxl-python",
-                "level": "Expert"
-            },
-            {
-                "name": "C++",
-                "icon": "bx bxl-c-plus-plus",
-                "level": "Advanced"
-            },
-            {
-                "name": "Java",
-                "icon": "bx bxl-java",
-                "level": "Advanced"
-            },
-        ],
-        "Data Engineering": [
-            {
-                "name": "BigQuery",
-                "icon": "bx bx-data",
-                "level": "Intermediate"
-            },
-            {
-                "name": "ETL Frameworks",
-                "icon": "fas fa-exchange-alt",
-                "level": "Advanced"
-            },
-            {
-                "name": "Airflow",
-                "icon": "fas fa-fan",
-                "level": "Intermediate"
-            }
-        ],
-        "Databases": [
-            {
-                "name": "SQL",
-                "icon": "fas fa-database",
-                "level": "Advanced"
-            }
-        ],
-        "Version Control": [
-            {
-                "name": "Git",
-                "icon": "bx bxl-git",
-                "level": "Advanced"
-            }
-        ],
-        "CI/CD": [
-            {
-                "name": "Jenkins",
-                "icon": "fas fa-cogs",
-                "level": "Intermediate"
-            }
-        ],
-        "Tools & Utilities": [
-            {
-                "name": "Unix Commands",
-                "icon": "fas fa-terminal",
-                "level": "Intermediate"
-            },
-            {
-                "name": "Shell Scripting",
-                "icon": "fas fa-terminal",
-                "level": "Intermediate"
-            },
-            {
-                "name": "VS Code",
-                "icon": "bx bxl-visual-studio",
-                "level": "Intermediate"
-            },
-            {
-                "name": "IntelliJ IDEA",
-                "icon": "bx bxl-idea",
-                "level": "Intermediate"
-            }
-        ]
-    }
+  "professional_skills": {
+    "Programming Languages": [
+      {
+        "name": "Python",
+        "icon": "bx bxl-python",
+        "level": "Expert"
+      },
+      {
+        "name": "C++",
+        "icon": "bx bxl-c-plus-plus",
+        "level": "Advanced"
+      },
+      {
+        "name": "Java",
+        "icon": "bx bxl-java",
+        "level": "Advanced"
+      }
+    ],
+    "Data Engineering": [
+      {
+        "name": "BigQuery",
+        "icon": "bx bx-data",
+        "level": "Intermediate"
+      },
+      {
+        "name": "ETL Frameworks",
+        "icon": "fas fa-exchange-alt",
+        "level": "Advanced"
+      },
+      {
+        "name": "Airflow",
+        "icon": "fas fa-wind",
+        "level": "Intermediate"
+      }
+    ],
+    "Databases": [
+      {
+        "name": "SQL",
+        "icon": "fas fa-database",
+        "level": "Advanced"
+      }
+    ],
+    "Version Control": [
+      {
+        "name": "Git",
+        "icon": "bx bxl-git",
+        "level": "Advanced"
+      }
+    ],
+    "CI/CD": [
+      {
+        "name": "Jenkins",
+        "icon": "fas fa-cogs",
+        "level": "Intermediate"
+      }
+    ],
+    "Tools & Utilities": [
+      {
+        "name": "Unix Commands",
+        "icon": "fas fa-terminal",
+        "level": "Intermediate"
+      },
+      {
+        "name": "Shell Scripting",
+        "icon": "fas fa-terminal",
+        "level": "Intermediate"
+      },
+      {
+        "name": "VS Code",
+        "icon": "bx bxl-visual-studio",
+        "level": "Intermediate"
+      },
+      {
+        "name": "IntelliJ IDEA",
+        "icon": "fas fa-idea",
+        "level": "Intermediate"
+      }
+    ]
+  }
 }
