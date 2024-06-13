@@ -30,7 +30,7 @@
       },
       {
         "name": "Airflow",
-        "icon": "fas fa-wind",
+        "icon": "fas fa-fan",
         "level": "Intermediate"
       }
     ],
