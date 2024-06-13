@@ -16,38 +16,6 @@
                 "icon": "bx bxl-java",
                 "level": "Advanced"
             },
-            {
-                "name": "JavaScript",
-                "icon": "bx bxl-javascript",
-                "level": "Intermediate"
-            },
-            {
-                "name": "HTML",
-                "icon": "bx bxl-html5",
-                "level": "Intermediate"
-            },
-            {
-                "name": "CSS",
-                "icon": "bx bxl-css3",
-                "level": "Intermediate"
-            }
-        ],
-        "Web Frameworks": [
-            {
-                "name": "React.js",
-                "icon": "bx bxl-react",
-                "level": "Intermediate"
-            },
-            {
-                "name": "Next.js",
-                "icon": "bx bxl-react",
-                "level": "Intermediate"
-            },
-            {
-                "name": "Django",
-                "icon": "bx bxl-django",
-                "level": "Intermediate"
-            }
         ],
         "Data Engineering": [
             {
@@ -62,7 +30,7 @@
             },
             {
                 "name": "Airflow",
-                "icon": "fas fa-wind",
+                "icon": "fas fa-fan",
                 "level": "Intermediate"
             }
         ],
