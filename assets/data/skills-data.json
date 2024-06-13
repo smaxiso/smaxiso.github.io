@@ -17,6 +17,18 @@
         "level": "Advanced"
       }
     ],
+    "Cloud Platforms": [
+      {
+        "name": "AWS",
+        "icon": "bx bxl-amazon",
+        "level": "Intermediate"
+      },
+      {
+        "name": "GCP",
+        "icon": "bx bxl-google-cloud",
+        "level": "Intermediate"
+      }
+    ],
     "Data Engineering": [
       {
         "name": "BigQuery",
@@ -30,7 +42,7 @@
       },
       {
         "name": "Airflow",
-        "icon": "fas fa-fan",
+        "icon": "fas fa-wind",
         "level": "Intermediate"
       }
     ],
@@ -62,18 +74,13 @@
         "level": "Intermediate"
       },
       {
-        "name": "Shell Scripting",
-        "icon": "fas fa-terminal",
-        "level": "Intermediate"
-      },
-      {
         "name": "VS Code",
         "icon": "bx bxl-visual-studio",
         "level": "Intermediate"
       },
       {
         "name": "IntelliJ IDEA",
-        "icon": "fas fa-idea",
+        "icon": "bx bxl-idea",
         "level": "Intermediate"
       }
     ]
