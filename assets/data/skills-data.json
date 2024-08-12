@@ -31,8 +31,8 @@
     ],
     "Data Engineering": [
       {
-        "name": "BigQuery",
-        "icon": "bx bx-data",
+        "name": "PySpark",
+        "icon": "fas fa-bolt",
         "level": "Intermediate"
       },
       {
@@ -51,6 +51,11 @@
         "name": "SQL",
         "icon": "fas fa-database",
         "level": "Advanced"
+      },
+      {
+        "name": "BigQuery",
+        "icon": "bx bx-data",
+        "level": "Intermediate"
       }
     ],
     "Version Control": [
@@ -80,7 +85,12 @@
       },
       {
         "name": "IntelliJ IDEA",
-        "icon": "bx bxl-idea",
+        "icon": "bx bx-desktop",
+        "level": "Intermediate"
+      },
+      {
+        "name": "PyCharm",
+        "icon": "bx bxl-python",
         "level": "Intermediate"
       }
     ]
