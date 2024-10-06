@@ -14,18 +14,11 @@
       {
         "name": "Java",
         "icon": "bx bxl-java",
-        "level": "Advanced"
-      }
-    ],
-    "Cloud Platforms": [
-      {
-        "name": "AWS",
-        "icon": "bx bxl-amazon",
         "level": "Intermediate"
       },
       {
-        "name": "GCP",
-        "icon": "bx bxl-google-cloud",
+        "name": "Shell/Bash",
+        "icon": "bx bx-terminal",
         "level": "Intermediate"
       }
     ],
@@ -48,7 +41,7 @@
     ],
     "Databases": [
       {
-        "name": "SQL",
+        "name": "MySQL",
         "icon": "fas fa-database",
         "level": "Advanced"
       },
@@ -56,19 +49,58 @@
         "name": "BigQuery",
         "icon": "bx bx-data",
         "level": "Intermediate"
+      },
+      {
+        "name": "Oracle",
+        "icon": "fas fa-database",
+        "level": "Intermediate"
       }
     ],
-    "Version Control": [
+    "Cloud Platforms": [
       {
-        "name": "Git",
-        "icon": "bx bxl-git",
-        "level": "Advanced"
+        "name": "AWS",
+        "icon": "bx bxl-amazon",
+        "level": "Intermediate"
+      },
+      {
+        "name": "GCP",
+        "icon": "bx bxl-google-cloud",
+        "level": "Intermediate"
+      }
+    ],
+    "Frameworks": [
+      {
+        "name": "Django",
+        "icon": "fas fa-code",
+        "level": "Intermediate"
+      },
+      {
+        "name": "React",
+        "icon": "bx bxl-react",
+        "level": "Intermediate"
       }
     ],
     "CI/CD": [
       {
+        "name": "Git",
+        "icon": "bx bxl-git",
+        "level": "Advanced"
+      },
+      {
         "name": "Jenkins",
         "icon": "fas fa-cogs",
+        "level": "Intermediate"
+      }
+    ],
+    "Data Science": [
+      {
+        "name": "Machine Learning",
+        "icon": "fas fa-brain",
+        "level": "Intermediate"
+      },
+      {
+        "name": "Generative AI",
+        "icon": "fas fa-microchip",
         "level": "Intermediate"
       }
     ],

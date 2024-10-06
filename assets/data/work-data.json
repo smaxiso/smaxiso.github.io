@@ -10,7 +10,7 @@
                 "title": "Data Migration Framework",
                 "startDate": "Mar 2023",
                 "endDate": "Present",
-                "description": "Developed a scalable Data Migration Framework for a leading global online payments company using Python, AWS, GCS, and BigQuery. Reduced data migration time by 20%, improving scalability by 30%.",
+                "description": "Developed a scalable Data Migration Framework for a leading global online payments company using Python, AWS, GCS, and BigQuery. Reduced data migration time by 20%, and improved scalability by 30%, ensuring smoother, more efficient data transfer processes across cloud platforms.",
                 "technologies": [
                     "Python",
                     "AWS",
@@ -21,10 +21,25 @@
             },
             {
                 "id": "modal2",
+                "title": "Lynx Framework Optimization",
+                "startDate": "Jan 2024",
+                "endDate": "May 2024",
+                "description": "Implemented key optimizations to the Lynx Framework, enhancing data linkage accuracy and operational efficiency by 35%. Optimized the Locality-Sensitive Hashing (LSH) algorithm, leading to a 40% reduction in nearest neighbor search time. Streamlined feature aggregation pipelines, reducing processing latency by 25%.",
+                "technologies": [
+                    "PySpark",
+                    "Scala",
+                    "BigQuery",
+                    "GCP (Dataproc, GCS)",
+                    "LSH"
+                ],
+                "image": "assets/img/work/lynx_framework_optimization.png"
+            },
+            {
+                "id": "modal3",
                 "title": "Reporting Framework",
                 "startDate": "Aug 2021",
                 "endDate": "Jan 2023",
-                "description": "Built on-demand merchant reports, increasing data accuracy by 15%. Decreased report generation time by 25%. Contributed to Argo Framework for report generation.",
+                "description": "Developed on-demand merchant reporting solutions, improving data accuracy by 15% and reducing report generation time by 25%. Contributed to the Argo Framework for dynamic and efficient report generation at scale.",
                 "technologies": [
                     "Python",
                     "SQL",
@@ -37,20 +52,20 @@
     },
     {
         "category": "Internship",
-        "position": "Research Intern",
+        "position": "Data Scientist Research Intern",
         "company": "NIT Patna",
         "location": "Patna, India",
         "projects": [
             {
-                "id": "modal3",
+                "id": "modal4",
                 "title": "Fuzzy Control System for Forest Fire Detection",
                 "startDate": "May 2020",
                 "endDate": "July 2020",
-                "description": "Developed a real-time forest fire detection system using Python-based machine learning algorithms and fuzzy logic. Achieved an accuracy rate of 90% in predicting the likelihood and severity of forest fires.",
+                "description": "Developed a real-time forest fire detection system utilizing Python-based machine learning algorithms and fuzzy logic. Achieved 90% accuracy in predicting the likelihood and severity of forest fires, showcasing the ability to apply data science solutions to critical environmental challenges.",
                 "technologies": [
                     "Python",
-                    "machine learning",
-                    "fuzzy logic"
+                    "Machine Learning",
+                    "Fuzzy Logic"
                 ],
                 "image": "assets/img/work/fuzzy_control_system_for_forest_fire_detection.png"
             }
