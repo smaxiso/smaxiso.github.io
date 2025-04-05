@@ -2,6 +2,37 @@
     {
         "category": "Work Experience",
         "position": "Data Engineer",
+        "company": "Gen Digital (formerly NortonLifeLock)",
+        "location": "Chennai, India",
+        "projects": [
+            {
+                "id": "modalgen1",
+                "title": "Real-time Transaction Normalization & Scalable Data Lake Design",
+                "startDate": "Dec 2024",
+                "endDate": "Present",
+                "description": "Contributed to a real-time transaction normalization pipeline leveraging Kafka (AWS MSK), ECS, and Java (Spring Boot), enabling high-throughput data processing for fraud detection and financial alerts. Enhanced the normalization service to support unified model payload changes for vendor compatibility. Co-designed a scalable Data Lake using S3 Hudi and optimized ETL pipelines to extract and transform data from DocumentDB, storing it in Parquet format with Snappy compression for efficient Athena querying. Built a Java-based test automation service integrated with TeamCity and TestFLO.",
+                "technologies": [
+                    "Python",
+                    "Java",
+                    "Kafka (AWS MSK)",
+                    "ECS",
+                    "EMR",
+                    "TeamCity",
+                    "Artifactory",
+                    "Airflow",
+                    "AWS",
+                    "DocumentDB",
+                    "Athena",
+                    "DynamoDB",
+                    "S3 Hudi"
+                ],
+                "image": "assets/img/work/gen_digital_transaction_pipeline.png"
+            }
+        ]
+    },
+    {
+        "category": "Work Experience",
+        "position": "Data Engineer",
         "company": "Tata Consultancy Services",
         "location": "Bangalore, India",
         "projects": [

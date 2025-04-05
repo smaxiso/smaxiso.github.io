@@ -37,6 +37,11 @@
         "name": "Airflow",
         "icon": "fas fa-fan",
         "level": "Intermediate"
+      },
+      {
+        "name": "Kafka (AWS MSK)",
+        "icon": "fas fa-stream",
+        "level": "Intermediate"
       }
     ],
     "Databases": [
@@ -53,6 +58,21 @@
       {
         "name": "Oracle",
         "icon": "fas fa-database",
+        "level": "Intermediate"
+      },
+      {
+        "name": "DocumentDB",
+        "icon": "fas fa-database",
+        "level": "Intermediate"
+      },
+      {
+        "name": "Athena",
+        "icon": "fas fa-search",
+        "level": "Intermediate"
+      },
+      {
+        "name": "DynamoDB",
+        "icon": "fas fa-table",
         "level": "Intermediate"
       }
     ],
@@ -78,6 +98,11 @@
         "name": "React",
         "icon": "bx bxl-react",
         "level": "Intermediate"
+      },
+      {
+        "name": "Spring Boot",
+        "icon": "fas fa-leaf",
+        "level": "Intermediate"
       }
     ],
     "CI/CD": [
@@ -89,6 +114,11 @@
       {
         "name": "Jenkins",
         "icon": "fas fa-cogs",
+        "level": "Intermediate"
+      },
+      {
+        "name": "TeamCity",
+        "icon": "fas fa-rocket",
         "level": "Intermediate"
       }
     ],
