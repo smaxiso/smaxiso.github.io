@@ -314,13 +314,39 @@ document.addEventListener('DOMContentLoaded', () => {
 fetch('assets/data/skills-data.json')
     .then(response => response.json())
     .then(data => {
-        const skillsContainer = document.querySelector('.skills__categories-container');
+        const skillsContainer = document.getElementById('skillsCategoriesContainer');
+
+        // Define category mappings for filtering
+        const categoryMappings = {
+            'Programming Languages': 'programming',
+            'Data Engineering & ML': 'data',
+            'Cloud & DevOps': 'cloud',
+            'Tools & Frameworks': 'tools',
+            'Databases': 'data'
+        };
+
+        // Define category icons
+        const categoryIcons = {
+            'Programming Languages': 'bx-code-alt',
+            'Data Engineering & ML': 'bx-data',
+            'Cloud & DevOps': 'bx-cloud',
+            'Tools & Frameworks': 'bx-wrench',
+            'Databases': 'bx-server'
+        };
 
         // Loop through categories and render skills
         for (const [category, skills] of Object.entries(data.professional_skills)) {
+            const categoryKey = categoryMappings[category] || 'tools';
+            const categoryIcon = categoryIcons[category] || 'bx-cog';
+            
             const categoryHTML = `
-            <div class="skills__category">
-                <h3 class="skills__category-title">${category}</h3>
+            <div class="skills__category" data-category="${categoryKey}">
+                <h3 class="skills__category-title">
+                    <div class="skills__category-icon">
+                        <i class="bx ${categoryIcon}"></i>
+                    </div>
+                    ${category}
+                </h3>
                 <div class="skills__category-list">
                     ${skills.map(skill => renderSkillHTML(skill)).join('')}
                 </div>
@@ -328,17 +354,65 @@ fetch('assets/data/skills-data.json')
             skillsContainer.insertAdjacentHTML('beforeend', categoryHTML);
         }
 
-        // Define function to render skill HTML
+        // Define function to render skill HTML with progress circle
         function renderSkillHTML(skill) {
+            const progressPercentage = skillsProgressMap[skill.level] || 50;
+            const levelClass = skill.level.toLowerCase().replace(/\s+/g, '-');
+            
+            console.log(`Skill: ${skill.name}, Level: ${skill.level}, Class: skills__progress--${levelClass}`);
+            
             return `
             <div class="skills__data">
-                <div class="skills__names">
-                    <i class="${skill.icon} skills__icon"></i>
-                    <span class="skills__name">${skill.name}</span>
+                <div class="skills__icon">
+                    <i class="${skill.icon}"></i>
                 </div>
-                <div class="skills__level">${skill.level}</div>
+                <div class="skills__names">
+                    <span class="skills__name">${skill.name}</span>
+                    <span class="skills__level">${skill.level}</span>
+                </div>
+                <div class="skills__progress skills__progress--${levelClass}">
+                    <div class="skills__progress-circle" style="--progress-degree: 0deg;">
+                        <span class="skills__progress-text">${progressPercentage}%</span>
+                    </div>
+                </div>
             </div>`;
         }
+
+        // Initialize progress circles after a delay
+        setTimeout(() => {
+            const progressCircles = document.querySelectorAll('.skills__progress-circle');
+            console.log(`Found ${progressCircles.length} progress circles`);
+            
+            progressCircles.forEach((circle, index) => {
+                const progressText = circle.querySelector('.skills__progress-text');
+                const percentage = parseInt(progressText.textContent);
+                const degree = (percentage / 100) * 360;
+                
+                // Get the skill level to determine color
+                const skillLevelElement = circle.closest('.skills__data').querySelector('.skills__level');
+                const skillLevel = skillLevelElement.textContent.trim();
+                
+                // Define color mapping
+                const colorMap = {
+                    'Expert': '#9c27b0',
+                    'Advanced': '#4caf50', 
+                    'Intermediate': '#2196f3',
+                    'Beginner': '#ff9800'
+                };
+                
+                const progressColor = colorMap[skillLevel] || '#4caf50';
+                
+                console.log(`Skill ${index}: Level="${skillLevel}", Color="${progressColor}", Percentage=${percentage}%`);
+                
+                // Apply color and degree directly to the circle
+                circle.style.background = `conic-gradient(${progressColor} ${degree}deg, var(--surface-3) 0deg)`;
+                circle.style.transition = 'all 1s ease-out';
+                
+                // Also set the CSS custom property for consistency
+                circle.style.setProperty('--progress-degree', degree + 'deg');
+                circle.style.setProperty('--progress-color', progressColor);
+            });
+        }, 500);
     })
     .catch(error => console.error('Error fetching skills data:', error));
 
@@ -601,3 +675,124 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', animateOnScroll);
     animateOnScroll(); // Initial check
 });
+
+/*===== SKILLS SECTION INTERACTIONS =====*/
+// Skills tab functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const skillsTabs = document.querySelectorAll('.skills__tab');
+    const skillsContainer = document.getElementById('skillsCategoriesContainer');
+    
+    // Tab switching functionality
+    skillsTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            skillsTabs.forEach(t => t.classList.remove('active'));
+            // Add active class to clicked tab
+            tab.classList.add('active');
+            
+            // Filter skills based on selected category
+            const category = tab.getAttribute('data-category');
+            filterSkills(category);
+        });
+    });
+    
+    // Filter skills by category
+    function filterSkills(category) {
+        const skillCategories = skillsContainer.querySelectorAll('.skills__category');
+        
+        skillCategories.forEach(cat => {
+            if (category === 'all' || cat.getAttribute('data-category') === category) {
+                cat.style.display = 'block';
+                cat.style.animation = 'fadeInUp 0.6s ease-out';
+            } else {
+                cat.style.display = 'none';
+            }
+        });
+    }
+    
+    // Animated counter for skills stats
+    const skillsSection = document.getElementById('skills');
+    const skillsStatNumbers = document.querySelectorAll('.skills__stat-number');
+    
+    const skillsObserverOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const skillsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                skillsStatNumbers.forEach(stat => {
+                    const target = parseInt(stat.getAttribute('data-count'));
+                    animateSkillsCounter(stat, target);
+                });
+                skillsObserver.unobserve(entry.target);
+            }
+        });
+    }, skillsObserverOptions);
+    
+    if (skillsSection) {
+        skillsObserver.observe(skillsSection);
+    }
+    
+    // Animate progress circles
+    const animateProgressCircles = () => {
+        const progressCircles = document.querySelectorAll('.skills__progress-circle');
+        
+        progressCircles.forEach(circle => {
+            const progressText = circle.querySelector('.skills__progress-text');
+            const percentage = parseInt(progressText.textContent);
+            const degree = (percentage / 100) * 360;
+            
+            circle.style.setProperty('--progress-degree', degree + 'deg');
+        });
+    };
+    
+    // Initialize progress circles when skills section is visible
+    const skillsProgressObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(animateProgressCircles, 300);
+                skillsProgressObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    if (skillsSection) {
+        skillsProgressObserver.observe(skillsSection);
+    }
+});
+
+// Skills counter animation function
+function animateSkillsCounter(element, target) {
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        element.textContent = Math.floor(current);
+    }, 30);
+}
+
+// Skills progress circle animation
+function setSkillProgress(skillElement, percentage) {
+    const progressCircle = skillElement.querySelector('.skills__progress-circle');
+    const progressText = skillElement.querySelector('.skills__progress-text');
+    
+    if (progressCircle && progressText) {
+        const degree = (percentage / 100) * 360;
+        progressCircle.style.setProperty('--progress-degree', degree + 'deg');
+        progressText.textContent = percentage + '%';
+    }
+}
+
+// Skills data mapping for progress levels
+const skillsProgressMap = {
+    'Beginner': 25,
+    'Intermediate': 50,
+    'Advanced': 75,
+    'Expert': 90
+};
