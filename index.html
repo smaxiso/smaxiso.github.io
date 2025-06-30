@@ -119,16 +119,16 @@
                             <svg class="home__blob" viewBox="0 0 479 467" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <defs>
                                     <linearGradient id="profileGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#4caf50;stop-opacity:1" />
-                                        <stop offset="25%" style="stop-color:#2196f3;stop-opacity:1" />
-                                        <stop offset="50%" style="stop-color:#9c27b0;stop-opacity:1" />
-                                        <stop offset="75%" style="stop-color:#ff9800;stop-opacity:1" />
-                                        <stop offset="100%" style="stop-color:#4caf50;stop-opacity:1" />
+                                        <stop offset="0%" style="stop-color:#37474f;stop-opacity:1" />
+                                        <stop offset="30%" style="stop-color:#455a64;stop-opacity:1" />
+                                        <stop offset="60%" style="stop-color:#546e7a;stop-opacity:1" />
+                                        <stop offset="85%" style="stop-color:#607d8b;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#78909c;stop-opacity:1" />
                                     </linearGradient>
                                     <radialGradient id="profileRadial" cx="50%" cy="30%" r="70%">
-                                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
-                                        <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.1" />
-                                        <stop offset="100%" style="stop-color:#000000;stop-opacity:0.05" />
+                                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.15" />
+                                        <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.08" />
+                                        <stop offset="100%" style="stop-color:#000000;stop-opacity:0.1" />
                                     </radialGradient>
                                     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                                         <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
@@ -138,8 +138,8 @@
                                         </feMerge>
                                     </filter>
                                     <filter id="profileShadow" x="-50%" y="-50%" width="200%" height="200%">
-                                        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#4caf50" flood-opacity="0.2"/>
-                                        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#2196f3" flood-opacity="0.1"/>
+                                        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#37474f" flood-opacity="0.15"/>
+                                        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#546e7a" flood-opacity="0.08"/>
                                     </filter>
                                 </defs>
                                 <mask id="mask0" mask-type="alpha">
@@ -148,7 +148,7 @@
                                 <g mask="url(#mask0)">
                                     <path d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" fill="url(#profileGradient)" filter="url(#profileShadow)" />
                                     <path d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" fill="url(#profileRadial)" />
-                                    <image class="home__blob-img" x="50" y="60" href="assets/img/perfils/perfil1.png" alt="Sumit Kumar - Data Engineer Profile" />
+                                    <image class="home__blob-img" x="50" y="60" href="assets/img/perfils/perfil3.png" alt="Sumit Kumar - Data Engineer Profile" />
                                 </g>
                             </svg>
                         </div>
@@ -162,30 +162,85 @@
             <!--===== ABOUT =====-->
             <section class="about section" id="about">
                 <div class="container">
-                    <h2 class="section-title">About Me</h2>
+                    <h2 class="section-title" data-aos="fade-up">About Me</h2>
                     <div class="about__container">
-                        <div class="about__image">
-                            <img src="assets/img/about/about2.jpg" alt="Sumit Kumar - Data Engineer working on data pipelines">
+                        <div class="about__image-container" data-aos="fade-right" data-aos-delay="100">
+                            <div class="about__image-wrapper">
+                                <div class="about__image-bg"></div>
+                                <img src="assets/img/about/about2.jpg" alt="Sumit Kumar - Data Engineer working on data pipelines" class="about__image">
+                                <div class="about__image-overlay">
+                                    <div class="about__stats">
+                                        <div class="about__stat-item">
+                                            <span class="about__stat-number" data-count="4">0</span>
+                                            <span class="about__stat-label">Years Experience</span>
+                                        </div>
+                                        <div class="about__stat-item">
+                                            <span class="about__stat-number" data-count="15">0</span>
+                                            <span class="about__stat-label">Projects Completed</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="about__content">
-                            <h2>Machine Learning & Data Engineer</h2>
-                        <p class="about__text">
-                            I'm Sumit Kumar, a data-driven problem solver with experience in building large-scale ETL systems, developing real-time data pipelines, and working with high-impact data products across FinTech and cybersecurity domains. 
+                        <div class="about__content" data-aos="fade-left" data-aos-delay="200">
+                            <div class="about__content-header">
+                                <h3 class="about__subtitle">Who I Am</h3>
+                                <h2 class="about__title">Machine Learning & Data Engineer</h2>
+                            </div>
                             
-                            Currently, I work as a Machine Learning Engineer at <strong>Gen Digital</strong>, where I focus on unified transaction normalization, data lake design and actively exploring machine learning solutions to address challenges in <strong>cybersecurity</strong> and <strong>financial wellness</strong> domains. This includes:
-                            – Researching scalable architectures for real-time anomaly detection and fraud prevention on cloud platforms
-                            – Collaborating with cross-functional teams to align ML strategies with business objectives
+                            <div class="about__text-content">
+                                <p class="about__text about__text--main">
+                                    I'm Sumit Kumar, a data-driven problem solver with experience in building large-scale ETL systems, developing real-time data pipelines, and working with high-impact data products across FinTech and cybersecurity domains.
+                                </p>
+                                
+                                <div class="about__expandable">
+                                    <div class="about__expandable-content" id="aboutExpandableContent">
+                                        <p class="about__text">
+                                            Currently, I work as a Machine Learning Engineer at <strong>Gen Digital</strong>, where I focus on unified transaction normalization, data lake design and actively exploring machine learning solutions to address challenges in <strong>cybersecurity</strong> and <strong>financial wellness</strong> domains.
+                                        </p>
+                                        
+                                        <div class="about__highlights">
+                                            <div class="about__highlight-item">
+                                                <i class='bx bx-check-circle'></i>
+                                                <span>Researching scalable architectures for real-time anomaly detection</span>
+                                            </div>
+                                            <div class="about__highlight-item">
+                                                <i class='bx bx-check-circle'></i>
+                                                <span>Collaborating with cross-functional teams to align ML strategies</span>
+                                            </div>
+                                        </div>
 
-                            I previously worked at <strong>TCS</strong> on critical PayPal systems, leading optimizations in internal frameworks and improving transaction processing logic. I enjoy designing resilient data architectures, automating pipelines with <strong>Airflow</strong>, and integrating ML models into production workflows.
-                            
-                            I’m well-versed in <strong>Python, PySpark, SQL, AWS, GCP</strong>, and several orchestration and data warehousing tools. I value clarity in execution, good code, and solving real business problems through data and engineering.
-                            
-                            Outside work, I write, experiment with Generative AI, and build side projects like PDF generators and transaction mappers. Always open to collaboration and learning—feel free to connect.
-                        </p>
-                        <a href="./assets/data/Sumit_resume.pdf" class="btn btn-primary" download="Sumit_Kumar_Resume.pdf" aria-label="Download Sumit Kumar's Resume">
-                            <i class='bx bx-download'></i> Download Resume
-                        </a>
+                                        <p class="about__text">
+                                            I previously worked at <strong>TCS</strong> on critical PayPal systems, leading optimizations in internal frameworks and improving transaction processing logic. I enjoy designing resilient data architectures, automating pipelines with <strong>Airflow</strong>, and integrating ML models into production workflows.
+                                        </p>
+                                        
+                                        <p class="about__text">
+                                            I'm well-versed in <strong>Python, PySpark, SQL, AWS, GCP</strong>, and several orchestration and data warehousing tools. I value clarity in execution, good code, and solving real business problems through data and engineering.
+                                        </p>
+                                        
+                                        <p class="about__text">
+                                            Outside work, I write, experiment with Generative AI, and build side projects like PDF generators and transaction mappers. Always open to collaboration and learning—feel free to connect.
+                                        </p>
+                                    </div>
+                                    
+                                    <button class="about__expand-btn" id="aboutExpandBtn">
+                                        <span class="about__expand-text">Read More</span>
+                                        <i class='bx bx-chevron-down about__expand-icon'></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="about__actions">
+                                <a href="./assets/data/Sumit_resume.pdf" class="btn btn-primary about__resume-btn" download="Sumit_Kumar_Resume.pdf" aria-label="Download Sumit Kumar's Resume">
+                                    <i class='bx bx-download'></i>
+                                    Download Resume
+                                </a>
+                                <a href="#contact" class="btn btn-outline about__contact-btn">
+                                    <i class='bx bx-message'></i>
+                                    Let's Connect
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

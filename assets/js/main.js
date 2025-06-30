@@ -140,80 +140,171 @@ document.addEventListener('DOMContentLoaded', () => {
             const modalsContainer = document.getElementById('modals-container');
 
             data.forEach(category => {
+                // Create category section
+                const categorySection = document.createElement('div');
+                categorySection.classList.add('work__category');
+                
                 // Create category title
                 const categoryTitle = document.createElement('h3');
-                categoryTitle.classList.add('work__category');
+                categoryTitle.classList.add('work__category-title');
                 categoryTitle.textContent = category.category;
-                workContainer.appendChild(categoryTitle);
+                categorySection.appendChild(categoryTitle);
 
                 // Create container for projects under the category
                 const projectContainer = document.createElement('div');
-                projectContainer.classList.add('work__project-container');
-                workContainer.appendChild(projectContainer);
+                projectContainer.classList.add('work__category-container');
+                categorySection.appendChild(projectContainer);
 
                 // Create work items for each project in the category
                 category.projects.forEach(work => {
-                    // Create work item
-                    const workItem = document.createElement('div');
-                    workItem.classList.add('work__img');
-                    workItem.setAttribute('data-modal-target', `#${work.id}`);
-                    workItem.innerHTML = `
-                        <img src="${work.image}" alt="${work.title}">
-                        <div class="work__img-overlay">
-                            <h3 class="work__title">${work.title}</h3>
-                            <p class="work__description hidden">${work.description}</p>
-                            <p class="work__tech">${work.technologies.join(', ')}</p>
-                            ${work.website ? `<a href="${work.website}" target="_blank" class="work__link">Website</a>` : ''}
+                    // Check if image exists, use fallback if not
+                    const imageUrl = work.image || 'assets/img/work/work1.jpg';
+                    
+                    // Create work project card
+                    const workProject = document.createElement('div');
+                    workProject.classList.add('work__project');
+                    workProject.setAttribute('data-modal-target', `#${work.id}`);
+                    
+                    workProject.innerHTML = `
+                        <div class="work__project-image">
+                            <img src="${imageUrl}" alt="${work.title}" onerror="this.src='assets/img/work/work1.jpg'">
+                            <div class="work__project-overlay">
+                                <button class="work__view-btn">
+                                    <i class='bx bx-expand-alt'></i>
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="work__project-content">
+                            <h3 class="work__project-title">${work.title}</h3>
+                            <p class="work__project-description">${work.description || 'Click to view more details about this project.'}</p>
+                            <div class="work__project-tech">
+                                ${work.technologies.slice(0, 4).map(tech => `<span class="work__tech-tag">${tech}</span>`).join('')}
+                            </div>
+                            <div class="work__project-links">
+                                <button class="work__project-link primary">
+                                    <i class='bx bx-expand-alt'></i>
+                                    View Details
+                                </button>
+                            </div>
                         </div>
                     `;
-                    projectContainer.appendChild(workItem);
+                    projectContainer.appendChild(workProject);
 
-                    // Create modal
+                    // Create modal with new structure
                     const modal = document.createElement('div');
                     modal.classList.add('modal');
                     modal.id = work.id;
                     modal.innerHTML = `
                         <div class="modal-content">
-                            <span class="close-button">&times;</span>
-                            <h3 class="work__title">${work.title}</h3>
-                            <p class="work__description">${work.description}</p>
-                            <p class="work__tech">Technologies used: ${work.technologies.join(', ')}</p>
-                            ${work.website ? `<a href="${work.website}" target="_blank" class="work__link">Website</a>` : ''}
+                            <button class="close-button">&times;</button>
+                            <div class="modal-header">
+                                <img src="${imageUrl}" alt="${work.title}" onerror="this.src='assets/img/work/work1.jpg'">
+                            </div>
+                            <div class="modal-body">
+                                <h2 class="modal-title">${work.title}</h2>
+                                <p class="modal-description">${work.description}</p>
+                                <div class="modal-tech">
+                                    <h3>Technologies Used</h3>
+                                    <div class="modal-tech-list">
+                                        ${work.technologies.map(tech => `<span class="modal-tech-tag">${tech}</span>`).join('')}
+                                    </div>
+                                </div>
+                                <div class="modal-links">
+                                    ${work.website ? `<a href="${work.website}" target="_blank" class="modal-link">
+                                        <i class='bx bx-link-external'></i>
+                                        Visit Website
+                                    </a>` : ''}
+                                    ${work.github ? `<a href="${work.github}" target="_blank" class="modal-link secondary">
+                                        <i class='bx bxl-github'></i>
+                                        View Code
+                                    </a>` : ''}
+                                </div>
+                            </div>
                         </div>
                     `;
                     modalsContainer.appendChild(modal);
                 });
+
+                workContainer.appendChild(categorySection);
             });
 
-            // Add modal functionality (unchanged)
-            const modalButtons = document.querySelectorAll('[data-modal-target]');
+            // Ensure all work items are visible (debug fix)
+            setTimeout(() => {
+                const workItems = document.querySelectorAll('.work__project');
+                workItems.forEach(item => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                    item.style.visibility = 'visible';
+                });
+                console.log(`Loaded ${workItems.length} work items`);
+            }, 200);
+
+            // Add ScrollReveal to work items after they're loaded
+            setTimeout(() => {
+                if (typeof sr !== 'undefined') {
+                    sr.reveal('.work__project', { interval: 200 });
+                }
+            }, 100);
+
+            // Add modal functionality with new structure
+            const modalTriggers = document.querySelectorAll('[data-modal-target]');
             const modals = document.querySelectorAll('.modal');
             const closeButtons = document.querySelectorAll('.close-button');
 
-            modalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = document.querySelector(button.getAttribute('data-modal-target'));
-                    const workImgSrc = button.querySelector('img').getAttribute('src');
-                    modal.querySelector('.modal-content').style.backgroundImage = `url(${workImgSrc})`;
-                    modal.style.display = 'flex';
+            modalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const modalId = trigger.getAttribute('data-modal-target');
+                    const modal = document.querySelector(modalId);
+                    if (modal) {
+                        modal.style.display = 'flex';
+                        // Add show class for animations
+                        setTimeout(() => modal.classList.add('show'), 10);
+                    }
                 });
             });
 
             closeButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    button.closest('.modal').style.display = 'none';
+                    const modal = button.closest('.modal');
+                    modal.classList.remove('show');
+                    setTimeout(() => modal.style.display = 'none', 250);
                 });
             });
 
+            // Close modal when clicking outside
             window.addEventListener('click', (event) => {
                 modals.forEach(modal => {
                     if (event.target === modal) {
-                        modal.style.display = 'none';
+                        modal.classList.remove('show');
+                        setTimeout(() => modal.style.display = 'none', 250);
                     }
                 });
             });
+
+            // Close modal with escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    modals.forEach(modal => {
+                        if (modal.style.display === 'flex') {
+                            modal.classList.remove('show');
+                            setTimeout(() => modal.style.display = 'none', 250);
+                        }
+                    });
+                }
+            });
         })
-        .catch(error => console.error('Error fetching work data:', error));
+        .catch(error => {
+            console.error('Error fetching work data:', error);
+            const workContainer = document.getElementById('work-container');
+            workContainer.innerHTML = `
+                <div class="work__empty">
+                    <i class='bx bx-error-circle work__empty-icon'></i>
+                    <p>Failed to load work projects. Please try again later.</p>
+                </div>
+            `;
+        });
 });
 
 
@@ -414,3 +505,99 @@ const aboutImagePaths = [
 
 const aboutImgContainer = document.querySelector('.about__img img');
 // initializeAboutSlideshow(aboutImagePaths, aboutImgContainer);
+
+/*===== ABOUT SECTION INTERACTIONS =====*/
+// Expandable content functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const expandBtn = document.getElementById('aboutExpandBtn');
+    const expandableContent = document.getElementById('aboutExpandableContent');
+    
+    if (expandBtn && expandableContent) {
+        expandBtn.addEventListener('click', () => {
+            const isExpanded = expandableContent.classList.contains('expanded');
+            
+            if (isExpanded) {
+                expandableContent.classList.remove('expanded');
+                expandBtn.classList.remove('expanded');
+                expandBtn.querySelector('.about__expand-text').textContent = 'Read More';
+            } else {
+                expandableContent.classList.add('expanded');
+                expandBtn.classList.add('expanded');
+                expandBtn.querySelector('.about__expand-text').textContent = 'Read Less';
+            }
+        });
+    }
+    
+    // Animated counter for stats
+    const animateCounter = (element, target) => {
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            element.textContent = Math.floor(current);
+        }, 30);
+    };
+    
+    // Initialize counters when About section comes into view
+    const aboutSection = document.getElementById('about');
+    const statNumbers = document.querySelectorAll('.about__stat-number');
+    
+    const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const aboutObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                statNumbers.forEach(stat => {
+                    const target = parseInt(stat.getAttribute('data-count'));
+                    animateCounter(stat, target);
+                });
+                aboutObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    if (aboutSection) {
+        aboutObserver.observe(aboutSection);
+    }
+});
+
+// Initialize AOS (Animate On Scroll) if available
+document.addEventListener('DOMContentLoaded', () => {
+    // Simple fade-in animation for elements with data-aos attributes
+    const elementsToAnimate = document.querySelectorAll('[data-aos]');
+    
+    const animateOnScroll = () => {
+        elementsToAnimate.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < window.innerHeight - elementVisible) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    };
+    
+    // Set initial styles
+    elementsToAnimate.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'all 0.6s ease-out';
+        
+        const delay = element.getAttribute('data-aos-delay');
+        if (delay) {
+            element.style.transitionDelay = delay + 'ms';
+        }
+    });
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll(); // Initial check
+});
