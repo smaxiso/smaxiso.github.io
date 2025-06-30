@@ -252,25 +252,93 @@
             <!--===== SKILLS =====-->
             <section class="skills section" id="skills">
                 <div class="container">
-                    <h2 class="section-title">Skills</h2>
+                    <div class="skills__header" data-aos="fade-up">
+                        <h2 class="section-title">Skills & Expertise</h2>
+                        <p class="skills__description">
+                            A comprehensive overview of my technical skills and proficiency levels across various technologies and domains.
+                        </p>
+                    </div>
+                    
                     <div class="skills__container">
-                        <div>
-                            <p class="skills__text">I possess a diverse skill set that spans various technologies and domains.</p>
+                        <!-- Skills Overview Stats -->
+                        <div class="skills__stats" data-aos="fade-up" data-aos-delay="100">
+                            <div class="skills__stat-card">
+                                <div class="skills__stat-icon">
+                                    <i class='bx bx-code-alt'></i>
+                                </div>
+                                <div class="skills__stat-content">
+                                    <span class="skills__stat-number" data-count="20">0</span>
+                                    <span class="skills__stat-label">Technologies</span>
+                                </div>
+                            </div>
+                            <div class="skills__stat-card">
+                                <div class="skills__stat-icon">
+                                    <i class='bx bx-trophy'></i>
+                                </div>
+                                <div class="skills__stat-content">
+                                    <span class="skills__stat-number" data-count="5">0</span>
+                                    <span class="skills__stat-label">Domains</span>
+                                </div>
+                            </div>
+                            <div class="skills__stat-card">
+                                <div class="skills__stat-icon">
+                                    <i class='bx bx-time'></i>
+                                </div>
+                                <div class="skills__stat-content">
+                                    <span class="skills__stat-number" data-count="4">0</span>
+                                    <span class="skills__stat-label">Years Experience</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Skills Categories -->
+                        <div class="skills__categories" data-aos="fade-up" data-aos-delay="200">
+                            <div class="skills__category-tabs">
+                                <button class="skills__tab active" data-category="all">All Skills</button>
+                                <button class="skills__tab" data-category="programming">Programming</button>
+                                <button class="skills__tab" data-category="data">Data & ML</button>
+                                <button class="skills__tab" data-category="cloud">Cloud & DevOps</button>
+                                <button class="skills__tab" data-category="tools">Tools & Frameworks</button>
+                            </div>
+                            
+                            <div class="skills__categories-container" id="skillsCategoriesContainer">
+                                <!-- Empty container for dynamically added skills -->
+                            </div>
                         </div>
                         
-                        <!-- Skill Levels Reference -->
-                        <div class="skills__levels-reference">
-                            <h3 class="skills__reference-title">Skill Levels</h3>
-                            <ul class="skills__reference-list">
-                                <li><strong>Beginner:</strong> Basic understanding and ability to perform simple tasks.</li>
-                                <li><strong>Intermediate:</strong> Good understanding and ability to perform tasks with some supervision.</li>
-                                <li><strong>Advanced:</strong> Strong understanding and ability to perform tasks independently.</li>
-                                <li><strong>Expert:</strong> Deep understanding and ability to mentor others and lead projects.</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="skills__categories-container">
-                            <!-- Empty container for dynamically added skills -->
+                        <!-- Skill Levels Legend -->
+                        <div class="skills__legend" data-aos="fade-up" data-aos-delay="300">
+                            <h3 class="skills__legend-title">Proficiency Levels</h3>
+                            <div class="skills__legend-grid">
+                                <div class="skills__legend-item">
+                                    <div class="skills__legend-indicator skills__legend--beginner"></div>
+                                    <div class="skills__legend-content">
+                                        <span class="skills__legend-level">Beginner</span>
+                                        <span class="skills__legend-desc">Basic understanding and simple task execution</span>
+                                    </div>
+                                </div>
+                                <div class="skills__legend-item">
+                                    <div class="skills__legend-indicator skills__legend--intermediate"></div>
+                                    <div class="skills__legend-content">
+                                        <span class="skills__legend-level">Intermediate</span>
+                                        <span class="skills__legend-desc">Good grasp with guided task completion</span>
+                                    </div>
+                                </div>
+                                <div class="skills__legend-item">
+                                    <div class="skills__legend-indicator skills__legend--advanced"></div>
+                                    <div class="skills__legend-content">
+                                        <span class="skills__legend-level">Advanced</span>
+                                        <span class="skills__legend-desc">Independent work and problem solving</span>
+                                    </div>
+                                </div>
+                                <div class="skills__legend-item">
+                                    <div class="skills__legend-indicator skills__legend--expert"></div>
+                                    <div class="skills__legend-content">
+                                        <span class="skills__legend-level">Expert</span>
+                                        <span class="skills__legend-desc">Deep expertise and mentorship capability</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
