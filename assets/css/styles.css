@@ -196,6 +196,19 @@ img {
   padding: 0 var(--space-4);
 }
 
+/* Mobile-first container padding */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 0 var(--space-3);
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .container {
+    padding: 0 var(--space-2);
+  }
+}
+
 .section {
   padding: var(--space-20) 0;
 }
@@ -1588,7 +1601,7 @@ img {
 
 .work__category-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-6);
 }
 
@@ -2292,9 +2305,9 @@ textarea.contact__input {
   }
   
   .home__title {
-    font-size: var(--text-3xl);
+    font-size: var(--text-6xl);
   }
-  
+
   .home__blob {
     width: 300px;
     height: 300px;
@@ -2367,13 +2380,336 @@ textarea.contact__input {
   }
 }
 
-@media screen and (min-width: 992px) {
-  .bd-grid {
-    margin-left: auto;
-    margin-right: auto;
-  }
+/* ===== ADDITIONAL MOBILE RESPONSIVE FIXES ===== */
 
-  .home {
-    padding-top: 10rem;
+/* Extra small devices (phones, 480px and down) */
+@media screen and (max-width: 480px) {
+  /* Typography adjustments */
+  .section-title {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-8);
   }
+  
+  .section {
+    padding: var(--space-12) 0;
+  }
+  
+  /* Mobile-specific grid fixes */
+  .skills__categories-container,
+  .work__category-container,
+  .hobbies__container {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  
+  .skills__legend-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+  
+  /* Home section */
+  .home__title {
+    font-size: var(--text-3xl);
+    line-height: 1.2;
+  }
+  
+  .home__subtitle {
+    font-size: var(--text-base);
+    line-height: 1.5;
+  }
+  
+  .home__blob {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .home__blob-img {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .home__social {
+    gap: var(--space-3);
+  }
+  
+  .home__social-icon {
+    width: 40px;
+    height: 40px;
+    font-size: var(--text-lg);
+  }
+  
+  /* About section */
+  .about__title {
+    font-size: var(--text-2xl);
+  }
+  
+  .about__subtitle {
+    font-size: var(--text-lg);
+  }
+  
+  .about__image-wrapper {
+    height: 300px;
+    width: 250px;
+  }
+  
+  /* Skills section */
+  .skills__description {
+    font-size: var(--text-base);
+  }
+  
+  .skills__stat-card {
+    padding: var(--space-4);
+  }
+  
+  .skills__stat-number {
+    font-size: var(--text-3xl);
+  }
+  
+  .skills__stat-label {
+    font-size: var(--text-sm);
+  }
+  
+  .skills__category-tabs {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  
+  .skills__category-tab {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    min-width: auto;
+  }
+  
+  .skills__category-card {
+    padding: var(--space-4);
+  }
+  
+  .skills__category-title {
+    font-size: var(--text-xl);
+  }
+  
+  .skills__list {
+    gap: var(--space-4);
+  }
+  
+  .skills__data {
+    padding: var(--space-3);
+  }
+  
+  .skills__name {
+    font-size: var(--text-sm);
+  }
+  
+  .skills__level {
+    font-size: var(--text-xs);
+  }
+  
+  .skills__progress {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .skills__progress-text {
+    font-size: 10px;
+  }
+  
+  .skills__legend {
+    padding: var(--space-4);
+  }
+  
+  .skills__legend-title {
+    font-size: var(--text-base);
+  }
+  
+  .skills__legend-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+  
+  .skills__legend-item {
+    padding: var(--space-2);
+  }
+  
+  /* Work section */
+  .work__category-title {
+    font-size: var(--text-xl);
+  }
+  
+  .work__project {
+    min-height: 300px;
+  }
+  
+  .work__project-image {
+    height: 150px;
+  }
+  
+  .work__project-title {
+    font-size: var(--text-base);
+  }
+  
+  .work__project-company {
+    font-size: var(--text-sm);
+  }
+  
+  .work__project-tech {
+    font-size: var(--text-xs);
+  }
+  
+  /* Modal adjustments */
+  .modal-content {
+    width: 95%;
+    max-width: none;
+    margin: var(--space-2);
+    border-radius: var(--radius-lg);
+  }
+  
+  .modal-header {
+    height: 150px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  
+  .modal-title {
+    font-size: var(--text-xl);
+  }
+  
+  .modal-body {
+    padding: var(--space-4);
+  }
+  
+  .modal-description {
+    font-size: var(--text-sm);
+  }
+  
+  .modal-tech-item {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-xs);
+  }
+  
+  /* Hobbies section */
+  .hobbies__card {
+    padding: var(--space-4);
+  }
+  
+  .hobbies__icon {
+    font-size: var(--text-3xl);
+  }
+  
+  .hobbies__title {
+    font-size: var(--text-base);
+  }
+  
+  .hobbies__description {
+    font-size: var(--text-sm);
+  }
+  
+  /* Contact section */
+  .contact__form {
+    width: 100%;
+    padding: var(--space-4);
+  }
+  
+  .contact__input,
+  .contact__textarea {
+    font-size: var(--text-base);
+    padding: var(--space-3);
+  }
+  
+  .contact__button {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-base);
+  }
+}
+
+/* Very small devices (320px and down) */
+@media screen and (max-width: 375px) {
+  /* Extra small adjustments */
+  .home__title {
+    font-size: var(--text-2xl);
+  }
+  
+  .home__blob {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .home__blob-img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .section-title {
+    font-size: var(--text-2xl);
+  }
+  
+  .skills__stat-card {
+    padding: var(--space-3);
+  }
+  
+  .skills__stat-number {
+    font-size: var(--text-2xl);
+  }
+  
+  .skills__category-tab {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-xs);
+  }
+  
+  .skills__progress {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .work__project-image {
+    height: 120px;
+  }
+  
+  .modal-content {
+    margin: var(--space-1);
+  }
+  
+  .modal-body {
+    padding: var(--space-3);
+  }
+}
+
+/* Prevent horizontal scrolling on all screen sizes */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Ensure images don't overflow */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Fix for grid containers that might cause overflow */
+.skills__categories-container,
+.work__category-container,
+.hobbies__container {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Fix for cards that might be too wide */
+.skills__category-card,
+.work__project,
+.hobbies__card,
+.modal-content {
+  max-width: 100%;
+}
+
+/* Ensure text doesn't break layout */
+.skills__name,
+.work__project-title,
+.hobbies__title {
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }

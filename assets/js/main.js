@@ -714,25 +714,57 @@ document.addEventListener('DOMContentLoaded', () => {
     const skillsSection = document.getElementById('skills');
     const skillsStatNumbers = document.querySelectorAll('.skills__stat-number');
     
+    // Mobile-friendly observer options
     const skillsObserverOptions = {
-        threshold: 0.3,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.1, // Lower threshold for mobile
+        rootMargin: '0px 0px -20px 0px' // Smaller margin for mobile
     };
+    
+    // Track if animation has already run
+    let skillsAnimationRun = false;
     
     const skillsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting && !skillsAnimationRun) {
+                skillsAnimationRun = true;
                 skillsStatNumbers.forEach(stat => {
                     const target = parseInt(stat.getAttribute('data-count'));
-                    animateSkillsCounter(stat, target);
+                    if (target && !isNaN(target)) {
+                        animateSkillsCounter(stat, target);
+                    }
                 });
                 skillsObserver.unobserve(entry.target);
             }
         });
     }, skillsObserverOptions);
     
+    // Fallback for immediate visibility (mobile direct load)
+    const checkImmediateVisibility = () => {
+        if (skillsSection && !skillsAnimationRun) {
+            const rect = skillsSection.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (isVisible) {
+                skillsAnimationRun = true;
+                skillsStatNumbers.forEach(stat => {
+                    const target = parseInt(stat.getAttribute('data-count'));
+                    if (target && !isNaN(target)) {
+                        animateSkillsCounter(stat, target);
+                    }
+                });
+            }
+        }
+    };
+    
     if (skillsSection) {
         skillsObserver.observe(skillsSection);
+        
+        // Check if already visible on load (important for mobile)
+        setTimeout(checkImmediateVisibility, 100);
+        
+        // Also check on scroll and resize
+        window.addEventListener('scroll', checkImmediateVisibility, { passive: true });
+        window.addEventListener('resize', checkImmediateVisibility, { passive: true });
     }
     
     // Animate progress circles
