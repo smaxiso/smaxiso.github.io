@@ -679,6 +679,8 @@ img {
   margin-bottom: var(--space-8);
   opacity: 0;
   animation: fadeInUp 0.6s ease-out 1s forwards;
+  flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .home__social-icon {
@@ -2408,34 +2410,73 @@ textarea.contact__input {
   }
   
   /* Home section */
+  .home__container {
+    padding: var(--space-6) 0;
+    gap: var(--space-8);
+  }
+  
+  .home__content {
+    text-align: center;
+    padding: 0 var(--space-2);
+    max-width: 100%;
+  }
+  
   .home__title {
     font-size: var(--text-3xl);
     line-height: 1.2;
+    text-align: center;
   }
   
   .home__subtitle {
     font-size: var(--text-base);
     line-height: 1.5;
+    text-align: center;
+    padding: 0 var(--space-2);
+  }
+  
+  .home__actions {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  
+  .home__image {
+    margin-top: var(--space-6);
+    justify-content: center;
+    align-items: center;
   }
   
   .home__blob {
     width: 250px;
     height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .home__blob-img {
     width: 180px;
     height: 180px;
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: translate(0, 0);
+    margin: auto;
   }
   
   .home__social {
-    gap: var(--space-3);
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
   }
   
   .home__social-icon {
-    width: 40px;
-    height: 40px;
-    font-size: var(--text-lg);
+    width: 36px;
+    height: 36px;
+    font-size: var(--text-base);
+    flex-shrink: 0;
   }
   
   /* About section */
@@ -2623,18 +2664,45 @@ textarea.contact__input {
 /* Very small devices (320px and down) */
 @media screen and (max-width: 375px) {
   /* Extra small adjustments */
+  .home__content {
+    padding: 0 var(--space-1);
+  }
+  
   .home__title {
     font-size: var(--text-2xl);
+    text-align: center;
+  }
+  
+  .home__subtitle {
+    font-size: var(--text-sm);
+    text-align: center;
+    padding: 0 var(--space-1);
+  }
+  
+  .home__social {
+    gap: var(--space-1);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .home__social-icon {
+    width: 32px;
+    height: 32px;
+    font-size: var(--text-sm);
   }
   
   .home__blob {
     width: 200px;
     height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .home__blob-img {
     width: 150px;
     height: 150px;
+    margin: auto;
   }
   
   .section-title {
