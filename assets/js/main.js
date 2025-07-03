@@ -828,3 +828,174 @@ const skillsProgressMap = {
     'Advanced': 75,
     'Expert': 90
 };
+
+/*===== PROFESSIONAL MICRO-ANIMATIONS AND INTERACTIONS =====*/
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate section titles when they come into view
+    const animateSectionTitles = () => {
+        const sectionTitles = document.querySelectorAll('.section-title');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.5,
+            rootMargin: '0px 0px -20px 0px'
+        });
+        
+        sectionTitles.forEach(title => {
+            observer.observe(title);
+        });
+    };
+    
+    // Enhanced card hover effects
+    const enhanceCardInteractions = () => {
+        const cards = document.querySelectorAll('.card, .skills__category-card, .work__project, .hobbies__card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                // Add subtle scale effect to child elements
+                const cardContent = this.querySelectorAll('h3, h4, p, .skills__progress');
+                cardContent.forEach((element, index) => {
+                    setTimeout(() => {
+                        element.style.transform = 'translateY(-2px)';
+                        element.style.transition = 'transform 0.3s ease';
+                    }, index * 50);
+                });
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                // Reset child elements
+                const cardContent = this.querySelectorAll('h3, h4, p, .skills__progress');
+                cardContent.forEach(element => {
+                    element.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    };
+    
+    // Smooth button interactions
+    const enhanceButtonInteractions = () => {
+        const buttons = document.querySelectorAll('.btn, .skills__category-tab');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    top: ${y}px;
+                    left: ${x}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                `;
+                
+                this.appendChild(ripple);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+    };
+    
+    // Parallax effect for decorative elements
+    const addParallaxEffect = () => {
+        const decorativeElements = document.querySelectorAll('.home__decorative-1, .home__decorative-2, .home__decorative-3');
+        
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            decorativeElements.forEach((element, index) => {
+                const speed = 0.2 + (index * 0.1);
+                element.style.transform = `translateY(${rate * speed}px)`;
+            });
+        }, { passive: true });
+    };
+    
+    // Stagger animations for skill items
+    const staggerSkillAnimations = () => {
+        const skillItems = document.querySelectorAll('.skills__data');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skills = entry.target.parentElement.querySelectorAll('.skills__data');
+                    skills.forEach((skill, index) => {
+                        setTimeout(() => {
+                            skill.style.opacity = '1';
+                            skill.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        
+        // Initially hide skills for animation
+        skillItems.forEach(skill => {
+            skill.style.opacity = '0';
+            skill.style.transform = 'translateY(20px)';
+            skill.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        });
+        
+        // Observe skill categories
+        const skillCategories = document.querySelectorAll('.skills__category-card');
+        skillCategories.forEach(category => {
+            observer.observe(category);
+        });
+    };
+    
+    // Enhanced navigation interaction
+    const enhanceNavigation = () => {
+        const navLinks = document.querySelectorAll('.nav__link');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(8px) scale(1.02)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active-link')) {
+                    this.style.transform = 'translateX(0) scale(1)';
+                }
+            });
+        });
+    };
+    
+    // Initialize all animations
+    animateSectionTitles();
+    enhanceCardInteractions();
+    enhanceButtonInteractions();
+    addParallaxEffect();
+    staggerSkillAnimations();
+    enhanceNavigation();
+});
+
+// Add ripple animation keyframes to CSS
+const rippleStyle = document.createElement('style');
+rippleStyle.textContent = `
+    @keyframes ripple {
+        to {
+            transform: scale(2);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(rippleStyle);
