@@ -132,13 +132,93 @@ smaxiso.github.io/
 
 ## 🎨 Customization Guide
 
-### Personal Information
+### 🚀 Config-Driven Content Management
+
+**Your website is now 100% config-driven!** All content is managed through JSON configuration files, making updates incredibly easy without touching HTML.
+
+#### Main Site Configuration
 ```javascript
-// Update in index.html
-<h1 class="home__title">
-    I'm <span class="home__title-highlight">Your Name</span><br>
-    Your Professional Title
-</h1>
+// assets/data/site-config.json - Controls ALL static content
+{
+  "site": {
+    "title": "Your Name - Professional Title",
+    "description": "Your meta description...",
+    "author": "Your Name"
+  },
+  "home": {
+    "greeting": "Hi there! 👋",
+    "name": "Your Name",
+    "title": "Your Professional Title",
+    "subtitle": "Your compelling subtitle...",
+    "socialLinks": [...]
+  },
+  "about": {
+    "sectionTitle": "About Me",
+    "subtitle": "Who I Am",
+    "title": "Your Professional Title",
+    "mainText": "Your bio...",
+    "stats": [...]
+  }
+}
+```
+
+#### Quick Content Updates
+To update your website content:
+
+1. **Personal Information**: Edit `site-config.json` → `home` section
+2. **About Section**: Edit `site-config.json` → `about` section  
+3. **Navigation**: Edit `site-config.json` → `navigation` section
+4. **Contact Form**: Edit `site-config.json` → `contact` section
+5. **Footer**: Edit `site-config.json` → `footer` section
+
+#### Dynamic Data
+```json
+// assets/data/work-data.json - Projects and experience
+// assets/data/skills-data.json - Technical skills
+// assets/data/hobbies-data.json - Personal interests
+```
+
+### 📝 Content Management Examples
+
+#### Update Your Name and Title
+```json
+{
+  "home": {
+    "name": "Jane Smith",
+    "title": "Senior Software Engineer",
+    "subtitle": "Building scalable applications with React and Node.js"
+  }
+}
+```
+
+#### Add New Social Platform
+```json
+{
+  "home": {
+    "socialLinks": [
+      {
+        "platform": "tiktok",
+        "url": "https://tiktok.com/@yourhandle",
+        "icon": "bx bxl-tiktok",
+        "ariaLabel": "TikTok Profile"
+      }
+    ]
+  }
+}
+```
+
+#### Modify About Section
+```json
+{
+  "about": {
+    "stats": [
+      { "number": 6, "label": "Years Experience" },
+      { "number": 25, "label": "Projects Completed" },
+      { "number": 10, "label": "Technologies Mastered" }
+    ],
+    "mainText": "Your updated professional summary..."
+  }
+}
 ```
 
 ### Professional Data

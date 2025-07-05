@@ -3,14 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description"
-            content="Welcome to my portfolio, I'm Sumit Kumar, a passionate data engineer. Explore my education, projects, and experiences.">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
 
-        
         <!-- =====CSS SHEET===== -->
         <link rel="stylesheet" href="assets/css/styles.css">
         <!-- =====CSS SHEET===== -->
-
 
         <!-- =====PACKAGES FOR ICONS===== -->
         <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
@@ -18,26 +17,20 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <!-- =====PACKAGES FOR ICONS===== -->
         
-
-        <title>Sumit Kumar - Data Engineer</title>
     </head>
+    <title></title>
 
     <body>
         <!--===== HEADER =====-->
         <header class="l-header">
             <nav class="nav bd-grid">
                 <div>
-                    <a href="#home" class="nav__logo">Sumit</a>
+                    <a href="#home" class="nav__logo" id="navLogo"></a>
                 </div>
 
                 <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
-                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-                        <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
-                        <li class="nav__item"><a href="#hobbies" class="nav__link">Hobbies</a></li>
-                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                    <ul class="nav__list" id="navList">
+                        <!-- Navigation items will be populated dynamically -->
                     </ul>
                 </div>
 
@@ -48,66 +41,27 @@
         </header>
         <!--===== HEADER =====-->
 
-
-
         <main class="l-main">
             <!--===== HOME =====-->
             <section class="home" id="home">
                 <div class="container">
                     <div class="home__container">
                         <div class="home__content">
-                            <div class="home__greeting">Hi there! 👋</div>
-                            <h1 class="home__title">
-                                I'm <span class="home__title-highlight">Sumit Kumar</span><br>
-                                Data Engineer & ML Enthusiast
+                            <div class="home__greeting" id="homeGreeting"></div>
+                            <h1 class="home__title" id="homeTitle">
+                                <!-- Dynamic content will be inserted here -->
                             </h1>
-                            <p class="home__subtitle">
-                                Passionate about building scalable data pipelines, real-time analytics systems, and exploring machine learning solutions for cybersecurity and financial wellness domains.
+                            <p class="home__subtitle" id="homeSubtitle">
+                                <!-- Dynamic content will be inserted here -->
                             </p>
                             
-                            <div class="home__actions">
-                                <a href="pages/resume.html" class="btn btn-primary home__cta-primary" aria-label="View Sumit Kumar's Resume">
-                                    <i class='bx bx-file'></i>
-                                    Resume
-                                </a>
-                                <div class="home__cta-secondary">
-                                    <!-- <a href="./assets/data/Sumit_resume.pdf" class="btn btn-outline" download="Sumit_Kumar_Resume.pdf" aria-label="Download Sumit Kumar's Resume">
-                                        <i class='bx bx-download'></i>
-                                        Download CV
-                                    </a> -->
-                                    <a href="#contact" class="btn btn-ghost" onclick="highlightIcons()">
-                                        <i class='bx bx-message'></i>
-                                        Get In Touch
-                                    </a>
-                                </div>
+                            <div class="home__actions" id="homeActions">
+                                <!-- CTA buttons will be populated dynamically -->
                             </div>
                             
                             <!---  Social Media Icons  --->
-                            <div class="home__social">
-                                <a href="https://www.linkedin.com/in/smaxiso/" class="home__social-icon" id="linkedin" target="_blank" rel="noopener" aria-label="LinkedIn Profile">
-                                    <i class='bx bxl-linkedin'></i>
-                                </a>
-                                <a href="https://www.github.com/smaxiso" class="home__social-icon" id="github" target="_blank" rel="noopener" aria-label="GitHub Profile">
-                                    <i class='bx bxl-github'></i>
-                                </a>
-                                <a href="mailto:sumit749284@gmail.com" class="home__social-icon" id="gmail" target="_blank" rel="noopener" aria-label="Email Contact">
-                                    <i class='bx bx-envelope'></i>
-                                </a>
-                                <a href="https://wa.me/917549980508?text=Hello%20Sumit%20" class="home__social-icon" id="whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp Contact">
-                                    <i class='bx bxl-whatsapp'></i>
-                                </a>
-                                <a href="https://www.facebook.com/smaxiso" class="home__social-icon" id="facebook" target="_blank" rel="noopener" aria-label="Facebook Profile">
-                                    <i class='bx bxl-facebook'></i>
-                                </a>
-                                <a href="https://www.instagram.com/smaxiso" class="home__social-icon" id="instagram" target="_blank" rel="noopener" aria-label="Instagram Profile">
-                                    <i class='bx bxl-instagram'></i>
-                                </a>
-                                <a href="https://twitter.com/smaxiso" class="home__social-icon" id="twitter" target="_blank" rel="noopener" aria-label="Twitter Profile">
-                                    <i class='bx bxl-twitter'></i>
-                                </a>
-                                <a href="https://smaxiso.medium.com/" class="home__social-icon" id="medium" target="_blank" rel="noopener" aria-label="Medium Blog">
-                                    <i class='bx bxl-medium'></i>
-                                </a>
+                            <div class="home__social" id="homeSocial">
+                                <!-- Social links will be populated dynamically -->
                             </div>
                         </div>
 
@@ -119,36 +73,23 @@
                             <svg class="home__blob" viewBox="0 0 479 467" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <defs>
                                     <linearGradient id="profileGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#37474f;stop-opacity:1" />
-                                        <stop offset="30%" style="stop-color:#455a64;stop-opacity:1" />
-                                        <stop offset="60%" style="stop-color:#546e7a;stop-opacity:1" />
-                                        <stop offset="85%" style="stop-color:#607d8b;stop-opacity:1" />
-                                        <stop offset="100%" style="stop-color:#78909c;stop-opacity:1" />
+                                        <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+                                        <stop offset="50%" style="stop-color:#2196F3;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#9C27B0;stop-opacity:1" />
                                     </linearGradient>
                                     <radialGradient id="profileRadial" cx="50%" cy="30%" r="70%">
-                                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.15" />
-                                        <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.08" />
-                                        <stop offset="100%" style="stop-color:#000000;stop-opacity:0.1" />
+                                        <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:0.8" />
+                                        <stop offset="70%" style="stop-color:#2196F3;stop-opacity:0.6" />
+                                        <stop offset="100%" style="stop-color:#9C27B0;stop-opacity:0.4" />
                                     </radialGradient>
-                                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                                        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                                        <feMerge> 
-                                            <feMergeNode in="coloredBlur"/>
-                                            <feMergeNode in="SourceGraphic"/>
-                                        </feMerge>
-                                    </filter>
-                                    <filter id="profileShadow" x="-50%" y="-50%" width="200%" height="200%">
-                                        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#37474f" flood-opacity="0.15"/>
-                                        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#546e7a" flood-opacity="0.08"/>
+                                    <filter id="profileShadow">
+                                        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="rgba(76, 175, 80, 0.3)"/>
                                     </filter>
                                 </defs>
-                                <mask id="mask0" mask-type="alpha">
-                                    <path d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" />
-                                </mask>
-                                <g mask="url(#mask0)">
+                                <g>
                                     <path d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" fill="url(#profileGradient)" filter="url(#profileShadow)" />
                                     <path d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" fill="url(#profileRadial)" />
-                                    <image class="home__blob-img" x="39" y="23" width="400" height="420" href="assets/img/perfils/perfil3.png" alt="Sumit Kumar - Data Engineer Profile" preserveAspectRatio="xMidYMid meet" />
+                                    <image class="home__blob-img" x="39" y="23" width="400" height="420" id="homeProfileImage" preserveAspectRatio="xMidYMid meet" />
                                 </g>
                             </svg>
                         </div>
@@ -157,27 +98,18 @@
             </section>
             <!--===== HOME =====-->
 
-
-
             <!--===== ABOUT =====-->
             <section class="about section" id="about">
                 <div class="container">
-                    <h2 class="section-title" data-aos="fade-up">About Me</h2>
+                    <h2 class="section-title" data-aos="fade-up" id="aboutSectionTitle"></h2>
                     <div class="about__container">
                         <div class="about__image-container" data-aos="fade-right" data-aos-delay="100">
                             <div class="about__image-wrapper">
                                 <div class="about__image-bg"></div>
-                                <img src="assets/img/about/about2.jpg" alt="Sumit Kumar - Data Engineer working on data pipelines" class="about__image">
+                                <img id="aboutImage" class="about__image">
                                 <div class="about__image-overlay">
-                                    <div class="about__stats">
-                                        <div class="about__stat-item">
-                                            <span class="about__stat-number" data-count="4">0</span>
-                                            <span class="about__stat-label">Years Experience</span>
-                                        </div>
-                                        <div class="about__stat-item">
-                                            <span class="about__stat-number" data-count="15">0</span>
-                                            <span class="about__stat-label">Projects Completed</span>
-                                        </div>
+                                    <div class="about__stats" id="aboutStats">
+                                        <!-- Stats will be populated dynamically -->
                                     </div>
                                 </div>
                             </div>
@@ -185,43 +117,18 @@
 
                         <div class="about__content" data-aos="fade-left" data-aos-delay="200">
                             <div class="about__content-header">
-                                <h3 class="about__subtitle">Who I Am</h3>
-                                <h2 class="about__title">Machine Learning & Data Engineer</h2>
+                                <h3 class="about__subtitle" id="aboutSubtitle"></h3>
+                                <h2 class="about__title" id="aboutTitle"></h2>
                             </div>
                             
                             <div class="about__text-content">
-                                <p class="about__text about__text--main">
-                                    I'm Sumit Kumar, a data-driven problem solver with experience in building large-scale ETL systems, developing real-time data pipelines, and working with high-impact data products across FinTech and cybersecurity domains.
+                                <p class="about__text about__text--main" id="aboutMainText">
+                                    <!-- Main text will be populated dynamically -->
                                 </p>
                                 
                                 <div class="about__expandable">
                                     <div class="about__expandable-content" id="aboutExpandableContent">
-                                        <p class="about__text">
-                                            Currently, I work as a Machine Learning Engineer at <strong>Gen Digital</strong>, where I focus on unified transaction normalization, data lake design and actively exploring machine learning solutions to address challenges in <strong>cybersecurity</strong> and <strong>financial wellness</strong> domains.
-                                        </p>
-                                        
-                                        <div class="about__highlights">
-                                            <div class="about__highlight-item">
-                                                <i class='bx bx-check-circle'></i>
-                                                <span>Researching scalable architectures for real-time anomaly detection</span>
-                                            </div>
-                                            <div class="about__highlight-item">
-                                                <i class='bx bx-check-circle'></i>
-                                                <span>Collaborating with cross-functional teams to align ML strategies</span>
-                                            </div>
-                                        </div>
-
-                                        <p class="about__text">
-                                            I previously worked at <strong>TCS</strong> on critical PayPal systems, leading optimizations in internal frameworks and improving transaction processing logic. I enjoy designing resilient data architectures, automating pipelines with <strong>Airflow</strong>, and integrating ML models into production workflows.
-                                        </p>
-                                        
-                                        <p class="about__text">
-                                            I'm well-versed in <strong>Python, PySpark, SQL, AWS, GCP</strong>, and several orchestration and data warehousing tools. I value clarity in execution, good code, and solving real business problems through data and engineering.
-                                        </p>
-                                        
-                                        <p class="about__text">
-                                            Outside work, I write, experiment with Generative AI, and build side projects like PDF generators and transaction mappers. Always open to collaboration and learning—feel free to connect.
-                                        </p>
+                                        <!-- Expandable content will be populated dynamically -->
                                     </div>
                                     
                                     <button class="about__expand-btn" id="aboutExpandBtn">
@@ -231,15 +138,8 @@
                                 </div>
                             </div>
 
-                            <div class="about__actions">
-                                <a href="./assets/data/Sumit_resume.pdf" class="btn btn-primary about__resume-btn" download="Sumit_Kumar_Resume.pdf" aria-label="Download Sumit Kumar's Resume">
-                                    <i class='bx bx-download'></i>
-                                    Download Resume
-                                </a>
-                                <a href="#contact" class="btn btn-outline about__contact-btn">
-                                    <i class='bx bx-message'></i>
-                                    Let's Connect
-                                </a>
+                            <div class="about__actions" id="aboutActions">
+                                <!-- Action buttons will be populated dynamically -->
                             </div>
                         </div>
                     </div>
@@ -247,58 +147,26 @@
             </section>
             <!--===== ABOUT =====-->
 
-
-
             <!--===== SKILLS =====-->
             <section class="skills section" id="skills">
                 <div class="container">
                     <div class="skills__header" data-aos="fade-up">
-                        <h2 class="section-title">Skills & Expertise</h2>
-                        <p class="skills__description">
-                            A comprehensive overview of my technical skills and proficiency levels across various technologies and domains.
+                        <h2 class="section-title" id="skillsSectionTitle"></h2>
+                        <p class="skills__description" id="skillsDescription">
+                            <!-- Description will be populated dynamically -->
                         </p>
                     </div>
                     
                     <div class="skills__container">
                         <!-- Skills Overview Stats -->
-                        <div class="skills__stats" data-aos="fade-up" data-aos-delay="100">
-                            <div class="skills__stat-card">
-                                <div class="skills__stat-icon">
-                                    <i class='bx bx-code-alt'></i>
-                                </div>
-                                <div class="skills__stat-content">
-                                    <span class="skills__stat-number" data-count="20">0</span>
-                                    <span class="skills__stat-label">Technologies</span>
-                                </div>
-                            </div>
-                            <div class="skills__stat-card">
-                                <div class="skills__stat-icon">
-                                    <i class='bx bx-trophy'></i>
-                                </div>
-                                <div class="skills__stat-content">
-                                    <span class="skills__stat-number" data-count="5">0</span>
-                                    <span class="skills__stat-label">Domains</span>
-                                </div>
-                            </div>
-                            <div class="skills__stat-card">
-                                <div class="skills__stat-icon">
-                                    <i class='bx bx-time'></i>
-                                </div>
-                                <div class="skills__stat-content">
-                                    <span class="skills__stat-number" data-count="4">0</span>
-                                    <span class="skills__stat-label">Years Experience</span>
-                                </div>
-                            </div>
+                        <div class="skills__stats" data-aos="fade-up" data-aos-delay="100" id="skillsStats">
+                            <!-- Stats will be populated dynamically -->
                         </div>
 
                         <!-- Skills Categories -->
                         <div class="skills__categories" data-aos="fade-up" data-aos-delay="200">
-                            <div class="skills__category-tabs">
-                                <button class="skills__tab active" data-category="all">All Skills</button>
-                                <button class="skills__tab" data-category="programming">Programming</button>
-                                <button class="skills__tab" data-category="data">Data & ML</button>
-                                <button class="skills__tab" data-category="cloud">Cloud & DevOps</button>
-                                <button class="skills__tab" data-category="tools">Tools & Frameworks</button>
+                            <div class="skills__category-tabs" id="skillsTabs">
+                                <!-- Tabs will be populated dynamically -->
                             </div>
                             
                             <div class="skills__categories-container" id="skillsCategoriesContainer">
@@ -308,36 +176,9 @@
                         
                         <!-- Skill Levels Legend -->
                         <div class="skills__legend" data-aos="fade-up" data-aos-delay="300">
-                            <h3 class="skills__legend-title">Proficiency Levels</h3>
-                            <div class="skills__legend-grid">
-                                <div class="skills__legend-item">
-                                    <div class="skills__legend-indicator skills__legend--beginner"></div>
-                                    <div class="skills__legend-content">
-                                        <span class="skills__legend-level">Beginner</span>
-                                        <span class="skills__legend-desc">Basic understanding and simple task execution</span>
-                                    </div>
-                                </div>
-                                <div class="skills__legend-item">
-                                    <div class="skills__legend-indicator skills__legend--intermediate"></div>
-                                    <div class="skills__legend-content">
-                                        <span class="skills__legend-level">Intermediate</span>
-                                        <span class="skills__legend-desc">Good grasp with guided task completion</span>
-                                    </div>
-                                </div>
-                                <div class="skills__legend-item">
-                                    <div class="skills__legend-indicator skills__legend--advanced"></div>
-                                    <div class="skills__legend-content">
-                                        <span class="skills__legend-level">Advanced</span>
-                                        <span class="skills__legend-desc">Independent work and problem solving</span>
-                                    </div>
-                                </div>
-                                <div class="skills__legend-item">
-                                    <div class="skills__legend-indicator skills__legend--expert"></div>
-                                    <div class="skills__legend-content">
-                                        <span class="skills__legend-level">Expert</span>
-                                        <span class="skills__legend-desc">Deep expertise and mentorship capability</span>
-                                    </div>
-                                </div>
+                            <h3 class="skills__legend-title" id="skillsLegendTitle"></h3>
+                            <div class="skills__legend-grid" id="skillsLegend">
+                                <!-- Legend items will be populated dynamically -->
                             </div>
                         </div>
                     </div>
@@ -345,12 +186,10 @@
             </section>
             <!--===== SKILLS =====-->
 
-
-
             <!--===== WORK =====-->
             <section class="work section" id="work">
                 <div class="container">
-                    <h2 class="section-title">Work</h2>
+                    <h2 class="section-title" id="workSectionTitle"></h2>
                     <div class="work__container" id="work-container">
                         <!-- Empty container for dynamically added work details -->
                     </div>
@@ -362,12 +201,10 @@
             </div>
             <!--===== WORK =====-->
 
-
-
             <!--===== HOBBIES =====-->
             <section class="hobbies section" id="hobbies">
                 <div class="container">
-                    <h2 class="section-title">Hobbies</h2>
+                    <h2 class="section-title" id="hobbiesSectionTitle"></h2>
                     <div class="hobbies__container">
                         <!-- Empty container for dynamically added hobbies -->
                     </div>
@@ -375,74 +212,29 @@
             </section>
             <!--===== HOBBIES =====-->
 
-
-
-
             <!--===== CONTACT =====-->
             <section class="contact section" id="contact">
                 <div class="container">
-                    <h2 class="section-title">Contact</h2>
+                    <h2 class="section-title" id="contactSectionTitle"></h2>
                     <div class="contact__container">
-                        <form action="https://formspree.io/f/xqkreprr" method="POST" class="contact__form" id="contactForm">
-                        <div class="contact__inputs">
-                            <div class="contact__input-container">
-                                <label for="name" class="contact__label">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Enter your name" class="contact__input"
-                                    required>
-                            </div>
-
-                            <div class="contact__input-container">
-                                <label for="email" class="contact__label">Email</label>
-                                <input type="email" id="email" name="email" placeholder="Enter your email" class="contact__input"
-                                    required>
-                            </div>
-
-                            <div class="contact__input-container">
-                                <label for="subject" class="contact__label">Subject</label>
-                                <input type="text" id="subject" name="subject" placeholder="Enter the subject"
-                                    class="contact__input" required>
-                            </div>
-                        </div>
-
-                        <div class="contact__input-container">
-                            <label for="message" class="contact__label">Message</label>
-                            <textarea id="message" name="message" cols="0" rows="8" placeholder="Type your message"
-                                class="contact__input" required></textarea>
-                        </div>
-
-                        <!-- Success Message -->
-                        <p id="successMessage" class="contact__success-message">Your message has been sent successfully!</p>
-                        
-                        <!-- Error Message -->
-                        <p id="errorMessage" class="contact__error-message">Oops! Something went wrong. Please try again later.</p>
-
-                        <!-- Submit Button -->
-                        <input type="submit" value="Send Message" class="contact__button button">                        </form>
+                        <form id="contactForm" class="contact__form">
+                            <!-- Form will be populated dynamically -->
+                        </form>
                     </div>
                 </div>
             </section>
         </main>
         <!--===== CONTACT =====-->
 
-
-
         <!--===== FOOTER =====-->
         <footer class="footer">
-            <p class="footer__title">Connect with me</p>
-            <div class="footer__social">
-                <a href="https://www.facebook.com/smaxiso" class="footer__icon" target="_blank" rel="noopener"><i
-                        class='bx bxl-facebook'></i></a>
-                <a href="https://www.instagram.com/smaxiso" class="footer__icon" target="_blank" rel="noopener"><i
-                        class='bx bxl-instagram'></i></a>
-                <a href="https://twitter.com/smaxiso" class="footer__icon" target="_blank" rel="noopener"><i
-                        class='bx bxl-twitter'></i></a>
+            <p class="footer__title" id="footerTitle"></p>
+            <div class="footer__social" id="footerSocial">
+                <!-- Footer social links will be populated dynamically -->
             </div>
-            <!-- <p class="footer__copy">Designed by Sumit</p> -->
-            <p class="footer__copy">© 2024 Sumit. All rights reserved.</p>
+            <p class="footer__copy" id="footerCopyright"></p>
         </footer>
         <!--===== FOOTER =====-->
-
-
 
         <!--===== SCROLL REVEAL =====-->
         <script src="https://unpkg.com/scrollreveal"></script>
