@@ -1,3 +1,498 @@
+/*===== SITE CONFIGURATION MANAGEMENT =====*/
+let siteConfig = {};
+
+// Load site configuration from JSON
+async function loadSiteConfig() {
+    try {
+        const response = await fetch('assets/data/site-config.json');
+        if (!response.ok) {
+            throw new Error('Failed to load site configuration');
+        }
+        siteConfig = await response.json();
+        console.log('Site configuration loaded successfully');
+        return siteConfig;
+    } catch (error) {
+        console.error('Error loading site configuration:', error);
+        // Return default config if loading fails
+        return getDefaultConfig();
+    }
+}
+
+// Default configuration fallback
+function getDefaultConfig() {
+    return {
+        site: {
+            title: "Portfolio - Data Engineer",
+            description: "Personal portfolio website",
+            author: "Portfolio Owner"
+        },
+        navigation: {
+            logo: "Portfolio",
+            items: [
+                { label: "Home", href: "#home", active: true },
+                { label: "About", href: "#about", active: false },
+                { label: "Skills", href: "#skills", active: false },
+                { label: "Work", href: "#work", active: false },
+                { label: "Hobbies", href: "#hobbies", active: false },
+                { label: "Contact", href: "#contact", active: false }
+            ]
+        },
+        home: {
+            greeting: "Hello!",
+            name: "Portfolio Owner",
+            title: "Professional Title",
+            subtitle: "Description of what you do."
+        }
+    };
+}
+
+// Populate HTML meta tags
+function populateMetaTags() {
+    if (!siteConfig.site) return;
+    
+    document.title = siteConfig.site.title || 'Portfolio';
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription && siteConfig.site.description) {
+        metaDescription.setAttribute('content', siteConfig.site.description);
+    }
+    
+    const metaAuthor = document.querySelector('meta[name="author"]');
+    if (metaAuthor && siteConfig.site.author) {
+        metaAuthor.setAttribute('content', siteConfig.site.author);
+    }
+    
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords && siteConfig.site.keywords) {
+        metaKeywords.setAttribute('content', siteConfig.site.keywords.join(', '));
+    }
+}
+
+// Populate navigation
+function populateNavigation() {
+    if (!siteConfig.navigation) return;
+    
+    // Set logo
+    const navLogo = document.getElementById('navLogo');
+    if (navLogo && siteConfig.navigation.logo) {
+        navLogo.textContent = siteConfig.navigation.logo;
+    }
+    
+    // Set navigation items
+    const navList = document.getElementById('navList');
+    if (navList && siteConfig.navigation.items) {
+        navList.innerHTML = '';
+        siteConfig.navigation.items.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'nav__item';
+            const a = document.createElement('a');
+            a.href = item.href;
+            a.className = item.active ? 'nav__link active-link' : 'nav__link';
+            a.textContent = item.label;
+            li.appendChild(a);
+            navList.appendChild(li);
+        });
+    }
+}
+
+// Populate home section
+function populateHomeSection() {
+    if (!siteConfig.home) return;
+    
+    // Set greeting
+    const homeGreeting = document.getElementById('homeGreeting');
+    if (homeGreeting && siteConfig.home.greeting) {
+        homeGreeting.textContent = siteConfig.home.greeting;
+    }
+    
+    // Set title
+    const homeTitle = document.getElementById('homeTitle');
+    if (homeTitle && siteConfig.home.name && siteConfig.home.title) {
+        homeTitle.innerHTML = `
+            I'm <span class="home__title-highlight">${siteConfig.home.name}</span><br>
+            ${siteConfig.home.title}
+        `;
+    }
+    
+    // Set subtitle
+    const homeSubtitle = document.getElementById('homeSubtitle');
+    if (homeSubtitle && siteConfig.home.subtitle) {
+        homeSubtitle.textContent = siteConfig.home.subtitle;
+    }
+    
+    // Set profile image
+    const homeProfileImage = document.getElementById('homeProfileImage');
+    if (homeProfileImage && siteConfig.home.profileImage) {
+        homeProfileImage.setAttribute('href', siteConfig.home.profileImage.src);
+        homeProfileImage.setAttribute('alt', siteConfig.home.profileImage.alt);
+    }
+    
+    // Set CTA buttons
+    const homeActions = document.getElementById('homeActions');
+    if (homeActions && siteConfig.home.ctaButtons) {
+        homeActions.innerHTML = '';
+        siteConfig.home.ctaButtons.forEach(button => {
+            const a = document.createElement('a');
+            a.href = button.href;
+            a.className = `btn btn-${button.type} home__cta-${button.type}`;
+            if (button.ariaLabel) a.setAttribute('aria-label', button.ariaLabel);
+            if (button.onClick) a.setAttribute('onclick', button.onClick);
+            a.innerHTML = `
+                <i class='${button.icon}'></i>
+                ${button.label}
+            `;
+            
+            if (button.type === 'primary') {
+                homeActions.appendChild(a);
+            } else {
+                const div = document.createElement('div');
+                div.className = 'home__cta-secondary';
+                div.appendChild(a);
+                homeActions.appendChild(div);
+            }
+        });
+    }
+    
+    // Set social links
+    const homeSocial = document.getElementById('homeSocial');
+    if (homeSocial && siteConfig.home.socialLinks) {
+        homeSocial.innerHTML = '';
+        siteConfig.home.socialLinks.forEach(social => {
+            const a = document.createElement('a');
+            a.href = social.url;
+            a.className = 'home__social-icon';
+            a.id = social.platform;
+            a.setAttribute('target', '_blank');
+            a.setAttribute('rel', 'noopener');
+            a.setAttribute('aria-label', social.ariaLabel);
+            a.innerHTML = `<i class='${social.icon}'></i>`;
+            homeSocial.appendChild(a);
+        });
+    }
+}
+
+// Populate about section
+function populateAboutSection() {
+    if (!siteConfig.about) return;
+    
+    // Set section title
+    const aboutSectionTitle = document.getElementById('aboutSectionTitle');
+    if (aboutSectionTitle && siteConfig.about.sectionTitle) {
+        aboutSectionTitle.textContent = siteConfig.about.sectionTitle;
+    }
+    
+    // Set about image
+    const aboutImage = document.getElementById('aboutImage');
+    if (aboutImage && siteConfig.about.profileImage) {
+        aboutImage.src = siteConfig.about.profileImage.src;
+        aboutImage.alt = siteConfig.about.profileImage.alt;
+    }
+    
+    // Set stats
+    const aboutStats = document.getElementById('aboutStats');
+    if (aboutStats && siteConfig.about.stats) {
+        aboutStats.innerHTML = '';
+        siteConfig.about.stats.forEach(stat => {
+            const div = document.createElement('div');
+            div.className = 'about__stat-item';
+            div.innerHTML = `
+                <span class="about__stat-number" data-count="${stat.number}">0</span>
+                <span class="about__stat-label">${stat.label}</span>
+            `;
+            aboutStats.appendChild(div);
+        });
+    }
+    
+    // Set subtitle and title
+    const aboutSubtitle = document.getElementById('aboutSubtitle');
+    if (aboutSubtitle && siteConfig.about.subtitle) {
+        aboutSubtitle.textContent = siteConfig.about.subtitle;
+    }
+    
+    const aboutTitle = document.getElementById('aboutTitle');
+    if (aboutTitle && siteConfig.about.title) {
+        aboutTitle.textContent = siteConfig.about.title;
+    }
+    
+    // Set main text
+    const aboutMainText = document.getElementById('aboutMainText');
+    if (aboutMainText && siteConfig.about.mainText) {
+        aboutMainText.innerHTML = siteConfig.about.mainText;
+    }
+    
+    // Set expandable content
+    const aboutExpandableContent = document.getElementById('aboutExpandableContent');
+    if (aboutExpandableContent && siteConfig.about.expandableContent) {
+        aboutExpandableContent.innerHTML = '';
+        siteConfig.about.expandableContent.forEach(content => {
+            if (content.type === 'text') {
+                const p = document.createElement('p');
+                p.className = 'about__text';
+                p.innerHTML = content.content;
+                aboutExpandableContent.appendChild(p);
+            } else if (content.type === 'highlights') {
+                const div = document.createElement('div');
+                div.className = 'about__highlights';
+                content.items.forEach(item => {
+                    const highlightDiv = document.createElement('div');
+                    highlightDiv.className = 'about__highlight-item';
+                    highlightDiv.innerHTML = `
+                        <i class='bx bx-check-circle'></i>
+                        <span>${item}</span>
+                    `;
+                    div.appendChild(highlightDiv);
+                });
+                aboutExpandableContent.appendChild(div);
+            }
+        });
+    }
+    
+    // Set action buttons
+    const aboutActions = document.getElementById('aboutActions');
+    if (aboutActions && siteConfig.about.actions) {
+        aboutActions.innerHTML = '';
+        siteConfig.about.actions.forEach(action => {
+            const a = document.createElement('a');
+            a.href = action.href;
+            a.className = `btn btn-${action.type} about__${action.type === 'primary' ? 'resume' : 'contact'}-btn`;
+            if (action.download) a.setAttribute('download', action.download);
+            if (action.ariaLabel) a.setAttribute('aria-label', action.ariaLabel);
+            a.innerHTML = `
+                <i class='${action.icon}'></i>
+                ${action.label}
+            `;
+            aboutActions.appendChild(a);
+        });
+    }
+}
+
+// Populate skills section
+function populateSkillsSection() {
+    if (!siteConfig.skills) return;
+    
+    // Set section title
+    const skillsSectionTitle = document.getElementById('skillsSectionTitle');
+    if (skillsSectionTitle && siteConfig.skills.sectionTitle) {
+        skillsSectionTitle.textContent = siteConfig.skills.sectionTitle;
+    }
+    
+    // Set description
+    const skillsDescription = document.getElementById('skillsDescription');
+    if (skillsDescription && siteConfig.skills.description) {
+        skillsDescription.textContent = siteConfig.skills.description;
+    }
+    
+    // Set stats
+    const skillsStats = document.getElementById('skillsStats');
+    if (skillsStats && siteConfig.skills.stats) {
+        skillsStats.innerHTML = '';
+        siteConfig.skills.stats.forEach(stat => {
+            const div = document.createElement('div');
+            div.className = 'skills__stat-card';
+            div.innerHTML = `
+                <div class="skills__stat-icon">
+                    <i class='${stat.icon}'></i>
+                </div>
+                <div class="skills__stat-content">
+                    <span class="skills__stat-number" data-count="${stat.number}">0</span>
+                    <span class="skills__stat-label">${stat.label}</span>
+                </div>
+            `;
+            skillsStats.appendChild(div);
+        });
+    }
+    
+    // Set tabs
+    const skillsTabs = document.getElementById('skillsTabs');
+    if (skillsTabs && siteConfig.skills.tabs) {
+        skillsTabs.innerHTML = '';
+        siteConfig.skills.tabs.forEach(tab => {
+            const button = document.createElement('button');
+            button.className = tab.active ? 'skills__tab active' : 'skills__tab';
+            button.setAttribute('data-category', tab.key);
+            button.textContent = tab.label;
+            skillsTabs.appendChild(button);
+        });
+    }
+    
+    // Set legend
+    const skillsLegendTitle = document.getElementById('skillsLegendTitle');
+    if (skillsLegendTitle && siteConfig.skills.legend) {
+        skillsLegendTitle.textContent = siteConfig.skills.legend.title;
+    }
+    
+    const skillsLegend = document.getElementById('skillsLegend');
+    if (skillsLegend && siteConfig.skills.legend) {
+        skillsLegend.innerHTML = '';
+        siteConfig.skills.legend.levels.forEach(level => {
+            const div = document.createElement('div');
+            div.className = 'skills__legend-item';
+            div.innerHTML = `
+                <div class="skills__legend-indicator ${level.className}"></div>
+                <div class="skills__legend-content">
+                    <span class="skills__legend-level">${level.level}</span>
+                    <span class="skills__legend-desc">${level.description}</span>
+                </div>
+            `;
+            skillsLegend.appendChild(div);
+        });
+    }
+}
+
+// Populate other sections
+function populateOtherSections() {
+    // Work section
+    const workSectionTitle = document.getElementById('workSectionTitle');
+    if (workSectionTitle && siteConfig.work) {
+        workSectionTitle.textContent = siteConfig.work.sectionTitle;
+    }
+    
+    // Hobbies section
+    const hobbiesSectionTitle = document.getElementById('hobbiesSectionTitle');
+    if (hobbiesSectionTitle && siteConfig.hobbies) {
+        hobbiesSectionTitle.textContent = siteConfig.hobbies.sectionTitle;
+    }
+    
+    // Contact section
+    const contactSectionTitle = document.getElementById('contactSectionTitle');
+    if (contactSectionTitle && siteConfig.contact) {
+        contactSectionTitle.textContent = siteConfig.contact.sectionTitle;
+    }
+}
+
+// Populate contact form
+function populateContactForm() {
+    if (!siteConfig.contact || !siteConfig.contact.form) return;
+    
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) return;
+    
+    const form = siteConfig.contact.form;
+    
+    // Set form attributes
+    contactForm.setAttribute('action', form.action);
+    contactForm.setAttribute('method', form.method);
+    
+    // Create form HTML
+    let formHTML = '<div class="contact__inputs">';
+    
+    // Add regular fields (not textarea)
+    const regularFields = form.fields.filter(field => field.type !== 'textarea');
+    regularFields.forEach(field => {
+        formHTML += `
+            <div class="contact__input-container">
+                <label for="${field.id}" class="contact__label">${field.label}</label>
+                <input type="${field.type}" id="${field.id}" name="${field.name}" 
+                       placeholder="${field.placeholder}" class="contact__input"
+                       ${field.required ? 'required' : ''}>
+            </div>
+        `;
+    });
+    
+    formHTML += '</div>';
+    
+    // Add textarea field
+    const textareaField = form.fields.find(field => field.type === 'textarea');
+    if (textareaField) {
+        formHTML += `
+            <div class="contact__input-container">
+                <label for="${textareaField.id}" class="contact__label">${textareaField.label}</label>
+                <textarea id="${textareaField.id}" name="${textareaField.name}" 
+                          cols="0" rows="${textareaField.rows}" 
+                          placeholder="${textareaField.placeholder}" class="contact__input"
+                          ${textareaField.required ? 'required' : ''}></textarea>
+            </div>
+        `;
+    }
+    
+    // Add success and error messages
+    formHTML += `
+        <p id="successMessage" class="contact__success-message">${form.messages.success}</p>
+        <p id="errorMessage" class="contact__error-message">${form.messages.error}</p>
+    `;
+    
+    // Add submit button
+    formHTML += `
+        <input type="${form.submitButton.type}" value="${form.submitButton.label}" class="contact__button button">
+    `;
+    
+    contactForm.innerHTML = formHTML;
+}
+
+// Populate footer
+function populateFooter() {
+    if (!siteConfig.footer) return;
+    
+    // Set footer title
+    const footerTitle = document.getElementById('footerTitle');
+    if (footerTitle && siteConfig.footer.title) {
+        footerTitle.textContent = siteConfig.footer.title;
+    }
+    
+    // Set footer social links
+    const footerSocial = document.getElementById('footerSocial');
+    if (footerSocial && siteConfig.footer.socialLinks) {
+        footerSocial.innerHTML = '';
+        siteConfig.footer.socialLinks.forEach(social => {
+            const a = document.createElement('a');
+            a.href = social.url;
+            a.className = 'footer__icon';
+            a.setAttribute('target', '_blank');
+            a.setAttribute('rel', 'noopener');
+            a.innerHTML = `<i class='${social.icon}'></i>`;
+            footerSocial.appendChild(a);
+        });
+    }
+    
+    // Set footer copyright
+    const footerCopyright = document.getElementById('footerCopyright');
+    if (footerCopyright && siteConfig.footer.copyright) {
+        footerCopyright.textContent = siteConfig.footer.copyright;
+    }
+}
+
+// Initialize all content from config
+async function initializeSiteContent() {
+    try {
+        await loadSiteConfig();
+        populateMetaTags();
+        populateNavigation();
+        populateHomeSection();
+        populateAboutSection();
+        populateSkillsSection();
+        populateOtherSections();
+        populateContactForm();
+        populateFooter();
+        
+        console.log('Site content populated successfully');
+        
+        // Re-initialize navigation event listeners after populating navigation
+        initializeNavigationEventListeners();
+        
+        // Initialize contact form after creating it
+        initializeContactForm();
+        
+        // Initialize interactive features after content is loaded
+        initializeInteractiveFeatures();
+        
+    } catch (error) {
+        console.error('Error initializing site content:', error);
+    }
+}
+
+// Initialize navigation event listeners
+function initializeNavigationEventListeners() {
+    // Re-initialize menu functionality
+    showMenu('nav-toggle','nav-menu');
+    
+    // Re-initialize nav link event listeners
+    const navLinks = document.querySelectorAll('.nav__link');
+    navLinks.forEach(n => n.addEventListener('click', linkAction));
+}
+
+// Initialize site content when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeSiteContent);
+
 /*===== MENU SHOW =====*/ 
 const showMenu = (toggleId, navId) =>{
     const toggle = document.getElementById(toggleId),
@@ -79,36 +574,40 @@ function highlightIcons() {
 
 
 /*===== SEND MESSAGE BUTTON =====*/
-const contactForm = document.getElementById('contactForm');
+function initializeContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
 
-contactForm.addEventListener('submit', async function (event) {
-    event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
+            const formData = new FormData(contactForm);
 
-    const formData = new FormData(contactForm);
+            try {
+                const response = await fetch('https://formspree.io/f/xqkreprr', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
 
-    try {
-        const response = await fetch('https://formspree.io/f/xqkreprr', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
+                if (response.ok) {
+                    showSuccessMessage();
+                } else {
+                    showErrorMessage();
+                }
+            } catch (error) {
+                showErrorMessage();
             }
         });
-
-        if (response.ok) {
-            showSuccessMessage();
-        } else {
-            showErrorMessage();
-        }
-    } catch (error) {
-        showErrorMessage();
     }
-});
+}
 
 function showSuccessMessage() {
     const successMessageElement = document.getElementById('successMessage');
@@ -319,19 +818,25 @@ fetch('assets/data/skills-data.json')
         // Define category mappings for filtering
         const categoryMappings = {
             'Programming Languages': 'programming',
-            'Data Engineering & ML': 'data',
-            'Cloud & DevOps': 'cloud',
-            'Tools & Frameworks': 'tools',
-            'Databases': 'data'
+            'Data Engineering': 'data',
+            'Cloud Platforms': 'cloud',
+            'Frameworks': 'tools',
+            'Databases': 'data',
+            'CI/CD': 'tools',
+            'Data Science': 'data',
+            'Tools & Utilities': 'tools'
         };
 
         // Define category icons
         const categoryIcons = {
             'Programming Languages': 'bx-code-alt',
-            'Data Engineering & ML': 'bx-data',
-            'Cloud & DevOps': 'bx-cloud',
-            'Tools & Frameworks': 'bx-wrench',
-            'Databases': 'bx-server'
+            'Data Engineering': 'bx-data',
+            'Cloud Platforms': 'bx-cloud',
+            'Frameworks': 'bx-wrench',
+            'Databases': 'bx-server',
+            'CI/CD': 'bx-git',
+            'Data Science': 'bx-brain',
+            'Tools & Utilities': 'bx-wrench'
         };
 
         // Loop through categories and render skills
@@ -581,8 +1086,15 @@ const aboutImgContainer = document.querySelector('.about__img img');
 // initializeAboutSlideshow(aboutImagePaths, aboutImgContainer);
 
 /*===== ABOUT SECTION INTERACTIONS =====*/
-// Expandable content functionality
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize all interactive features after content is loaded
+function initializeInteractiveFeatures() {
+    initializeAboutExpandFeatures();
+    initializeSkillsCounters();
+    initializeSkillsTabs();
+}
+
+// Initialize about section expandable content and counters
+function initializeAboutExpandFeatures() {
     const expandBtn = document.getElementById('aboutExpandBtn');
     const expandableContent = document.getElementById('aboutExpandableContent');
     
@@ -616,31 +1128,176 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 30);
     };
     
+    // Function to start about counters
+    const startAboutCounters = () => {
+        const statNumbers = document.querySelectorAll('.about__stat-number');
+        statNumbers.forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-count'));
+            if (target && !isNaN(target)) {
+                animateCounter(stat, target);
+            }
+        });
+    };
+    
     // Initialize counters when About section comes into view
     const aboutSection = document.getElementById('about');
-    const statNumbers = document.querySelectorAll('.about__stat-number');
     
     const observerOptions = {
-        threshold: 0.3,
+        threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
     
+    let aboutAnimationRun = false;
+    
     const aboutObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                statNumbers.forEach(stat => {
-                    const target = parseInt(stat.getAttribute('data-count'));
-                    animateCounter(stat, target);
-                });
+            if (entry.isIntersecting && !aboutAnimationRun) {
+                aboutAnimationRun = true;
+                startAboutCounters();
                 aboutObserver.unobserve(entry.target);
             }
         });
     }, observerOptions);
     
+    // Fallback for immediate visibility
+    const checkAboutVisibility = () => {
+        if (aboutSection && !aboutAnimationRun) {
+            const rect = aboutSection.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (isVisible) {
+                aboutAnimationRun = true;
+                startAboutCounters();
+            }
+        }
+    };
+    
     if (aboutSection) {
         aboutObserver.observe(aboutSection);
+        
+        // Check if already visible on load
+        setTimeout(checkAboutVisibility, 500);
+        
+        // Also add scroll listener as fallback
+        window.addEventListener('scroll', checkAboutVisibility, { passive: true });
+    } else {
+        // If no section found, try direct animation
+        setTimeout(startAboutCounters, 1000);
     }
-});
+}
+
+// Initialize skills counters
+function initializeSkillsCounters() {
+    // Skills stats counter animation
+    const skillsSection = document.getElementById('skills');
+    
+    // Animate counter function
+    const animateCounter = (element, target) => {
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            element.textContent = Math.floor(current);
+        }, 30);
+    };
+    
+    // Function to start counter animation
+    const startCounterAnimation = () => {
+        const skillsStatNumbers = document.querySelectorAll('.skills__stat-number');
+        skillsStatNumbers.forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-count'));
+            if (target && !isNaN(target)) {
+                animateCounter(stat, target);
+            }
+        });
+    };
+    
+    // Use intersection observer for mobile-friendly triggering
+    const observerOptions = {
+        threshold: 0.1, // Lower threshold for mobile
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    let skillsAnimationRun = false;
+    
+    const skillsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !skillsAnimationRun) {
+                skillsAnimationRun = true;
+                startCounterAnimation();
+                skillsObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Fallback: start animation immediately if section is already visible
+    const checkImmediateVisibility = () => {
+        if (skillsSection && !skillsAnimationRun) {
+            const rect = skillsSection.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (isVisible) {
+                skillsAnimationRun = true;
+                startCounterAnimation();
+            }
+        }
+    };
+    
+    if (skillsSection) {
+        skillsObserver.observe(skillsSection);
+        
+        // Check if already visible on load (important for mobile)
+        setTimeout(checkImmediateVisibility, 500);
+        
+        // Also add scroll and resize event listeners as fallback
+        window.addEventListener('scroll', checkImmediateVisibility, { passive: true });
+        window.addEventListener('resize', checkImmediateVisibility, { passive: true });
+    } else {
+        // If no intersection observer support, try direct animation
+        setTimeout(startCounterAnimation, 1000);
+    }
+}
+
+// Initialize skills tabs functionality
+function initializeSkillsTabs() {
+    const skillsTabs = document.querySelectorAll('.skills__tab');
+    const skillsContainer = document.getElementById('skillsCategoriesContainer');
+    
+    // Tab switching functionality
+    skillsTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            skillsTabs.forEach(t => t.classList.remove('active'));
+            // Add active class to clicked tab
+            tab.classList.add('active');
+            
+            // Filter skills based on selected category
+            const category = tab.getAttribute('data-category');
+            filterSkills(category);
+        });
+    });
+    
+    // Filter skills by category
+    function filterSkills(category) {
+        const skillCategories = skillsContainer.querySelectorAll('.skills__category');
+        
+        skillCategories.forEach(cat => {
+            if (category === 'all' || cat.getAttribute('data-category') === category) {
+                cat.style.display = 'block';
+                cat.style.animation = 'fadeInUp 0.6s ease-out';
+            } else {
+                cat.style.display = 'none';
+            }
+        });
+    }
+}
+
+// Legacy DOMContentLoaded - replaced with our new initialization system
+// This functionality has been moved to initializeAboutExpandFeatures() which is called after content is loaded
 
 // Initialize AOS (Animate On Scroll) if available
 document.addEventListener('DOMContentLoaded', () => {
@@ -677,7 +1334,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /*===== SKILLS SECTION INTERACTIONS =====*/
-// Skills tab functionality
+// Legacy skills tab functionality - moved to initializeSkillsTabs()
+// This functionality has been replaced by our new initialization system
+/*
 document.addEventListener('DOMContentLoaded', () => {
     const skillsTabs = document.querySelectorAll('.skills__tab');
     const skillsContainer = document.getElementById('skillsCategoriesContainer');
@@ -794,6 +1453,7 @@ document.addEventListener('DOMContentLoaded', () => {
         skillsProgressObserver.observe(skillsSection);
     }
 });
+*/
 
 // Skills counter animation function
 function animateSkillsCounter(element, target) {
