@@ -1,26 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Resume</title>
-    <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sumit Kumar's Professional Resume - Data Engineer with expertise in Python, SQL, and cloud technologies">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/resume.css">
+    
+    <!-- Icons -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <title>Resume - Sumit Kumar</title>
 </head>
 
 <body>
-    <iframe src="/assets/data/Sumit_resume.pdf"></iframe>
+    <!-- Header Navigation -->
+    <header class="l-header">
+        <nav class="nav bd-grid">
+            <div>
+                <a href="index.html" class="nav__logo">Sumit</a>
+            </div>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="index.html#home" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="index.html#about" class="nav__link">About</a></li>
+                    <li class="nav__item"><a href="index.html#skills" class="nav__link">Skills</a></li>
+                    <li class="nav__item"><a href="index.html#work" class="nav__link">Work</a></li>
+                    <li class="nav__item"><a href="index.html#hobbies" class="nav__link">Hobbies</a></li>
+                    <li class="nav__item"><a href="index.html#contact" class="nav__link">Contact</a></li>
+                </ul>
+            </div>
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Resume Container -->
+    <div class="resume-container">
+        <!-- Header Section -->
+        <section class="resume-header">
+            <div class="bd-grid">
+                <h1>Sumit Kumar</h1>
+                <p>Data Engineer | AI/ML Enthusiast | FinTech & Cybersecurity</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="resume-content">
+            <!-- Action Buttons -->
+            <div class="resume-actions">
+                <a href="./assets/data/Sumit_resume.pdf" class="btn btn-primary" download="Sumit_Kumar_Resume.pdf" aria-label="Download Sumit Kumar's Resume">
+                    <i class='bx bx-download'></i>
+                    Download PDF
+                </a>
+                <a href="./assets/data/Sumit_resume.pdf" class="btn btn-outline" target="_blank" rel="noopener" aria-label="Open Resume in New Tab">
+                    <i class='bx bx-external-link'></i>
+                    Open in New Tab
+                </a>
+                <a href="index.html" class="btn btn-secondary" aria-label="Back to Portfolio">
+                    <i class='bx bx-arrow-back'></i>
+                    Back to Portfolio
+                </a>
+            </div>
+
+            <!-- Mobile Notice -->
+            <div class="mobile-notice">
+                <i class='bx bx-info-circle'></i>
+                <strong>Mobile Tip:</strong> For the best viewing experience on mobile, tap "Download PDF" or "Open in New Tab" above.
+            </div>
+
+            <!-- PDF Viewer -->
+            <div class="resume-viewer">
+                <div class="pdf-container">
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        Loading resume...
+                    </div>
+                    <iframe 
+                        class="pdf-iframe" 
+                        src="./assets/data/Sumit_resume.pdf#toolbar=1&navpanes=1&scrollbar=1&page=1&zoom=page-fit"
+                        title="Sumit Kumar's Resume"
+                        id="pdf-frame"
+                        onload="handlePdfLoad()"
+                        onerror="handlePdfError()">
+                    </iframe>
+                    <div class="pdf-fallback" id="pdf-fallback">
+                        <i class='bx bx-file-blank'></i>
+                        <h3>PDF Viewer Not Available</h3>
+                        <p>Your browser doesn't support PDF viewing. Please download the resume or open it in a new tab.</p>
+                        <div style="margin-top: var(--space-6);">
+                            <a href="./assets/data/Sumit_resume.pdf" class="btn btn-primary" download="Sumit_Kumar_Resume.pdf">
+                                <i class='bx bx-download'></i>
+                                Download Resume
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        // PDF loading handlers
+        function handlePdfLoad() {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.style.display = 'none';
+            }
+        }
+
+        function handlePdfError() {
+            const loading = document.getElementById('loading');
+            const fallback = document.getElementById('pdf-fallback');
+            
+            if (loading) loading.style.display = 'none';
+            if (fallback) fallback.style.display = 'block';
+        }
+
+        // Mobile navigation toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('show');
+                });
+            }
+
+            // Hide loading after a timeout as fallback
+            setTimeout(() => {
+                const loading = document.getElementById('loading');
+                if (loading && loading.style.display !== 'none') {
+                    loading.style.display = 'none';
+                }
+            }, 5000);
+        });
+    </script>
 </body>
 
 </html>
