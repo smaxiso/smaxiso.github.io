@@ -50,6 +50,7 @@ function getDefaultConfig() {
 function populateMetaTags() {
     if (!siteConfig.site) return;
     
+    // Basic meta tags
     document.title = siteConfig.site.title || 'Portfolio';
     
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -65,6 +66,109 @@ function populateMetaTags() {
     const metaKeywords = document.querySelector('meta[name="keywords"]');
     if (metaKeywords && siteConfig.site.keywords) {
         metaKeywords.setAttribute('content', siteConfig.site.keywords.join(', '));
+    }
+    
+    // Open Graph meta tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', siteConfig.site.title);
+    
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute('content', siteConfig.site.description);
+    
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl && siteConfig.site.url) ogUrl.setAttribute('content', siteConfig.site.url);
+    
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage && siteConfig.site.image) ogImage.setAttribute('content', siteConfig.site.image);
+    
+    const ogImageAlt = document.querySelector('meta[property="og:image:alt"]');
+    if (ogImageAlt) ogImageAlt.setAttribute('content', `${siteConfig.site.author} - Professional Portfolio`);
+    
+    const ogSiteName = document.querySelector('meta[property="og:site_name"]');
+    if (ogSiteName) ogSiteName.setAttribute('content', siteConfig.site.author + ' Portfolio');
+    
+    // Twitter Card meta tags
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute('content', siteConfig.site.title);
+    
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDescription) twitterDescription.setAttribute('content', siteConfig.site.description);
+    
+    const twitterImage = document.querySelector('meta[name="twitter:image"]');
+    if (twitterImage && siteConfig.site.image) twitterImage.setAttribute('content', siteConfig.site.image);
+    
+    const twitterImageAlt = document.querySelector('meta[name="twitter:image:alt"]');
+    if (twitterImageAlt) twitterImageAlt.setAttribute('content', `${siteConfig.site.author} - Professional Portfolio`);
+    
+    const twitterCreator = document.querySelector('meta[name="twitter:creator"]');
+    if (twitterCreator && siteConfig.site.twitter) twitterCreator.setAttribute('content', siteConfig.site.twitter);
+    
+    const twitterSite = document.querySelector('meta[name="twitter:site"]');
+    if (twitterSite && siteConfig.site.twitter) twitterSite.setAttribute('content', siteConfig.site.twitter);
+    
+    // Additional meta tags
+    const appName = document.querySelector('meta[name="application-name"]');
+    if (appName) appName.setAttribute('content', siteConfig.site.author + ' Portfolio');
+    
+    const appleTitle = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+    if (appleTitle) appleTitle.setAttribute('content', siteConfig.site.author + ' Portfolio');
+    
+    // Canonical URL
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical && siteConfig.site.url) canonical.setAttribute('href', siteConfig.site.url);
+    
+    // Language
+    const htmlLang = document.documentElement;
+    if (htmlLang && siteConfig.site.language) htmlLang.setAttribute('lang', siteConfig.site.language);
+}
+
+// Generate and populate structured data (JSON-LD)
+function populateStructuredData() {
+    if (!siteConfig.site || !siteConfig.home) return;
+    
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": siteConfig.home.name,
+        "jobTitle": siteConfig.home.title,
+        "description": siteConfig.site.description,
+        "url": siteConfig.site.url,
+        "image": siteConfig.site.image,
+        "sameAs": [],
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN"
+        },
+        "alumniOf": {
+            "@type": "Organization",
+            "name": "National Institute of Technology"
+        },
+        "worksFor": {
+            "@type": "Organization",
+            "name": "Gen Digital",
+            "description": "Cybersecurity and Digital Safety Company"
+        },
+        "knowsAbout": siteConfig.site.keywords,
+        "expertise": [
+            "Data Engineering",
+            "Machine Learning",
+            "Data Pipeline Architecture", 
+            "Real-time Analytics",
+            "ETL Development",
+            "Cloud Computing"
+        ]
+    };
+    
+    // Add social media URLs to sameAs array
+    if (siteConfig.home.socialLinks) {
+        structuredData.sameAs = siteConfig.home.socialLinks
+            .filter(link => ['linkedin', 'github', 'twitter', 'medium'].includes(link.platform))
+            .map(link => link.url);
+    }
+    
+    const structuredDataElement = document.getElementById('structuredData');
+    if (structuredDataElement) {
+        structuredDataElement.textContent = JSON.stringify(structuredData, null, 2);
     }
 }
 
@@ -175,86 +279,47 @@ function populateHomeSection() {
 function populateAboutSection() {
     if (!siteConfig.about) return;
     
-    // Set section title
     const aboutSectionTitle = document.getElementById('aboutSectionTitle');
-    if (aboutSectionTitle && siteConfig.about.sectionTitle) {
-        aboutSectionTitle.textContent = siteConfig.about.sectionTitle;
-    }
+    if (aboutSectionTitle) aboutSectionTitle.textContent = siteConfig.about.sectionTitle || 'About Me';
     
-    // Set about image
+    const aboutSubtitle = document.getElementById('aboutSubtitle');
+    if (aboutSubtitle) aboutSubtitle.textContent = siteConfig.about.subtitle || 'Who I Am';
+    
+    const aboutTitle = document.getElementById('aboutTitle');
+    if (aboutTitle) aboutTitle.textContent = siteConfig.about.title || 'Professional';
+    
     const aboutImage = document.getElementById('aboutImage');
     if (aboutImage && siteConfig.about.profileImage) {
         aboutImage.src = siteConfig.about.profileImage.src;
         aboutImage.alt = siteConfig.about.profileImage.alt;
     }
     
-    // Set stats
+    const aboutMainText = document.getElementById('aboutMainText');
+    if (aboutMainText) aboutMainText.textContent = siteConfig.about.mainText || '';
+    
+    // Populate stats
     const aboutStats = document.getElementById('aboutStats');
     if (aboutStats && siteConfig.about.stats) {
         aboutStats.innerHTML = '';
         siteConfig.about.stats.forEach(stat => {
-            const div = document.createElement('div');
-            div.className = 'about__stat-item';
-            div.innerHTML = `
-                <span class="about__stat-number" data-count="${stat.number}">0</span>
+            const statDiv = document.createElement('div');
+            statDiv.className = 'about__stat';
+            statDiv.innerHTML = `
+                <span class="about__stat-number" data-count="${stat.number}">${stat.number}</span>
                 <span class="about__stat-label">${stat.label}</span>
             `;
-            aboutStats.appendChild(div);
+            aboutStats.appendChild(statDiv);
         });
     }
     
-    // Set subtitle and title
-    const aboutSubtitle = document.getElementById('aboutSubtitle');
-    if (aboutSubtitle && siteConfig.about.subtitle) {
-        aboutSubtitle.textContent = siteConfig.about.subtitle;
-    }
-    
-    const aboutTitle = document.getElementById('aboutTitle');
-    if (aboutTitle && siteConfig.about.title) {
-        aboutTitle.textContent = siteConfig.about.title;
-    }
-    
-    // Set main text
-    const aboutMainText = document.getElementById('aboutMainText');
-    if (aboutMainText && siteConfig.about.mainText) {
-        aboutMainText.innerHTML = siteConfig.about.mainText;
-    }
-    
-    // Set expandable content
-    const aboutExpandableContent = document.getElementById('aboutExpandableContent');
-    if (aboutExpandableContent && siteConfig.about.expandableContent) {
-        aboutExpandableContent.innerHTML = '';
-        siteConfig.about.expandableContent.forEach(content => {
-            if (content.type === 'text') {
-                const p = document.createElement('p');
-                p.className = 'about__text';
-                p.innerHTML = content.content;
-                aboutExpandableContent.appendChild(p);
-            } else if (content.type === 'highlights') {
-                const div = document.createElement('div');
-                div.className = 'about__highlights';
-                content.items.forEach(item => {
-                    const highlightDiv = document.createElement('div');
-                    highlightDiv.className = 'about__highlight-item';
-                    highlightDiv.innerHTML = `
-                        <i class='bx bx-check-circle'></i>
-                        <span>${item}</span>
-                    `;
-                    div.appendChild(highlightDiv);
-                });
-                aboutExpandableContent.appendChild(div);
-            }
-        });
-    }
-    
-    // Set action buttons
+    // Populate actions
     const aboutActions = document.getElementById('aboutActions');
     if (aboutActions && siteConfig.about.actions) {
         aboutActions.innerHTML = '';
         siteConfig.about.actions.forEach(action => {
             const a = document.createElement('a');
             a.href = action.href;
-            a.className = `btn btn-${action.type} about__${action.type === 'primary' ? 'resume' : 'contact'}-btn`;
+            a.className = `btn btn-${action.type}`;
             if (action.download) a.setAttribute('download', action.download);
             if (action.ariaLabel) a.setAttribute('aria-label', action.ariaLabel);
             a.innerHTML = `
@@ -270,71 +335,42 @@ function populateAboutSection() {
 function populateSkillsSection() {
     if (!siteConfig.skills) return;
     
-    // Set section title
     const skillsSectionTitle = document.getElementById('skillsSectionTitle');
-    if (skillsSectionTitle && siteConfig.skills.sectionTitle) {
-        skillsSectionTitle.textContent = siteConfig.skills.sectionTitle;
-    }
+    if (skillsSectionTitle) skillsSectionTitle.textContent = siteConfig.skills.sectionTitle || 'Skills';
     
-    // Set description
     const skillsDescription = document.getElementById('skillsDescription');
-    if (skillsDescription && siteConfig.skills.description) {
-        skillsDescription.textContent = siteConfig.skills.description;
-    }
+    if (skillsDescription) skillsDescription.textContent = siteConfig.skills.description || '';
     
-    // Set stats
+    const skillsLegendTitle = document.getElementById('skillsLegendTitle');
+    if (skillsLegendTitle) skillsLegendTitle.textContent = siteConfig.skills.legendTitle || 'Skill Levels';
+    
+    // Populate stats
     const skillsStats = document.getElementById('skillsStats');
     if (skillsStats && siteConfig.skills.stats) {
         skillsStats.innerHTML = '';
         siteConfig.skills.stats.forEach(stat => {
-            const div = document.createElement('div');
-            div.className = 'skills__stat-card';
-            div.innerHTML = `
-                <div class="skills__stat-icon">
-                    <i class='${stat.icon}'></i>
-                </div>
-                <div class="skills__stat-content">
-                    <span class="skills__stat-number" data-count="${stat.number}">0</span>
-                    <span class="skills__stat-label">${stat.label}</span>
-                </div>
+            const statDiv = document.createElement('div');
+            statDiv.className = 'skills__stat';
+            statDiv.innerHTML = `
+                <span class="skills__stat-number" data-count="${stat.number}">${stat.number}</span>
+                <span class="skills__stat-label">${stat.label}</span>
             `;
-            skillsStats.appendChild(div);
+            skillsStats.appendChild(statDiv);
         });
     }
     
-    // Set tabs
-    const skillsTabs = document.getElementById('skillsTabs');
-    if (skillsTabs && siteConfig.skills.tabs) {
-        skillsTabs.innerHTML = '';
-        siteConfig.skills.tabs.forEach(tab => {
-            const button = document.createElement('button');
-            button.className = tab.active ? 'skills__tab active' : 'skills__tab';
-            button.setAttribute('data-category', tab.key);
-            button.textContent = tab.label;
-            skillsTabs.appendChild(button);
-        });
-    }
-    
-    // Set legend
-    const skillsLegendTitle = document.getElementById('skillsLegendTitle');
-    if (skillsLegendTitle && siteConfig.skills.legend) {
-        skillsLegendTitle.textContent = siteConfig.skills.legend.title;
-    }
-    
+    // Populate legend
     const skillsLegend = document.getElementById('skillsLegend');
     if (skillsLegend && siteConfig.skills.legend) {
         skillsLegend.innerHTML = '';
-        siteConfig.skills.legend.levels.forEach(level => {
-            const div = document.createElement('div');
-            div.className = 'skills__legend-item';
-            div.innerHTML = `
-                <div class="skills__legend-indicator ${level.className}"></div>
-                <div class="skills__legend-content">
-                    <span class="skills__legend-level">${level.level}</span>
-                    <span class="skills__legend-desc">${level.description}</span>
-                </div>
+        siteConfig.skills.legend.forEach(item => {
+            const legendItem = document.createElement('div');
+            legendItem.className = 'skills__legend-item';
+            legendItem.innerHTML = `
+                <div class="skills__legend-color" style="background-color: ${item.color}"></div>
+                <span class="skills__legend-label">${item.label}</span>
             `;
-            skillsLegend.appendChild(div);
+            skillsLegend.appendChild(legendItem);
         });
     }
 }
@@ -480,6 +516,29 @@ async function initializeSiteContent() {
     }
 }
 
+// Main initialization function
+async function initializeSite() {
+    try {
+        // Load site configuration
+        await loadSiteConfig();
+        
+        // Initialize SEO elements
+        populateMetaTags();
+        populateStructuredData();
+        
+        // Initialize site content
+        populateNavigation();
+        populateHomeSection();
+        populateAboutSection();
+        populateSkillsSection();
+        populateContactSection();
+        
+        console.log('Site initialized successfully');
+    } catch (error) {
+        console.error('Error initializing site:', error);
+    }
+}
+
 // Initialize navigation event listeners
 function initializeNavigationEventListeners() {
     // Re-initialize menu functionality
@@ -490,8 +549,8 @@ function initializeNavigationEventListeners() {
     navLinks.forEach(n => n.addEventListener('click', linkAction));
 }
 
-// Initialize site content when DOM is loaded
-document.addEventListener('DOMContentLoaded', initializeSiteContent);
+// Initialize site when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeSite);
 
 /*===== MENU SHOW =====*/ 
 const showMenu = (toggleId, navId) =>{

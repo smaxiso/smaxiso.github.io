@@ -3,9 +3,52 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Basic SEO Meta Tags -->
         <meta name="description" content="">
         <meta name="keywords" content="">
         <meta name="author" content="">
+        <meta name="robots" content="index, follow">
+        <meta name="theme-color" content="#667eea">
+        
+        <!-- Open Graph Meta Tags for Social Media -->
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="">
+        <meta property="og:description" content="">
+        <meta property="og:url" content="">
+        <meta property="og:image" content="">
+        <meta property="og:image:alt" content="">
+        <meta property="og:site_name" content="">
+        
+        <!-- Twitter Card Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="">
+        <meta name="twitter:description" content="">
+        <meta name="twitter:image" content="">
+        <meta name="twitter:image:alt" content="">
+        <meta name="twitter:creator" content="">
+        <meta name="twitter:site" content="">
+        
+        <!-- Additional SEO Meta Tags -->
+        <meta name="application-name" content="">
+        <meta name="apple-mobile-web-app-title" content="">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        
+        <!-- Canonical URL -->
+        <link rel="canonical" href="">
+        
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+        <link rel="manifest" href="assets/manifest.json">
+        
+        <!-- Preconnect for Performance -->
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+        <link rel="preconnect" href="https://unpkg.com" crossorigin>
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 
         <!-- =====CSS SHEET===== -->
         <link rel="stylesheet" href="assets/css/styles.css">
@@ -17,6 +60,9 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <!-- =====PACKAGES FOR ICONS===== -->
         
+        <!-- JSON-LD Structured Data -->
+        <script type="application/ld+json" id="structuredData">
+        </script>
     </head>
     <title></title>
 
@@ -41,13 +87,13 @@
         </header>
         <!--===== HEADER =====-->
 
-        <main class="l-main">
+        <main class="l-main" role="main">
             <!--===== HOME =====-->
-            <section class="home" id="home">
+            <section class="home" id="home" role="banner" aria-label="Hero section">
                 <div class="container">
                     <div class="home__container">
                         <div class="home__content">
-                            <div class="home__greeting" id="homeGreeting"></div>
+                            <div class="home__greeting" id="homeGreeting" role="text"></div>
                             <h1 class="home__title" id="homeTitle">
                                 <!-- Dynamic content will be inserted here -->
                             </h1>
@@ -55,14 +101,14 @@
                                 <!-- Dynamic content will be inserted here -->
                             </p>
                             
-                            <div class="home__actions" id="homeActions">
+                            <div class="home__actions" id="homeActions" role="group" aria-label="Call to action buttons">
                                 <!-- CTA buttons will be populated dynamically -->
                             </div>
                             
                             <!---  Social Media Icons  --->
-                            <div class="home__social" id="homeSocial">
+                            <nav class="home__social" id="homeSocial" role="navigation" aria-label="Social media links">
                                 <!-- Social links will be populated dynamically -->
-                            </div>
+                            </nav>
                         </div>
 
                         <!---  Profile Photo  --->
@@ -243,6 +289,8 @@
 
         <!--===== SCROLL REVEAL =====-->
         <script src="https://unpkg.com/scrollreveal"></script>
+        <!--===== SEO OPTIMIZATIONS =====-->
+        <script src="assets/js/seo.js"></script>
         <!--===== MAIN JS =====-->
         <script src="assets/js/main.js"></script>
         <!--===== MAIN JS =====-->
