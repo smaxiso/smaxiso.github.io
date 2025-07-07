@@ -1,10 +1,20 @@
 {
   "site": {
-    "title": "Sumit Kumar - Data Engineer",
-    "description": "Welcome to my portfolio, I'm Sumit Kumar, a passionate data engineer. Explore my education, projects, and experiences.",
+    "title": "Sumit Kumar - Data Engineer & ML Specialist | Portfolio",
+    "description": "Experienced Data Engineer & Machine Learning specialist with 4+ years in FinTech & Cybersecurity. Expert in Python, AWS, real-time data pipelines, and ML solutions. Currently at Gen Digital.",
     "author": "Sumit Kumar",
     "language": "en",
-    "keywords": ["Data Engineer", "Machine Learning", "AI", "Python", "Data Science", "FinTech", "Cybersecurity"]
+    "keywords": ["Data Engineer", "Machine Learning Engineer", "Data Pipeline", "Real-time Analytics", "Python Developer", "AWS", "FinTech", "Cybersecurity", "ETL", "Data Science", "ML Solutions", "Gen Digital", "PayPal Systems"],
+    "url": "https://smaxiso.github.io",
+    "image": "https://smaxiso.github.io/assets/img/perfils/perfil3.png",
+    "type": "website",
+    "locale": "en_US",
+    "twitter": "@smaxiso",
+    "creator": "@smaxiso",
+    "robots": "index, follow",
+    "googleSiteVerification": "",
+    "bingSiteVerification": "",
+    "yandexVerification": ""
   },
   "navigation": {
     "logo": "Sumit",
@@ -155,63 +165,43 @@
     ]
   },
   "skills": {
-    "sectionTitle": "Skills & Expertise",
-    "description": "A comprehensive overview of my technical skills and proficiency levels across various technologies and domains.",
+    "sectionTitle": "Technical Skills",
+    "description": "Technologies and tools I work with professionally",
+    "legendTitle": "Proficiency Levels",
     "stats": [
       {
-        "icon": "bx bx-code-alt",
-        "number": 20,
+        "number": 50,
         "label": "Technologies"
       },
       {
-        "icon": "bx bx-trophy",
         "number": 5,
-        "label": "Domains"
-      },
-      {
-        "icon": "bx bx-time",
-        "number": 4,
-        "label": "Years Experience"
+        "label": "Specializations"
       }
     ],
-    "tabs": [
-      { "key": "all", "label": "All Skills", "active": true },
-      { "key": "programming", "label": "Programming" },
-      { "key": "data", "label": "Data & ML" },
-      { "key": "cloud", "label": "Cloud Platforms" },
-      { "key": "tools", "label": "Tools & Frameworks" }
-    ],
-    "legend": {
-      "title": "Skill Level Guide",
-      "levels": [
-        {
-          "level": "Beginner",
-          "description": "Basic understanding and syntax familiarity",
-          "className": "skills__legend--beginner"
-        },
-        {
-          "level": "Intermediate",
-          "description": "Can work on projects with guidance",
-          "className": "skills__legend--intermediate"
-        },
-        {
-          "level": "Advanced",
-          "description": "Independent work and problem solving",
-          "className": "skills__legend--advanced"
-        },
-        {
-          "level": "Expert",
-          "description": "Deep expertise and mentorship capability",
-          "className": "skills__legend--expert"
-        }
-      ]
-    }
+    "legend": [
+      {
+        "label": "Expert",
+        "color": "#9c27b0"
+      },
+      {
+        "label": "Advanced", 
+        "color": "#4caf50"
+      },
+      {
+        "label": "Intermediate",
+        "color": "#2196f3"
+      },
+      {
+        "label": "Beginner",
+        "color": "#ff9800"
+      }
+    ]
   },
   "work": {
-    "sectionTitle": "Work"
+    "sectionTitle": "My Work & Projects"
   },
   "hobbies": {
-    "sectionTitle": "Hobbies"
+    "sectionTitle": "Interests & Hobbies"
   },
   "contact": {
     "sectionTitle": "Contact",
