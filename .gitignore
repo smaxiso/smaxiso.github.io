@@ -92,3 +92,6 @@ ehthumbs.db
 # Optional: VS Code settings
 # =========================
 .history/
+# =========================
+# Firebase credentials
+smaxiso-firebase-adminsdk-fbsvc-daf200dc88.json
