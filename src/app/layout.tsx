@@ -20,7 +20,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet' />
       </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-primary antialiased bg-surface-0 text-on-surface`}>
         <Header />
