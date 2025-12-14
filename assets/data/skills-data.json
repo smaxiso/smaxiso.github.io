@@ -80,18 +80,28 @@
       {
         "name": "AWS",
         "icon": "bx bxl-amazon",
-        "level": "Intermediate"
+        "level": "Advanced"
       },
       {
         "name": "GCP",
         "icon": "bx bxl-google-cloud",
-        "level": "Intermediate"
+        "level": "Advanced"
       }
     ],
     "Frameworks": [
       {
         "name": "Django",
         "icon": "fas fa-code",
+        "level": "Intermediate"
+      },
+      {
+        "name": "FastAPI",
+        "icon": "fas fa-bolt",
+        "level": "Intermediate"
+      },
+      {
+        "name": "Flask",
+        "icon": "fas fa-flask",
         "level": "Intermediate"
       },
       {
@@ -126,7 +136,7 @@
       {
         "name": "Machine Learning",
         "icon": "fas fa-brain",
-        "level": "Intermediate"
+        "level": "Advanced"
       },
       {
         "name": "Generative AI",
