@@ -1,0 +1,40 @@
+{
+    "hobbies": [
+        {
+            "name": "Photography",
+            "icon": "bx bx-camera",
+            "description": "I love capturing moments and landscapes through my lens."
+        },
+        {
+            "name": "Reading",
+            "icon": "bx bx-book",
+            "description": "I enjoy reading books on technology, science fiction, and self development."
+        },
+        {
+            "name": "Sketching",
+            "icon": "bx bx-pencil",
+            "description": "I enjoy scribbling random thoughts and turning them into sketches."
+        },
+        {
+            "name": "Writing Poem",
+            "icon": "bx bx-book-heart",
+            "description": "Writing poems allows me to express my emotions and creativity.",
+              "link": "https://smaxisowrites.web.app/"
+        },
+        {
+            "name": "Yoga",
+            "icon": "bx bx-body",
+            "description": "Practicing yoga helps me maintain physical and mental balance."
+        },
+        {
+            "name": "Playing Badminton",
+            "icon": "fas fa-table-tennis",
+            "description": "I love playing badminton to stay active and have fun."
+        },
+        {
+            "name": "Playing Mobile Games",
+            "icon": "bx bx-mobile",
+            "description": "In my free time, I play mobile games to relax and unwind."
+        }
+    ]
+}

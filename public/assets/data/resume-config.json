@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "title": "Resume - Sumit Kumar",
+    "description": "Sumit Kumar's Professional Resume - Data Engineer with expertise in Python, SQL, and cloud technologies"
+  },
+  "navigation": {
+    "logo": "Sumit",
+    "logoHref": "../index.html",
+    "menuItems": [
+      { "href": "../index.html#home", "label": "Home" },
+      { "href": "../index.html#about", "label": "About" },
+      { "href": "../index.html#skills", "label": "Skills" },
+      { "href": "../index.html#work", "label": "Work" },
+      { "href": "../index.html#hobbies", "label": "Hobbies" },
+      { "href": "../index.html#contact", "label": "Contact" }
+    ]
+  },
+  "header": {
+    "name": "Sumit Kumar",
+    "title": "Data Engineer | AI/ML Enthusiast | FinTech & Cybersecurity"
+  },
+  "actions": {
+    "buttons": [
+      {
+        "href": "../assets/data/Sumit_resume.pdf",
+        "label": "Download PDF",
+        "class": "btn btn-primary",
+        "icon": "bx bx-download",
+        "download": "Sumit_Kumar_Resume.pdf",
+        "ariaLabel": "Download Sumit Kumar's Resume"
+      },
+      {
+        "href": "../assets/data/Sumit_resume.pdf",
+        "label": "Open in New Tab",
+        "class": "btn btn-outline",
+        "icon": "bx bx-external-link",
+        "target": "_blank",
+        "rel": "noopener",
+        "ariaLabel": "Open Resume in New Tab"
+      },
+      {
+        "href": "../index.html",
+        "label": "Back to Portfolio",
+        "class": "btn btn-secondary",
+        "icon": "bx bx-arrow-back",
+        "ariaLabel": "Back to Portfolio"
+      }
+    ]
+  },
+  "mobileNotice": {
+    "icon": "bx bx-info-circle",
+    "text": "<strong>Mobile Tip:</strong> For the best viewing experience on mobile, tap \"Download PDF\" or \"Open in New Tab\" above."
+  },
+  "pdfViewer": {
+    "src": "../assets/data/Sumit_resume.pdf#toolbar=1&navpanes=1&scrollbar=1&page=1&zoom=page-fit",
+    "title": "Sumit Kumar's Resume",
+    "loading": {
+      "text": "Loading resume..."
+    },
+    "fallback": {
+      "icon": "bx bx-file-blank",
+      "title": "PDF Viewer Not Available",
+      "description": "Your browser doesn't support PDF viewing. Please download the resume or open it in a new tab.",
+      "downloadButton": {
+        "href": "../assets/data/Sumit_resume.pdf",
+        "label": "Download Resume",
+        "class": "btn btn-primary",
+        "icon": "bx bx-download",
+        "download": "Sumit_Kumar_Resume.pdf"
+      }
+    }
+  }
+}

@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  /* Animation Utilities */
+  --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  :root {
+    /* Layout */
+    --header-height: 4rem;
+    --container-max-width: 1200px;
+
+    /* Colors - Material Design 3 Inspired */
+    --primary-50: #e8f5e8;
+    --primary-100: #c8e6c9;
+    --primary-200: #a5d6a7;
+    --primary-300: #81c784;
+    --primary-400: #66bb6a;
+    --primary-500: #4caf50;
+    --primary-600: #43a047;
+    --primary-700: #388e3c;
+    --primary-800: #2e7d32;
+    --primary-900: #1b5e20;
+
+    --surface-0: #ffffff;
+    --surface-1: #f8f9fa;
+    --surface-2: #f1f3f4;
+    --surface-3: #e8eaed;
+    --surface-4: #dadce0;
+    --surface-5: #bdc1c6;
+
+    --on-surface: #1a1a1a;
+    --on-surface-variant: #5f6368;
+    --on-surface-secondary: #80868b;
+
+    --outline: #dadce0;
+    --outline-variant: #e8eaed;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-700) 100%);
+    --gradient-surface: linear-gradient(135deg, var(--surface-0) 0%, var(--surface-1) 100%);
+
+    /* Shadows */
+    --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --shadow-2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition-normal: 0.25s ease-out;
+  }
+
+  [data-theme="dark"] {
+    --primary-50: #1b5e20;
+    --primary-100: #2e7d32;
+    --primary-200: #388e3c;
+
+    --surface-0: #121212;
+    --surface-1: #1e1e1e;
+    --surface-2: #2d2d2d;
+    --surface-3: #333333;
+    --surface-4: #424242;
+
+    --on-surface: #e0e0e0;
+    --on-surface-variant: #a0a0a0;
+    --on-surface-secondary: #808080;
+
+    --outline: #424242;
+    --outline-variant: #505050;
+
+    --gradient-surface: linear-gradient(135deg, var(--surface-0) 0%, var(--surface-1) 100%);
+    --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  body {
+    background-color: var(--surface-0);
+    color: var(--on-surface);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
