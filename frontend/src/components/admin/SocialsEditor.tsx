@@ -110,13 +110,13 @@ export function SocialsEditor() {
 
                     <div className="grid gap-3 sm:gap-4">
                         {socials.map(social => (
-                            <div key={social.id} className="flex items-center gap-2 sm:gap-4 p-3 sm:p-4 border rounded bg-white shadow-sm">
+                            <div key={social.id} className="flex items-center gap-2 sm:gap-4 p-3 sm:p-4 border rounded bg-white shadow-sm overflow-hidden">
                                 <div className="p-2 bg-slate-100 rounded text-lg sm:text-xl flex-shrink-0">
                                     <i className={social.icon}></i>
                                 </div>
-                                <div className="flex-1 min-w-0">
+                                <div className="flex-1 min-w-0 overflow-hidden">
                                     <p className="font-medium capitalize text-sm sm:text-base">{social.platform}</p>
-                                    <p className="text-xs sm:text-sm text-slate-500 truncate">{social.url}</p>
+                                    <p className="text-xs sm:text-sm text-slate-500 truncate break-all">{social.url}</p>
                                 </div>
                                 <div className="flex gap-1 flex-shrink-0">
                                     <button onClick={() => handleEdit(social)} className="text-blue-500 hover:text-blue-700 p-1.5 sm:p-2">
