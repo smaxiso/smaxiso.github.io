@@ -42,10 +42,10 @@ app.add_middleware(
 )
 
 # Include routers - ORDER MATTERS!
-# Put specific routes (config, skills) BEFORE catch-all routes (projects with /{id})
+# Specific routes must come before catch-all routes
 app.include_router(config.router, prefix="/api/v1", tags=["config"])
-app.include_router(skills.router, prefix="/api/v1", tags=["skills"])
-app.include_router(projects.router, prefix="/api/v1", tags=["projects"])
+app.include_router(skills.router, prefix="/api/v1/skills", tags=["skills"])
+app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
 
 @app.get("/")
 def read_root():
