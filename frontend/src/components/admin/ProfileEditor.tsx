@@ -2,11 +2,14 @@
 import { useState, useEffect } from 'react'
 import { SiteConfig } from '@/context/ProfileContext'
 import { Loader2 } from 'lucide-react'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { storage } from '@/lib/firebase'
 
 export function ProfileEditor() {
     const [config, setConfig] = useState<SiteConfig | null>(null)
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
+    const [uploading, setUploading] = useState(false)
 
     useEffect(() => {
         fetch(process.env.NEXT_PUBLIC_API_URL + '/config')
@@ -41,6 +44,23 @@ export function ProfileEditor() {
         setConfig({ ...config, [e.target.name]: val })
     }
 
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: keyof SiteConfig) => {
+        if (!e.target.files || e.target.files.length === 0 || !config) return
+        const file = e.target.files[0]
+        setUploading(true)
+        try {
+            const storageRef = ref(storage, `profile/${Date.now()}_${file.name}`)
+            const snapshot = await uploadBytes(storageRef, file)
+            const downloadURL = await getDownloadURL(snapshot.ref)
+            setConfig({ ...config, [field]: downloadURL })
+        } catch (err) {
+            console.error(err)
+            alert("Failed to upload image")
+        } finally {
+            setUploading(false)
+        }
+    }
+
     if (loading) return <div>Loading...</div>
     if (!config) return <div>Error loading config</div>
 
@@ -65,6 +85,16 @@ export function ProfileEditor() {
                         <label className="text-sm font-medium">Hero Subtitle</label>
                         <textarea name="subtitle" value={config.subtitle} onChange={handleChange} rows={3} className="w-full p-2 border rounded" />
                     </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Profile Image</label>
+                        <div className="flex gap-2">
+                            <input className="w-full p-2 border rounded" value={config.profile_image} readOnly />
+                            <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 border rounded px-3 py-2">
+                                <i className='bx bx-upload'></i>
+                                <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, 'profile_image')} accept="image/*" />
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="space-y-4">
@@ -85,6 +115,26 @@ export function ProfileEditor() {
                         <div className="space-y-2">
                             <label className="text-sm font-medium">Projects Done</label>
                             <input type="number" name="projects_completed" value={config.projects_completed} onChange={handleChange} className="w-full p-2 border rounded" />
+                        </div>
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">About Image</label>
+                        <div className="flex gap-2">
+                            <input className="w-full p-2 border rounded" value={config.about_image} readOnly />
+                            <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 border rounded px-3 py-2">
+                                <i className='bx bx-upload'></i>
+                                <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, 'about_image')} accept="image/*" />
+                            </label>
+                        </div>
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium">Resume PDF</label>
+                        <div className="flex gap-2">
+                            <input className="w-full p-2 border rounded" value={config.resume_url} readOnly />
+                            <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 border rounded px-3 py-2">
+                                <i className='bx bx-upload'></i>
+                                <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, 'resume_url')} accept=".pdf" />
+                            </label>
                         </div>
                     </div>
                 </div>
