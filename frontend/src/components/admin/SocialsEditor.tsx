@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { SocialLink } from '@/context/ProfileContext'
 import { Trash2, Plus, Edit2 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
+import { IconPicker } from './IconPicker'
+import { SOCIAL_PLATFORM_PRESETS, detectPlatformFromUrl } from '@/lib/iconLibrary'
 
 export function SocialsEditor() {
     const { user } = useAuth()
@@ -10,6 +12,7 @@ export function SocialsEditor() {
     const [loading, setLoading] = useState(true)
     const [editing, setEditing] = useState<SocialLink | null>(null)
     const [original, setOriginal] = useState<SocialLink | null>(null)
+    const [showIconPicker, setShowIconPicker] = useState(false)
 
     const hasChanges = editing && original && JSON.stringify(editing) !== JSON.stringify(original)
 
@@ -47,6 +50,36 @@ export function SocialsEditor() {
     const handleEdit = (social: SocialLink) => {
         setEditing({ ...social })
         setOriginal({ ...social })
+    }
+
+    const handlePlatformChange = (platform: string) => {
+        const preset = SOCIAL_PLATFORM_PRESETS.find(p => p.platform === platform);
+        if (preset && editing) {
+            setEditing({
+                ...editing,
+                platform: preset.platform,
+                icon: preset.icon,
+            });
+        } else if (editing) {
+            setEditing({ ...editing, platform });
+        }
+    }
+
+    const handleUrlChange = (url: string) => {
+        if (!editing) return;
+
+        // Auto-detect platform from URL
+        const detected = detectPlatformFromUrl(url);
+        if (detected && (!editing.platform || editing.platform === '')) {
+            setEditing({
+                ...editing,
+                url,
+                platform: detected.platform,
+                icon: detected.icon,
+            });
+        } else {
+            setEditing({ ...editing, url });
+        }
     }
 
     const handleSave = async () => {
@@ -89,30 +122,45 @@ export function SocialsEditor() {
                     <div className="space-y-3">
                         <div>
                             <label className="block text-sm font-medium mb-1">Platform</label>
-                            <input
+                            <select
                                 value={editing.platform}
-                                onChange={e => setEditing({ ...editing, platform: e.target.value })}
+                                onChange={e => handlePlatformChange(e.target.value)}
                                 className="w-full p-2 border rounded text-sm"
-                                placeholder="e.g. linkedin, twitter"
-                            />
+                            >
+                                <option value="">Select a platform...</option>
+                                {SOCIAL_PLATFORM_PRESETS.map(preset => (
+                                    <option key={preset.platform} value={preset.platform}>
+                                        {preset.platform}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div>
                             <label className="block text-sm font-medium mb-1">URL</label>
                             <input
                                 value={editing.url}
-                                onChange={e => setEditing({ ...editing, url: e.target.value })}
+                                onChange={e => handleUrlChange(e.target.value)}
                                 className="w-full p-2 border rounded text-sm"
-                                placeholder="https://..."
+                                placeholder={SOCIAL_PLATFORM_PRESETS.find(p => p.platform === editing.platform)?.placeholder || 'https://...'}
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Icon Class</label>
-                            <input
-                                value={editing.icon}
-                                onChange={e => setEditing({ ...editing, icon: e.target.value })}
-                                className="w-full p-2 border rounded text-sm"
-                                placeholder="bx bxl-linkedin"
-                            />
+                            <label className="block text-sm font-medium mb-1">Icon</label>
+                            <div className="flex gap-2">
+                                <div className="flex-1 flex items-center gap-2 border rounded p-2 bg-white">
+                                    <i className={`${editing.icon} text-2xl text-slate-700`}></i>
+                                    <code className="text-xs text-slate-600 truncate">
+                                        {editing.icon}
+                                    </code>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowIconPicker(true)}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 whitespace-nowrap text-sm"
+                                >
+                                    Change Icon
+                                </button>
+                            </div>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-2 pt-2">
                             <button onClick={() => { setEditing(null); setOriginal(null); }} className="w-full sm:w-auto px-4 py-2 border rounded">Cancel</button>
@@ -159,6 +207,16 @@ export function SocialsEditor() {
                         ))}
                     </div>
                 </>
+            )}
+
+            {showIconPicker && (
+                <IconPicker
+                    value={editing?.icon || ''}
+                    onChange={(icon) => setEditing({ ...editing!, icon })}
+                    onClose={() => setShowIconPicker(false)}
+                    category="social"
+                    title="Choose Social Icon"
+                />
             )}
         </div>
     )

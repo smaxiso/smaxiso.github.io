@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import { getSkills, createSkill, updateSkill, deleteSkill } from '@/lib/api';
 import { Skill } from '@/types';
 import { Trash2, Plus, Edit2, Search } from 'lucide-react';
+import { IconPicker } from './IconPicker';
 
 export function SkillsEditor() {
     const { user } = useAuth();
@@ -13,6 +14,7 @@ export function SkillsEditor() {
     const [editingSkill, setEditingSkill] = useState<Partial<Skill> | null>(null);
     const [originalSkill, setOriginalSkill] = useState<Partial<Skill> | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [showIconPicker, setShowIconPicker] = useState(false);
 
     const hasChanges = editingSkill && originalSkill && JSON.stringify(editingSkill) !== JSON.stringify(originalSkill);
 
@@ -103,27 +105,34 @@ export function SkillsEditor() {
                                 </datalist>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                            <div>
-                                <label className="block text-xs sm:text-sm font-medium mb-1">Icon Class (Boxicons/Devicon)</label>
-                                <input
-                                    className="w-full border p-2 rounded text-sm"
-                                    value={editingSkill.icon || ''}
-                                    onChange={e => setEditingSkill({ ...editingSkill, icon: e.target.value })}
-                                    placeholder="e.g. bx bxl-react"
-                                />
+                        <div>
+                            <label className="block text-xs sm:text-sm font-medium mb-1">Icon</label>
+                            <div className="flex gap-2">
+                                <div className="flex-1 flex items-center gap-2 border rounded p-2 bg-slate-50">
+                                    <i className={`${editingSkill.icon || 'bx bx-code'} text-2xl text-slate-700`}></i>
+                                    <code className="text-xs text-slate-600 truncate">
+                                        {editingSkill.icon || 'No icon selected'}
+                                    </code>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowIconPicker(true)}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 whitespace-nowrap text-sm"
+                                >
+                                    Choose Icon
+                                </button>
                             </div>
-                            <div>
-                                <label className="block text-xs sm:text-sm font-medium mb-1">Level (0-100)</label>
-                                <input
-                                    type="number"
-                                    className="w-full border p-2 rounded text-sm"
-                                    value={editingSkill.level || "0"}
-                                    onChange={e => setEditingSkill({ ...editingSkill, level: e.target.value })}
-                                    min="0"
-                                    max="100"
-                                />
-                            </div>
+                        </div>
+                        <div>
+                            <label className="block text-xs sm:text-sm font-medium mb-1">Level (0-100)</label>
+                            <input
+                                type="number"
+                                className="w-full border p-2 rounded text-sm"
+                                value={editingSkill.level || "0"}
+                                onChange={e => setEditingSkill({ ...editingSkill, level: e.target.value })}
+                                min="0"
+                                max="100"
+                            />
                         </div>
                         <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 mt-4">
                             <button type="button" onClick={() => { setEditingSkill(null); setOriginalSkill(null); }} className="w-full sm:w-auto px-4 py-2 text-slate-600 hover:text-slate-800 border border-slate-300 rounded">Cancel</button>
@@ -189,6 +198,16 @@ export function SkillsEditor() {
                         </div>
                     )}
                 </>
+            )}
+
+            {showIconPicker && (
+                <IconPicker
+                    value={editingSkill?.icon || ''}
+                    onChange={(icon) => setEditingSkill({ ...editingSkill, icon })}
+                    onClose={() => setShowIconPicker(false)}
+                    category="tech"
+                    title="Choose Skill Icon"
+                />
             )}
         </div>
     );
