@@ -43,11 +43,24 @@ export function ProfileEditor() {
             })
             if (!res.ok) {
                 const errorData = await res.json().catch(() => ({}));
-                throw new Error(errorData.detail || "Failed to update");
+                // Handle FastAPI validation errors (422)
+                if (errorData.detail) {
+                    if (Array.isArray(errorData.detail)) {
+                        // FastAPI validation errors
+                        const messages = errorData.detail.map((err: any) =>
+                            `${err.loc.join('.')}: ${err.msg}`
+                        ).join(', ');
+                        throw new Error(messages);
+                    } else if (typeof errorData.detail === 'string') {
+                        throw new Error(errorData.detail);
+                    }
+                }
+                throw new Error("Failed to update profile");
             }
             setOriginalConfig(config)
             showToast("Profile updated successfully!", "success")
         } catch (err: any) {
+            console.error('Profile update error:', err);
             showToast(err.message || "Error updating profile", "error")
         } finally {
             setSaving(false)
