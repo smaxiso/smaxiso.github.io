@@ -180,14 +180,14 @@ export function ProjectsEditor() {
                     </div>
                     <div className="grid gap-3 sm:gap-4">
                         {projects.map(project => (
-                            <div key={project.id} className="bg-white p-3 sm:p-4 rounded-lg shadow-sm border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                                <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                            <div key={project.id} className="bg-white p-3 sm:p-4 rounded-lg shadow-sm border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 overflow-hidden">
+                                <div className="flex items-center gap-3 sm:gap-4 min-w-0 overflow-hidden">
                                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-100 rounded overflow-hidden relative flex-shrink-0">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img src={project.image?.startsWith('http') ? project.image : `/${project.image}`} alt="" className="w-full h-full object-cover" />
                                     </div>
-                                    <div className="min-w-0">
-                                        <h3 className="font-bold text-sm sm:text-base truncate">{project.title}</h3>
+                                    <div className="min-w-0 overflow-hidden">
+                                        <h3 className="font-bold text-sm sm:text-base truncate break-all">{project.title}</h3>
                                         <p className="text-xs sm:text-sm text-slate-500 truncate">{project.category}</p>
                                     </div>
                                 </div>
