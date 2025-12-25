@@ -76,30 +76,30 @@ export function ProjectsEditor() {
         }
     };
 
-    if (loading) return <div>Loading projects...</div>;
+    if (loading) return <div className="p-4 text-center">Loading projects...</div>;
 
     return (
-        <div className="space-y-6">
-            {error && <div className="bg-red-100 text-red-700 p-4 rounded mb-6">{error}</div>}
+        <div className="space-y-4 sm:space-y-6">
+            {error && <div className="bg-red-100 text-red-700 p-3 sm:p-4 rounded text-sm">{error}</div>}
 
             {editingProject ? (
-                <div className="bg-white p-6 rounded-xl shadow-lg border">
-                    <h2 className="text-xl font-bold mb-4">{editingProject.id ? 'Edit Project' : 'New Project'}</h2>
-                    <form onSubmit={handleSave} className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium mb-1">ID</label>
+                <div className="bg-white p-3 sm:p-6 rounded-xl shadow-lg border">
+                    <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">{editingProject.id ? 'Edit Project' : 'New Project'}</h2>
+                    <form onSubmit={handleSave} className="space-y-3 sm:space-y-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <div className="col-span-1 sm:col-span-1">
+                                <label className="block text-xs sm:text-sm font-medium mb-1">ID</label>
                                 <input
-                                    className="w-full border p-2 rounded"
+                                    className="w-full border p-2 rounded text-sm"
                                     value={editingProject.id || ''}
                                     onChange={e => setEditingProject({ ...editingProject, id: e.target.value })}
                                     disabled={!!(editingProject.id && projects.some(p => p.id === editingProject.id))}
                                 />
                             </div>
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Title</label>
+                            <div className="col-span-1 sm:col-span-1">
+                                <label className="block text-xs sm:text-sm font-medium mb-1">Title</label>
                                 <input
-                                    className="w-full border p-2 rounded"
+                                    className="w-full border p-2 rounded text-sm"
                                     value={editingProject.title || ''}
                                     onChange={e => setEditingProject({ ...editingProject, title: e.target.value })}
                                     required
@@ -107,30 +107,30 @@ export function ProjectsEditor() {
                             </div>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Description</label>
+                            <label className="block text-xs sm:text-sm font-medium mb-1">Description</label>
                             <textarea
-                                className="w-full border p-2 rounded"
+                                className="w-full border p-2 rounded text-sm"
                                 rows={4}
                                 value={editingProject.description || ''}
                                 onChange={e => setEditingProject({ ...editingProject, description: e.target.value })}
                                 required
                             />
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             <div>
-                                <label className="block text-sm font-medium mb-1">Category</label>
+                                <label className="block text-xs sm:text-sm font-medium mb-1">Category</label>
                                 <input
-                                    className="w-full border p-2 rounded"
+                                    className="w-full border p-2 rounded text-sm"
                                     value={editingProject.category || ''}
                                     onChange={e => setEditingProject({ ...editingProject, category: e.target.value })}
                                     required
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-1">Image URL</label>
-                                <div className="flex gap-2">
+                                <label className="block text-xs sm:text-sm font-medium mb-1">Image URL</label>
+                                <div className="flex gap-1 sm:gap-2">
                                     <input
-                                        className="w-full border p-2 rounded"
+                                        className="w-full border p-2 rounded text-sm"
                                         value={editingProject.image || ''}
                                         onChange={e => setEditingProject({ ...editingProject, image: e.target.value })}
                                         placeholder="https://..."
@@ -144,58 +144,58 @@ export function ProjectsEditor() {
                             </div>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Technologies</label>
+                            <label className="block text-xs sm:text-sm font-medium mb-1">Technologies (comma separated)</label>
                             <input
-                                className="w-full border p-2 rounded"
+                                className="w-full border p-2 rounded text-sm"
                                 value={editingProject.technologies?.join(', ') || ''}
                                 onChange={e => setEditingProject({ ...editingProject, technologies: e.target.value.split(',').map(s => s.trim()) })}
                             />
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             <div>
-                                <label className="block text-sm font-medium mb-1">Live URL</label>
-                                <input className="w-full border p-2 rounded" value={editingProject.website || ''} onChange={e => setEditingProject({ ...editingProject, website: e.target.value })} />
+                                <label className="block text-xs sm:text-sm font-medium mb-1">Live URL</label>
+                                <input className="w-full border p-2 rounded text-sm" value={editingProject.website || ''} onChange={e => setEditingProject({ ...editingProject, website: e.target.value })} />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-1">GitHub URL</label>
-                                <input className="w-full border p-2 rounded" value={editingProject.repository || ''} onChange={e => setEditingProject({ ...editingProject, repository: e.target.value })} />
+                                <label className="block text-xs sm:text-sm font-medium mb-1">GitHub URL</label>
+                                <input className="w-full border p-2 rounded text-sm" value={editingProject.repository || ''} onChange={e => setEditingProject({ ...editingProject, repository: e.target.value })} />
                             </div>
                         </div>
-                        <div className="flex justify-end gap-3 mt-4">
-                            <button type="button" onClick={() => setEditingProject(null)} className="px-4 py-2 text-slate-600 hover:text-slate-800">Cancel</button>
-                            <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save Project</button>
+                        <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 mt-4">
+                            <button type="button" onClick={() => setEditingProject(null)} className="w-full sm:w-auto px-4 py-2 text-slate-600 hover:text-slate-800 border border-slate-300 rounded">Cancel</button>
+                            <button type="submit" className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save Project</button>
                         </div>
                     </form>
                 </div>
             ) : (
                 <>
-                    <div className="flex justify-between items-center">
-                        <h2 className="text-xl font-semibold">All Projects</h2>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+                        <h2 className="text-lg sm:text-xl font-semibold">All Projects</h2>
                         <button
                             onClick={() => setEditingProject({ technologies: [] })}
-                            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 flex items-center gap-2"
+                            className="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 flex items-center justify-center gap-2 text-sm"
                         >
                             <i className='bx bx-plus'></i> Add Project
                         </button>
                     </div>
-                    <div className="grid gap-4">
+                    <div className="grid gap-3 sm:gap-4">
                         {projects.map(project => (
-                            <div key={project.id} className="bg-white p-4 rounded-lg shadow-sm border flex items-center justify-between">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-slate-100 rounded overflow-hidden relative">
+                            <div key={project.id} className="bg-white p-3 sm:p-4 rounded-lg shadow-sm border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-100 rounded overflow-hidden relative flex-shrink-0">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img src={project.image?.startsWith('http') ? project.image : `/${project.image}`} alt="" className="w-full h-full object-cover" />
                                     </div>
-                                    <div>
-                                        <h3 className="font-bold">{project.title}</h3>
-                                        <p className="text-sm text-slate-500">{project.category}</p>
+                                    <div className="min-w-0">
+                                        <h3 className="font-bold text-sm sm:text-base truncate">{project.title}</h3>
+                                        <p className="text-xs sm:text-sm text-slate-500 truncate">{project.category}</p>
                                     </div>
                                 </div>
-                                <div className="flex gap-2">
-                                    <button onClick={() => setEditingProject(project)} className="p-2 text-blue-600 hover:bg-blue-50 rounded">
+                                <div className="flex gap-1 sm:gap-2 flex-shrink-0">
+                                    <button onClick={() => setEditingProject(project)} className="p-1.5 sm:p-2 text-blue-600 hover:bg-blue-50 rounded">
                                         <i className='bx bx-edit text-xl'></i>
                                     </button>
-                                    <button onClick={() => handleDelete(project.id)} className="p-2 text-red-600 hover:bg-red-50 rounded">
+                                    <button onClick={() => handleDelete(project.id)} className="p-1.5 sm:p-2 text-red-600 hover:bg-red-50 rounded">
                                         <i className='bx bx-trash text-xl'></i>
                                     </button>
                                 </div>

@@ -22,46 +22,52 @@ export default function AdminPage() {
     if (!user) return null;
 
     return (
-        <div className="container mx-auto py-10 px-4">
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-                <div className="flex gap-4 items-center">
-                    <span className="text-sm text-slate-500">Welcome, {user.email}</span>
-                    <button onClick={() => logout()} className="text-red-500 hover:text-red-700 font-medium">Logout</button>
+        <div className="min-h-screen bg-slate-50">
+            <div className="sticky top-0 bg-white border-b border-slate-200 z-10">
+                <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Admin</h1>
+                        <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm">
+                            <span className="text-slate-500 truncate max-w-[150px] sm:max-w-none">{user.email}</span>
+                            <button onClick={() => logout()} className="text-red-500 hover:text-red-700 font-medium whitespace-nowrap">Logout</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <Tabs defaultValue="projects" className="space-y-6">
-                <TabsList className="bg-slate-100 p-1 rounded-lg">
-                    <TabsTrigger value="projects" className="px-4 py-2 rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm">Projects</TabsTrigger>
-                    <TabsTrigger value="profile" className="px-4 py-2 rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm">Profile</TabsTrigger>
-                    <TabsTrigger value="socials" className="px-4 py-2 rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm">Social Links</TabsTrigger>
-                    <TabsTrigger value="resumes" className="px-4 py-2 rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm">Resumes</TabsTrigger>
-                </TabsList>
+            <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
+                <Tabs defaultValue="projects" className="space-y-4">
+                    <TabsList className="bg-slate-100 p-1 rounded-lg w-full overflow-x-auto flex justify-start">
+                        <TabsTrigger value="projects" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Projects</TabsTrigger>
+                        <TabsTrigger value="profile" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Profile</TabsTrigger>
+                        <TabsTrigger value="socials" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Socials</TabsTrigger>
+                        <TabsTrigger value="resumes" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Resumes</TabsTrigger>
+                    </TabsList>
 
-                <TabsContent value="projects">
-                    <ProjectsEditor />
-                </TabsContent>
+                    <TabsContent value="projects">
+                        <ProjectsEditor />
+                    </TabsContent>
 
-                <TabsContent value="profile">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border">
-                        <h2 className="text-xl font-bold mb-6">Edit Profile Info</h2>
-                        <ProfileEditor />
-                    </div>
-                </TabsContent>
+                    <TabsContent value="profile">
+                        <div className="bg-white p-6 rounded-xl shadow-sm border">
+                            <h2 className="text-xl font-bold mb-6">Edit Profile Info</h2>
+                            <ProfileEditor />
+                        </div>
+                    </TabsContent>
 
-                <TabsContent value="socials">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border">
-                        <SocialsEditor />
-                    </div>
-                </TabsContent>
+                    <TabsContent value="socials">
+                        <div className="bg-white p-6 rounded-xl shadow-sm border">
+                            <SocialsEditor />
+                        </div>
+                    </TabsContent>
 
-                <TabsContent value="resumes">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border">
-                        <ResumeEditor />
-                    </div>
-                </TabsContent>
-            </Tabs>
+                    <TabsContent value="resumes">
+                        <div className="bg-white p-6 rounded-xl shadow-sm border">
+                            <ResumeEditor />
+                        </div>
+                    </TabsContent>
+                </Tabs>
+            </div>
         </div>
     );
 }
