@@ -87,12 +87,23 @@ export function ProfileEditor() {
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Profile Image</label>
-                        <div className="flex gap-2">
-                            <input className="w-full p-2 border rounded" value={config.profile_image} readOnly />
-                            <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 border rounded px-3 py-2">
-                                <i className='bx bx-upload'></i>
-                                <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, 'profile_image')} accept="image/*" />
-                            </label>
+                        <div className="flex flex-col gap-2">
+                            {config.profile_image && (
+                                <div className="w-24 h-24 rounded-lg overflow-hidden border bg-slate-100">
+                                    <img
+                                        src={config.profile_image.startsWith('http') ? config.profile_image : `/${config.profile_image}`}
+                                        alt="Profile Preview"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                            )}
+                            <div className="flex gap-2">
+                                <input className="w-full p-2 border rounded text-xs sm:text-sm" value={config.profile_image} readOnly />
+                                <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 border rounded px-3 py-2 flex items-center shrink-0">
+                                    <i className='bx bx-upload'></i>
+                                    <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, 'profile_image')} accept="image/*" />
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -115,12 +126,23 @@ export function ProfileEditor() {
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium">About Image</label>
-                        <div className="flex gap-2">
-                            <input className="w-full p-2 border rounded" value={config.about_image} readOnly />
-                            <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 border rounded px-3 py-2">
-                                <i className='bx bx-upload'></i>
-                                <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, 'about_image')} accept="image/*" />
-                            </label>
+                        <div className="flex flex-col gap-2">
+                            {config.about_image && (
+                                <div className="w-full aspect-video rounded-lg overflow-hidden border bg-slate-100 max-h-40">
+                                    <img
+                                        src={config.about_image.startsWith('http') ? config.about_image : `/${config.about_image}`}
+                                        alt="About Preview"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                            )}
+                            <div className="flex gap-2">
+                                <input className="w-full p-2 border rounded text-xs sm:text-sm" value={config.about_image} readOnly />
+                                <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 border rounded px-3 py-2 flex items-center shrink-0">
+                                    <i className='bx bx-upload'></i>
+                                    <input type="file" className="hidden" onChange={(e) => handleImageUpload(e, 'about_image')} accept="image/*" />
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div className="space-y-2">
