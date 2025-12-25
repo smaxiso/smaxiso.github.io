@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from app.database import get_db
 from app.models import schemas, pydantic_models
+from app.auth import verify_token
 
 router = APIRouter()
 
@@ -12,7 +13,7 @@ def read_projects(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
     return projects
 
 @router.post("/", response_model=pydantic_models.Project, status_code=status.HTTP_201_CREATED)
-def create_project(project: pydantic_models.ProjectCreate, db: Session = Depends(get_db)):
+def create_project(project: pydantic_models.ProjectCreate, db: Session = Depends(get_db), user=Depends(verify_token)):
     db_project = schemas.Project(**project.model_dump())
     db.add(db_project)
     db.commit()
@@ -20,7 +21,7 @@ def create_project(project: pydantic_models.ProjectCreate, db: Session = Depends
     return db_project
 
 @router.put("/{project_id}", response_model=pydantic_models.Project)
-def update_project(project_id: str, project: pydantic_models.ProjectCreate, db: Session = Depends(get_db)):
+def update_project(project_id: str, project: pydantic_models.ProjectCreate, db: Session = Depends(get_db), user=Depends(verify_token)):
     db_project = db.query(schemas.Project).filter(schemas.Project.id == project_id).first()
     if not db_project:
         raise HTTPException(status_code=404, detail="Project not found")
@@ -34,7 +35,7 @@ def update_project(project_id: str, project: pydantic_models.ProjectCreate, db: 
     return db_project
 
 @router.delete("/{project_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_project(project_id: str, db: Session = Depends(get_db)):
+def delete_project(project_id: str, db: Session = Depends(get_db), user=Depends(verify_token)):
     db_project = db.query(schemas.Project).filter(schemas.Project.id == project_id).first()
     if not db_project:
         raise HTTPException(status_code=404, detail="Project not found")

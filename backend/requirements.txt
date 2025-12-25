@@ -4,3 +4,4 @@ sqlalchemy
 psycopg2-binary
 python-dotenv
 pydantic
+firebase-admin

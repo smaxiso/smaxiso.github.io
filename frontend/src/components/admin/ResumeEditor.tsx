@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { storage } from '@/lib/firebase'
 import { Trash2, Upload, CheckCircle2, Circle } from 'lucide-react'
+import { useAuth } from '@/context/AuthContext'
 
 interface ResumeFile {
     id: number
@@ -13,6 +14,7 @@ interface ResumeFile {
 }
 
 export function ResumeEditor() {
+    const { user } = useAuth()
     const [resumes, setResumes] = useState<ResumeFile[]>([])
     const [loading, setLoading] = useState(true)
     const [uploading, setUploading] = useState(false)
@@ -50,9 +52,13 @@ export function ResumeEditor() {
             const snapshot = await uploadBytes(storageRef, file)
             const downloadURL = await getDownloadURL(snapshot.ref)
 
+            const token = await user?.getIdToken()
             await fetch(process.env.NEXT_PUBLIC_API_URL + '/resumes', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
                 body: JSON.stringify({ name, url: downloadURL, is_active: false })
             })
 
@@ -66,9 +72,13 @@ export function ResumeEditor() {
 
     const handleSetActive = async (resume: ResumeFile) => {
         try {
+            const token = await user?.getIdToken()
             await fetch(`${process.env.NEXT_PUBLIC_API_URL}/resumes/${resume.id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
                 body: JSON.stringify({ ...resume, is_active: true })
             })
             fetchResumes()
@@ -81,8 +91,12 @@ export function ResumeEditor() {
     const handleDelete = async (id: number) => {
         if (!confirm('Delete this resume?')) return
         try {
+            const token = await user?.getIdToken()
             await fetch(`${process.env.NEXT_PUBLIC_API_URL}/resumes/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
             fetchResumes()
         } catch (err) {

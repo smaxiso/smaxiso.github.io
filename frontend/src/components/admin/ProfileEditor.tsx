@@ -2,10 +2,12 @@
 import { useState, useEffect } from 'react'
 import { SiteConfig } from '@/context/ProfileContext'
 import { Loader2 } from 'lucide-react'
+import { useAuth } from '@/context/AuthContext'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { storage } from '@/lib/firebase'
 
 export function ProfileEditor() {
+    const { user } = useAuth()
     const [config, setConfig] = useState<SiteConfig | null>(null)
     const [originalConfig, setOriginalConfig] = useState<SiteConfig | null>(null)
     const [loading, setLoading] = useState(true)
@@ -28,9 +30,13 @@ export function ProfileEditor() {
         e.preventDefault()
         setSaving(true)
         try {
+            const token = await user?.getIdToken()
             const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/config', {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
                 body: JSON.stringify(config)
             })
             if (!res.ok) throw new Error("Failed to update")

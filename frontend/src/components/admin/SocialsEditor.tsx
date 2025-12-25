@@ -2,8 +2,10 @@
 import { useState, useEffect } from 'react'
 import { SocialLink } from '@/context/ProfileContext'
 import { Trash2, Plus, Edit2 } from 'lucide-react'
+import { useAuth } from '@/context/AuthContext'
 
 export function SocialsEditor() {
+    const { user } = useAuth()
     const [socials, setSocials] = useState<SocialLink[]>([])
     const [loading, setLoading] = useState(true)
     const [editing, setEditing] = useState<SocialLink | null>(null)
@@ -26,7 +28,13 @@ export function SocialsEditor() {
 
     const handleDelete = async (id: number) => {
         if (!confirm("Delete this link?")) return
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/socials/${id}`, { method: 'DELETE' })
+        const token = await user?.getIdToken()
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/socials/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         fetchSocials()
     }
 
@@ -44,18 +52,25 @@ export function SocialsEditor() {
     const handleSave = async () => {
         if (!editing) return
 
+        const token = await user?.getIdToken()
         if (editing.id === 0) {
             // Create new
             await fetch(process.env.NEXT_PUBLIC_API_URL + '/socials', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
                 body: JSON.stringify({ platform: editing.platform, url: editing.url, icon: editing.icon, is_active: editing.is_active })
             })
         } else {
             // Update existing
             await fetch(`${process.env.NEXT_PUBLIC_API_URL}/socials/${editing.id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
                 body: JSON.stringify({ platform: editing.platform, url: editing.url, icon: editing.icon, is_active: editing.is_active })
             })
         }

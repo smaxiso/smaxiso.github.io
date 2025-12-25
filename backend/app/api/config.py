@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import schemas, pydantic_models
 from typing import List
+from app.auth import verify_token
 
 router = APIRouter()
 
@@ -16,7 +17,7 @@ def get_site_config(db: Session = Depends(get_db)):
     return config
 
 @router.put("/config", response_model=pydantic_models.SiteConfig)
-def update_site_config(config: pydantic_models.SiteConfigUpdate, db: Session = Depends(get_db)):
+def update_site_config(config: pydantic_models.SiteConfigUpdate, db: Session = Depends(get_db), user=Depends(verify_token)):
     db_config = db.query(schemas.SiteConfig).filter(schemas.SiteConfig.id == 1).first()
     if not db_config:
         db_config = schemas.SiteConfig(id=1, **config.model_dump())
@@ -35,7 +36,7 @@ def get_socials(db: Session = Depends(get_db)):
     return db.query(schemas.SocialLink).filter(schemas.SocialLink.is_active == 1).all()
 
 @router.post("/socials", response_model=pydantic_models.SocialLink)
-def create_social(social: pydantic_models.SocialLinkCreate, db: Session = Depends(get_db)):
+def create_social(social: pydantic_models.SocialLinkCreate, db: Session = Depends(get_db), user=Depends(verify_token)):
     db_social = schemas.SocialLink(**social.model_dump())
     db.add(db_social)
     db.commit()
@@ -43,7 +44,7 @@ def create_social(social: pydantic_models.SocialLinkCreate, db: Session = Depend
     return db_social
 
 @router.put("/socials/{id}", response_model=pydantic_models.SocialLink)
-def update_social(id: int, social: pydantic_models.SocialLinkCreate, db: Session = Depends(get_db)):
+def update_social(id: int, social: pydantic_models.SocialLinkCreate, db: Session = Depends(get_db), user=Depends(verify_token)):
     db_social = db.query(schemas.SocialLink).filter(schemas.SocialLink.id == id).first()
     if not db_social:
         raise HTTPException(status_code=404, detail="Social link not found")
@@ -56,7 +57,7 @@ def update_social(id: int, social: pydantic_models.SocialLinkCreate, db: Session
     return db_social
 
 @router.delete("/socials/{id}")
-def delete_social(id: int, db: Session = Depends(get_db)):
+def delete_social(id: int, db: Session = Depends(get_db), user=Depends(verify_token)):
     db_social = db.query(schemas.SocialLink).filter(schemas.SocialLink.id == id).first()
     if not db_social:
         raise HTTPException(status_code=404, detail="Social link not found")
@@ -71,7 +72,7 @@ def get_resumes(db: Session = Depends(get_db)):
     return db.query(schemas.ResumeFile).all()
 
 @router.post("/resumes", response_model=pydantic_models.ResumeFile)
-def create_resume(resume: pydantic_models.ResumeCreate, db: Session = Depends(get_db)):
+def create_resume(resume: pydantic_models.ResumeCreate, db: Session = Depends(get_db), user=Depends(verify_token)):
     # Check if we already have 5 resumes
     count = db.query(schemas.ResumeFile).count()
     if count >= 5:
@@ -84,7 +85,7 @@ def create_resume(resume: pydantic_models.ResumeCreate, db: Session = Depends(ge
     return db_resume
 
 @router.put("/resumes/{id}", response_model=pydantic_models.ResumeFile)
-def update_resume(id: int, resume: pydantic_models.ResumeCreate, db: Session = Depends(get_db)):
+def update_resume(id: int, resume: pydantic_models.ResumeCreate, db: Session = Depends(get_db), user=Depends(verify_token)):
     db_resume = db.query(schemas.ResumeFile).filter(schemas.ResumeFile.id == id).first()
     if not db_resume:
         raise HTTPException(status_code=404, detail="Resume not found")
@@ -105,7 +106,7 @@ def update_resume(id: int, resume: pydantic_models.ResumeCreate, db: Session = D
     return db_resume
 
 @router.delete("/resumes/{id}")
-def delete_resume(id: int, db: Session = Depends(get_db)):
+def delete_resume(id: int, db: Session = Depends(get_db), user=Depends(verify_token)):
     db_resume = db.query(schemas.ResumeFile).filter(schemas.ResumeFile.id == id).first()
     if not db_resume:
         raise HTTPException(status_code=404, detail="Resume not found")

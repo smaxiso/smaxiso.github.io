@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from app.database import get_db
 from app.models import schemas, pydantic_models
+from app.auth import verify_token
 
 router = APIRouter()
 
@@ -12,7 +13,7 @@ def read_skills(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return skills
 
 @router.post("/", response_model=pydantic_models.Skill, status_code=status.HTTP_201_CREATED)
-def create_skill(skill: pydantic_models.SkillCreate, db: Session = Depends(get_db)):
+def create_skill(skill: pydantic_models.SkillCreate, db: Session = Depends(get_db), user=Depends(verify_token)):
     db_skill = schemas.Skill(**skill.model_dump())
     db.add(db_skill)
     db.commit()
