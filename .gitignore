@@ -95,3 +95,15 @@ ehthumbs.db
 # =========================
 # Firebase credentials
 smaxiso-firebase-adminsdk-fbsvc-daf200dc88.json
+
+# =========================
+# Python / Backend
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env
+.pytest_cache/
