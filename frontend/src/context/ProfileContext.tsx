@@ -117,7 +117,7 @@ export const useSiteConfig = () => {
                 {
                     label: "Years Experience",
                     number: config.experience_months > 0
-                        ? `${config.years_experience}y ${config.experience_months}m`
+                        ? +(config.years_experience + (config.experience_months / 12)).toFixed(1)
                         : config.years_experience
                 },
                 { label: "Projects Completed", number: config.projects_completed }
