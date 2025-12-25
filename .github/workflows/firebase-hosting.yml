@@ -22,6 +22,8 @@ jobs:
           node-version: '20.x'
 
       - name: Install Dependencies & Build
+        env:
+          NEXT_PUBLIC_API_URL: https://smaxiso-portfolio-backend.onrender.com/api/v1
         run: |
           cd frontend
           npm ci
