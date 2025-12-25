@@ -8,6 +8,8 @@ import { ProfileEditor } from '@/components/admin/ProfileEditor';
 import { SocialsEditor } from '@/components/admin/SocialsEditor';
 import { ResumeEditor } from '@/components/admin/ResumeEditor';
 
+const ALLOWED_EMAILS = ['sumit749284@gmail.com'];
+
 export default function AdminPage() {
     const { user, loading, logout } = useAuth();
     const router = useRouter();
@@ -24,10 +26,16 @@ export default function AdminPage() {
     };
 
     useEffect(() => {
-        if (!loading && !user) {
-            router.push('/admin/login');
+        if (!loading) {
+            if (!user) {
+                router.push('/admin/login');
+            } else if (!ALLOWED_EMAILS.includes(user.email || '')) {
+                logout();
+                alert('Access Denied: You are not an authorized admin.');
+                router.push('/admin/login');
+            }
         }
-    }, [user, loading, router]);
+    }, [user, loading, router, logout]);
 
     if (loading) return <div className="p-10">Loading...</div>;
     if (!user) return null;

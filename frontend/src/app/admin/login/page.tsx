@@ -4,14 +4,20 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
 export default function LoginPage() {
-    const { user, signInWithGoogle, loading } = useAuth();
+    const { user, signInWithGoogle, logout, loading } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
         if (!loading && user) {
-            router.push('/admin');
+            const ALLOWED_EMAILS = ['sumit749284@gmail.com'];
+            if (ALLOWED_EMAILS.includes(user.email || '')) {
+                router.push('/admin');
+            } else {
+                logout();
+                alert('Access Denied: You are not an authorized admin.');
+            }
         }
-    }, [user, loading, router]);
+    }, [user, loading, router, logout]);
 
     if (loading) {
         return <div className="flex min-h-screen items-center justify-center">Loading...</div>;
