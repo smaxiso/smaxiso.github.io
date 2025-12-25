@@ -110,20 +110,24 @@ export function SocialsEditor() {
 
                     <div className="grid gap-3 sm:gap-4">
                         {socials.map(social => (
-                            <div key={social.id} className="flex items-center gap-2 sm:gap-4 p-3 sm:p-4 border rounded bg-white shadow-sm overflow-hidden">
-                                <div className="p-2 bg-slate-100 rounded text-lg sm:text-xl flex-shrink-0">
-                                    <i className={social.icon}></i>
+                            <div key={social.id} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 p-3 sm:p-4 border rounded bg-white shadow-sm overflow-hidden">
+                                <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                                    <div className="p-2 bg-slate-100 rounded text-lg sm:text-xl flex-shrink-0">
+                                        <i className={social.icon}></i>
+                                    </div>
+                                    <div className="flex-1 min-w-0 overflow-hidden">
+                                        <p className="font-medium capitalize text-sm sm:text-base">{social.platform}</p>
+                                        <p className="text-xs sm:text-sm text-slate-500 truncate break-all">{social.url}</p>
+                                    </div>
                                 </div>
-                                <div className="flex-1 min-w-0 overflow-hidden">
-                                    <p className="font-medium capitalize text-sm sm:text-base">{social.platform}</p>
-                                    <p className="text-xs sm:text-sm text-slate-500 truncate break-all">{social.url}</p>
-                                </div>
-                                <div className="flex gap-1 flex-shrink-0">
-                                    <button onClick={() => handleEdit(social)} className="text-blue-500 hover:text-blue-700 p-1.5 sm:p-2">
+                                <div className="flex justify-between sm:justify-end gap-2 flex-shrink-0 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 mt-1 sm:mt-0">
+                                    <button onClick={() => handleEdit(social)} className="flex-1 sm:flex-none flex items-center justify-center gap-1 p-2 text-blue-500 hover:text-blue-700 rounded border sm:border-0 border-blue-100">
                                         <Edit2 size={16} />
+                                        <span className="sm:hidden text-xs font-medium">Edit</span>
                                     </button>
-                                    <button onClick={() => handleDelete(social.id)} className="text-red-500 hover:text-red-700 p-1.5 sm:p-2">
+                                    <button onClick={() => handleDelete(social.id)} className="flex-1 sm:flex-none flex items-center justify-center gap-1 p-2 text-red-500 hover:text-red-700 rounded border sm:border-0 border-red-100">
                                         <Trash2 size={16} />
+                                        <span className="sm:hidden text-xs font-medium">Delete</span>
                                     </button>
                                 </div>
                             </div>

@@ -191,12 +191,14 @@ export function ProjectsEditor() {
                                         <p className="text-xs sm:text-sm text-slate-500 truncate">{project.category}</p>
                                     </div>
                                 </div>
-                                <div className="flex gap-1 sm:gap-2 flex-shrink-0">
-                                    <button onClick={() => setEditingProject(project)} className="p-1.5 sm:p-2 text-blue-600 hover:bg-blue-50 rounded">
+                                <div className="flex justify-between sm:justify-end gap-2 sm:gap-2 flex-shrink-0 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 mt-1 sm:mt-0">
+                                    <button onClick={() => setEditingProject(project)} className="flex-1 sm:flex-none flex items-center justify-center gap-1 p-2 text-blue-600 hover:bg-blue-50 rounded border sm:border-0 border-blue-100">
                                         <i className='bx bx-edit text-xl'></i>
+                                        <span className="sm:hidden text-xs font-medium">Edit</span>
                                     </button>
-                                    <button onClick={() => handleDelete(project.id)} className="p-1.5 sm:p-2 text-red-600 hover:bg-red-50 rounded">
+                                    <button onClick={() => handleDelete(project.id)} className="flex-1 sm:flex-none flex items-center justify-center gap-1 p-2 text-red-600 hover:bg-red-50 rounded border sm:border-0 border-red-100">
                                         <i className='bx bx-trash text-xl'></i>
+                                        <span className="sm:hidden text-xs font-medium">Delete</span>
                                     </button>
                                 </div>
                             </div>
