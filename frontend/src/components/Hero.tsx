@@ -60,7 +60,7 @@ export function Hero() {
                             src={siteConfig.home.profileImage}
                             alt={siteConfig.home.name}
                             fill
-                            className="object-cover"
+                            className="object-cover object-top"
                             priority
                         />
                     </div>
