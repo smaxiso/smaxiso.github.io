@@ -1,8 +1,9 @@
 'use client'
 import { motion } from "framer-motion"
-import { siteConfig } from "@/config/site"
+import { useSiteConfig } from "@/context/ProfileContext"
 
 export function ContactSection() {
+    const siteConfig = useSiteConfig();
     return (
         <section id="contact" className="py-20 bg-slate-50">
             <div className="container px-4 md:px-6">

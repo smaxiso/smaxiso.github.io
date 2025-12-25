@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine
 from app.models import schemas
-from app.api import projects, skills
+from app.api import projects, skills, config
 
 # Create tables
 schemas.Base.metadata.create_all(bind=engine)
@@ -20,6 +20,7 @@ app.add_middleware(
 
 app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
 app.include_router(skills.router, prefix="/api/v1/skills", tags=["skills"])
+app.include_router(config.router, prefix="/api/v1", tags=["config"])
 
 @app.get("/")
 def read_root():

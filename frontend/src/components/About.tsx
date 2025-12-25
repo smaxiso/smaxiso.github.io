@@ -1,9 +1,10 @@
 'use client'
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { siteConfig } from "@/config/site"
+import { useSiteConfig } from "@/context/ProfileContext"
 
 export function About() {
+    const siteConfig = useSiteConfig();
     return (
         <section id="about" className="py-20 bg-white">
             <div className="container px-4 md:px-6">

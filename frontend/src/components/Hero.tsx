@@ -1,10 +1,12 @@
 'use client'
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { siteConfig } from "@/config/site"
+import { useSiteConfig } from "@/context/ProfileContext"
 import { cn } from "@/lib/utils"
 
 export function Hero() {
+    const siteConfig = useSiteConfig();
+
     return (
         <section className="min-h-screen flex items-center justify-center pt-16 bg-gradient-to-br from-background to-secondary/10 overflow-hidden relative">
             <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)] opacity-20"></div>

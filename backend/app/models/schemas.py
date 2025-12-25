@@ -35,3 +35,45 @@ class Hobby(Base):
     icon = Column(String)
     description = Column(String)
     link = Column(String, nullable=True)
+
+class SocialLink(Base):
+    __tablename__ = "social_links"
+
+    id = Column(Integer, primary_key=True, index=True)
+    platform = Column(String, unique=True, index=True) # e.g. "linkedin"
+    url = Column(String)
+    icon = Column(String) # e.g. "bx bxl-linkedin"
+    is_active = Column(Integer, default=1) # using Integer 0/1 for SQLite/Postgres compatibility
+
+class SiteConfig(Base):
+    __tablename__ = "site_config"
+    
+    id = Column(Integer, primary_key=True) # Singleton: always 1
+    
+    # Meta / SEO
+    site_title = Column(String)
+    site_description = Column(Text)
+    site_author = Column(String)
+    site_url = Column(String)
+    
+    # Home / Hero
+    greeting = Column(String)
+    name = Column(String)
+    title = Column(String)
+    subtitle = Column(Text)
+    profile_image = Column(String)
+    
+    # About
+    about_title = Column(String)
+    about_description = Column(Text)
+    about_image = Column(String)
+    resume_url = Column(String)
+    years_experience = Column(Integer)
+    projects_completed = Column(Integer)
+    
+    # Contact
+    contact_email = Column(String)
+    
+    # Footer
+    footer_text = Column(String)
+
