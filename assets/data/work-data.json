@@ -1,0 +1,285 @@
+[
+    {
+        "category": "Work Experience",
+        "position": "Data Engineer",
+        "company": "Gen Digital (formerly NortonLifeLock)",
+        "location": "Chennai, India",
+        "projects": [
+            {
+                "id": "modalgen1",
+                "title": "Real-time Transaction Normalization & Scalable Data Lake Design",
+                "startDate": "Dec 2024",
+                "endDate": "Present",
+                "description": "Contributed to a real-time transaction normalization pipeline leveraging Kafka (AWS MSK), ECS, and Java (Spring Boot), enabling high-throughput data processing for fraud detection and financial alerts. Enhanced the normalization service to support unified model payload changes for vendor compatibility. Co-designed a scalable Data Lake using S3 Hudi and optimized ETL pipelines to extract and transform data from DocumentDB, storing it in Parquet format with Snappy compression for efficient Athena querying. Built a Java-based test automation service integrated with TeamCity and TestFLO.",
+                "technologies": [
+                    "Python",
+                    "Java",
+                    "Kafka (AWS MSK)",
+                    "ECS",
+                    "EMR",
+                    "TeamCity",
+                    "Artifactory",
+                    "Airflow",
+                    "AWS",
+                    "DocumentDB",
+                    "Athena",
+                    "DynamoDB",
+                    "S3 Hudi"
+                ],
+                "image": "assets/img/work/gen_digital_transaction_pipeline.png"
+            }
+        ]
+    },
+    {
+        "category": "Work Experience",
+        "position": "Data Engineer",
+        "company": "Tata Consultancy Services",
+        "location": "Bangalore, India",
+        "projects": [
+            {
+                "id": "modaltcs1",
+                "title": "Data Migration Framework",
+                "startDate": "Mar 2023",
+                "endDate": "Present",
+                "description": "Developed a scalable Data Migration Framework for a leading global online payments company using Python, AWS, GCS, and BigQuery. Reduced data migration time by 20%, and improved scalability by 30%, ensuring smoother, more efficient data transfer processes across cloud platforms.",
+                "technologies": [
+                    "Python",
+                    "AWS",
+                    "GCS",
+                    "BigQuery"
+                ],
+                "image": "assets/img/work/data_migration_framework.png"
+            },
+            {
+                "id": "modaltcs2",
+                "title": "Lynx Framework Optimization",
+                "startDate": "Jan 2024",
+                "endDate": "May 2024",
+                "description": "Implemented key optimizations to the Lynx Framework, enhancing data linkage accuracy and operational efficiency by 35%. Optimized the Locality-Sensitive Hashing (LSH) algorithm, leading to a 40% reduction in nearest neighbor search time. Streamlined feature aggregation pipelines, reducing processing latency by 25%.",
+                "technologies": [
+                    "PySpark",
+                    "Scala",
+                    "BigQuery",
+                    "GCP (Dataproc, GCS)",
+                    "LSH"
+                ],
+                "image": "assets/img/work/lynx_framework_optimization.png"
+            },
+            {
+                "id": "modaltcs3",
+                "title": "Reporting Framework",
+                "startDate": "Aug 2021",
+                "endDate": "Jan 2023",
+                "description": "Developed on-demand merchant reporting solutions, improving data accuracy by 15% and reducing report generation time by 25%. Contributed to the Argo Framework for dynamic and efficient report generation at scale.",
+                "technologies": [
+                    "Python",
+                    "SQL",
+                    "Apache Spark",
+                    "GCP"
+                ],
+                "image": "assets/img/work/reporting_framework.png"
+            }
+        ]
+    },
+    {
+        "category": "Internship",
+        "position": "Data Scientist Research Intern",
+        "company": "NIT Patna",
+        "location": "Patna, India",
+        "projects": [
+            {
+                "id": "modalintern1",
+                "title": "Fuzzy Control System for Forest Fire Detection",
+                "startDate": "May 2020",
+                "endDate": "July 2020",
+                "description": "Developed a real-time forest fire detection system utilizing Python-based machine learning algorithms and fuzzy logic. Achieved 90% accuracy in predicting the likelihood and severity of forest fires, showcasing the ability to apply data science solutions to critical environmental challenges.",
+                "technologies": [
+                    "Python",
+                    "Machine Learning",
+                    "Fuzzy Logic"
+                ],
+                "image": "assets/img/work/fuzzy_control_system_for_forest_fire_detection.png"
+            }
+        ]
+    },
+    {
+        "category": "College Projects",
+        "projects": [
+            {
+                "id": "modalcp1",
+                "title": "Joint Image Compression & Encryption",
+                "description": "Created an algorithm for joint image compression and encryption using lossless JPEG2000 and RC4 encryption. Achieved a compression ratio of 5.2, 99.69% NPCR, and 47.63% UACI in processed images.",
+                "technologies": [
+                    "Python",
+                    "Digital Image Processing",
+                    "JPEG2000",
+                    "RC4",
+                    "PIL Library"
+                ],
+                "image": "assets/img/work/joint_image_compression_and_encryption.jpg"
+            },
+            {
+                "id": "modalcp2",
+                "title": "Digital Image Compression",
+                "description": "Designed an algorithm for digital image compression using K-means clustering and PCA. Achieved a compression ratio of 2.8 with 55-70% compression and a PSNR of 30 and above. Collaborated with a team of 4 members.",
+                "technologies": [
+                    "Python",
+                    "Machine Learning",
+                    "Digital Image Processing",
+                    "K-means",
+                    "PCA",
+                    "PIL Library"
+                ],
+                "image": "assets/img/work/digital_image_compression.png"
+            },
+            {
+                "id": "modalcp3",
+                "title": "Image Classification using CNNs",
+                "description": "Led a team of 4 in developing a machine learning-based CNN model for image classification, utilizing the CIFAR10 dataset. Achieved a high accuracy rate of 87.44% on the training dataset and 82.5% on the testing dataset.",
+                "technologies": [
+                    "Python",
+                    "Machine Learning",
+                    "Digital Image Processing",
+                    "CNN"
+                ],
+                "image": "assets/img/work/image_classification_using_cnn.png"
+            },
+            {
+                "id": "modalcp4",
+                "title": "YouTube Spam Comment Filter",
+                "description": "Developed and implemented a machine learning algorithm for binary classification of spam and non-spam comments on YouTube videos. Achieved an accuracy rate of 96.21% through training on multiple datasets.",
+                "technologies": [
+                    "Python",
+                    "Machine Learning",
+                    "Binary Classification"
+                ],
+                "image": "assets/img/work/youtube_spam_comment_filtering.jpeg"
+            }
+        ]
+    },
+    {
+        "category": "Side Projects",
+        "projects": [
+            {
+                "id": "modalsp1",
+                "title": "School Chale Ham",
+                "description": "A comprehensive platform for academic blogs catering to K-12 education. Efficient blog creation, management, and presentation. Backend powered by Express.js with MongoDB data storage. Frontend developed using Next.js for optimal performance.",
+                "technologies": [
+                    "Express.js",
+                    "MongoDB",
+                    "Next.js"
+                ],
+                "website": "https://www.schoolchaleham.in/",
+                "image": "assets/img/work/school_chale_ham.png"
+            },
+            {
+                "id": "modalsp2",
+                "title": "Bihar COVID Help",
+                "description": "Built a website to share information about the official notifications released by the government during the COVID-19 pandemic. Shared resources like oxygen, medicine, hospital beds, etc. Gathered a workforce of volunteer doctors to provide help in emergency cases. Shared useful contacts.",
+                "technologies": [
+                    "HTML",
+                    "CSS",
+                    "JavaScript",
+                    "GitHub"
+                ],
+                "website": "https://biharcovidhelp.github.io/",
+                "image": "assets/img/work/bihar_covid_help.png"
+            },
+            {
+                "id": "modalsp3",
+                "title": "Android Bloatware Removal Guide",
+                "description": "A basic blog webpage created for the Android bloatware removal guide. Simple and informative design for easy navigation.",
+                "technologies": [
+                    "HTML",
+                    "CSS"
+                ],
+                "website": "https://android-bloatware-removal-guide.netlify.app/",
+                "image": "assets/img/work/android_bloatware_removal_guide.png"
+            },
+            {
+                "id": "modalsp4",
+                "title": "Smaxiso Writes",
+                "description": "A collection of poetry exploring themes of love, life, and introspection. Hosted poetry portfolio.",
+                "technologies": [
+                    "Web App",
+                    "Poetry",
+                    "Hosted"
+                ],
+                "website": "https://smaxisowrites.web.app/",
+                "image": "assets/img/work/smaxiso_writes.png"
+            },
+            {
+                "id": "modalsp5",
+                "title": "Local RAG",
+                "description": "Local Retrieval-Augmented Generation system for private document chat, enabling secure and offline AI interactions with personal data.",
+                "technologies": [
+                    "Python",
+                    "LLM",
+                    "RAG"
+                ],
+                "repository": "https://github.com/smaxiso/local-rag",
+                "image": "assets/img/work/local_rag.png"
+            },
+            {
+                "id": "modalsp6",
+                "title": "AI Hub",
+                "description": "Centralized hub for AI models and tools, streamlining access and management of various artificial intelligence resources.",
+                "technologies": [
+                    "AI",
+                    "Machine Learning",
+                    "Web App"
+                ],
+                "repository": "https://github.com/smaxiso/AI-Hub",
+                "website": "https://aihubx.web.app/",
+                "image": "assets/img/work/ai_hub.png"
+            },
+            {
+                "id": "modalsp7",
+                "title": "Contextual News System",
+                "description": "AI-driven news aggregation system with contextual understanding, delivering personalized and relevant news content.",
+                "technologies": [
+                    "AI",
+                    "NLP",
+                    "News Aggregation"
+                ],
+                "repository": "https://github.com/smaxiso/contextual-news-system",
+                "image": "assets/img/work/contextual_news.png"
+            },
+            {
+                "id": "modalsp8",
+                "title": "Google Search Pro",
+                "description": "Advanced search scraper and utility tool designed for enhanced information retrieval and data extraction efficiency.",
+                "technologies": [
+                    "Python",
+                    "Scraping",
+                    "Automation"
+                ],
+                "repository": "https://github.com/smaxiso/google-search-pro",
+                "image": "assets/img/work/google_search_pro.png"
+            },
+            {
+                "id": "modalsp9",
+                "title": "CLI Chat Bot",
+                "description": "Command-line interface chatbot focused on developer productivity, offering quick access to tools and information via terminal.",
+                "technologies": [
+                    "Python",
+                    "CLI",
+                    "Chatbot"
+                ],
+                "repository": "https://github.com/smaxiso/cli-chat-bot",
+                "image": "assets/img/work/cli_chatbot.png"
+            },
+            {
+                "id": "modalsp10",
+                "title": "VS Code Extension",
+                "description": "Custom Visual Studio Code extension built to enhance developer workflows and automate repetitive coding tasks.",
+                "technologies": [
+                    "TypeScript",
+                    "VS Code API"
+                ],
+                "repository": "https://github.com/smaxiso/vs-code-extension",
+                "image": "assets/img/work/vscode_extension.png"
+            }
+        ]
+    }
+]
