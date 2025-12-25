@@ -20,7 +20,7 @@ export async function createProject(project: Partial<Project>, token: string): P
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${token}` // Backend needs update to accept this
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(project),
     });
@@ -33,7 +33,7 @@ export async function updateProject(id: string, project: Partial<Project>, token
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(project),
     });
@@ -45,8 +45,45 @@ export async function deleteProject(id: string, token: string): Promise<void> {
     const res = await fetch(`${API_URL}/projects/${id}`, {
         method: 'DELETE',
         headers: {
-            // 'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
         }
     });
     if (!res.ok) throw new Error('Failed to delete project');
+}
+
+// Skill CRUD
+export async function createSkill(skill: Partial<Skill>, token: string): Promise<Skill> {
+    const res = await fetch(`${API_URL}/skills/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(skill),
+    });
+    if (!res.ok) throw new Error('Failed to create skill');
+    return res.json();
+}
+
+export async function updateSkill(id: number, skill: Partial<Skill>, token: string): Promise<Skill> {
+    const res = await fetch(`${API_URL}/skills/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(skill),
+    });
+    if (!res.ok) throw new Error('Failed to update skill');
+    return res.json();
+}
+
+export async function deleteSkill(id: number, token: string): Promise<void> {
+    const res = await fetch(`${API_URL}/skills/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if (!res.ok) throw new Error('Failed to delete skill');
 }
