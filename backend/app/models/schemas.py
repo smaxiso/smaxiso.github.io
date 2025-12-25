@@ -77,3 +77,13 @@ class SiteConfig(Base):
     # Footer
     footer_text = Column(String)
 
+class ResumeFile(Base):
+    __tablename__ = "resume_files"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String) # e.g. "Data Engineer Resume 2024"
+    url = Column(String)
+    is_active = Column(Integer, default=0)
+    created_at = Column(String, nullable=True) # Optional: could be datetime
+
+

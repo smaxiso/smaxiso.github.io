@@ -89,3 +89,18 @@ class SiteConfig(SiteConfigBase):
     id: int
     model_config = ConfigDict(from_attributes=True)
 
+# Resume Models
+class ResumeBase(BaseModel):
+    name: str
+    url: str
+    is_active: bool = False
+
+class ResumeCreate(ResumeBase):
+    pass
+
+class ResumeFile(ResumeBase):
+    id: int
+    created_at: Optional[str] = None
+    model_config = ConfigDict(from_attributes=True)
+
+

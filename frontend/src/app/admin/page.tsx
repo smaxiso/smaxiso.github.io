@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ProjectsEditor } from '@/components/admin/ProjectsEditor';
 import { ProfileEditor } from '@/components/admin/ProfileEditor';
 import { SocialsEditor } from '@/components/admin/SocialsEditor';
+import { ResumeEditor } from '@/components/admin/ResumeEditor';
 
 export default function AdminPage() {
     const { user, loading, logout } = useAuth();
@@ -35,7 +36,7 @@ export default function AdminPage() {
                     <TabsTrigger value="projects" className="px-4 py-2 rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm">Projects</TabsTrigger>
                     <TabsTrigger value="profile" className="px-4 py-2 rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm">Profile</TabsTrigger>
                     <TabsTrigger value="socials" className="px-4 py-2 rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm">Social Links</TabsTrigger>
-                    {/* Skills tab coming soon */}
+                    <TabsTrigger value="resumes" className="px-4 py-2 rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm">Resumes</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="projects">
@@ -52,6 +53,12 @@ export default function AdminPage() {
                 <TabsContent value="socials">
                     <div className="bg-white p-6 rounded-xl shadow-sm border">
                         <SocialsEditor />
+                    </div>
+                </TabsContent>
+
+                <TabsContent value="resumes">
+                    <div className="bg-white p-6 rounded-xl shadow-sm border">
+                        <ResumeEditor />
                     </div>
                 </TabsContent>
             </Tabs>
