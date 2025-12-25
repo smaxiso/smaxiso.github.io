@@ -7,6 +7,9 @@ export function SocialsEditor() {
     const [socials, setSocials] = useState<SocialLink[]>([])
     const [loading, setLoading] = useState(true)
     const [editing, setEditing] = useState<SocialLink | null>(null)
+    const [original, setOriginal] = useState<SocialLink | null>(null)
+
+    const hasChanges = editing && original && JSON.stringify(editing) !== JSON.stringify(original)
 
     useEffect(() => {
         fetchSocials()
@@ -28,11 +31,14 @@ export function SocialsEditor() {
     }
 
     const handleAdd = () => {
-        setEditing({ id: 0, platform: '', url: '', icon: 'bx bx-link', is_active: true })
+        const newSocial = { id: 0, platform: '', url: '', icon: 'bx bx-link', is_active: true };
+        setEditing(newSocial)
+        setOriginal(newSocial)
     }
 
     const handleEdit = (social: SocialLink) => {
         setEditing({ ...social })
+        setOriginal({ ...social })
     }
 
     const handleSave = async () => {
@@ -94,8 +100,12 @@ export function SocialsEditor() {
                             />
                         </div>
                         <div className="flex flex-col sm:flex-row gap-2 pt-2">
-                            <button onClick={() => setEditing(null)} className="w-full sm:w-auto px-4 py-2 border rounded">Cancel</button>
-                            <button onClick={handleSave} className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save</button>
+                            <button onClick={() => { setEditing(null); setOriginal(null); }} className="w-full sm:w-auto px-4 py-2 border rounded">Cancel</button>
+                            {hasChanges && (
+                                <button onClick={handleSave} className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 animate-in fade-in slide-in-from-right-2 duration-200">
+                                    Save
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

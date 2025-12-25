@@ -7,15 +7,19 @@ import { storage } from '@/lib/firebase'
 
 export function ProfileEditor() {
     const [config, setConfig] = useState<SiteConfig | null>(null)
+    const [originalConfig, setOriginalConfig] = useState<SiteConfig | null>(null)
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
     const [uploading, setUploading] = useState(false)
+
+    const hasChanges = config && originalConfig && JSON.stringify(config) !== JSON.stringify(originalConfig)
 
     useEffect(() => {
         fetch(process.env.NEXT_PUBLIC_API_URL + '/config')
             .then(res => res.json())
             .then(data => {
                 setConfig(data)
+                setOriginalConfig(data)
                 setLoading(false)
             })
     }, [])
@@ -30,6 +34,7 @@ export function ProfileEditor() {
                 body: JSON.stringify(config)
             })
             if (!res.ok) throw new Error("Failed to update")
+            setOriginalConfig(config)
             alert("Profile updated successfully! Refresh site to see changes.")
         } catch (err) {
             alert("Error updating profile")
@@ -158,9 +163,18 @@ export function ProfileEditor() {
                 </div>
             </div>
 
-            <button disabled={saving} type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 disabled:opacity-50">
-                {saving ? 'Saving...' : 'Save Changes'}
-            </button>
+            {hasChanges && (
+                <div className="sticky bottom-4 flex justify-end">
+                    <button
+                        disabled={saving}
+                        type="submit"
+                        className="bg-blue-600 text-white px-8 py-3 rounded-full shadow-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2 transform transition hover:scale-105 active:scale-95 animate-in fade-in slide-in-from-bottom-4 duration-300"
+                    >
+                        {saving ? <Loader2 className="animate-spin" size={20} /> : <i className='bx bx-save text-xl'></i>}
+                        {saving ? 'Saving...' : 'Save Changes'}
+                    </button>
+                </div>
+            )}
         </form>
     )
 }

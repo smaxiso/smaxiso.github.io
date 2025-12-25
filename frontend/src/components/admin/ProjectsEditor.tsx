@@ -12,7 +12,10 @@ export function ProjectsEditor() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [editingProject, setEditingProject] = useState<Partial<Project> | null>(null);
+    const [originalProject, setOriginalProject] = useState<Partial<Project> | null>(null);
     const [uploading, setUploading] = useState(false);
+
+    const hasChanges = editingProject && originalProject && JSON.stringify(editingProject) !== JSON.stringify(originalProject);
 
     useEffect(() => {
         fetchData();
@@ -162,8 +165,12 @@ export function ProjectsEditor() {
                             </div>
                         </div>
                         <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 mt-4">
-                            <button type="button" onClick={() => setEditingProject(null)} className="w-full sm:w-auto px-4 py-2 text-slate-600 hover:text-slate-800 border border-slate-300 rounded">Cancel</button>
-                            <button type="submit" className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Save Project</button>
+                            <button type="button" onClick={() => { setEditingProject(null); setOriginalProject(null); }} className="w-full sm:w-auto px-4 py-2 text-slate-600 hover:text-slate-800 border border-slate-300 rounded">Cancel</button>
+                            {hasChanges && (
+                                <button type="submit" className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 animate-in fade-in slide-in-from-right-2 duration-200">
+                                    Save Project
+                                </button>
+                            )}
                         </div>
                     </form>
                 </div>
@@ -172,7 +179,11 @@ export function ProjectsEditor() {
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                         <h2 className="text-lg sm:text-xl font-semibold">All Projects</h2>
                         <button
-                            onClick={() => setEditingProject({ technologies: [] })}
+                            onClick={() => {
+                                const newProj = { technologies: [] };
+                                setEditingProject(newProj);
+                                setOriginalProject(newProj);
+                            }}
                             className="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 flex items-center justify-center gap-2 text-sm"
                         >
                             <i className='bx bx-plus'></i> Add Project
@@ -192,7 +203,7 @@ export function ProjectsEditor() {
                                     </div>
                                 </div>
                                 <div className="flex justify-between sm:justify-end gap-2 sm:gap-2 flex-shrink-0 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 mt-1 sm:mt-0">
-                                    <button onClick={() => setEditingProject(project)} className="flex-1 sm:flex-none flex items-center justify-center gap-1 p-2 text-blue-600 hover:bg-blue-50 rounded border sm:border-0 border-blue-100">
+                                    <button onClick={() => { setEditingProject(project); setOriginalProject(project); }} className="flex-1 sm:flex-none flex items-center justify-center gap-1 p-2 text-blue-600 hover:bg-blue-50 rounded border sm:border-0 border-blue-100">
                                         <i className='bx bx-edit text-xl'></i>
                                         <span className="sm:hidden text-xs font-medium">Edit</span>
                                     </button>
