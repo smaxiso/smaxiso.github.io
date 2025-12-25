@@ -27,6 +27,7 @@ export interface SiteConfig {
     about_image: string
     resume_url: string
     years_experience: number
+    experience_months: number
     projects_completed: number
     contact_email: string
     footer_text: string
@@ -113,7 +114,12 @@ export const useSiteConfig = () => {
             description: config.about_description,
             image: config.about_image,
             stats: [
-                { label: "Years Experience", number: config.years_experience },
+                {
+                    label: "Years Experience",
+                    number: config.experience_months > 0
+                        ? `${config.years_experience}y ${config.experience_months}m`
+                        : config.years_experience
+                },
                 { label: "Projects Completed", number: config.projects_completed }
             ]
         }

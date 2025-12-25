@@ -78,6 +78,7 @@ class SiteConfigBase(BaseModel):
     about_image: str
     resume_url: str
     years_experience: int
+    experience_months: int = 0
     projects_completed: int
     contact_email: str
     footer_text: str

@@ -69,6 +69,7 @@ class SiteConfig(Base):
     about_image = Column(String)
     resume_url = Column(String)
     years_experience = Column(Integer)
+    experience_months = Column(Integer, default=0)
     projects_completed = Column(Integer)
     
     # Contact

@@ -150,7 +150,11 @@ export function ProfileEditor() {
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <label className="text-sm font-medium">Years Exp.</label>
-                            <input type="number" name="years_experience" value={config.years_experience} onChange={handleChange} className="w-full p-2 border rounded" />
+                            <input type="number" name="years_experience" value={config.years_experience} onChange={handleChange} className="w-full p-2 border rounded" min="0" />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium">Months</label>
+                            <input type="number" name="experience_months" value={config.experience_months || 0} onChange={handleChange} className="w-full p-2 border rounded" min="0" max="11" />
                         </div>
                     </div>
                     <div className="space-y-2">
