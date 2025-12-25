@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -11,6 +11,17 @@ import { ResumeEditor } from '@/components/admin/ResumeEditor';
 export default function AdminPage() {
     const { user, loading, logout } = useAuth();
     const router = useRouter();
+    const [activeTab, setActiveTab] = useState('projects');
+
+    useEffect(() => {
+        const savedTab = localStorage.getItem('adminActiveTab');
+        if (savedTab) setActiveTab(savedTab);
+    }, []);
+
+    const handleTabChange = (value: string) => {
+        setActiveTab(value);
+        localStorage.setItem('adminActiveTab', value);
+    };
 
     useEffect(() => {
         if (!loading && !user) {
@@ -36,7 +47,7 @@ export default function AdminPage() {
             </div>
 
             <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
-                <Tabs defaultValue="projects" className="space-y-4">
+                <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-4">
                     <TabsList className="bg-slate-100 p-1 rounded-lg w-full overflow-x-auto flex justify-start">
                         <TabsTrigger value="projects" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Projects</TabsTrigger>
                         <TabsTrigger value="profile" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Profile</TabsTrigger>

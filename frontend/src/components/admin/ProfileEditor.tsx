@@ -91,7 +91,7 @@ export function ProfileEditor() {
                             {config.profile_image && (
                                 <div className="w-24 h-24 rounded-lg overflow-hidden border bg-slate-100">
                                     <img
-                                        src={config.profile_image.startsWith('http') ? config.profile_image : `/${config.profile_image}`}
+                                        src={config.profile_image.startsWith('http') ? config.profile_image : (config.profile_image.startsWith('/') ? config.profile_image : `/${config.profile_image}`)}
                                         alt="Profile Preview"
                                         className="w-full h-full object-cover"
                                     />
@@ -130,7 +130,7 @@ export function ProfileEditor() {
                             {config.about_image && (
                                 <div className="w-full aspect-video rounded-lg overflow-hidden border bg-slate-100 max-h-40">
                                     <img
-                                        src={config.about_image.startsWith('http') ? config.about_image : `/${config.about_image}`}
+                                        src={config.about_image.startsWith('http') ? config.about_image : (config.about_image.startsWith('/') ? config.about_image : `/${config.about_image}`)}
                                         alt="About Preview"
                                         className="w-full h-full object-cover"
                                     />
