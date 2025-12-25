@@ -28,6 +28,31 @@ export const siteConfig = {
                 url: "mailto:sumit749284@gmail.com",
                 icon: "bx bx-envelope",
             },
+            {
+                platform: "whatsapp",
+                url: "https://wa.me/917549980508?text=Hello%20Sumit%20",
+                icon: "bx bxl-whatsapp",
+            },
+            {
+                platform: "facebook",
+                url: "https://www.facebook.com/smaxiso",
+                icon: "bx bxl-facebook",
+            },
+            {
+                platform: "instagram",
+                url: "https://www.instagram.com/smaxiso",
+                icon: "bx bxl-instagram",
+            },
+            {
+                platform: "twitter",
+                url: "https://twitter.com/smaxiso",
+                icon: "bx bxl-twitter",
+            },
+            {
+                platform: "medium",
+                url: "https://smaxiso.medium.com/",
+                icon: "bx bxl-medium",
+            },
         ]
     },
     about: {

@@ -84,7 +84,7 @@ export function ContactSection() {
                             </p>
                         </div>
 
-                        <div className="flex flex-col gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {siteConfig.home.socialLinks.map((social) => (
                                 <a
                                     key={social.platform}
