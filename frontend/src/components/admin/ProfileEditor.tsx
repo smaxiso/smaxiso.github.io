@@ -9,7 +9,6 @@ export function ProfileEditor() {
     const [config, setConfig] = useState<SiteConfig | null>(null)
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
-    const [projectCount, setProjectCount] = useState(0)
     const [uploading, setUploading] = useState(false)
 
     useEffect(() => {
@@ -19,11 +18,6 @@ export function ProfileEditor() {
                 setConfig(data)
                 setLoading(false)
             })
-        // Fetch projects count
-        fetch(process.env.NEXT_PUBLIC_API_URL + '/projects')
-            .then(res => res.json())
-            .then(data => setProjectCount(data.length))
-            .catch(() => setProjectCount(0))
     }, [])
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -117,10 +111,6 @@ export function ProfileEditor() {
                         <div className="space-y-2">
                             <label className="text-sm font-medium">Years Exp.</label>
                             <input type="number" name="years_experience" value={config.years_experience} onChange={handleChange} className="w-full p-2 border rounded" />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium">Projects Done (Auto-calculated)</label>
-                            <input type="number" value={projectCount} className="w-full p-2 border rounded bg-slate-50" readOnly />
                         </div>
                     </div>
                     <div className="space-y-2">
