@@ -8,11 +8,13 @@ import { ProfileEditor } from '@/components/admin/ProfileEditor';
 import { SocialsEditor } from '@/components/admin/SocialsEditor';
 import { ResumeEditor } from '@/components/admin/ResumeEditor';
 import { SkillsEditor } from '@/components/admin/SkillsEditor';
+import { useToast } from '@/context/ToastContext';
 
 const ALLOWED_EMAILS = ['sumit749284@gmail.com'];
 
 export default function AdminPage() {
     const { user, loading, logout } = useAuth();
+    const { showToast } = useToast();
     const router = useRouter();
     const [activeTab, setActiveTab] = useState('projects');
 
@@ -32,7 +34,7 @@ export default function AdminPage() {
                 router.push('/admin/login');
             } else if (!ALLOWED_EMAILS.includes(user.email || '')) {
                 logout();
-                alert('Access Denied: You are not an authorized admin.');
+                showToast('Access Denied: You are not an authorized admin.', 'error');
                 router.push('/admin/login');
             }
         }

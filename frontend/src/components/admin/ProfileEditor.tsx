@@ -5,9 +5,11 @@ import { Loader2 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { storage } from '@/lib/firebase'
+import { useToast } from '@/context/ToastContext'
 
 export function ProfileEditor() {
     const { user } = useAuth()
+    const { showToast } = useToast()
     const [config, setConfig] = useState<SiteConfig | null>(null)
     const [originalConfig, setOriginalConfig] = useState<SiteConfig | null>(null)
     const [loading, setLoading] = useState(true)
@@ -39,11 +41,14 @@ export function ProfileEditor() {
                 },
                 body: JSON.stringify(config)
             })
-            if (!res.ok) throw new Error("Failed to update")
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                throw new Error(errorData.detail || "Failed to update");
+            }
             setOriginalConfig(config)
-            alert("Profile updated successfully! Refresh site to see changes.")
-        } catch (err) {
-            alert("Error updating profile")
+            showToast("Profile updated successfully!", "success")
+        } catch (err: any) {
+            showToast(err.message || "Error updating profile", "error")
         } finally {
             setSaving(false)
         }

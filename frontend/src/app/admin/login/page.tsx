@@ -2,9 +2,11 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
 
 export default function LoginPage() {
     const { user, signInWithGoogle, logout, loading } = useAuth();
+    const { showToast } = useToast();
     const router = useRouter();
 
     useEffect(() => {
@@ -14,7 +16,7 @@ export default function LoginPage() {
                 router.push('/admin');
             } else {
                 logout();
-                alert('Access Denied: You are not an authorized admin.');
+                showToast('Access Denied: You are not an authorized admin.', 'error');
             }
         }
     }, [user, loading, router, logout]);
