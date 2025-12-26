@@ -8,7 +8,7 @@ export function Hero() {
     const siteConfig = useSiteConfig();
 
     return (
-        <section className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+        <section className="min-h-screen flex items-center justify-center pt-16 pb-20 md:pb-0 relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute inset-0 -z-10">
                 <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
@@ -94,10 +94,10 @@ export function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1 }}
-                        className="absolute -bottom-6 -right-6 glass-card px-6 py-4 rounded-2xl flex items-center gap-3 animate-bounce-slow"
+                        className="absolute -bottom-3 right-0 md:-bottom-6 md:-right-6 glass-card px-3 py-2 md:px-6 md:py-4 rounded-xl md:rounded-2xl flex items-center gap-2 md:gap-3 animate-bounce-slow z-20 shadow-lg"
                     >
-                        <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                        <span className="font-semibold text-sm text-slate-700">Open to Work</span>
+                        <div className="w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full animate-pulse"></div>
+                        <span className="font-semibold text-[10px] md:text-sm text-slate-700 whitespace-nowrap">Open to Work</span>
                     </motion.div>
                 </motion.div>
             </div>
