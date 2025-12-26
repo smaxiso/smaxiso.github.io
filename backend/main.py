@@ -37,8 +37,10 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "http://127.0.0.1:3000",
         "https://smaxiso.web.app",
-        "https://smaxiso.firebaseapp.com"
+        "https://smaxiso.firebaseapp.com",
+        "https://smaxiso.github.io"
     ],
     allow_credentials=True,
     allow_methods=["*"],
