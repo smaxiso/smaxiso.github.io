@@ -6,6 +6,16 @@ interface SkillsProps {
     skills: Skill[]
 }
 
+function getProficiencyLabel(level: string | number | undefined): string {
+    const val = Number(level);
+    if (isNaN(val)) return String(level); // Fallback if already text
+
+    if (val >= 90) return 'Expert';
+    if (val >= 80) return 'Advanced';
+    if (val >= 60) return 'Intermediate';
+    return 'Beginner';
+}
+
 export function Skills({ skills }: SkillsProps) {
     // Group skills by category
     const groupedSkills = skills.reduce((acc, skill) => {
@@ -43,7 +53,11 @@ export function Skills({ skills }: SkillsProps) {
                                         <i className={`${skill.icon} text-2xl text-blue-600`}></i>
                                         <div>
                                             <h4 className="font-semibold text-sm text-slate-700">{skill.name}</h4>
-                                            {skill.level && <span className="text-xs text-slate-400">{skill.level}</span>}
+                                            {skill.level && (
+                                                <span className="text-xs text-slate-400">
+                                                    {getProficiencyLabel(skill.level)}
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
                                 ))}
