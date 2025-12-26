@@ -53,8 +53,8 @@ export function About() {
                             ))}
                         </div>
                         <div className="pt-6">
-                            <a href={siteConfig.resume} className="inline-flex h-12 items-center justify-center rounded-lg bg-slate-900 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 disabled:pointer-events-none disabled:opacity-50" target="_blank" rel="noopener noreferrer">
-                                <i className='bx bx-download mr-2 text-lg'></i> Download / View Resume
+                            <a href="/resume" className="inline-flex h-12 items-center justify-center rounded-lg bg-slate-900 px-8 text-sm font-medium text-white shadow transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 disabled:pointer-events-none disabled:opacity-50">
+                                <i className='bx bx-file-blank mr-2 text-lg'></i> View Resume
                             </a>
                         </div>
                     </motion.div>

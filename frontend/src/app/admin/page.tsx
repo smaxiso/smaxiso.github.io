@@ -10,6 +10,8 @@ import { ResumeEditor } from '@/components/admin/ResumeEditor';
 import { SkillsEditor } from '@/components/admin/SkillsEditor';
 import { useToast } from '@/context/ToastContext';
 
+import { ExternalLink } from 'lucide-react';
+
 const ALLOWED_EMAILS = ['sumit749284@gmail.com'];
 
 export default function AdminPage() {
@@ -50,6 +52,15 @@ export default function AdminPage() {
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Admin</h1>
                         <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm">
+                            <a
+                                href="/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-slate-600 hover:text-blue-600 font-medium transition-colors mr-2"
+                            >
+                                <ExternalLink size={14} />
+                                <span className="hidden sm:inline">View Site</span>
+                            </a>
                             <span className="text-slate-500 truncate max-w-[150px] sm:max-w-none">{user.email}</span>
                             <button onClick={() => logout()} className="text-red-500 hover:text-red-700 font-medium whitespace-nowrap">Logout</button>
                         </div>
