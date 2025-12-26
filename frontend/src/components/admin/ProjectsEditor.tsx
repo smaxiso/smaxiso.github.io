@@ -141,6 +141,16 @@ export function ProjectsEditor() {
                                     </label>
                                 </div>
                                 {uploading && <p className="text-xs text-blue-500 mt-1">Uploading...</p>}
+                                {editingProject.image && (
+                                    <div className="mt-2 relative w-full h-32 bg-slate-100 rounded overflow-hidden border">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img
+                                            src={editingProject.image.startsWith('http') ? editingProject.image : `/${editingProject.image}`}
+                                            alt="Preview"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div>
