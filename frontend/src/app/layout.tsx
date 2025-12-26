@@ -4,11 +4,13 @@ import { ProfileProvider } from "@/context/ProfileContext";
 import { ToastProvider } from "@/context/ToastContext";
 import "./globals.css";
 
+import { siteConfig } from "@/config/site";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Sumit Kumar | Portfolio",
-  description: "Portfolio of Sumit Kumar - Data Engineer & ML Specialist",
+  title: siteConfig.site.title,
+  description: siteConfig.site.description,
 };
 
 export default function RootLayout({
