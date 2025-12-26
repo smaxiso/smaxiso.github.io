@@ -119,12 +119,20 @@ export function ProjectsEditor() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             <div>
                                 <label className="block text-xs sm:text-sm font-medium mb-1">Category</label>
-                                <input
-                                    className="w-full border p-2 rounded text-sm"
+                                <select
+                                    className="w-full border p-2 rounded text-sm bg-white"
                                     value={editingProject.category || ''}
                                     onChange={e => setEditingProject({ ...editingProject, category: e.target.value })}
                                     required
-                                />
+                                >
+                                    <option value="" disabled>Select Category</option>
+                                    <option value="Work Experience">Work Experience</option>
+                                    <option value="Side Projects">Side Projects</option>
+                                    <option value="College Projects">College Projects</option>
+                                    <option value="Internship">Internship</option>
+                                    <option value="Hackathon">Hackathon</option>
+                                    <option value="Open Source">Open Source</option>
+                                </select>
                             </div>
                             <div>
                                 <label className="block text-xs sm:text-sm font-medium mb-1">Image URL</label>
