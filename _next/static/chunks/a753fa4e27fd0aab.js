@@ -1,1 +1,0 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,17630,e=>{"use strict";var s=e.i(43476);function l(){return(0,s.jsx)("div",{className:"w-full h-screen flex flex-col",children:(0,s.jsx)("iframe",{src:"/assets/data/Sumit_resume.pdf",className:"w-full h-full border-none",title:"Resume"})})}e.s(["default",()=>l])}]);
