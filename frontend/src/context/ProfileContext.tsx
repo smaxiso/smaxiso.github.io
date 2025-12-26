@@ -101,6 +101,7 @@ export const useSiteConfig = () => {
             url: config.site_url,
             image: config.profile_image
         },
+        resume: config.resume_url,
         home: {
             greeting: config.greeting,
             name: config.name,

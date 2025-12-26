@@ -4,14 +4,15 @@ export const siteConfig = {
         description: "Experienced Data Engineer & Machine Learning specialist with 4+ years in FinTech & Cybersecurity.",
         author: "Sumit Kumar",
         url: "https://smaxiso.github.io",
-        image: "/assets/img/perfils/perfil3.png",
+        image: "https://res.cloudinary.com/dehpzaqrd/image/upload/v1766728625/smaxiso_portfolio/perfils/ka5oxxvzd7l5jjeibrbq.png",
     },
+    resume: "https://res.cloudinary.com/dehpzaqrd/image/upload/v1766728793/smaxiso_portfolio/assets/data/ffuezxcxpx6runjjilft.pdf",
     home: {
         greeting: "Hi there! 👋",
         name: "Sumit Kumar",
         title: "Data Engineer & ML Enthusiast",
         subtitle: "Passionate about building scalable data pipelines, real-time analytics systems, and exploring machine learning solutions for cybersecurity and financial wellness domains.",
-        profileImage: "/assets/img/perfils/perfil3.png",
+        profileImage: "https://res.cloudinary.com/dehpzaqrd/image/upload/v1766728625/smaxiso_portfolio/perfils/ka5oxxvzd7l5jjeibrbq.png",
         socialLinks: [
             {
                 platform: "linkedin",
@@ -58,7 +59,7 @@ export const siteConfig = {
     about: {
         title: "Machine Learning & Data Engineer",
         description: "I'm Sumit Kumar, a data-driven problem solver with experience in building large-scale ETL systems, developing real-time data pipelines, and working with high-impact data products across FinTech and cybersecurity domains.",
-        image: "/assets/img/about/about2.jpg",
+        image: "https://res.cloudinary.com/dehpzaqrd/image/upload/v1766728626/smaxiso_portfolio/about/yyjt7kw7dyo38ca3qm2u.jpg",
         stats: [
             { label: "Years Experience", number: 4 },
             { label: "Projects Completed", number: 15 }
