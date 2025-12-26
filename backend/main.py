@@ -50,3 +50,13 @@ app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"]
 @app.get("/")
 def read_root():
     return {"message": "Portfolio API is running!"}
+
+@app.get("/health")
+@app.get("/ping")
+def health_check():
+    """Health check endpoint for monitoring and cron jobs"""
+    return {
+        "status": "healthy",
+        "message": "Backend is awake and running",
+        "service": "Portfolio API"
+    }
