@@ -3,7 +3,7 @@ services:
     name: smaxiso-portfolio-backend
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    startCommand: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:$PORT
     envVars:
       - key: DATABASE_URL
         sync: false
