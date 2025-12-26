@@ -23,27 +23,29 @@ export function Hero() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
                             className="inline-block"
                         >
-                            <span className="px-3 py-1.5 md:px-4 md:py-2 rounded-full glass-card text-blue-700 text-xs md:text-sm font-semibold tracking-wide uppercase">
+                            <span className="px-4 py-2 rounded-full glass-card text-blue-700 text-sm font-bold tracking-wider uppercase shadow-sm border border-blue-100/50">
                                 {siteConfig.home.greeting}
                             </span>
                         </motion.div>
 
-                        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
-                            {siteConfig.home.name} <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">
+                        <div className="space-y-2">
+                            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
+                                {siteConfig.home.name}
+                            </h1>
+                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 pb-2">
                                 {siteConfig.home.title}
-                            </span>
-                        </h1>
+                            </h2>
+                        </div>
                     </div>
 
-                    <p className="text-lg md:text-xl text-slate-600 max-w-[600px] mx-auto md:mx-0 leading-relaxed font-light">
+                    <p className="text-lg md:text-xl text-slate-600 max-w-[600px] mx-auto md:mx-0 leading-relaxed font-normal">
                         {siteConfig.home.subtitle}
                     </p>
 

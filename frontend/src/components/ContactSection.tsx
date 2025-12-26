@@ -83,7 +83,7 @@ export function ContactSection() {
                     </motion.div>
 
                     {/* Social Links */}
-                    <div className="space-y-8">
+                    <div className="space-y-8 flex flex-col justify-center h-full">
                         <div>
                             <h3 className="text-2xl font-bold text-slate-900 mb-6">Connect with me</h3>
                             <p className="text-slate-600 leading-relaxed mb-8">
@@ -91,20 +91,17 @@ export function ContactSection() {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-3 sm:gap-4">
+                        <div className="flex flex-wrap gap-4">
                             {siteConfig.home.socialLinks.map((social) => (
                                 <a
                                     key={social.platform}
                                     href={social.url}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl glass-card hover:bg-white/80 hover:scale-[1.02] border border-white/40 shadow-sm hover:shadow-lg transition-all group"
+                                    className="group flex items-center gap-3 px-5 py-3 rounded-full glass-card hover:bg-white border border-white/40 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all"
                                 >
-                                    <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-blue-100/50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors text-xl sm:text-2xl shadow-inner">
-                                        <i className={social.icon}></i>
-                                    </div>
-                                    <span className="text-base sm:text-lg font-medium text-slate-800 capitalize group-hover:text-blue-700 transition-colors bg-transparent">{social.platform}</span>
-                                    <i className='bx bx-right-arrow-alt ml-auto text-xl text-slate-400 group-hover:text-blue-600 transition-colors transform group-hover:translate-x-1'></i>
+                                    <i className={`${social.icon} text-xl text-blue-600 group-hover:scale-110 transition-transform`}></i>
+                                    <span className="font-medium text-slate-700 capitalize">{social.platform}</span>
                                 </a>
                             ))}
                         </div>
