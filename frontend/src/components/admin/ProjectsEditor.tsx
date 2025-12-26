@@ -179,6 +179,16 @@ export function ProjectsEditor() {
                                 <input className="w-full border p-2 rounded text-sm" value={editingProject.repository || ''} onChange={e => setEditingProject({ ...editingProject, repository: e.target.value })} />
                             </div>
                         </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <div>
+                                <label className="block text-xs sm:text-sm font-medium mb-1">Start Date</label>
+                                <input type="month" className="w-full border p-2 rounded text-sm" value={editingProject.startDate || ''} onChange={e => setEditingProject({ ...editingProject, startDate: e.target.value })} />
+                            </div>
+                            <div>
+                                <label className="block text-xs sm:text-sm font-medium mb-1">End Date (Leave empty for Present)</label>
+                                <input type="month" className="w-full border p-2 rounded text-sm" value={editingProject.endDate || ''} onChange={e => setEditingProject({ ...editingProject, endDate: e.target.value })} />
+                            </div>
+                        </div>
                         <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 mt-4">
                             <button type="button" onClick={() => { setEditingProject(null); setOriginalProject(null); }} className="w-full sm:w-auto px-4 py-2 text-slate-600 hover:text-slate-800 border border-slate-300 rounded">Cancel</button>
                             {hasChanges && (
@@ -188,7 +198,7 @@ export function ProjectsEditor() {
                             )}
                         </div>
                     </form>
-                </div>
+                </div >
             ) : (
                 <>
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
@@ -231,7 +241,8 @@ export function ProjectsEditor() {
                         ))}
                     </div>
                 </>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }
