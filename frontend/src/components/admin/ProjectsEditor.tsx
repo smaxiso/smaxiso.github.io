@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { getProjects, createProject, updateProject, deleteProject } from '@/lib/api';
 import { Project } from '@/types';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '@/lib/firebase';
+import { uploadFile } from '@/lib/cloudinary';
 
 export function ProjectsEditor() {
     const { user } = useAuth();
@@ -67,9 +66,7 @@ export function ProjectsEditor() {
         const file = e.target.files[0];
         setUploading(true);
         try {
-            const storageRef = ref(storage, `projects/${Date.now()}_${file.name}`);
-            const snapshot = await uploadBytes(storageRef, file);
-            const downloadURL = await getDownloadURL(snapshot.ref);
+            const downloadURL = await uploadFile(file);
             setEditingProject(prev => prev ? ({ ...prev, image: downloadURL }) : null);
         } catch (err) {
             console.error(err);

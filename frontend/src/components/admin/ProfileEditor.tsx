@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react'
 import { SiteConfig } from '@/context/ProfileContext'
 import { Loader2 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { storage } from '@/lib/firebase'
+import { uploadFile } from '@/lib/cloudinary' // Replaced Firebase
+// import { storage } from '@/lib/firebase' // Remove this
 import { useToast } from '@/context/ToastContext'
 
 export function ProfileEditor() {
@@ -77,14 +77,13 @@ export function ProfileEditor() {
         if (!e.target.files || e.target.files.length === 0 || !config) return
         const file = e.target.files[0]
         setUploading(true)
+        setUploading(true)
         try {
-            const storageRef = ref(storage, `profile/${Date.now()}_${file.name}`)
-            const snapshot = await uploadBytes(storageRef, file)
-            const downloadURL = await getDownloadURL(snapshot.ref)
+            const downloadURL = await uploadFile(file)
             setConfig({ ...config, [field]: downloadURL })
         } catch (err) {
             console.error(err)
-            alert("Failed to upload image")
+            showToast("Failed to upload image", "error")
         } finally {
             setUploading(false)
         }

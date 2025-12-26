@@ -1,7 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { storage } from '@/lib/firebase'
+import { uploadFile } from '@/lib/cloudinary' // New
+// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+// import { storage } from '@/lib/firebase'
 import { Trash2, Upload, CheckCircle2, Circle } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 
@@ -48,9 +49,7 @@ export function ResumeEditor() {
 
         setUploading(true)
         try {
-            const storageRef = ref(storage, `resumes/${Date.now()}_${file.name}`)
-            const snapshot = await uploadBytes(storageRef, file)
-            const downloadURL = await getDownloadURL(snapshot.ref)
+            const downloadURL = await uploadFile(file)
 
             const token = await user?.getIdToken()
             await fetch(process.env.NEXT_PUBLIC_API_URL + '/resumes', {
