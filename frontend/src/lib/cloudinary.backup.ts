@@ -63,27 +63,3 @@ export const uploadFile = async (file: File): Promise<string> => {
     const data = await res.json();
     return data.secure_url;
 }
-
-// Specifically for PDFs/Docs to treat them as raw downloadable files
-export const uploadRaw = async (file: File): Promise<string> => {
-    const cloudName = "dehpzaqrd";
-    const uploadPreset = "smaxiso";
-
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", uploadPreset);
-
-    // Force 'raw' resource type
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`, {
-        method: "POST",
-        body: formData
-    });
-
-    if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error?.message || "Upload failed");
-    }
-
-    const data = await res.json();
-    return data.secure_url;
-}
