@@ -83,7 +83,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     <img
                         src={post.cover_image}
                         alt="Cover"
-                        className="w-full h-full object-cover opacity-50 mask-gradient"
+                        className="w-full h-full object-cover opacity-90 mask-gradient"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50"></div>
                 </div>
