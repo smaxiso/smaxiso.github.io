@@ -22,18 +22,11 @@ jobs:
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
-      - name: Install and Build
-        env:
-          NEXT_PUBLIC_API_URL: https://smaxiso-portfolio-backend.onrender.com/api/v1
-          NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}
+      - name: Create Redirect
         run: |
-          cd frontend
-          npm ci
-          npm run build
-          # SPA Fallback for GitHub Pages: Use post-fallback as 404
-          cp out/post-fallback.html out/404.html
-          # Create .nojekyll to bypass Jekyll processing
-          touch out/.nojekyll
+          mkdir frontend/out
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=https://smaxiso.web.app/" /><script>window.location.href="https://smaxiso.web.app/";</script><title>Redirecting...</title></head><body>If you are not redirected, <a href="https://smaxiso.web.app/">click here</a>.</body></html>' > frontend/out/index.html
+          touch frontend/out/.nojekyll
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
