@@ -77,7 +77,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
     if (!post) return null;
 
     return (
-        <main className="min-h-screen pt-24 pb-20 relative bg-slate-50/50">
+        <main className="min-h-screen pt-24 pb-48 md:pb-32 relative bg-slate-50/50">
             {post.cover_image && (
                 <div className="absolute top-0 left-0 right-0 h-[400px] w-full -z-10">
                     <img
@@ -199,17 +199,17 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                 Share
                             </button>
 
-                            {/* Desktop Fallbacks (Visible if native share might fail or just extra convenience) */}
+                            {/* Desktop Fallbacks */}
                             <div className="flex items-center gap-2 pl-3 border-l border-slate-200">
                                 <a
-                                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}"`)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
+                                    href={`https://wa.me/?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}" ${typeof window !== 'undefined' ? window.location.href : ''}`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-2 text-slate-400 hover:text-blue-400 hover:bg-blue-50 rounded-full transition-all"
-                                    aria-label="Share on Twitter"
+                                    className="p-2 text-slate-400 hover:text-green-500 hover:bg-green-50 rounded-full transition-all"
+                                    aria-label="Share on WhatsApp"
                                 >
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 4.15 4.15 0 00-.08 3.251 12.275 12.275 0 01-9.3-4.715 4.106 4.106 0 001.27 5.477 4.072 4.072 0 01-1.876-.517v.051a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                                     </svg>
                                 </a>
                                 <a
@@ -224,18 +224,23 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                     </svg>
                                 </a>
                                 <a
-                                    href={`https://wa.me/?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}" ${typeof window !== 'undefined' ? window.location.href : ''}`)}`}
+                                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}"`)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-2 text-slate-400 hover:text-green-500 hover:bg-green-50 rounded-full transition-all"
-                                    aria-label="Share on WhatsApp"
+                                    className="p-2 text-slate-400 hover:text-blue-400 hover:bg-blue-50 rounded-full transition-all"
+                                    aria-label="Share on Twitter"
                                 >
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M.057 24l1.687-6.163c-3.104-5.385-2.149-12.182 2.37-16.593 4.514-4.515 11.89-4.515 16.29 0 4.515 4.515 4.515 11.89 0 16.29-4.321 4.524-11.458 5.619-17 2.308l-5.698 1.831zm24-13.438c0-5.819-4.743-10.563-10.563-10.563-5.819 0-10.563 4.743-10.563 10.563 0 1.956.536 3.791 1.472 5.378l-1.42 5.169 5.231-1.396c1.543.916 3.328 1.439 5.222 1.439 5.819 0 10.563-4.743 10.563-10.563zm-5.83 5.4c-.218-.112-1.288-.636-1.488-.709-.2-.073-.346-.112-.491.109-.145.221-.564.708-.691.854-.127.145-.255.164-.473.055-.218-.109-1.921-.709-2.382-1.121-.364-.328-1.558-1.688-1.964-2.203-.218-.273-.018-.418.091-.527.109-.109.221-.291.327-.436.109-.145.164-.236.255-.4.091-.164.045-.309-.018-.436-.064-.127-.491-1.185-.673-1.621-.173-.418-.355-.364-.491-.364h-.418c-.145 0-.382.055-.582.273-.2.218-.764.745-.764 1.815 0 1.07.782 2.103.891 2.248.109.145 3.103 4.739 7.515 6.642.503.218 1.558.582 2.376.697 1.091.139 1.921.036 2.455-.045.6-.091 1.288-.527 1.473-1.036.185-.509.185-.945.127-1.036-.055-.091-.2-.145-.418-.255z" />
+                                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 4.15 4.15 0 00-.08 3.251 12.275 12.275 0 01-9.3-4.715 4.106 4.106 0 001.27 5.477 4.072 4.072 0 01-1.876-.517v.051a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                                     </svg>
                                 </a>
                             </div>
                         </div>
+                        <style jsx>{`
+                          .mask-gradient {
+                            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+                          }
+                        `}</style>
                     </div>
                 </div>
             </article>
