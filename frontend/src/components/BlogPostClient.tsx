@@ -83,7 +83,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     <img
                         src={post.cover_image}
                         alt="Cover"
-                        className="w-full h-full object-cover opacity-20 mask-gradient"
+                        className="w-full h-full object-cover opacity-50 mask-gradient"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50"></div>
                 </div>
@@ -100,8 +100,8 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     </Link>
                 </div>
 
-                <header className="mb-12 text-center">
-                    <div className="flex items-center justify-center gap-4 text-sm text-slate-500 mb-4">
+                <header className="mb-12 text-left">
+                    <div className="flex items-center justify-start gap-4 text-sm text-slate-500 mb-4">
                         <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1 rounded-full border border-slate-100">
                             <Calendar className="w-4 h-4" />
                             {format(new Date(post.created_at), 'MMMM d, yyyy')}
@@ -117,7 +117,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     </h1>
 
                     {post.tags && (
-                        <div className="flex flex-wrap justify-center gap-2 mb-8">
+                        <div className="flex flex-wrap justify-start gap-2 mb-8">
                             {post.tags.split(',').map(tag => (
                                 <span key={tag} className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
                                     #{tag.trim()}
