@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     creator: '@smaxiso',
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/apple-icon.png',
   },
   robots: {
     index: true,

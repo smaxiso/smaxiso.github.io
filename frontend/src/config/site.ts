@@ -4,7 +4,7 @@ export const siteConfig = {
         description: "Experienced Data Engineer & Machine Learning specialist with 4+ years in FinTech & Cybersecurity.",
         author: "Sumit Kumar",
         url: "https://smaxiso.github.io",
-        image: "https://res.cloudinary.com/dehpzaqrd/image/upload/v1766744888/ja0wzypaoovwigm0qzfw.jpg",
+        image: "/og-image.png",
     },
     resume: "/assets/sumit_kumar.pdf",
     home: {
