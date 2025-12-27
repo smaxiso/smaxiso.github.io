@@ -4,6 +4,7 @@ import { ProfileProvider } from "@/context/ProfileContext";
 import { ToastProvider } from "@/context/ToastContext";
 import Navbar from "@/components/Navbar";
 import ScrollButtons from "@/components/ScrollButtons";
+import ChatWidget from "@/components/ChatWidget";
 import "./globals.css";
 
 import { siteConfig } from "@/config/site";
@@ -78,6 +79,7 @@ export default function RootLayout({
           <ProfileProvider>
             <Navbar />
             <ScrollButtons />
+            <ChatWidget />
             {children}
           </ProfileProvider>
         </ToastProvider>

@@ -25,7 +25,7 @@ if not firebase_admin._apps:
 
 from app.database import engine
 from app.models import schemas
-from app.api import projects, skills, config, guestbook, blog, media
+from app.api import projects, skills, config, guestbook, blog, media, chat, admin
 
 # Create tables
 schemas.Base.metadata.create_all(bind=engine)
@@ -49,12 +49,14 @@ app.add_middleware(
 
 # Include routers - ORDER MATTERS!
 # Specific routes must come before catch-all routes
-app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
-app.include_router(skills.router, prefix="/api/v1/skills", tags=["skills"])
 app.include_router(config.router, prefix="/api/v1", tags=["config"])
+app.include_router(skills.router, prefix="/api/v1/skills", tags=["skills"])
+app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
 app.include_router(guestbook.router, prefix="/api/v1/guestbook", tags=["guestbook"])
 app.include_router(blog.router, prefix="/api/v1/blog", tags=["blog"])
 app.include_router(media.router, prefix="/api/v1/media", tags=["media"])
+app.include_router(chat.router, prefix="/api/v1", tags=["chat"])
+app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
 
 @app.get("/")
 def read_root():

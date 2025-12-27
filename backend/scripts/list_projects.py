@@ -1,25 +1,22 @@
+
 import os
 import sys
-
 # Add backend directory to path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from app.database import SessionLocal, engine
+from app.database import SessionLocal
 from app.models import schemas
-from sqlalchemy.orm import Session
-
-# Create tables if not exist (ensures DB is valid)
-schemas.Base.metadata.create_all(bind=engine)
 
 def list_projects():
     db = SessionLocal()
-    try:
-        projects = db.query(schemas.Project).all()
-        print(f"Found {len(projects)} projects:")
-        for p in projects:
-            print(f"ID: {p.id} | Title: {p.title}")
-    finally:
-        db.close()
+    projects = db.query(schemas.Project).all()
+    print("CURRENT PROJECTS & GITHUB URLs:")
+    print("-" * 60)
+    for p in projects:
+        url = p.repository if p.repository else "(No URL)"
+        print(f"[{p.title}] -> {url}")
+    print("-" * 60)
+    db.close()
 
 if __name__ == "__main__":
     list_projects()

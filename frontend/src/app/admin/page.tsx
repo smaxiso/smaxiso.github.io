@@ -11,6 +11,7 @@ import { SkillsEditor } from '@/components/admin/SkillsEditor';
 import { GuestbookEditor } from '@/components/admin/GuestbookEditor';
 import { BlogEditor } from '@/components/admin/BlogEditor';
 import MediaManager from '@/components/admin/MediaManager';
+import { IngestButton } from '@/components/admin/IngestButton';
 import { useToast } from '@/context/ToastContext';
 
 import { ExternalLink } from 'lucide-react';
@@ -70,6 +71,8 @@ export default function AdminPage() {
                     </div>
                 </div>
             </div>
+
+            <IngestButton showToast={showToast} />
 
             <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
                 <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-4">

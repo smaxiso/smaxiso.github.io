@@ -8,3 +8,7 @@ firebase-admin
 gunicorn
 cloudinary
 
+google-generativeai
+pinecone
+requests
+pypdf
