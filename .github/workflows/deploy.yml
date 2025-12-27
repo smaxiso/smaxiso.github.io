@@ -25,6 +25,7 @@ jobs:
       - name: Install and Build
         env:
           NEXT_PUBLIC_API_URL: https://smaxiso-portfolio-backend.onrender.com/api/v1
+          NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}
         run: |
           cd frontend
           npm ci

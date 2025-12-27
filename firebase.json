@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "smaxiso",
-    "public": ".",
+    "public": "out",
     "ignore": [
       "firebase.json",
       "**/.*",
