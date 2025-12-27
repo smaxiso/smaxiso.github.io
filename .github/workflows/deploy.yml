@@ -30,6 +30,8 @@ jobs:
           cd frontend
           npm ci
           npm run build
+          # SPA Fallback for GitHub Pages: Use post-fallback as 404
+          cp out/post-fallback.html out/404.html
           # Create .nojekyll to bypass Jekyll processing
           touch out/.nojekyll
 
