@@ -48,11 +48,9 @@ def ingest_resume(file_path="frontend/public/assets/sumit_kumar.pdf"):
     2. Remote URL from DB (prod environment)
     """
     # 1. Try Local File
-    # Fix path resolution: file_path is relative to project root usually
-    # But we might be running from backend/
-    
-    # Let's check absolute path relative to CWD
-    abs_path = os.path.abspath(file_path)
+    # Get project root (2 levels up from this file: scripts/ingestors/resume.py -> backend/ -> project root)
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../'))
+    abs_path = os.path.join(project_root, file_path)
     
     if os.path.exists(abs_path):
         print(f"📄 Found local Resume PDF: {abs_path}")
