@@ -5,6 +5,7 @@ from datetime import datetime
 
 from app.database import get_db
 from app.models import schemas, pydantic_models
+from app.utils import delete_cloudinary_image
 
 router = APIRouter()
 
@@ -85,7 +86,14 @@ def update_post(id: int, post: pydantic_models.BlogPostCreate, db: Session = Dep
     db_post.content = post.content
     db_post.excerpt = post.excerpt
     db_post.tags = post.tags
-    db_post.cover_image = post.cover_image
+
+
+    # Handle Image Replacement
+    if post.cover_image != db_post.cover_image:
+        if db_post.cover_image:
+            delete_cloudinary_image(db_post.cover_image)
+        db_post.cover_image = post.cover_image
+
     db_post.published = post.published
     db_post.updated_at = datetime.utcnow().isoformat()
     
@@ -100,6 +108,10 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     if not db_post:
         raise HTTPException(status_code=404, detail="Post not found")
     
+    # Delete associated image from Cloudinary
+    if db_post.cover_image:
+        delete_cloudinary_image(db_post.cover_image)
+
     db.delete(db_post)
     db.commit()
     return {"message": "Post deleted"}

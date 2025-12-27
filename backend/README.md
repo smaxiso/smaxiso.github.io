@@ -9,6 +9,7 @@ FastAPI backend providing REST API for portfolio content management.
 - **Database**: PostgreSQL (Neon)
 - **ORM**: SQLAlchemy
 - **Authentication**: Firebase Admin SDK
+- **Storage**: Cloudinary (Image Management)
 - **Deployment**: Render
 
 ## 📦 Project Structure
@@ -19,6 +20,8 @@ app/
 │   ├── config.py          # Site config endpoints
 │   ├── projects.py        # Projects CRUD
 │   ├── skills.py          # Skills CRUD
+│   ├── blog.py            # Blog CRUD & Image Cleanup
+│   ├── guestbook.py       # Guestbook CRUD
 │   └── __init__.py
 ├── models/
 │   ├── schemas.py         # SQLAlchemy models
@@ -63,6 +66,11 @@ LOCAL_DEV_MODE=true
 
 # Production (optional - for Firebase Admin SDK with full credentials)
 GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
+
+# Cloudinary (Images)
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 ```
 
 **Production DATABASE_URL** (Neon):
@@ -210,6 +218,25 @@ if LOCAL_DEV_MODE:
 | POST | `/api/v1/resumes` | ✅ | Create resume entry |
 | PUT | `/api/v1/resumes/{id}` | ✅ | Update resume (set active) |
 | DELETE | `/api/v1/resumes/{id}` | ✅ | Delete resume |
+
+### Blog
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/v1/blog` | ❌ | List published posts |
+| GET | `/api/v1/blog/{slug}` | ❌ | Get post by slug |
+| GET | `/api/v1/blog/admin/all` | ✅ | List all posts (incl. drafts) |
+| POST | `/api/v1/blog` | ✅ | Create post |
+| PUT | `/api/v1/blog/{id}` | ✅ | Update post |
+| DELETE | `/api/v1/blog/{id}` | ✅ | Delete post (auto-deletes image) |
+
+### Guestbook
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/v1/guestbook` | ❌ | List approved entries |
+| POST | `/api/v1/guestbook` | ❌ | Create entry (pending approval) |
+| GET | `/api/v1/guestbook/admin/all` | ✅ | List all entries (pending & approved) |
+| PUT | `/api/v1/guestbook/{id}/approve` | ✅ | Approve entry |
+| DELETE | `/api/v1/guestbook/{id}` | ✅ | Delete entry |
 
 ## 🔧 Router Configuration
 

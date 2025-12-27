@@ -16,11 +16,12 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
 ### Public Portfolio
 - **Responsive Design**: Mobile-first, fully responsive layout
 - **Dynamic Content**: All content loaded from backend API
-- **Sections**: Hero, About, Skills, Projects, Contact
+- **Sections**: Hero, About, Skills, Projects, Blog, Guestbook, Contact
+- **Tech Blog**: Markdown support, code highlighting, and social sharing
 
 ### Admin Dashboard
 - 🔐 **Secure Authentication**: Google Sign-in with email whitelist
-- 💼 **Content Management**: Projects, Skills, Profile, Social Links, Resumes
+- 💼 **Content Management**: Projects, Skills, Blog Posts, Guestbook, Profile, Social Links, Resumes
 - 🎨 **Visual Icon Picker**: 70+ categorized icons with search
 - 🔗 **Social Platform Presets**: Auto-detection from URLs
 - 🎨 **Toast Notifications**: Beautiful in-app notifications

@@ -9,6 +9,7 @@ Next.js 16 application with static export for portfolio and admin dashboard.
 - **Styling**: Tailwind CSS
 - **Icons**: Boxicons, Lucide React
 - **Authentication**: Firebase Auth
+- **Storage**: Cloudinary (Images), Firebase Storage (Resumes)
 - **Deployment**: Firebase Hosting (Static Export)
 
 ## 📦 Project Structure
@@ -27,6 +28,8 @@ src/
 │   │   ├── ProfileEditor.tsx
 │   │   ├── ProjectsEditor.tsx
 │   │   ├── SkillsEditor.tsx
+│   │   ├── BlogEditor.tsx
+│   │   ├── GuestbookManager.tsx
 │   │   ├── SocialsEditor.tsx
 │   │   ├── ResumeEditor.tsx
 │   │   └── IconPicker.tsx
@@ -141,6 +144,18 @@ Output: `out/` directory (static HTML/CSS/JS)
 - Set active resume
 - Preview and download
 - Metadata management
+- Preview and download
+
+### Blog Editor
+- Markdown editor with live preview
+- Cover image upload (Cloudinary)
+- Tag management
+- Published/Draft status toggle
+
+### Guestbook Manager
+- View all guestbook entries
+- Approve/Reject moderation
+- Delete spam entries
 
 ## 🔐 Authentication
 
@@ -175,6 +190,8 @@ Uses Firebase Authentication with Google Sign-in.
 - **About**: About section with stats
 - **SkillsSection**: Tech stack showcase
 - **ProjectsSection**: Portfolio grid
+- **BlogSection**: Tech blog listing with search/filter
+- **GuestbookSection**: Public guestbook with signatures
 - **ContactSection**: Contact form
 
 ## 📱 Responsive Design

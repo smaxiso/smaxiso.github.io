@@ -3,7 +3,9 @@ from sqlalchemy.orm import Session
 from typing import List
 from app.database import get_db
 from app.models import schemas, pydantic_models
+
 from app.auth import verify_token
+from app.utils import delete_cloudinary_image
 
 router = APIRouter()
 
@@ -27,6 +29,14 @@ def update_project(project_id: str, project: pydantic_models.ProjectCreate, db: 
         raise HTTPException(status_code=404, detail="Project not found")
     
     project_data = project.model_dump(exclude_unset=True)
+
+    # Handle Image Replacement
+    if 'image' in project_data:
+        old_image = db_project.image
+        new_image = project_data['image']
+        if old_image and old_image != new_image:
+            delete_cloudinary_image(old_image)
+
     for key, value in project_data.items():
         setattr(db_project, key, value)
     
@@ -40,6 +50,10 @@ def delete_project(project_id: str, db: Session = Depends(get_db), user=Depends(
     if not db_project:
         raise HTTPException(status_code=404, detail="Project not found")
     
+    # Delete associated image from Cloudinary
+    if db_project.image:
+        delete_cloudinary_image(db_project.image)
+
     db.delete(db_project)
     db.commit()
     return None
