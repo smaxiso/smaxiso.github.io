@@ -109,5 +109,6 @@ class BlogPost(Base):
     cover_image = Column(String, nullable=True)
     published = Column(Boolean, default=False)
     created_at = Column(String) # ISO timestamp
+    updated_at = Column(String, nullable=True) # ISO timestamp used for "Last Updated"
 
 

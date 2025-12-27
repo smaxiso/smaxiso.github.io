@@ -133,6 +133,7 @@ class BlogPostCreate(BlogPostBase):
 class BlogPost(BlogPostBase):
     id: int
     created_at: str
+    updated_at: Optional[str] = None
     model_config = ConfigDict(from_attributes=True)
 
 

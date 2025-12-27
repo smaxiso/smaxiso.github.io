@@ -50,6 +50,7 @@ def create_post(post: pydantic_models.BlogPostCreate, db: Session = Depends(get_
     if existing:
         raise HTTPException(status_code=400, detail="Slug already exists")
 
+    current_time = datetime.utcnow().isoformat()
     db_post = schemas.BlogPost(
         title=post.title,
         slug=post.slug,
@@ -58,7 +59,8 @@ def create_post(post: pydantic_models.BlogPostCreate, db: Session = Depends(get_
         tags=post.tags,
         cover_image=post.cover_image,
         published=post.published,
-        created_at=datetime.utcnow().isoformat()
+        created_at=current_time,
+        updated_at=current_time
     )
     db.add(db_post)
     db.commit()
@@ -85,6 +87,7 @@ def update_post(id: int, post: pydantic_models.BlogPostCreate, db: Session = Dep
     db_post.tags = post.tags
     db_post.cover_image = post.cover_image
     db_post.published = post.published
+    db_post.updated_at = datetime.utcnow().isoformat()
     
     db.commit()
     db.refresh(db_post)
