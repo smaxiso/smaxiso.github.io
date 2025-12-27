@@ -304,25 +304,25 @@ export function BlogEditor() {
 
             <div className="grid gap-4">
                 {posts.map((post) => (
-                    <div key={post.id} className="group flex items-center justify-between p-4 bg-white/60 hover:bg-white/80 rounded-xl border border-white/60 scroll-smooth hover:shadow-md transition-all">
-                        <div className="flex-1 min-w-0 mr-4">
-                            <div className="flex items-center gap-2 mb-1">
-                                <FileText size={18} className="text-slate-400" />
+                    <div key={post.id} className="group flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-white/60 hover:bg-white/80 rounded-xl border border-white/60 scroll-smooth hover:shadow-md transition-all gap-4 sm:gap-0">
+                        <div className="flex-1 min-w-0 w-full sm:w-auto sm:mr-4">
+                            <div className="flex items-center flex-wrap gap-2 mb-1">
+                                <FileText size={18} className="text-slate-400 shrink-0" />
                                 <h3 className="font-bold text-slate-800 truncate">{post.title}</h3>
                                 {post.published ? (
-                                    <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium border border-green-200">
+                                    <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium border border-green-200 shrink-0">
                                         Published
                                     </span>
                                 ) : (
-                                    <span className="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium border border-amber-200">
+                                    <span className="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium border border-amber-200 shrink-0">
                                         Draft
                                     </span>
                                 )}
                             </div>
-                            <p className="text-xs text-slate-500 font-mono">/{post.slug}</p>
+                            <p className="text-xs text-slate-500 font-mono truncate">/{post.slug}</p>
                         </div>
 
-                        <div className="flex items-center gap-2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex items-center justify-end gap-2 w-full sm:w-auto opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
                             <a
                                 href={`/blog/${post.slug}`}
                                 target="_blank"
