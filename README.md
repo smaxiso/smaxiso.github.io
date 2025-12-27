@@ -16,11 +16,13 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
 ### Public Portfolio
 - **Responsive Design**: Mobile-first, fully responsive layout
 - **Dynamic Content**: All content loaded from backend API
+- **AI Chatbot 🤖**: RAG-powered assistant (Gemini 1.5 + Pinecone) that answers questions using my Resume, GitHub, and Portfolio data.
 - **Sections**: Hero, About, Skills, Projects, Blog, Guestbook, Contact
 - **Tech Blog**: Markdown support, code highlighting, and social sharing
 
 ### Admin Dashboard
 - 🔐 **Secure Authentication**: Google Sign-in with email whitelist
+- 🧠 **Knowledge Base Manager**: One-click ingestion to sync Resume & GitHub data with AI
 - 💼 **Content Management**: Projects, Skills, Blog Posts, Guestbook, Profile, Social Links, Resumes
 - 🎨 **Visual Icon Picker**: 70+ categorized icons with search
 - 🔗 **Social Platform Presets**: Auto-detection from URLs

@@ -196,6 +196,7 @@ Uses Firebase Authentication with Google Sign-in.
 - **BlogSection**: Tech blog listing with search/filter
 - **GuestbookSection**: Public guestbook with signatures
 - **ContactSection**: Contact form
+- **ChatWidget**: AI Assistant floating widget
 
 ## 📱 Responsive Design
 

@@ -10,6 +10,7 @@ FastAPI backend providing REST API for portfolio content management.
 - **ORM**: SQLAlchemy
 - **Authentication**: Firebase Admin SDK
 - **Storage**: Cloudinary (Image Management)
+- **AI/ML**: Google Gemini 1.5 (LLM), Pinecone (Vector DB)
 - **Deployment**: Render
 
 ## 📦 Project Structure
@@ -34,7 +35,22 @@ scripts/
 
 main.py                    # Application entry point
 requirements.txt           # Python dependencies
+requirements.txt           # Python dependencies
 ```
+
+## 🧠 AI & RAG Configuration
+
+The backend powers an AI Chatbot using **Google Gemini** (LLM) and **Pinecone** (Vector DB).
+
+### Setup
+1.  **Env Variables**: Ensure `GEMINI_API_KEY` and `PINECONE_API_KEY` are set.
+2.  **Ingestion**:
+    -   **Manual**: Run `python scripts/ingest_v2.py`.
+    -   **Live**: Use the "Update Knowledge Base" button in the Admin Portal.
+3.  **Data Sources**:
+    -   **Resume**: `resume_url` from SiteConfig (or local `assets/sumit_kumar.pdf`).
+    -   **GitHub**: Repository URLs from `Projects` table.
+    -   **Database**: Projects, Skills, and Blog Posts.
 
 ## 🚀 Getting Started
 
@@ -71,6 +87,10 @@ GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
+
+# AI (RAG)
+GEMINI_API_KEY=your_gemini_key
+PINECONE_API_KEY=your_pinecone_key
 ```
 
 **Production DATABASE_URL** (Neon):
