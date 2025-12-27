@@ -24,13 +24,13 @@ export default function BlogPostClient({ slug }: { slug: string }) {
             try {
                 const data = await getPostBySlug(slug);
                 if (!data) {
-                    router.push('/404');
+                    router.replace('/404');
                     return;
                 }
                 setPost(data);
             } catch (error) {
                 console.error('Failed to fetch post:', error);
-                router.push('/blog');
+                router.replace('/blog');
             } finally {
                 setLoading(false);
             }

@@ -112,13 +112,13 @@ export async function submitGuestbookEntry(entry: { name: string, message: strin
 
 // Blog
 export async function getPublishedPosts(): Promise<BlogPost[]> {
-    const res = await fetch(`${API_URL}/blog/`);
+    const res = await fetch(`${API_URL}/blog/`, { cache: 'no-store' });
     if (!res.ok) throw new Error('Failed to fetch posts');
     return res.json();
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost> {
-    const res = await fetch(`${API_URL}/blog/${slug}`);
+    const res = await fetch(`${API_URL}/blog/${slug}`, { cache: 'no-store' });
     if (!res.ok) {
         if (res.status === 404) return null as any; // Handle 404 gracefully in component
         throw new Error('Failed to fetch post');
