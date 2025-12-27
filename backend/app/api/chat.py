@@ -99,7 +99,7 @@ async def chat_endpoint(request: ChatRequest, req: Request):
     has_relevant_context = False
     
     for match in results.matches:
-        if match.score > 0.45: # Threshold for relevance
+        if match.score > 0.35: # Lowered threshold for better recall
             has_relevant_context = True
             meta = match.metadata
             text = meta.get("text", "")

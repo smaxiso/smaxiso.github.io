@@ -20,6 +20,7 @@ export default function ChatWidget() {
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -28,6 +29,16 @@ export default function ChatWidget() {
     useEffect(() => {
         scrollToBottom();
     }, [messages, isOpen]);
+
+    // Auto-focus input when loading finishes or chat opens
+    useEffect(() => {
+        if (!isLoading && isOpen) {
+            // Small timeout to allow DOM interaction after re-enabling
+            setTimeout(() => {
+                inputRef.current?.focus();
+            }, 10);
+        }
+    }, [isLoading, isOpen]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -132,15 +143,15 @@ export default function ChatWidget() {
                                     className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}
                                 >
                                     <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center ${msg.role === "assistant"
-                                            ? "bg-slate-800 border border-white/10"
-                                            : "bg-blue-600 shadow-md"
+                                        ? "bg-slate-800 border border-white/10"
+                                        : "bg-blue-600 shadow-md"
                                         }`}>
                                         {msg.role === "assistant" ? <Sparkles className="w-4 h-4 text-purple-400" /> : <User className="w-4 h-4 text-white" />}
                                     </div>
 
                                     <div className={`rounded-2xl p-3 text-sm max-w-[80%] leading-relaxed ${msg.role === "assistant"
-                                            ? "bg-white/5 border border-white/10 text-slate-200 rounded-tl-none"
-                                            : "bg-blue-600 text-white shadow-lg shadow-blue-500/20 rounded-tr-none"
+                                        ? "bg-white/5 border border-white/10 text-slate-200 rounded-tl-none"
+                                        : "bg-blue-600 text-white shadow-lg shadow-blue-500/20 rounded-tr-none"
                                         }`}>
                                         {msg.role === "assistant" ? (
                                             <div className="prose prose-invert prose-sm max-w-none">
@@ -173,6 +184,7 @@ export default function ChatWidget() {
                         <form onSubmit={handleSubmit} className="p-3 bg-slate-900 border-t border-white/10">
                             <div className="relative">
                                 <input
+                                    ref={inputRef}
                                     type="text"
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}

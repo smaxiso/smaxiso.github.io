@@ -38,34 +38,7 @@ def get_resume_url_from_db():
         
     return url
 
-def extract_text_from_pdf(pdf_path):
-    """
-    Helper to extract text from a PDF file path.
-    """
-    chunks = []
-    try:
-        reader = PdfReader(pdf_path)
-        full_text = ""
-        
-        for i, page in enumerate(reader.pages):
-            text = page.extract_text()
-            if text:
-                full_text += text + "\n\n"
-        
-        if full_text.strip():
-            chunks.append({
-                "id": "resume_full_pdf",
-                "text": full_text.strip(),
-                "metadata": {
-                    "source": "Resume PDF",
-                    "type": "resume",
-                    "title": "Sumit Kumar Resume"
-                }
-            })
-    except Exception as e:
-        print(f"Error parsing PDF {pdf_path}: {e}")
-        
-    return chunks
+
 
 def ingest_resume(file_path="frontend/public/assets/sumit_kumar.pdf"):
     """
@@ -114,4 +87,67 @@ def ingest_resume(file_path="frontend/public/assets/sumit_kumar.pdf"):
     else:
         print("❌ No valid remote Resume URL found in Database.")
 
+    return chunks
+
+def split_resume_text(full_text):
+    """
+    Intelligently splits resume text into sections.
+    """
+    # Simple keyword-based splitting since we know the structure
+    # Or just logical paragraphs.
+    
+    # Strategy: Fixed headers.
+    headers = ["Education", "Experience", "Technical Skills", "Projects", "Achievements", "Certifications"]
+    
+    # We'll use a sliding window or regex, but given the variability, let's use a simpler overlapping chunk approach
+    # which is robust for RAG. 
+    # Chunk size: ~500 chars, Overlap: 50.
+    
+    text_len = len(full_text)
+    chunk_size = 800 # Enough for a full job description
+    overlap = 100
+    
+    chunks = []
+    start = 0
+    
+    while start < text_len:
+        end = start + chunk_size
+        chunk_text = full_text[start:end]
+        
+        # Try to break at a newline
+        last_newline = chunk_text.rfind('\n')
+        if last_newline != -1 and end < text_len:
+            end = start + last_newline + 1
+            chunk_text = full_text[start:end]
+            
+        chunks.append({
+            "id": f"resume_chunk_{start}",
+            "text": chunk_text.strip(),
+            "metadata": {
+                "source": "Resume PDF",
+                "type": "resume_fragment",
+                "title": "Sumit Kumar Resume Part"
+            }
+        })
+        
+        start += (len(chunk_text) - overlap)
+        
+    return chunks
+
+def extract_text_from_pdf(pdf_path):
+    chunks = []
+    try:
+        reader = PdfReader(pdf_path)
+        full_text = ""
+        for page in reader.pages:
+            t = page.extract_text()
+            if t: full_text += t + "\n\n"
+            
+        if full_text.strip():
+            # Use granular splitting
+            chunks = split_resume_text(full_text.strip())
+            
+    except Exception as e:
+        print(f"Error parsing PDF {pdf_path}: {e}")
+        
     return chunks
