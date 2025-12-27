@@ -44,3 +44,32 @@ body {
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
 }
+
+/* Custom Scrollbar - Chrome/Safari/Edge */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.5); /* Slate 400 with opacity */
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(71, 85, 105, 0.7); /* Slate 600 */
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
+}
+
+/* Custom Selection Color */
+::selection {
+  background-color: #3b82f6; /* Blue 500 */
+  color: #ffffff;
+}
