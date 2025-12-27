@@ -46,6 +46,12 @@ export default function Navbar() {
         }
 
         setLastScrollY(latest);
+
+        // UX Improvement: Clear URL hash when scrolling to top
+        // This prevents "Refresh -> Jump to Bottom" if user previously validated a hash link but scrolled up
+        if (latest < 50 && typeof window !== 'undefined' && window.location.hash) {
+            window.history.replaceState(null, '', window.location.pathname);
+        }
     });
 
     if (pathname === '/resume' || pathname === '/admin') return null;

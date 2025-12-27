@@ -146,6 +146,9 @@ Output: `out/` directory (static HTML/CSS/JS)
 - Metadata management
 - Preview and download
 
+### Media Manager
+- Visual audit tool to find and delete orphaned Cloudinary images.
+
 ### Blog Editor
 - Markdown editor with live preview
 - Cover image upload (Cloudinary)

@@ -238,6 +238,12 @@ if LOCAL_DEV_MODE:
 | PUT | `/api/v1/guestbook/{id}/approve` | ✅ | Approve entry |
 | DELETE | `/api/v1/guestbook/{id}` | ✅ | Delete entry |
 
+### Media
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/v1/media/audit` | ✅ | Scan Cloudinary assets and check usage |
+| DELETE | `/api/v1/media/{public_id}` | ✅ | Delete specific asset |
+
 ## 🔧 Router Configuration
 
 **IMPORTANT**: Router order matters!

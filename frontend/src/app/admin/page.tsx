@@ -10,6 +10,7 @@ import { ResumeEditor } from '@/components/admin/ResumeEditor';
 import { SkillsEditor } from '@/components/admin/SkillsEditor';
 import { GuestbookEditor } from '@/components/admin/GuestbookEditor';
 import { BlogEditor } from '@/components/admin/BlogEditor';
+import MediaManager from '@/components/admin/MediaManager';
 import { useToast } from '@/context/ToastContext';
 
 import { ExternalLink } from 'lucide-react';
@@ -80,6 +81,7 @@ export default function AdminPage() {
                         <TabsTrigger value="resumes" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Resumes</TabsTrigger>
                         <TabsTrigger value="guestbook" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Guestbook</TabsTrigger>
                         <TabsTrigger value="blog" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Blog</TabsTrigger>
+                        <TabsTrigger value="media" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Media</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="projects">
@@ -115,6 +117,30 @@ export default function AdminPage() {
 
                     <TabsContent value="blog">
                         <BlogEditor />
+                    </TabsContent>
+
+                    <TabsContent value="media">
+                        <div className="bg-white rounded-xl shadow-sm border text-slate-900 overflow-hidden">
+                            {/* MediaManager uses dark mode text colors in some places, need to wrap or check usage. 
+                                Actually MediaManager uses text-white/slate-400 which fits dark mode. 
+                                But Admin layout is light mode (bg-slate-50).
+                                Let's inject a dark bg for MediaManager or adjust styles.
+                                MediaManager looks designed for dark background (bg-white/5 etc).
+                                Let's wrap it in a dark container for now to match its design or update it.
+                                
+                                User's Admin dashboard is Light Mode (bg-slate-50, bg-white).
+                                MediaManager uses `bg-white/5` which on white background is barely visible gray.
+                                It uses `text-slate-400`.
+                                
+                                Wait, MediaManager.tsx I wrote uses `bg-white/5` which implies dark mode background.
+                                But Admin Dashboard is Light Mode.
+                                I should update MediaManager.tsx to be compatible with Light Mode or wrap it in a dark section.
+                                For quick win, I'll wrap it in a dark container.
+                             */}
+                            <div className="bg-slate-900 p-3 sm:p-6 text-slate-100">
+                                <MediaManager />
+                            </div>
+                        </div>
                     </TabsContent>
                 </Tabs>
             </div>

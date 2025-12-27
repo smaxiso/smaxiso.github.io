@@ -1,6 +1,19 @@
 import { Project, Skill, Hobby, GuestbookEntry, BlogPost } from "@/types";
 import { getAuth } from "firebase/auth";
 
+export interface MediaResource {
+    public_id: string;
+    url: string;
+    secure_url: string;
+    format: string;
+    width: number;
+    height: number;
+    bytes: number;
+    created_at: string;
+    status: "active" | "orphaned";
+    usage: string[];
+}
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
 
 export async function getProjects(): Promise<Project[]> {
@@ -208,4 +221,26 @@ export async function deleteGuestbookEntry(id: number, token: string): Promise<v
         }
     });
     if (!res.ok) throw new Error('Failed to delete entry');
+}
+
+// Media
+export async function auditMedia(token: string): Promise<MediaResource[]> {
+    const res = await fetch(`${API_URL}/media/audit`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('Failed to audit media');
+    return res.json();
+}
+
+export async function deleteMedia(public_id: string, token: string): Promise<void> {
+    // public_id can contain slashes, which might mess up URL params.
+    // However, API is defined as /{public_id:path} so it should consume the rest of the path.
+    // IMPORTANT: fetch handles URL encoding, but path param handling might need care.
+    // If public_id is "folder/image", URL becomes .../media/folder/image.
+    // FastAPI path param will capture "folder/image".
+    const res = await fetch(`${API_URL}/media/${public_id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('Failed to delete media');
 }
