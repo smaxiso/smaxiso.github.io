@@ -50,33 +50,49 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     const [socials, setSocials] = useState<SocialLink[]>([])
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
+    const fetchData = React.useCallback(async () => {
+        try {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
 
-                // Fetch Config
-                const configRes = await fetch(`${API_URL}/config`);
-                if (configRes.ok) {
-                    const configData = await configRes.json();
-                    setConfig(configData);
-                }
-
-                // Fetch Socials
-                const socialsRes = await fetch(`${API_URL}/socials`);
-                if (socialsRes.ok) {
-                    const socialsData = await socialsRes.json();
-                    setSocials(socialsData);
-                }
-            } catch (error) {
-                console.error("Failed to fetch site config", error);
-                // We could set fallback here if we want strict behavior
-            } finally {
-                setLoading(false);
+            // Fetch Config
+            const configRes = await fetch(`${API_URL}/config`);
+            if (configRes.ok) {
+                const configData = await configRes.json();
+                setConfig(configData);
             }
+
+            // Fetch Socials
+            const socialsRes = await fetch(`${API_URL}/socials`);
+            if (socialsRes.ok) {
+                const socialsData = await socialsRes.json();
+                setSocials(socialsData);
+            }
+        } catch (error) {
+            console.error("Failed to fetch site config", error);
+        } finally {
+            setLoading(false);
         }
+    }, []);
+
+    // Initial Fetch
+    useEffect(() => {
         fetchData();
-    }, [])
+    }, [fetchData]);
+
+    // Auto-Refetch on Tab Focus
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                console.log("🔄 Tab active: Refetching data...");
+                fetchData();
+            }
+        };
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+        };
+    }, [fetchData]);
 
     return (
         <ProfileContext.Provider value={{ config, socials, loading }}>
