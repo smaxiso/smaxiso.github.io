@@ -8,7 +8,7 @@ import remarkGfm from 'remark-gfm';
 import { getPostBySlug } from '@/lib/api';
 import { BlogPost } from '@/types';
 import { format } from 'date-fns';
-import { Calendar, ArrowLeft, Clock, Share2 } from 'lucide-react';
+import { Share2, ArrowLeft, Calendar, Clock, Tag, History as HistoryIcon } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import toast from 'react-hot-toast';
@@ -106,6 +106,12 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                             <Calendar className="w-4 h-4" />
                             {format(new Date(post.created_at), 'MMMM d, yyyy')}
                         </span>
+                        {post.updated_at && post.updated_at !== post.created_at && (
+                            <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1 rounded-full border border-slate-100 text-slate-400 text-xs">
+                                <HistoryIcon className="w-3.5 h-3.5" />
+                                Updated: {format(new Date(post.updated_at), 'MMM d, yyyy')}
+                            </span>
+                        )}
                         <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1 rounded-full border border-slate-100">
                             <Clock className="w-4 h-4" />
                             {Math.ceil(post.content.length / 1000)} min read

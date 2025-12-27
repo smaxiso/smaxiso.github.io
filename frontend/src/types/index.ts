@@ -48,4 +48,5 @@ export interface BlogPost {
     cover_image?: string;
     published: boolean;
     created_at: string;
+    updated_at?: string;
 }
