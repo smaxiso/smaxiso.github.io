@@ -39,9 +39,10 @@ export default function BlogPostClient({ slug }: { slug: string }) {
     const handleShare = async () => {
         if (!post) return;
 
+        const shareText = `Hey, see this blog by smaxiso: "${post.title}"`;
         const shareData = {
             title: post.title,
-            text: post.excerpt,
+            text: shareText,
             url: window.location.href,
         };
 
@@ -157,7 +158,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                             {/* Desktop Fallbacks (Visible if native share might fail or just extra convenience) */}
                             <div className="flex items-center gap-2 pl-3 border-l border-slate-200">
                                 <a
-                                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
+                                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}"`)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="p-2 text-slate-400 hover:text-blue-400 hover:bg-blue-50 rounded-full transition-all"
