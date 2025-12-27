@@ -87,13 +87,15 @@ export default function BlogPostClient({ slug }: { slug: string }) {
             )}
 
             <article className="container mx-auto max-w-3xl px-4">
-                <Link
-                    href="/blog"
-                    className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 mb-8 transition-colors group"
-                >
-                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                    Back to Blog
-                </Link>
+                <div className="sticky top-4 md:top-28 z-30 mb-8 pointer-events-none">
+                    <Link
+                        href="/blog"
+                        className="pointer-events-auto inline-flex items-center gap-2 text-slate-600 hover:text-blue-600 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-sm transition-all hover:shadow-md group"
+                    >
+                        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                        Back to Blog
+                    </Link>
+                </div>
 
                 <header className="mb-12 text-center">
                     <div className="flex items-center justify-center gap-4 text-sm text-slate-500 mb-4">
