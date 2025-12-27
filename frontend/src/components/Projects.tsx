@@ -123,7 +123,7 @@ export function Projects({ projects }: ProjectsProps) {
                                     </p>
 
                                     <div className="flex flex-wrap gap-2 mb-6 mt-auto">
-                                        {project.technologies.slice(0, 4).map(tech => (
+                                        {project.technologies.filter(Boolean).slice(0, 4).map(tech => (
                                             <span key={tech} className="px-2.5 py-1 bg-white/60 text-slate-700 text-xs rounded-full font-medium border border-white/40 shadow-sm">
                                                 {tech}
                                             </span>

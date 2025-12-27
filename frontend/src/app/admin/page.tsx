@@ -8,6 +8,8 @@ import { ProfileEditor } from '@/components/admin/ProfileEditor';
 import { SocialsEditor } from '@/components/admin/SocialsEditor';
 import { ResumeEditor } from '@/components/admin/ResumeEditor';
 import { SkillsEditor } from '@/components/admin/SkillsEditor';
+import { GuestbookEditor } from '@/components/admin/GuestbookEditor';
+import { BlogEditor } from '@/components/admin/BlogEditor';
 import { useToast } from '@/context/ToastContext';
 
 import { ExternalLink } from 'lucide-react';
@@ -76,6 +78,7 @@ export default function AdminPage() {
                         <TabsTrigger value="skills" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Skills</TabsTrigger>
                         <TabsTrigger value="socials" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Socials</TabsTrigger>
                         <TabsTrigger value="resumes" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Resumes</TabsTrigger>
+                        <TabsTrigger value="guestbook" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Guestbook</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="projects">
@@ -103,6 +106,14 @@ export default function AdminPage() {
                         <div className="bg-white p-6 rounded-xl shadow-sm border">
                             <ResumeEditor />
                         </div>
+                    </TabsContent>
+
+                    <TabsContent value="guestbook">
+                        <GuestbookEditor />
+                    </TabsContent>
+
+                    <TabsContent value="blog">
+                        <BlogEditor />
                     </TabsContent>
                 </Tabs>
             </div>

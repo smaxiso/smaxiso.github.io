@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Text, JSON
+from sqlalchemy import Column, Integer, String, Text, JSON, Boolean, ForeignKey
+from sqlalchemy.orm import relationship
 from app.database import Base
 
 class Project(Base):
@@ -86,5 +87,27 @@ class ResumeFile(Base):
     url = Column(String)
     is_active = Column(Integer, default=0)
     created_at = Column(String, nullable=True) # Optional: could be datetime
+
+class GuestbookEntry(Base):
+    __tablename__ = "guestbook"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    message = Column(Text)
+    approved = Column(Integer, default=0) # 0=Pending, 1=Approved
+    created_at = Column(String) # ISO timestamp
+
+class BlogPost(Base):
+    __tablename__ = "blog_posts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    slug = Column(String, unique=True, index=True)
+    content = Column(Text) # Markdown content
+    excerpt = Column(String)
+    tags = Column(String) # JSON or comma-separated
+    cover_image = Column(String, nullable=True)
+    published = Column(Boolean, default=False)
+    created_at = Column(String) # ISO timestamp
 
 

@@ -104,4 +104,36 @@ class ResumeFile(ResumeBase):
     created_at: Optional[str] = None
     model_config = ConfigDict(from_attributes=True)
 
+# Guestbook Models
+class GuestbookEntryBase(BaseModel):
+    name: str
+    message: str
+
+class GuestbookEntryCreate(GuestbookEntryBase):
+    pass
+
+class GuestbookEntry(GuestbookEntryBase):
+    id: int
+    approved: int # 0/1
+    created_at: str
+    model_config = ConfigDict(from_attributes=True)
+
+class BlogPostBase(BaseModel):
+    title: str
+    slug: str
+    content: str
+    excerpt: str
+    tags: str
+    cover_image: Optional[str] = None
+    published: bool
+
+class BlogPostCreate(BlogPostBase):
+    pass
+
+class BlogPost(BlogPostBase):
+    id: int
+    created_at: str
+    model_config = ConfigDict(from_attributes=True)
+
+
 

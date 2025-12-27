@@ -1,4 +1,5 @@
-import { Project, Skill, Hobby } from "@/types";
+import { Project, Skill, Hobby, GuestbookEntry, BlogPost } from "@/types";
+import { getAuth } from "firebase/auth";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
 
@@ -86,4 +87,125 @@ export async function deleteSkill(id: number, token: string): Promise<void> {
         }
     });
     if (!res.ok) throw new Error('Failed to delete skill');
+}
+
+// Guestbook CRUD
+export async function getGuestbookEntries(limit = 50): Promise<GuestbookEntry[]> {
+    const res = await fetch(`${API_URL}/guestbook?limit=${limit}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to fetch guestbook');
+    return res.json();
+}
+
+export async function submitGuestbookEntry(entry: { name: string, message: string }): Promise<GuestbookEntry> {
+    const res = await fetch(`${API_URL}/guestbook/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(entry),
+    });
+    if (!res.ok) throw new Error('Failed to submit entry');
+    return res.json();
+}
+
+
+
+// Blog
+export async function getPublishedPosts(): Promise<BlogPost[]> {
+    const res = await fetch(`${API_URL}/blog/`);
+    if (!res.ok) throw new Error('Failed to fetch posts');
+    return res.json();
+}
+
+export async function getPostBySlug(slug: string): Promise<BlogPost> {
+    const res = await fetch(`${API_URL}/blog/${slug}`);
+    if (!res.ok) {
+        if (res.status === 404) return null as any; // Handle 404 gracefully in component
+        throw new Error('Failed to fetch post');
+    }
+    return res.json();
+}
+
+export async function getAllPosts(): Promise<BlogPost[]> {
+    const auth = getAuth();
+    const token = await auth.currentUser?.getIdToken();
+    const res = await fetch(`${API_URL}/blog/admin/all`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if (!res.ok) throw new Error('Failed to fetch all posts');
+    return res.json();
+}
+
+export async function createPost(post: Omit<BlogPost, 'id' | 'created_at'>): Promise<BlogPost> {
+    const auth = getAuth();
+    const token = await auth.currentUser?.getIdToken();
+    const res = await fetch(`${API_URL}/blog/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(post),
+    });
+    if (!res.ok) throw new Error('Failed to create post');
+    return res.json();
+}
+
+export async function updatePost(id: number, post: Omit<BlogPost, 'id' | 'created_at'>): Promise<BlogPost> {
+    const auth = getAuth();
+    const token = await auth.currentUser?.getIdToken();
+    const res = await fetch(`${API_URL}/blog/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(post),
+    });
+    if (!res.ok) throw new Error('Failed to update post');
+    return res.json();
+}
+
+export async function deletePost(id: number): Promise<void> {
+    const auth = getAuth();
+    const token = await auth.currentUser?.getIdToken();
+    const res = await fetch(`${API_URL}/blog/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if (!res.ok) throw new Error('Failed to delete post');
+}
+
+// Admin Guestbook
+export async function getAllGuestbookEntries(token: string): Promise<GuestbookEntry[]> {
+    const res = await fetch(`${API_URL}/guestbook/all`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('Failed to fetch all entries');
+    return res.json();
+}
+
+export async function approveGuestbookEntry(id: number, token: string): Promise<GuestbookEntry> {
+    const res = await fetch(`${API_URL}/guestbook/${id}/approve`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if (!res.ok) throw new Error('Failed to approve entry');
+    return res.json();
+}
+
+export async function deleteGuestbookEntry(id: number, token: string): Promise<void> {
+    const res = await fetch(`${API_URL}/guestbook/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if (!res.ok) throw new Error('Failed to delete entry');
 }

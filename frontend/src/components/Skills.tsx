@@ -20,6 +20,7 @@ function getProficiencyLabel(level: string | number | undefined): string {
 export function Skills({ skills }: SkillsProps) {
     // Group skills by category
     const groupedSkills = skills.reduce((acc, skill) => {
+        if (!skill.category) return acc; // Skip empty categories
         if (!acc[skill.category]) {
             acc[skill.category] = []
         }

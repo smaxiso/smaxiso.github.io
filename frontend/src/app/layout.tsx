@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ProfileProvider } from "@/context/ProfileContext";
 import { ToastProvider } from "@/context/ToastContext";
+import Navbar from "@/components/Navbar";
+import ScrollButtons from "@/components/ScrollButtons";
 import "./globals.css";
 
 import { siteConfig } from "@/config/site";
@@ -74,6 +76,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <ToastProvider>
           <ProfileProvider>
+            <Navbar />
+            <ScrollButtons />
             {children}
           </ProfileProvider>
         </ToastProvider>
