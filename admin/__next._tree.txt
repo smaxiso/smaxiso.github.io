@@ -1,4 +1,4 @@
-:HL["/_next/static/chunks/f093b32be6314007.css","style"]
+:HL["/_next/static/chunks/41c2fa555c11f5b0.css","style"]
 :HL["/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css","style"]
-0:{"buildId":"79MJJBq8lwqsMvcGfO2IA","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"admin","paramType":null,"paramKey":"admin","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
+0:{"buildId":"4PNIol1u8QtdqySKV5Pqw","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"admin","paramType":null,"paramKey":"admin","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
