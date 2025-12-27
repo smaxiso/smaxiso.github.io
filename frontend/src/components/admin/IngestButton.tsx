@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { RefreshCw, CheckCircle, AlertTriangle } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
@@ -7,13 +7,45 @@ export function IngestButton({ showToast }: { showToast: (msg: string, type: 'su
     const { token } = useAuth();
     const [loading, setLoading] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+    const pollInterval = useRef<NodeJS.Timeout | null>(null);
+
+    const checkStatus = async () => {
+        try {
+            const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+            const baseUrl = apiBase.endsWith('/api/v1') ? apiBase : `${apiBase}/api/v1`;
+            const res = await fetch(`${baseUrl}/admin/ingest/status`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+
+                if (data.status === "completed") {
+                    setLoading(false);
+                    if (pollInterval.current) {
+                        clearInterval(pollInterval.current);
+                        pollInterval.current = null;
+                    }
+                    showToast("✅ Knowledge Base Updated Successfully!", 'success');
+                } else if (data.status === "failed") {
+                    setLoading(false);
+                    if (pollInterval.current) {
+                        clearInterval(pollInterval.current);
+                        pollInterval.current = null;
+                    }
+                    showToast(`❌ Update Failed: ${data.error}`, 'error');
+                }
+            }
+        } catch (error) {
+            console.error("Status check error:", error);
+        }
+    };
 
     const handleIngest = async () => {
         setShowConfirm(false);
         setLoading(true);
         try {
             const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-            // Fix: Check if apiBase already ends with /api/v1
             const baseUrl = apiBase.endsWith('/api/v1') ? apiBase : `${apiBase}/api/v1`;
             const res = await fetch(`${baseUrl}/admin/ingest`, {
                 method: 'POST',
@@ -25,14 +57,26 @@ export function IngestButton({ showToast }: { showToast: (msg: string, type: 'su
 
             if (!res.ok) throw new Error("Failed to start ingestion");
 
-            showToast("Knowledge Base Update Started! (It runs in the background)", 'success');
+            showToast("🚀 Knowledge Base Update Started! (checking status...)", 'info');
+
+            // Start polling status every 3 seconds
+            pollInterval.current = setInterval(checkStatus, 3000);
+
         } catch (error) {
             console.error(error);
-            showToast("Failed to trigger update.", 'error');
-        } finally {
             setLoading(false);
+            showToast("Failed to trigger update.", 'error');
         }
     };
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (pollInterval.current) {
+                clearInterval(pollInterval.current);
+            }
+        };
+    }, []);
 
     return (
         <div className="container mx-auto px-4 mb-4">
@@ -70,7 +114,9 @@ export function IngestButton({ showToast }: { showToast: (msg: string, type: 'su
                     </div>
                     <div>
                         <h3 className="text-sm font-semibold text-blue-900">Knowledge Base</h3>
-                        <p className="text-xs text-blue-700">Sync Resume, GitHub & Database to AI.</p>
+                        <p className="text-xs text-blue-700">
+                            {loading ? "Updating AI's brain..." : "Sync Resume, GitHub & Database to AI."}
+                        </p>
                     </div>
                 </div>
                 <button
@@ -78,7 +124,7 @@ export function IngestButton({ showToast }: { showToast: (msg: string, type: 'su
                     disabled={loading}
                     className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors flex items-center gap-2 whitespace-nowrap disabled:opacity-50"
                 >
-                    {loading ? 'Starting...' : 'Update Knowledge Base'}
+                    {loading ? 'Updating...' : 'Update Knowledge Base'}
                 </button>
             </div>
         </div>
