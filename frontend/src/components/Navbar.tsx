@@ -34,7 +34,7 @@ export default function Navbar() {
         } else if (isScrollingUp) {
             // Show on scroll up
             setHidden(false);
-            
+
             // Set auto-hide timer for 3 seconds if we stop scrolling up
             const newTimer = setTimeout(() => {
                 // Check if we are still not at top
@@ -80,9 +80,9 @@ export default function Navbar() {
             <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 justify-center py-6 px-4 pointer-events-none">
                 <motion.div
                     initial={{ y: 0, opacity: 1 }}
-                    animate={{ 
-                        y: hidden ? -100 : 0, 
-                        opacity: hidden ? 0 : 1 
+                    animate={{
+                        y: hidden ? -100 : 0,
+                        opacity: hidden ? 0 : 1
                     }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="pointer-events-auto bg-black/60 backdrop-blur-xl border border-white/20 rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl"
@@ -159,23 +159,22 @@ export default function Navbar() {
                 </AnimatePresence>
 
                 {/* Fixed Bottom Bar */}
-                <nav className="fixed bottom-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-2xl border-t border-white/10 pb-safe pt-2 px-2 md:px-6 shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
+                <nav className="fixed bottom-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-2xl border-t border-white/10 pt-2 pb-[calc(env(safe-area-inset-bottom)+8px)] px-2 md:px-6 shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
                     <div className="flex justify-between items-center w-full max-w-sm mx-auto">
                         {mobilePrimaryItems.map((item) => {
                             const Icon = item.icon;
                             const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
-                            
+
                             return (
-                                <Link 
-                                    key={item.label} 
+                                <Link
+                                    key={item.label}
                                     href={item.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`flex flex - col items - center gap - 1 p - 1 md: p - 2 flex - 1 min - w - [40px] md: min - w - [60px] transition - colors ${
-    isActive ? 'text-blue-400' : 'text-slate-400 hover:text-slate-200'
-} `}
+                                    className={`flex flex-col items-center gap-1 p-1 md:p-2 flex-1 min-w-[40px] md:min-w-[60px] transition-colors ${isActive ? 'text-blue-400' : 'text-slate-400 hover:text-slate-200'
+                                        }`}
                                 >
-                                    <Icon className={`w - 5 h - 5 md: w - 5 md: h - 5 ${ isActive ? 'fill-blue-400/20' : '' } `} />
-                                    <span className="text-[9px] md:text-[10px] font-medium">{item.label}</span>
+                                    <Icon className={`w-5 h-5 md:w-5 md:h-5 ${isActive ? 'fill-blue-400/20' : ''}`} />
+                                    <span className="text-[10px] md:text-[10px] font-medium">{item.label}</span>
                                 </Link>
                             );
                         })}
@@ -183,18 +182,17 @@ export default function Navbar() {
                         {/* More Button */}
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className={`flex flex - col items - center gap - 1 p - 1 md: p - 2 flex - 1 min - w - [40px] md: min - w - [60px] transition - colors ${
-    isMobileMenuOpen ? 'text-white' : 'text-slate-400 hover:text-slate-200'
-} `}
+                            className={`flex flex-col items-center gap-1 p-1 md:p-2 flex-1 min-w-[40px] md:min-w-[60px] transition-colors ${isMobileMenuOpen ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+                                }`}
                         >
-                            <div className={`p - 0.5 rounded - full transition - all ${ isMobileMenuOpen ? 'bg-white/10' : '' } `}>
+                            <div className={`p-0.5 rounded-full transition-all ${isMobileMenuOpen ? 'bg-white/10' : ''}`}>
                                 {isMobileMenuOpen ? (
                                     <X className="w-5 h-5 md:w-5 md:h-5" />
                                 ) : (
                                     <Menu className="w-5 h-5 md:w-5 md:h-5" />
                                 )}
                             </div>
-                            <span className="text-[9px] md:text-[10px] font-medium">More</span>
+                            <span className="text-[10px] md:text-[10px] font-medium">More</span>
                         </button>
                     </div>
                 </nav>
