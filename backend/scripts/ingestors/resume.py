@@ -16,8 +16,13 @@ def get_resume_url_from_db():
     # Try SiteConfig first
     config = db.query(schemas.SiteConfig).first()
     url = None
-    if config and config.resume_url:
-        url = config.resume_url
+    site_domain = "https://smaxiso.web.app" # Default fallback
+
+    if config:
+        if config.site_url:
+             site_domain = config.site_url.rstrip("/")
+        if config.resume_url:
+            url = config.resume_url
     
     # Check ResumeFiles if SiteConfig is empty or local
     if not url:
@@ -26,6 +31,11 @@ def get_resume_url_from_db():
             url = resume.url
             
     db.close()
+    
+    # Resolve relative URL
+    if url and url.startswith("/"):
+        url = f"{site_domain}{url}"
+        
     return url
 
 def extract_text_from_pdf(pdf_path):
