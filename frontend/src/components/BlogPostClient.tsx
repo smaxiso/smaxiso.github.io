@@ -9,6 +9,8 @@ import { getPostBySlug } from '@/lib/api';
 import { BlogPost } from '@/types';
 import { format } from 'date-fns';
 import { Calendar, ArrowLeft, Clock, Share2 } from 'lucide-react';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import toast from 'react-hot-toast';
 
 export default function BlogPostClient({ slug }: { slug: string }) {
@@ -125,14 +127,56 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     )}
                 </header>
 
-                <div className="prose prose-sm md:prose-lg prose-slate prose-headings:font-bold prose-headings:text-slate-800 prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-img:rounded-xl prose-img:shadow-lg max-w-none bg-white/40 backdrop-blur-sm p-3 md:p-10 rounded-2xl md:rounded-3xl border border-white/50 shadow-sm overflow-x-hidden break-words">
+                <div className="prose prose-sm md:prose-lg prose-slate prose-headings:font-bold prose-headings:text-slate-800 prose-a:text-blue-600 hover:prose-a:text-blue-700 max-w-none bg-white/40 backdrop-blur-sm p-4 md:p-10 rounded-2xl md:rounded-3xl border border-white/50 shadow-sm overflow-x-hidden break-words selection:bg-blue-100 selection:text-blue-900">
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
                             a: ({ node, ...props }) => (
-                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline decoration-blue-300 hover:decoration-blue-800 transition-all" />
+                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline decoration-blue-300 hover:decoration-blue-800 transition-all font-medium" />
                             ),
-                            h1: ({ node, ...props }) => <h2 {...props} className="text-2xl font-bold mt-8 mb-4" />, // Demote H1 to H2 inside content to avoid conflict with page title
+                            h1: ({ node, ...props }) => <h2 {...props} className="text-2xl md:text-3xl font-bold mt-12 mb-6 text-slate-900 border-b border-slate-200 pb-4" />,
+                            h2: ({ node, ...props }) => <h3 {...props} className="text-xl md:text-2xl font-bold mt-10 mb-5 text-slate-800" />,
+                            h3: ({ node, ...props }) => <h4 {...props} className="text-lg md:text-xl font-bold mt-8 mb-4 text-slate-700" />,
+                            blockquote: ({ node, ...props }) => <blockquote {...props} className="border-l-4 border-blue-400 pl-6 py-2 my-8 italic text-slate-600 bg-blue-50/50 rounded-r-lg" />,
+                            code: ({ className, children, ...props }: any) => {
+                                const match = /language-(\w+)/.exec(className || '');
+                                const isInline = !match;
+                                return !isInline ? (
+                                    <div className="rounded-xl overflow-hidden my-6 shadow-lg border border-slate-200/50">
+                                        <div className="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-white/10">
+                                            <div className="flex gap-1.5">
+                                                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                                            </div>
+                                            <span className="ml-auto text-xs text-slate-400 font-mono opacity-50">{match?.[1]}</span>
+                                        </div>
+                                        <SyntaxHighlighter
+                                            style={vscDarkPlus}
+                                            language={match?.[1]}
+                                            PreTag="div"
+                                            customStyle={{
+                                                margin: 0,
+                                                borderRadius: '0 0 0.75rem 0.75rem',
+                                                padding: '1.5rem',
+                                                background: '#1e1e1e', // Match VS Code Dark
+                                            }}
+                                            {...props}
+                                        >
+                                            {String(children).replace(/\n$/, '')}
+                                        </SyntaxHighlighter>
+                                    </div>
+                                ) : (
+                                    <code className={`${className} bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded-md font-mono text-[0.9em] border border-slate-200/50 break-words`} {...props}>
+                                        {children}
+                                    </code>
+                                );
+                            },
+                            img: ({ node, ...props }) => <img {...props} className="rounded-xl shadow-lg my-8 w-full object-cover border border-white/20" />,
+                            hr: ({ node, ...props }) => <hr {...props} className="my-12 border-slate-200 border-t-2 opacity-50" />,
+                            ul: ({ node, ...props }) => <ul {...props} className="list-disc pl-6 space-y-2 my-6 marker:text-blue-400" />,
+                            ol: ({ node, ...props }) => <ol {...props} className="list-decimal pl-6 space-y-2 my-6 marker:text-blue-400 font-medium text-slate-700" />,
+                            li: ({ node, ...props }) => <li {...props} className="pl-1" />,
                         }}
                     >
                         {post.content}
