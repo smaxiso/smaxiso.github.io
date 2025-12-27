@@ -43,7 +43,7 @@ export default function ScrollButtons() {
     };
 
     return (
-        <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-40">
+        <div className="fixed bottom-24 md:bottom-6 right-6 flex flex-col gap-3 z-40">
             <AnimatePresence>
                 {/* Scroll to Top */}
                 {isVisible && (
