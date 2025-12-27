@@ -159,7 +159,7 @@ export default function Navbar() {
                 </AnimatePresence>
 
                 {/* Fixed Bottom Bar */}
-                <nav className="fixed bottom-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-2xl border-t border-white/10 pt-2 pb-[calc(env(safe-area-inset-bottom)+8px)] px-2 md:px-6 shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
+                <nav className="fixed bottom-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-2xl border-t border-white/10 pt-1.5 pb-[calc(env(safe-area-inset-bottom)+2px)] px-2 md:px-6 shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
                     <div className="flex justify-between items-center w-full max-w-sm mx-auto">
                         {mobilePrimaryItems.map((item) => {
                             const Icon = item.icon;
@@ -170,7 +170,7 @@ export default function Navbar() {
                                     key={item.label}
                                     href={item.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`flex flex-col items-center gap-1 p-1 md:p-2 flex-1 min-w-[40px] md:min-w-[60px] transition-colors ${isActive ? 'text-blue-400' : 'text-slate-400 hover:text-slate-200'
+                                    className={`flex flex-col items-center gap-0.5 p-1 md:p-2 flex-1 min-w-[40px] md:min-w-[60px] transition-colors ${isActive ? 'text-blue-400' : 'text-slate-400 hover:text-slate-200'
                                         }`}
                                 >
                                     <Icon className={`w-5 h-5 md:w-5 md:h-5 ${isActive ? 'fill-blue-400/20' : ''}`} />
@@ -182,7 +182,7 @@ export default function Navbar() {
                         {/* More Button */}
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className={`flex flex-col items-center gap-1 p-1 md:p-2 flex-1 min-w-[40px] md:min-w-[60px] transition-colors ${isMobileMenuOpen ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+                            className={`flex flex-col items-center gap-0.5 p-1 md:p-2 flex-1 min-w-[40px] md:min-w-[60px] transition-colors ${isMobileMenuOpen ? 'text-white' : 'text-slate-400 hover:text-slate-200'
                                 }`}
                         >
                             <div className={`p-0.5 rounded-full transition-all ${isMobileMenuOpen ? 'bg-white/10' : ''}`}>
