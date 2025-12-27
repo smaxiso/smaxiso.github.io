@@ -1,3 +1,0 @@
-:HL["/_next/static/chunks/3af4a8bcda70db2f.css","style"]
-:HL["https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css","style"]
-0:{"buildId":"1E4Re0Wq7-zKX1KsEfFDh","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"/_not-found","paramType":null,"paramKey":"/_not-found","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
