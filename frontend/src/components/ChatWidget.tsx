@@ -101,14 +101,14 @@ export default function ChatWidget() {
     };
 
     return (
-        <div className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-[60] flex flex-col items-end gap-4 font-[family-name:var(--font-inter)]">
+        <div className="fixed bottom-24 left-4 md:bottom-6 md:left-6 z-[60] flex flex-col items-start gap-4 font-[family-name:var(--font-inter)]">
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="w-[calc(100vw-32px)] sm:w-[380px] h-[60vh] sm:h-[500px] max-h-[80vh] bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden origin-bottom-right"
+                        className="w-[calc(100vw-32px)] sm:w-[380px] h-[60vh] sm:h-[500px] max-h-[80vh] bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden origin-bottom-left"
                     >
                         {/* Header */}
                         <div className="p-4 border-b border-white/10 bg-white/5 flex justify-between items-center">
