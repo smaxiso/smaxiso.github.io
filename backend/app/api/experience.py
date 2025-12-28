@@ -4,7 +4,7 @@ from typing import List
 from pydantic import BaseModel
 from app.database import get_db
 from app.models import schemas
-from app.api.admin import get_current_user
+from app.auth import verify_token
 
 router = APIRouter(prefix="/experience", tags=["experience"])
 
@@ -47,7 +47,7 @@ def get_experiences(db: Session = Depends(get_db)):
 def create_experience(
     experience: ExperienceCreate,
     db: Session = Depends(get_db),
-    current_user: dict = Depends(get_current_user)
+    user=Depends(verify_token)
 ):
     """
     Create a new work experience entry (admin only)
@@ -65,7 +65,7 @@ def update_experience(
     experience_id: int,
     experience: ExperienceUpdate,
     db: Session = Depends(get_db),
-    current_user: dict = Depends(get_current_user)
+    user=Depends(verify_token)
 ):
     """
     Update an existing work experience entry (admin only)
@@ -87,7 +87,7 @@ def update_experience(
 def delete_experience(
     experience_id: int,
     db: Session = Depends(get_db),
-    current_user: dict = Depends(get_current_user)
+    user=Depends(verify_token)
 ):
     """
     Delete a work experience entry (admin only)
