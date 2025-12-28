@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ProfileProvider } from "@/context/ProfileContext";
-import { ToastProvider } from "@/context/ToastContext";
-import { ThemeProvider } from "@/context/ThemeContext";
-import Navbar from "@/components/Navbar";
-import ScrollButtons from "@/components/ScrollButtons";
-import ChatWidget from "@/components/ChatWidget";
+import ClientProviders from "@/components/ClientProviders";
 import "./globals.css";
 
 import { siteConfig } from "@/config/site";
@@ -76,16 +71,9 @@ export default function RootLayout({
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
       </head>
       <body className={inter.className}>
-        <ThemeProvider>
-          <ToastProvider>
-            <ProfileProvider>
-              <Navbar />
-              <ScrollButtons />
-              <ChatWidget />
-              {children}
-            </ProfileProvider>
-          </ToastProvider>
-        </ThemeProvider>
+        <ClientProviders>
+          {children}
+        </ClientProviders>
       </body>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ''} />
     </html>
