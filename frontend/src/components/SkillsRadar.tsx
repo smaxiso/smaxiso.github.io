@@ -33,7 +33,7 @@ export default function SkillsRadar() {
                 // Convert to radar chart format
                 const chartData = Array.from(categoryMap.entries()).map(([category, { total, count }]) => ({
                     category,
-                    proficiency: Math.round((total / count) * 20), // Scale to 0-100
+                    proficiency: Math.round(total / count), // Average already 0-100
                 }));
 
                 setRadarData(chartData);
@@ -159,13 +159,22 @@ export default function SkillsRadar() {
     );
 }
 
-// Helper function to convert level string to numeric value
-function getLevelValue(level: string): number {
+// Helper function to convert level (string or number) to numeric value
+function getLevelValue(level: string | undefined): number {
+    if (!level) return 60; // Default if no level
+
+    // If it's a numeric string (e.g., "70", "85", "95"), parse and return it
+    const numericLevel = parseInt(level);
+    if (!isNaN(numericLevel)) {
+        return numericLevel;
+    }
+
+    // Otherwise, map text levels to numeric values (0-100 scale)
     const levelMap: { [key: string]: number } = {
-        beginner: 1,
-        intermediate: 3,
-        advanced: 4,
-        expert: 5,
+        beginner: 40,
+        intermediate: 60,
+        advanced: 80,
+        expert: 95,
     };
-    return levelMap[level.toLowerCase()] || 3; // Default to intermediate
+    return levelMap[level.toLowerCase()] || 60;
 }
