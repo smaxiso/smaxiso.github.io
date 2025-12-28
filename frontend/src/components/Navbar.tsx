@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Book, Briefcase, Home, Mail, User, FileText, Menu, X, Code, FileUser } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -117,6 +118,7 @@ export default function Navbar() {
                         <Link href="/blog" className="hover:text-blue-400 transition-colors">Blog</Link>
                         <Link href="/resume" className="hover:text-blue-400 transition-colors">Resume</Link>
                         <Link href="/#contact" className="hover:text-blue-400 transition-colors">Contact</Link>
+                        <ThemeToggle />
                     </div>
                 </motion.div>
             </nav>
