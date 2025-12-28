@@ -6,7 +6,7 @@ from app.database import get_db
 from app.models import schemas
 from app.auth import verify_token
 
-router = APIRouter(prefix="/experience", tags=["experience"])
+router = APIRouter()
 
 # Pydantic models for request/response
 class ExperienceBase(BaseModel):
