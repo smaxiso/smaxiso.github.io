@@ -18,6 +18,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     useEffect(() => {
         setMounted(true);
+
+        // Only run on client side
+        if (typeof window === "undefined") return;
+
         // Check localStorage first
         const stored = localStorage.getItem("theme") as Theme | null;
         if (stored) {
@@ -33,6 +37,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const setTheme = (newTheme: Theme) => {
+        if (typeof window === "undefined") return;
+
         setThemeState(newTheme);
         localStorage.setItem("theme", newTheme);
         document.documentElement.classList.toggle("dark", newTheme === "dark");
@@ -42,11 +48,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         setTheme(theme === "light" ? "dark" : "light");
     };
 
-    // Prevent flash of wrong theme
-    if (!mounted) {
-        return <>{children}</>;
-    }
-
+    // Always provide the context, even during SSR
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
             {children}
