@@ -160,6 +160,11 @@ export default function Navbar() {
                                             </Link>
                                         );
                                     })}
+                                    {/* Theme Toggle for Mobile */}
+                                    <div className="flex items-center gap-3 px-4 py-3">
+                                        <ThemeToggle />
+                                        <span className="text-sm font-medium text-slate-300">Theme</span>
+                                    </div>
                                 </div>
                             </motion.div>
                         </>
