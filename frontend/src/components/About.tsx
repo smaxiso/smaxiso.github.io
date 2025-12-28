@@ -49,7 +49,7 @@ export function About() {
                             {siteConfig.about.stats.map(stat => (
                                 <div key={stat.label} className="text-center p-4 sm:p-6 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-white/60 dark:border-slate-700 shadow-lg hover:shadow-xl transition-shadow group">
                                     <h3 className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 group-hover:scale-110 transition-transform inline-block">
-                                        <AnimatedCounter end={Number(stat.number)} />+
+                                        <AnimatedCounter end={Number(stat.number)} decimals={stat.number % 1 !== 0 ? 1 : 0} />+
                                     </h3>
                                     <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider mt-1">{stat.label}</p>
                                 </div>
