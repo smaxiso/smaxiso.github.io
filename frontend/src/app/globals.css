@@ -45,6 +45,22 @@ body {
   box-shadow: var(--glass-shadow);
 }
 
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 /* Custom Scrollbar - Chrome/Safari/Edge */
 ::-webkit-scrollbar {
   width: 10px;

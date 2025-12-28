@@ -54,7 +54,7 @@ export default function ProjectCarousel() {
     const currentProject = projects[currentIndex];
 
     return (
-        <section className="py-20 bg-gradient-to-br from-slate-900 to-blue-900 text-white">
+        <section className="py-20 bg-slate-50">
             <div className="container px-4 md:px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -62,11 +62,11 @@ export default function ProjectCarousel() {
                     viewport={{ once: true }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-sm font-bold tracking-widest text-blue-300 uppercase mb-2">
+                    <h2 className="text-sm font-bold tracking-widest text-blue-600 uppercase mb-2">
                         Featured Work
                     </h2>
-                    <h3 className="text-3xl md:text-4xl font-bold mb-4">Project Showcase</h3>
-                    <p className="text-slate-300 max-w-2xl mx-auto">
+                    <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Project Showcase</h3>
+                    <p className="text-slate-600 max-w-2xl mx-auto">
                         Highlighting key projects that demonstrate my technical capabilities
                     </p>
                 </motion.div>
@@ -74,7 +74,7 @@ export default function ProjectCarousel() {
                 <div className="max-w-5xl mx-auto">
                     <div className="relative">
                         {/* Main Carousel */}
-                        <div className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden bg-slate-800/50 backdrop-blur-sm">
+                        <div className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden bg-white backdrop-blur-sm border border-slate-200">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={currentIndex}
@@ -102,14 +102,14 @@ export default function ProjectCarousel() {
                                         </div>
 
                                         {/* Project Details */}
-                                        <div className="p-8 md:p-12 flex flex-col justify-center">
-                                            <span className="text-sm text-blue-400 font-semibold mb-2">
+                                        <div className="p-8 md:p-12 flex flex-col justify-center bg-white">
+                                            <span className="text-sm text-blue-600 font-semibold mb-2">
                                                 {currentProject.category}
                                             </span>
-                                            <h4 className="text-2xl md:text-3xl font-bold mb-4">
+                                            <h4 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
                                                 {currentProject.title}
                                             </h4>
-                                            <p className="text-slate-300 mb-6 line-clamp-4">
+                                            <p className="text-slate-600 mb-6 line-clamp-4">
                                                 {currentProject.description}
                                             </p>
 
@@ -118,7 +118,7 @@ export default function ProjectCarousel() {
                                                 {currentProject.technologies.slice(0, 5).map((tech, i) => (
                                                     <span
                                                         key={i}
-                                                        className="px-3 py-1 bg-blue-500/20 text-blue-300 text-sm rounded-full"
+                                                        className="px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full"
                                                     >
                                                         {tech}
                                                     </span>
@@ -186,8 +186,8 @@ export default function ProjectCarousel() {
                                     key={index}
                                     onClick={() => setCurrentIndex(index)}
                                     className={`h-2 rounded-full transition-all ${index === currentIndex
-                                            ? "w-8 bg-blue-500"
-                                            : "w-2 bg-slate-600 hover:bg-slate-500"
+                                        ? "w-8 bg-blue-500"
+                                        : "w-2 bg-slate-600 hover:bg-slate-500"
                                         }`}
                                     aria-label={`Go to project ${index + 1}`}
                                 />

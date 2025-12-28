@@ -28,8 +28,17 @@ export default function ExperienceTimeline() {
         return (
             <div className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
                 <div className="container px-4 md:px-6">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Loading Experience...</h2>
+                    <div className="text-center mb-12 space-y-4">
+                        <div className="h-4 w-32 bg-slate-200 animate-pulse rounded mx-auto"></div>
+                        <div className="h-10 w-64 bg-slate-200 animate-pulse rounded mx-auto"></div>
+                    </div>
+
+                    <div className="space-y-8 md:space-y-12">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="flex flex-col md:flex-row gap-8 items-center bg-white/50 rounded-xl p-4 animate-pulse">
+                                <div className="w-full md:w-1/2 h-40 bg-slate-200 rounded-xl"></div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -37,35 +46,40 @@ export default function ExperienceTimeline() {
     }
 
     if (experiences.length === 0) {
-        return null; // Don't show section if no experiences
+        return null;
     }
 
     return (
-        <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
-            <div className="container px-4 md:px-6">
+        <section id="experience" className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-30 pointer-events-none">
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:20px_20px]"></div>
+            </div>
+
+            <div className="container px-4 md:px-6 relative z-10">
                 {/* Section Header */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-16">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="text-sm font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase mb-2">
+                        <h2 className="text-sm font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase mb-3">
                             My Journey
                         </h2>
-                        <h3 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                        <h3 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6">
                             Work Experience
                         </h3>
-                        <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+                        <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto text-lg leading-relaxed">
                             Professional experience building data solutions across FinTech and Cybersecurity
                         </p>
                     </motion.div>
                 </div>
 
                 {/* Desktop: Horizontal Timeline */}
-                <div className="hidden md:block relative">
+                <div className="hidden md:block relative pb-12">
                     {/* Timeline Line */}
-                    <div className="absolute left-0 right-0 top-1/2 h-1 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-200 dark:from-blue-800 dark:via-blue-600 dark:to-blue-800 -translate-y-1/2 rounded-full" />
+                    <div className="absolute left-0 right-0 top-1/2 h-0.5 bg-slate-200 dark:bg-slate-700 -translate-y-1/2 rounded-full" />
 
                     {/* Experience Cards */}
                     <div className="grid grid-cols-1 gap-8 relative">
@@ -156,7 +170,7 @@ export default function ExperienceTimeline() {
                         >
                             {/* Vertical Line */}
                             {index < experiences.length - 1 && (
-                                <div className="absolute left-2 top-8 bottom-0 w-0.5 bg-blue-200 dark:bg-blue-800" />
+                                <div className="absolute left-2 top-8 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700" />
                             )}
 
                             {/* Timeline Dot */}

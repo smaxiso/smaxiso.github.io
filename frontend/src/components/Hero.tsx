@@ -9,11 +9,11 @@ export function Hero() {
 
     return (
         <section className="min-h-screen flex items-center justify-center pt-16 pb-20 md:pb-0 relative overflow-hidden">
-            {/* Background Elements */}
+            {/* Background Elements - Professional Muted Tones */}
             <div className="absolute inset-0 -z-10">
-                <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-                <div className="absolute top-20 right-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-                <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+                <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+                <div className="absolute top-20 right-10 w-72 h-72 bg-indigo-400/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+                <div className="absolute -bottom-8 left-20 w-72 h-72 bg-slate-300/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
             </div>
 
             <div className="container px-4 md:px-6 flex flex-col md:flex-row items-center gap-12 md:gap-20">
@@ -96,10 +96,13 @@ export function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1 }}
-                        className="absolute -bottom-3 right-0 md:-bottom-6 md:-right-6 glass-card px-3 py-2 md:px-6 md:py-4 rounded-xl md:rounded-2xl flex items-center gap-2 md:gap-3 animate-bounce-slow z-20 shadow-lg"
+                        className="absolute -bottom-3 right-0 md:-bottom-6 md:-right-6 glass-card px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl flex items-center gap-2 md:gap-3 animate-pulse-slow z-20 shadow-lg border border-white/60"
                     >
-                        <div className="w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full animate-pulse"></div>
-                        <span className="font-semibold text-[10px] md:text-sm text-slate-700 whitespace-nowrap">Open to Work</span>
+                        <div className="relative">
+                            <div className="w-2 h-2 md:w-3 md:h-3 bg-emerald-500 rounded-full"></div>
+                            <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75"></div>
+                        </div>
+                        <span className="font-medium text-[10px] md:text-sm text-slate-600 whitespace-nowrap">Open to Work</span>
                     </motion.div>
                 </motion.div>
             </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import ClientProviders from "@/components/ClientProviders";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import "./globals.css";
 
 import { siteConfig } from "@/config/site";
@@ -72,6 +73,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <ClientProviders>
+          <ScrollToTop />
           {children}
         </ClientProviders>
       </body>
