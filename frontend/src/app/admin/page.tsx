@@ -11,6 +11,7 @@ import { SkillsEditor } from '@/components/admin/SkillsEditor';
 import { GuestbookEditor } from '@/components/admin/GuestbookEditor';
 import { BlogEditor } from '@/components/admin/BlogEditor';
 import MediaManager from '@/components/admin/MediaManager';
+import ExperienceEditor from '@/components/admin/ExperienceEditor';
 import { IngestButton } from '@/components/admin/IngestButton';
 import { useToast } from '@/context/ToastContext';
 
@@ -80,6 +81,7 @@ export default function AdminPage() {
                         <TabsTrigger value="projects" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Projects</TabsTrigger>
                         <TabsTrigger value="profile" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Profile</TabsTrigger>
                         <TabsTrigger value="skills" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Skills</TabsTrigger>
+                        <TabsTrigger value="experience" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Experience</TabsTrigger>
                         <TabsTrigger value="socials" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Socials</TabsTrigger>
                         <TabsTrigger value="resumes" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Resumes</TabsTrigger>
                         <TabsTrigger value="guestbook" className="px-2 sm:px-4 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">Guestbook</TabsTrigger>
@@ -100,6 +102,12 @@ export default function AdminPage() {
 
                     <TabsContent value="skills">
                         <SkillsEditor />
+                    </TabsContent>
+
+                    <TabsContent value="experience">
+                        <div className="bg-white p-6 rounded-xl shadow-sm border">
+                            <ExperienceEditor />
+                        </div>
                     </TabsContent>
 
                     <TabsContent value="socials">
