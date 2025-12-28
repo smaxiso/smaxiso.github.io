@@ -111,4 +111,15 @@ class BlogPost(Base):
     created_at = Column(String) # ISO timestamp
     updated_at = Column(String, nullable=True) # ISO timestamp used for "Last Updated"
 
+class Experience(Base):
+    __tablename__ = "experiences"
 
+    id = Column(Integer, primary_key=True, index=True)
+    company = Column(String, index=True, nullable=False)
+    company_logo = Column(String, nullable=True)  # URL or Cloudinary public_id
+    title = Column(String, nullable=False)  # Job title
+    start_date = Column(String, nullable=False)  # YYYY-MM format
+    end_date = Column(String, nullable=True)  # YYYY-MM format, null if current
+    description = Column(Text, nullable=True)
+    technologies = Column(JSON, nullable=True)  # List of strings
+    order = Column(Integer, default=0)  # For custom ordering (lower = shown first)

@@ -25,7 +25,7 @@ if not firebase_admin._apps:
 
 from app.database import engine
 from app.models import schemas
-from app.api import projects, skills, config, guestbook, blog, media, chat, admin
+from app.api import projects, skills, config, guestbook, blog, media, chat, admin, experience
 
 # Create tables
 schemas.Base.metadata.create_all(bind=engine)
@@ -57,6 +57,7 @@ app.include_router(blog.router, prefix="/api/v1/blog", tags=["blog"])
 app.include_router(media.router, prefix="/api/v1/media", tags=["media"])
 app.include_router(chat.router, prefix="/api/v1", tags=["chat"])
 app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
+app.include_router(experience.router, prefix="/api/v1/experience", tags=["experience"])
 
 @app.get("/")
 def read_root():

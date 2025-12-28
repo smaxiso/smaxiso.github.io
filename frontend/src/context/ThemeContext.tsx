@@ -26,21 +26,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         const stored = localStorage.getItem("theme") as Theme | null;
         if (stored) {
             setThemeState(stored);
-            if (stored === "dark") {
-                document.documentElement.classList.add("dark");
-            } else {
-                document.documentElement.classList.remove("dark");
-            }
+            document.documentElement.classList.toggle("dark", stored === "dark");
         } else {
             // Check system preference
             const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
             const systemTheme = prefersDark ? "dark" : "light";
             setThemeState(systemTheme);
-            if (systemTheme === "dark") {
-                document.documentElement.classList.add("dark");
-            } else {
-                document.documentElement.classList.remove("dark");
-            }
+            document.documentElement.classList.toggle("dark", systemTheme === "dark");
         }
     }, []);
 
@@ -49,13 +41,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
         setThemeState(newTheme);
         localStorage.setItem("theme", newTheme);
-
-        // Fix: Use add/remove instead of toggle
-        if (newTheme === "dark") {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
+        document.documentElement.classList.toggle("dark", newTheme === "dark");
     };
 
     const toggleTheme = () => {

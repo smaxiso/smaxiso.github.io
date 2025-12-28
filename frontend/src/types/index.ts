@@ -50,3 +50,15 @@ export interface BlogPost {
     created_at: string;
     updated_at?: string;
 }
+
+export interface Experience {
+    id: number;
+    company: string;
+    company_logo?: string;
+    title: string;
+    start_date: string;  // YYYY-MM format
+    end_date?: string;  // YYYY-MM format, null if current
+    description?: string;
+    technologies?: string[];
+    order: number;
+}

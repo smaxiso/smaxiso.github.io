@@ -1,4 +1,4 @@
-import { Project, Skill, Hobby, GuestbookEntry, BlogPost } from "@/types";
+import { Project, Skill, Hobby, GuestbookEntry, BlogPost, Experience } from "@/types";
 import { getAuth } from "firebase/auth";
 
 export interface MediaResource {
@@ -243,4 +243,47 @@ export async function deleteMedia(public_id: string, token: string): Promise<voi
         headers: { 'Authorization': `Bearer ${token}` }
     });
     if (!res.ok) throw new Error('Failed to delete media');
+}
+
+// Experience CRUD
+export async function getExperiences(): Promise<Experience[]> {
+    const res = await fetch(`${API_URL}/experience/`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to fetch experiences');
+    return res.json();
+}
+
+export async function createExperience(experience: Omit<Experience, 'id'>, token: string): Promise<Experience> {
+    const res = await fetch(`${API_URL}/experience/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(experience),
+    });
+    if (!res.ok) throw new Error('Failed to create experience');
+    return res.json();
+}
+
+export async function updateExperience(id: number, experience: Omit<Experience, 'id'>, token: string): Promise<Experience> {
+    const res = await fetch(`${API_URL}/experience/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(experience),
+    });
+    if (!res.ok) throw new Error('Failed to update experience');
+    return res.json();
+}
+
+export async function deleteExperience(id: number, token: string): Promise<void> {
+    const res = await fetch(`${API_URL}/experience/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if (!res.ok) throw new Error('Failed to delete experience');
 }

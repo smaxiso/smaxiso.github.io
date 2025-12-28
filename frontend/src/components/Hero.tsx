@@ -8,7 +8,7 @@ export function Hero() {
     const siteConfig = useSiteConfig();
 
     return (
-        <section className="min-h-screen flex items-center justify-center pt-16 pb-20 md:pb-0 relative overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+        <section className="min-h-screen flex items-center justify-center pt-16 pb-20 md:pb-0 relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute inset-0 -z-10">
                 <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
@@ -30,13 +30,13 @@ export function Hero() {
                             transition={{ delay: 0.2 }}
                             className="inline-block"
                         >
-                            <span className="px-4 py-2 rounded-full glass-card text-blue-700 dark:text-blue-300 text-sm font-bold tracking-wider uppercase shadow-sm border border-blue-100/50 dark:border-blue-900/50 dark:bg-slate-800/50">
+                            <span className="px-4 py-2 rounded-full glass-card text-blue-700 text-sm font-bold tracking-wider uppercase shadow-sm border border-blue-100/50">
                                 {siteConfig.home.greeting}
                             </span>
                         </motion.div>
 
                         <div className="space-y-2">
-                            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+                            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
                                 {siteConfig.home.name}
                             </h1>
                             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 pb-2">
@@ -45,7 +45,7 @@ export function Hero() {
                         </div>
                     </div>
 
-                    <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-[600px] mx-auto md:mx-0 leading-relaxed font-normal">
+                    <p className="text-lg md:text-xl text-slate-600 max-w-[600px] mx-auto md:mx-0 leading-relaxed font-normal">
                         {siteConfig.home.subtitle}
                     </p>
 
@@ -54,7 +54,7 @@ export function Hero() {
                             <span className="mr-2">View My Work</span>
                             <i className='bx bx-right-arrow-alt text-xl transition-transform group-hover:translate-x-1'></i>
                         </a>
-                        <a href="#contact" className="inline-flex h-10 md:h-12 items-center justify-center rounded-full glassc card px-6 font-medium text-slate-900 dark:text-white dark:bg-slate-800/50 dark:border-slate-700 transition-all duration-300 hover:scale-105 hover:bg-white/80 dark:hover:bg-slate-700/80 hover:shadow-lg hover:border-blue-200 dark:hover:border-blue-800 text-sm md:text-base">
+                        <a href="#contact" className="inline-flex h-10 md:h-12 items-center justify-center rounded-full glass-card px-6 font-medium text-slate-900 transition-all duration-300 hover:scale-105 hover:bg-white/80 hover:shadow-lg hover:border-blue-200 text-sm md:text-base">
                             Contact Me
                         </a>
                     </div>
