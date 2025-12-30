@@ -3,5 +3,11 @@
   command = "npm run build"
   publish = "out"
 
-# Handle Single Page App (SPA) fallback if necessary, though typical for static exports with detailed pages
-# Netlify automatically serves .html files for paths without extensions
+
+# Redirect all traffic to the new Firebase domain
+[[redirects]]
+  from = "/*"
+  to = "https://smaxiso.web.app/:splat"
+  status = 301
+  force = true
+
