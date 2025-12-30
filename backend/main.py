@@ -7,13 +7,28 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import json
+
 # Initialize Firebase Admin
 if not firebase_admin._apps:
-    # For production (Render), use ADC or environment variable
-    # For local development, set GOOGLE_APPLICATION_CREDENTIALS or use projectId-only mode
-    cred_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+    # 1. Try explicit JSON content from env (Best for Koyeb/Render/Fly without files)
+    firebase_creds_json = os.getenv('FIREBASE_CREDENTIALS_JSON')
     
-    if cred_path and os.path.exists(cred_path):
+    # 2. Try file path from env
+    cred_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+
+    if firebase_creds_json:
+        try:
+            cred_dict = json.loads(firebase_creds_json)
+            cred = credentials.Certificate(cred_dict)
+            firebase_admin.initialize_app(cred)
+            print("✅ Firebase Admin initialized from FIREBASE_CREDENTIALS_JSON env var")
+        except Exception as e:
+            print(f"❌ Failed to load FIREBASE_CREDENTIALS_JSON: {e}")
+            # Fallback to no-auth or project-id only if strict auth not strictly required for read
+            firebase_admin.initialize_app(options={'projectId': 'smaxiso'})
+
+    elif cred_path and os.path.exists(cred_path):
         # Use service account file
         cred = credentials.Certificate(cred_path)
         firebase_admin.initialize_app(cred)
