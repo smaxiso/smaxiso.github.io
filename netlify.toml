@@ -1,7 +1,7 @@
 [build]
   base = "frontend"
-  command = "npm run build"
-  publish = "out"
+  command = "echo 'Skipping build - Redirect only'"
+  publish = "public"
 
 
 # Redirect all traffic to the new Firebase domain
