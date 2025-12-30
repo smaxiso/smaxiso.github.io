@@ -17,13 +17,13 @@ export interface MediaResource {
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
 
 export async function getProjects(): Promise<Project[]> {
-    const res = await fetch(`${API_URL}/projects`, { cache: 'no-store' });
+    const res = await fetch(`${API_URL}/projects`);
     if (!res.ok) throw new Error('Failed to fetch projects');
     return res.json();
 }
 
 export async function getSkills(): Promise<Skill[]> {
-    const res = await fetch(`${API_URL}/skills`, { cache: 'no-store' });
+    const res = await fetch(`${API_URL}/skills`);
     if (!res.ok) throw new Error('Failed to fetch skills');
     return res.json();
 }
@@ -104,7 +104,7 @@ export async function deleteSkill(id: number, token: string): Promise<void> {
 
 // Guestbook CRUD
 export async function getGuestbookEntries(limit = 50): Promise<GuestbookEntry[]> {
-    const res = await fetch(`${API_URL}/guestbook?limit=${limit}`, { cache: 'no-store' });
+    const res = await fetch(`${API_URL}/guestbook?limit=${limit}`);
     if (!res.ok) throw new Error('Failed to fetch guestbook');
     return res.json();
 }
@@ -125,13 +125,13 @@ export async function submitGuestbookEntry(entry: { name: string, message: strin
 
 // Blog
 export async function getPublishedPosts(): Promise<BlogPost[]> {
-    const res = await fetch(`${API_URL}/blog/`, { cache: 'no-store' });
+    const res = await fetch(`${API_URL}/blog/`);
     if (!res.ok) throw new Error('Failed to fetch posts');
     return res.json();
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost> {
-    const res = await fetch(`${API_URL}/blog/${slug}`, { cache: 'no-store' });
+    const res = await fetch(`${API_URL}/blog/${slug}`);
     if (!res.ok) {
         if (res.status === 404) return null as any; // Handle 404 gracefully in component
         throw new Error('Failed to fetch post');
@@ -247,7 +247,7 @@ export async function deleteMedia(public_id: string, token: string): Promise<voi
 
 // Experience CRUD
 export async function getExperiences(): Promise<Experience[]> {
-    const res = await fetch(`${API_URL}/experience/`, { cache: 'no-store' });
+    const res = await fetch(`${API_URL}/experience/`);
     if (!res.ok) throw new Error('Failed to fetch experiences');
     return res.json();
 }
