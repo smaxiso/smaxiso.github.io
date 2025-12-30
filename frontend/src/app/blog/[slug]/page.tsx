@@ -11,7 +11,7 @@ export async function generateStaticParams() {
     } catch (error) {
         console.warn("Could not fetch posts during build (API might not be running). Falling back to dynamic rendering:", error);
         // Return empty array - pages will be generated on-demand at runtime
-        return [];
+        return [{ slug: 'latest' }];
     }
 }
 
