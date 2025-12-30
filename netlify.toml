@@ -1,0 +1,7 @@
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "out"
+
+# Handle Single Page App (SPA) fallback if necessary, though typical for static exports with detailed pages
+# Netlify automatically serves .html files for paths without extensions
