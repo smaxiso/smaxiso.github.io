@@ -20,12 +20,30 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
 - **Dynamic Content**: All content loaded from backend API
 - **AI Chatbot 🤖**: RAG-powered assistant (Gemini 1.5 + Pinecone) that answers questions using my Resume, GitHub, and Portfolio data.
 - **Sections**: Hero, About, Skills, Projects, Blog, Guestbook, Contact
-- **Tech Blog**: Markdown support, code highlighting, and social sharing
+- **Tech Blog**: 
+  - Markdown support with syntax highlighting
+  - Related posts with intelligent tag matching
+  - Multi-channel sharing (native share, WhatsApp, LinkedIn, Twitter)
+  - Auto-copy to clipboard on social share
+  - Local timezone display for all dates
+
+### SEO & Discoverability
+- **Meta Tags**: Dynamic Open Graph and Twitter Card tags for perfect social previews
+- **Structured Data**: JSON-LD BlogPosting schema for Google rich snippets
+- **Sitemap**: Auto-generated `sitemap.xml` with all pages and blog posts
+- **Robots.txt**: Optimized crawler directives
+- **Internal Linking**: Related posts section for better SEO and engagement
 
 ### Admin Dashboard
 - 🔐 **Secure Authentication**: Google Sign-in with email whitelist
 - 🧠 **Knowledge Base Manager**: One-click ingestion to sync Resume & GitHub data with AI
 - 💼 **Content Management**: Projects, Skills, Blog Posts, Guestbook, Profile, Social Links, Resumes
+- 📝 **Blog Editor**: 
+  - Drag & drop image uploads
+  - Markdown editor with live preview
+  - Search & sort functionality
+  - Always-visible action icons (View, Edit, Delete)
+  - Creation date display with local timezone
 - 🎨 **Visual Icon Picker**: 70+ categorized icons with search
 - 🔗 **Social Platform Presets**: Auto-detection from URLs
 - 🎨 **Toast Notifications**: Beautiful in-app notifications
