@@ -319,24 +319,55 @@ export function BlogEditor() {
         );
     }
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'title'>('newest');
+
+    // Filter and Sort
+    const filteredPosts = posts
+        .filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()) || post.slug.includes(searchQuery.toLowerCase()))
+        .sort((a, b) => {
+            if (sortBy === 'newest') return b.created_at.localeCompare(a.created_at);
+            if (sortBy === 'oldest') return a.created_at.localeCompare(b.created_at);
+            return a.title.localeCompare(b.title);
+        });
+
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center bg-white/40 p-4 rounded-xl border border-white/50 backdrop-blur-sm">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white/40 p-4 rounded-xl border border-white/50 backdrop-blur-sm gap-4">
                 <div>
                     <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-700 to-slate-900">Blog Posts</h2>
-                    <p className="text-slate-500 text-sm">{posts.length} posts found</p>
+                    <p className="text-slate-500 text-sm">{filteredPosts.length} posts found</p>
                 </div>
-                <button
-                    onClick={() => openEditor()}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm transition-all text-sm font-medium"
-                >
-                    <Plus size={18} />
-                    New Post
-                </button>
+
+                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <input
+                        type="text"
+                        placeholder="Search posts..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="px-3 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm w-full sm:w-48"
+                    />
+                    <select
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value as any)}
+                        className="px-3 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm bg-white"
+                    >
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="title">Title A-Z</option>
+                    </select>
+                    <button
+                        onClick={() => openEditor()}
+                        className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm transition-all text-sm font-medium whitespace-nowrap"
+                    >
+                        <Plus size={18} />
+                        New Post
+                    </button>
+                </div>
             </div>
 
             <div className="grid gap-4">
-                {posts.map((post) => (
+                {filteredPosts.map((post) => (
                     <div key={post.id} className="group flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 sm:p-4 bg-white/60 hover:bg-white/80 rounded-xl border border-white/60 scroll-smooth hover:shadow-md transition-all gap-3 sm:gap-0">
                         <div className="flex-1 min-w-0 w-full sm:w-auto sm:mr-4">
                             <div className="flex items-center flex-wrap gap-2 mb-1">
@@ -352,29 +383,35 @@ export function BlogEditor() {
                                     </span>
                                 )}
                             </div>
-                            <p className="text-xs text-slate-500 font-mono truncate">/{post.slug}</p>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs text-slate-500 font-mono">
+                                <span className="truncate">/{post.slug}</span>
+                                <span className="hidden sm:inline text-slate-300">•</span>
+                                <span title={post.created_at}>
+                                    {new Date(post.created_at.endsWith('Z') ? post.created_at : `${post.created_at}Z`).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                                </span>
+                            </div>
                         </div>
 
-                        <div className="flex items-center justify-end gap-2 w-full sm:w-auto opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex items-center justify-end gap-2 w-full sm:w-auto opacity-100 transition-opacity">
                             <a
                                 href={`/blog/${post.slug}`}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors border border-transparent hover:border-blue-100"
                                 title="View Live"
                             >
                                 <Eye size={18} />
                             </a>
                             <button
                                 onClick={() => openEditor(post)}
-                                className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                                className="p-2 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors border border-transparent hover:border-green-100"
                                 title="Edit"
                             >
                                 <Edit size={18} />
                             </button>
                             <button
                                 onClick={() => handleDelete(post.id)}
-                                className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors border border-transparent hover:border-red-100"
                                 title="Delete"
                             >
                                 <Trash2 size={18} />
@@ -383,9 +420,9 @@ export function BlogEditor() {
                     </div>
                 ))}
 
-                {posts.length === 0 && (
+                {filteredPosts.length === 0 && (
                     <div className="text-center py-12 text-slate-500 bg-slate-50/50 rounded-xl border border-dashed border-slate-300">
-                        No blog posts found. Create your first one!
+                        {searchQuery ? 'No posts match your search.' : 'No blog posts found. Create your first one!'}
                     </div>
                 )}
             </div>
