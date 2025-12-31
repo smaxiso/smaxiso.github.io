@@ -164,7 +164,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost> {
 export async function getAllPosts(): Promise<BlogPost[]> {
     const auth = getAuth();
     const token = await auth.currentUser?.getIdToken();
-    const res = await fetch(`${API_URL}/blog/admin/all`, {
+    const res = await fetchWithFailover(`/blog/admin/all`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -217,7 +217,7 @@ export async function deletePost(id: number): Promise<void> {
 
 // Admin Guestbook
 export async function getAllGuestbookEntries(token: string): Promise<GuestbookEntry[]> {
-    const res = await fetch(`${API_URL}/guestbook/all`, {
+    const res = await fetchWithFailover(`/guestbook/all`, {
         headers: { 'Authorization': `Bearer ${token}` }
     });
     if (!res.ok) throw new Error('Failed to fetch all entries');
@@ -247,7 +247,7 @@ export async function deleteGuestbookEntry(id: number, token: string): Promise<v
 
 // Media
 export async function auditMedia(token: string): Promise<MediaResource[]> {
-    const res = await fetch(`${API_URL}/media/audit`, {
+    const res = await fetchWithFailover(`/media/audit`, {
         headers: { 'Authorization': `Bearer ${token}` }
     });
     if (!res.ok) throw new Error('Failed to audit media');
