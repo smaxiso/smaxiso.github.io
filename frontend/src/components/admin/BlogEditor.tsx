@@ -18,6 +18,7 @@ export function BlogEditor() {
     // Editor is controlled by URL validation, but we keep local state for instant toggle
     const [isEditing, setIsEditing] = useState(false);
     const [uploading, setUploading] = useState(false);
+    const [saving, setSaving] = useState(false);
 
     // Initial State
     const initialPostState: Partial<BlogPost> = {
@@ -92,9 +93,11 @@ export function BlogEditor() {
         e.preventDefault();
         if (!hasChanges) return;
 
+        setSaving(true);
         try {
             if (!currentPost.title || !currentPost.slug || !currentPost.content) {
                 toast.error('Please fill required fields (Title, Slug, Content)');
+                setSaving(false);
                 return;
             }
 
@@ -117,10 +120,12 @@ export function BlogEditor() {
             }
 
             closeEditor();
-            fetchPosts();
+            await fetchPosts();
         } catch (error: any) {
             console.error(error);
             toast.error(error.message || 'Failed to save post');
+        } finally {
+            setSaving(false);
         }
     };
 
@@ -164,11 +169,7 @@ export function BlogEditor() {
                                 onChange={(e) => {
                                     const newTitle = e.target.value;
                                     setCurrentPost(prev => {
-                                        // Auto-generate slug if it was empty or matches the old title slug
-                                        // Simplified: If slug is empty OR it looks like an auto-gen slug from the old title
-                                        // Actually simplest user request: "if the slug is not provided"
                                         const shouldUpdateSlug = !prev.slug || prev.slug === generateSlug(prev.title || '');
-
                                         return {
                                             ...prev,
                                             title: newTitle,
@@ -194,27 +195,55 @@ export function BlogEditor() {
 
                     <div>
                         <label className="block text-sm font-medium mb-1">Cover Image URL</label>
-                        <div className="flex gap-2">
+                        <div
+                            className={`flex gap-2 p-2 rounded-lg border-2 border-dashed transition-colors ${uploading ? 'bg-blue-50 border-blue-300' : 'border-slate-300 hover:border-blue-400'}`}
+                            onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                            onDrop={async (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                                    const file = e.dataTransfer.files[0];
+                                    setUploading(true);
+                                    try {
+                                        const downloadURL = await uploadFile(file);
+                                        setCurrentPost(prev => ({ ...prev, cover_image: downloadURL }));
+                                        toast.success("Image uploaded!");
+                                    } catch (err) {
+                                        console.error(err);
+                                        toast.error('Failed to upload image');
+                                    } finally {
+                                        setUploading(false);
+                                    }
+                                }
+                            }}
+                        >
                             <input
                                 type="text"
                                 value={currentPost.cover_image || ''}
                                 onChange={(e) => setCurrentPost(prev => ({ ...prev, cover_image: e.target.value }))}
-                                className="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
-                                placeholder="https://..."
+                                className="flex-1 p-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none"
+                                placeholder="https://... or Drag & Drop Image Here"
                             />
-                            <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg px-4 py-2 flex items-center justify-center transition-colors">
-                                <span className="text-sm font-medium text-slate-600 whitespace-nowrap">Upload</span>
-                                <input type="file" className="hidden" onChange={handleImageUpload} accept="image/*" />
+                            <label className={`cursor-pointer bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg px-4 py-2 flex items-center justify-center transition-colors ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                <span className="text-sm font-medium text-slate-600 whitespace-nowrap">{uploading ? 'Uploading...' : 'Upload'}</span>
+                                <input type="file" className="hidden" onChange={handleImageUpload} accept="image/*" disabled={uploading} />
                             </label>
                         </div>
-                        {uploading && <p className="text-xs text-blue-600 mt-1 animate-pulse">Uploading to Cloudinary...</p>}
                         {currentPost.cover_image && (
-                            <div className="mt-3 relative w-full h-48 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 shadow-sm">
+                            <div className="mt-3 relative w-full h-48 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 shadow-sm group">
                                 <img
                                     src={currentPost.cover_image}
                                     alt="Preview"
                                     className="w-full h-full object-cover"
                                 />
+                                <button
+                                    type="button"
+                                    onClick={() => setCurrentPost(prev => ({ ...prev, cover_image: '' }))}
+                                    className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                    title="Remove Image"
+                                >
+                                    <X size={16} />
+                                </button>
                             </div>
                         )}
                     </div>
@@ -273,12 +302,16 @@ export function BlogEditor() {
                         </button>
                         <button
                             type="submit"
-                            disabled={!hasChanges && !uploading}
-                            className={`px-6 py-2 bg-blue-600 text-white rounded-lg transition-all shadow-sm flex items-center gap-2 font-medium ${(!hasChanges || uploading) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700 hover:shadow-md'
-                                }`}
+                            disabled={!hasChanges && !uploading && !saving}
+                            className={`px-6 py-2 bg-blue-600 text-white rounded-lg transition-all shadow-sm flex items-center gap-2 font-medium ${(!hasChanges || uploading || saving) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700 hover:shadow-md active:scale-95'}`}
                         >
-                            <Check size={18} />
-                            Save Post
+                            {uploading ? (
+                                <><span>Uploading...</span></>
+                            ) : saving ? (
+                                <><span>Saving...</span></>
+                            ) : (
+                                <><Check size={18} /><span>Save Post</span></>
+                            )}
                         </button>
                     </div>
                 </form>
