@@ -52,7 +52,7 @@ export async function getSkills(): Promise<Skill[]> {
 
 // Project CRUD
 export async function createProject(project: Partial<Project>, token: string): Promise<Project> {
-    const res = await fetch(`${API_URL}/projects/`, {
+    const res = await fetchWithFailover(`/projects/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export async function createProject(project: Partial<Project>, token: string): P
 }
 
 export async function updateProject(id: string, project: Partial<Project>, token: string): Promise<Project> {
-    const res = await fetch(`${API_URL}/projects/${id}`, {
+    const res = await fetchWithFailover(`/projects/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export async function updateProject(id: string, project: Partial<Project>, token
 }
 
 export async function deleteProject(id: string, token: string): Promise<void> {
-    const res = await fetch(`${API_URL}/projects/${id}`, {
+    const res = await fetchWithFailover(`/projects/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -89,7 +89,7 @@ export async function deleteProject(id: string, token: string): Promise<void> {
 
 // Skill CRUD
 export async function createSkill(skill: Partial<Skill>, token: string): Promise<Skill> {
-    const res = await fetch(`${API_URL}/skills/`, {
+    const res = await fetchWithFailover(`/skills/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ export async function createSkill(skill: Partial<Skill>, token: string): Promise
 }
 
 export async function updateSkill(id: number, skill: Partial<Skill>, token: string): Promise<Skill> {
-    const res = await fetch(`${API_URL}/skills/${id}`, {
+    const res = await fetchWithFailover(`/skills/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ export async function updateSkill(id: number, skill: Partial<Skill>, token: stri
 }
 
 export async function deleteSkill(id: number, token: string): Promise<void> {
-    const res = await fetch(`${API_URL}/skills/${id}`, {
+    const res = await fetchWithFailover(`/skills/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -132,7 +132,7 @@ export async function getGuestbookEntries(limit = 50): Promise<GuestbookEntry[]>
 }
 
 export async function submitGuestbookEntry(entry: { name: string, message: string }): Promise<GuestbookEntry> {
-    const res = await fetch(`${API_URL}/guestbook/`, {
+    const res = await fetchWithFailover(`/guestbook/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
 export async function createPost(post: Omit<BlogPost, 'id' | 'created_at'>): Promise<BlogPost> {
     const auth = getAuth();
     const token = await auth.currentUser?.getIdToken();
-    const res = await fetch(`${API_URL}/blog/`, {
+    const res = await fetchWithFailover(`/blog/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -191,7 +191,7 @@ export async function createPost(post: Omit<BlogPost, 'id' | 'created_at'>): Pro
 export async function updatePost(id: number, post: Omit<BlogPost, 'id' | 'created_at'>): Promise<BlogPost> {
     const auth = getAuth();
     const token = await auth.currentUser?.getIdToken();
-    const res = await fetch(`${API_URL}/blog/${id}`, {
+    const res = await fetchWithFailover(`/blog/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ export async function updatePost(id: number, post: Omit<BlogPost, 'id' | 'create
 export async function deletePost(id: number): Promise<void> {
     const auth = getAuth();
     const token = await auth.currentUser?.getIdToken();
-    const res = await fetch(`${API_URL}/blog/${id}`, {
+    const res = await fetchWithFailover(`/blog/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -225,7 +225,7 @@ export async function getAllGuestbookEntries(token: string): Promise<GuestbookEn
 }
 
 export async function approveGuestbookEntry(id: number, token: string): Promise<GuestbookEntry> {
-    const res = await fetch(`${API_URL}/guestbook/${id}/approve`, {
+    const res = await fetchWithFailover(`/guestbook/${id}/approve`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -236,7 +236,7 @@ export async function approveGuestbookEntry(id: number, token: string): Promise<
 }
 
 export async function deleteGuestbookEntry(id: number, token: string): Promise<void> {
-    const res = await fetch(`${API_URL}/guestbook/${id}`, {
+    const res = await fetchWithFailover(`/guestbook/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -260,7 +260,7 @@ export async function deleteMedia(public_id: string, token: string): Promise<voi
     // IMPORTANT: fetch handles URL encoding, but path param handling might need care.
     // If public_id is "folder/image", URL becomes .../media/folder/image.
     // FastAPI path param will capture "folder/image".
-    const res = await fetch(`${API_URL}/media/${public_id}`, {
+    const res = await fetchWithFailover(`/media/${public_id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -275,7 +275,7 @@ export async function getExperiences(): Promise<Experience[]> {
 }
 
 export async function createExperience(experience: Omit<Experience, 'id'>, token: string): Promise<Experience> {
-    const res = await fetch(`${API_URL}/experience/`, {
+    const res = await fetchWithFailover(`/experience/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -288,7 +288,7 @@ export async function createExperience(experience: Omit<Experience, 'id'>, token
 }
 
 export async function updateExperience(id: number, experience: Omit<Experience, 'id'>, token: string): Promise<Experience> {
-    const res = await fetch(`${API_URL}/experience/${id}`, {
+    const res = await fetchWithFailover(`/experience/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -301,7 +301,7 @@ export async function updateExperience(id: number, experience: Omit<Experience, 
 }
 
 export async function deleteExperience(id: number, token: string): Promise<void> {
-    const res = await fetch(`${API_URL}/experience/${id}`, {
+    const res = await fetchWithFailover(`/experience/${id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`
