@@ -13,12 +13,15 @@ export function BlogEditor() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { token } = useAuth();
+
+    // State Hooks - MUST be first
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
-    // Editor is controlled by URL validation, but we keep local state for instant toggle
     const [isEditing, setIsEditing] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'title'>('newest');
 
     // Initial State
     const initialPostState: Partial<BlogPost> = {
@@ -34,14 +37,22 @@ export function BlogEditor() {
     const [currentPost, setCurrentPost] = useState<Partial<BlogPost>>(initialPostState);
     const [originalPost, setOriginalPost] = useState<Partial<BlogPost>>(initialPostState);
 
-    // Dirty Check
+    // Derived State
     const hasChanges = JSON.stringify(currentPost) !== JSON.stringify(originalPost);
 
+    const filteredPosts = posts
+        .filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()) || post.slug.includes(searchQuery.toLowerCase()))
+        .sort((a, b) => {
+            if (sortBy === 'newest') return b.created_at.localeCompare(a.created_at);
+            if (sortBy === 'oldest') return a.created_at.localeCompare(b.created_at);
+            return a.title.localeCompare(b.title);
+        });
+
+    // Effects
     useEffect(() => {
         if (token) fetchPosts();
     }, [token]);
 
-    // Handle Browser Back Button / Deep Linking
     useEffect(() => {
         const mode = searchParams.get('mode');
         if (mode === 'editor') {
@@ -66,7 +77,6 @@ export function BlogEditor() {
         const postToEdit = post || initialPostState;
         setCurrentPost(postToEdit);
         setOriginalPost(postToEdit);
-        // Push state so back button works
         router.push('?mode=editor');
     };
 
@@ -144,6 +154,7 @@ export function BlogEditor() {
         return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
     };
 
+    // Render Logic - Conditional Returns happen AFTER all hooks
     if (loading) return <div>Loading posts...</div>;
 
     if (isEditing) {
@@ -318,18 +329,6 @@ export function BlogEditor() {
             </div>
         );
     }
-
-    const [searchQuery, setSearchQuery] = useState('');
-    const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'title'>('newest');
-
-    // Filter and Sort
-    const filteredPosts = posts
-        .filter(post => post.title.toLowerCase().includes(searchQuery.toLowerCase()) || post.slug.includes(searchQuery.toLowerCase()))
-        .sort((a, b) => {
-            if (sortBy === 'newest') return b.created_at.localeCompare(a.created_at);
-            if (sortBy === 'oldest') return a.created_at.localeCompare(b.created_at);
-            return a.title.localeCompare(b.title);
-        });
 
     return (
         <div className="space-y-6">
