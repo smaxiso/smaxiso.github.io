@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { getPostBySlug } from '@/lib/api';
+import { getPostBySlug, getPublishedPosts } from '@/lib/api';
 import { BlogPost } from '@/types';
 import { format } from 'date-fns';
 import { Share2, ArrowLeft, Calendar, Clock, Tag, History as HistoryIcon } from 'lucide-react';
@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 export default function BlogPostClient({ slug }: { slug: string }) {
     const router = useRouter();
     const [post, setPost] = useState<BlogPost | null>(null);
+    const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -37,6 +38,49 @@ export default function BlogPostClient({ slug }: { slug: string }) {
         };
         fetchPost();
     }, [slug, router]);
+
+    // Fetch related posts
+    useEffect(() => {
+        if (!post) return;
+
+        const fetchRelatedPosts = async () => {
+            try {
+                const allPosts = await getPublishedPosts();
+
+                // Filter out current post
+                const otherPosts = allPosts.filter(p => p.id !== post.id);
+
+                // If only 1 or 0 other posts, don't show section
+                if (otherPosts.length === 0) {
+                    setRelatedPosts([]);
+                    return;
+                }
+
+                // Match by tags
+                const currentTags = post.tags ? post.tags.toLowerCase().split(',').map(t => t.trim()) : [];
+
+                const scoredPosts = otherPosts.map(p => {
+                    const postTags = p.tags ? p.tags.toLowerCase().split(',').map(t => t.trim()) : [];
+                    const overlap = currentTags.filter(tag => postTags.includes(tag)).length;
+                    return { post: p, score: overlap };
+                });
+
+                // Sort by relevance (score desc), then by date (newest first)
+                scoredPosts.sort((a, b) => {
+                    if (b.score !== a.score) return b.score - a.score;
+                    return b.post.created_at.localeCompare(a.post.created_at);
+                });
+
+                // Take top 3
+                const related = scoredPosts.slice(0, 3).map(s => s.post);
+                setRelatedPosts(related);
+            } catch (error) {
+                console.error('Failed to fetch related posts:', error);
+            }
+        };
+
+        fetchRelatedPosts();
+    }, [post]);
 
     const handleShare = async () => {
         if (!post) return;
@@ -204,6 +248,54 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                         {post.content}
                     </ReactMarkdown>
                 </div>
+
+                {/* Related Posts Section */}
+                {relatedPosts.length > 0 && (
+                    <div className="mt-16 mb-12">
+                        <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-8 text-center">
+                            You Might Also Like
+                        </h2>
+                        <div className={`grid gap-6 ${relatedPosts.length === 1 ? 'md:grid-cols-1 max-w-2xl mx-auto' : relatedPosts.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
+                            {relatedPosts.map((relatedPost) => (
+                                <Link
+                                    key={relatedPost.id}
+                                    href={`/blog/${relatedPost.slug}`}
+                                    className="group block bg-white/40 backdrop-blur-sm rounded-2xl border border-white/50 overflow-hidden hover:bg-white/60 hover:shadow-lg transition-all"
+                                >
+                                    {relatedPost.cover_image && (
+                                        <div className="aspect-video overflow-hidden bg-slate-100">
+                                            <img
+                                                src={relatedPost.cover_image}
+                                                alt={relatedPost.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="p-5 space-y-3">
+                                        {relatedPost.tags && (
+                                            <div className="flex flex-wrap gap-2">
+                                                {relatedPost.tags.split(',').slice(0, 2).map(tag => (
+                                                    <span key={tag} className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                                                        #{tag.trim()}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+                                        <h3 className="font-bold text-lg text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                                            {relatedPost.title}
+                                        </h3>
+                                        <p className="text-sm text-slate-600 line-clamp-2">
+                                            {relatedPost.excerpt}
+                                        </p>
+                                        <div className="text-blue-600 font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                                            Read more <span aria-hidden="true">&rarr;</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                )}
 
                 <div className="mt-12 pt-8 border-t border-slate-200">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
