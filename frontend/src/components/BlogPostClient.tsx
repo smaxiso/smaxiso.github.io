@@ -104,12 +104,18 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     <div className="flex items-center justify-start gap-4 text-sm text-slate-500 mb-4">
                         <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1 rounded-full border border-slate-100">
                             <Calendar className="w-4 h-4" />
-                            {format(new Date(post.created_at), 'MMMM d, yyyy')}
+                            {(() => {
+                                const dateStr = post.created_at.endsWith('Z') ? post.created_at : `${post.created_at}Z`;
+                                return format(new Date(dateStr), 'MMMM d, yyyy, h:mm a');
+                            })()}
                         </span>
                         {post.updated_at && post.updated_at !== post.created_at && (
                             <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1 rounded-full border border-slate-100 text-slate-400 text-xs">
                                 <HistoryIcon className="w-3.5 h-3.5" />
-                                Updated: {format(new Date(post.updated_at), 'MMM d, yyyy')}
+                                Updated: {(() => {
+                                    const updateStr = post.updated_at.endsWith('Z') ? post.updated_at : `${post.updated_at}Z`;
+                                    return format(new Date(updateStr), 'MMM d, yyyy, h:mm a');
+                                })()}
                             </span>
                         )}
                         <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1 rounded-full border border-slate-100">
