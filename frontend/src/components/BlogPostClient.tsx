@@ -128,15 +128,25 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                         {post.title}
                     </h1>
 
-                    {post.tags && (
-                        <div className="flex flex-wrap justify-start gap-2 mb-8">
-                            {post.tags.split(',').map(tag => (
-                                <span key={tag} className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-                                    #{tag.trim()}
-                                </span>
-                            ))}
-                        </div>
-                    )}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                        {post.tags && (
+                            <div className="flex flex-wrap justify-start gap-2">
+                                {post.tags.split(',').map(tag => (
+                                    <span key={tag} className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                                        #{tag.trim()}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+
+                        <button
+                            onClick={handleShare}
+                            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 active:scale-95 self-start sm:self-auto"
+                        >
+                            <Share2 className="w-4 h-4" />
+                            Share
+                        </button>
+                    </div>
                 </header>
 
                 <div className="prose prose-sm md:prose-lg prose-slate prose-headings:font-bold prose-headings:text-slate-800 prose-a:text-blue-600 hover:prose-a:text-blue-700 max-w-none bg-white/40 backdrop-blur-sm p-4 md:p-10 rounded-2xl md:rounded-3xl border border-white/50 shadow-sm overflow-x-hidden break-words selection:bg-blue-100 selection:text-blue-900">
@@ -217,6 +227,10 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                     href={`https://wa.me/?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}" ${typeof window !== 'undefined' ? window.location.href : ''}`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(window.location.href);
+                                        toast.success('Link copied to clipboard!');
+                                    }}
                                     className="p-2 text-slate-400 hover:text-green-500 hover:bg-green-50 rounded-full transition-all"
                                     aria-label="Share on WhatsApp"
                                 >
@@ -228,6 +242,10 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                     href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(window.location.href);
+                                        toast.success('Link copied to clipboard!');
+                                    }}
                                     className="p-2 text-slate-400 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-all"
                                     aria-label="Share on LinkedIn"
                                 >
@@ -239,6 +257,10 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}"`)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(window.location.href);
+                                        toast.success('Link copied to clipboard!');
+                                    }}
                                     className="p-2 text-slate-400 hover:text-blue-400 hover:bg-blue-50 rounded-full transition-all"
                                     aria-label="Share on Twitter"
                                 >
