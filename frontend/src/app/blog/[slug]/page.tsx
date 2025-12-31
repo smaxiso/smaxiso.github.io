@@ -1,11 +1,16 @@
 import { getPublishedPosts } from "@/lib/api";
 import BlogPostClient from "@/components/BlogPostClient";
 
-// Fetch params for all posts during build time
-// Bypass API fetch during build to prevent CI failures.
-// Real paths will be handled by client-side fallback.
-export function generateStaticParams() {
-    return [{ slug: 'latest' }];
+// Fetch all blog post slugs for static generation
+export async function generateStaticParams() {
+    try {
+        const posts = await getPublishedPosts();
+        return posts.map(post => ({ slug: post.slug }));
+    } catch (error) {
+        console.warn('Failed to fetch posts for static generation:', error);
+        // Return empty array - pages will be generated on-demand
+        return [];
+    }
 }
 
 export default async function Page({
