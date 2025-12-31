@@ -15,9 +15,31 @@ export interface MediaResource {
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
+const BACKUP_API_URL = process.env.NEXT_PUBLIC_BACKUP_API_URL;
+
+async function fetchWithFailover(path: string, options?: RequestInit) {
+    // 1. Try Primary
+    try {
+        const primaryUrl = `${API_URL}${path}`;
+        const res = await fetch(primaryUrl, options);
+        // If 503 (Render suspended) or network error, verify ok
+        if (res.ok) return res;
+        // If 5xx error, treat as failure and try backup
+        if (res.status >= 500) throw new Error(`Primary API Error: ${res.status}`);
+        return res; // 4xx errors are valid application responses (e.g. 404)
+    } catch (error) {
+        // 2. Try Backup if configured
+        if (BACKUP_API_URL) {
+            console.warn(`Primary API failed (${error}), switching to backup: ${BACKUP_API_URL}`);
+            const backupUrl = `${BACKUP_API_URL}${path}`;
+            return fetch(backupUrl, options);
+        }
+        throw error; // No backup, rethrow
+    }
+}
 
 export async function getProjects(): Promise<Project[]> {
-    const res = await fetch(`${API_URL}/projects`);
+    const res = await fetchWithFailover(`/projects`);
     if (!res.ok) throw new Error('Failed to fetch projects');
     return res.json();
 }
