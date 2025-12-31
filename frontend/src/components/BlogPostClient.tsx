@@ -134,6 +134,37 @@ export default function BlogPostClient({ slug }: { slug: string }) {
             )}
 
             <article className="container mx-auto max-w-3xl px-4">
+                {/* JSON-LD Structured Data for SEO */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "BlogPosting",
+                            "headline": post.title,
+                            "description": post.excerpt || post.title,
+                            "image": post.cover_image || "https://smaxiso.web.app/og-image.png",
+                            "datePublished": post.created_at,
+                            "dateModified": post.updated_at || post.created_at,
+                            "author": {
+                                "@type": "Person",
+                                "name": "Sumit Kumar",
+                                "url": "https://smaxiso.web.app",
+                            },
+                            "publisher": {
+                                "@type": "Person",
+                                "name": "Sumit Kumar",
+                                "url": "https://smaxiso.web.app",
+                            },
+                            "mainEntityOfPage": {
+                                "@type": "WebPage",
+                                "@id": `https://smaxiso.web.app/blog/${post.slug}`,
+                            },
+                            "keywords": post.tags || "",
+                        }),
+                    }}
+                />
+
                 <div className="sticky top-4 md:top-28 z-30 mb-8 pointer-events-none">
                     <Link
                         href="/blog"
