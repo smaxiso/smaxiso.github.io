@@ -11,7 +11,7 @@ FastAPI backend providing REST API for portfolio content management.
 - **Authentication**: Firebase Admin SDK
 - **Storage**: Cloudinary (Image Management)
 - **AI/ML**: Google Gemini 1.5 (LLM), Pinecone (Vector DB)
-- **Deployment**: Render
+- **Deployment**: Vercel (Primary), Render (Backup)
 
 ## 📦 Project Structure
 
@@ -295,6 +295,23 @@ uvicorn main:app --host 0.0.0.0 --port $PORT
 - `DATABASE_URL`: Neon PostgreSQL connection string
 - `GOOGLE_APPLICATION_CREDENTIALS`: (optional) Service account JSON
 - `LOCAL_DEV_MODE`: `false` (or omit)
+
+**Auto-deploy**: Connected to GitHub, deploys on push to `master`.
+
+### Vercel (Primary)
+
+**Configuration**:
+- `vercel.json`: Defines Python runtime and rewrites.
+- `requirements.txt`: Standard Python dependencies.
+
+**Environment Variables**:
+- `DATABASE_URL`: Supported.
+- `FIREBASE_CREDENTIALS_JSON`: **Required**. Use minified JSON string of service account (Vercel cannot read local files).
+- `GEMINI_API_KEY`, `PINECONE_API_KEY`, `CLOUDINARY_*`: Same as Render.
+
+**Limitations**:
+- **Background Tasks**: Not supported (max 10s execution). Ingestion must be triggered elsewhere.
+- **Cold Starts**: Typically faster than Render free tier.
 
 **Auto-deploy**: Connected to GitHub, deploys on push to `master`.
 

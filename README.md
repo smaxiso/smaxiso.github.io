@@ -9,12 +9,14 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
 
 - **Portfolio**: [https://smaxiso.web.app](https://smaxiso.web.app)
 - **Admin Dashboard**: [https://smaxiso.web.app/admin](https://smaxiso.web.app/admin)
-- **Backend API**: [https://smaxiso-portfolio-backend.onrender.com/api/v1](https://smaxiso-portfolio-backend.onrender.com/api/v1)
+- **Backend API (Primary)**: [https://smaxiso-github-io.vercel.app/api/v1](https://smaxiso-github-io.vercel.app/api/v1)
+- **Backend API (Backup)**: [https://smaxiso-portfolio-backend.onrender.com/api/v1](https://smaxiso-portfolio-backend.onrender.com/api/v1)
 
 ## ✨ Features
 
 ### Public Portfolio
 - **Responsive Design**: Mobile-first, fully responsive layout
+- **High Availability**: Multi-region active-passive failover (Vercel + Render)
 - **Dynamic Content**: All content loaded from backend API
 - **AI Chatbot 🤖**: RAG-powered assistant (Gemini 1.5 + Pinecone) that answers questions using my Resume, GitHub, and Portfolio data.
 - **Sections**: Hero, About, Skills, Projects, Blog, Guestbook, Contact
@@ -29,6 +31,12 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
 - 🎨 **Toast Notifications**: Beautiful in-app notifications
 - 📱 **Mobile Optimized**: Fully responsive admin interface
 
+### 🛡️ Robust Failover Architecture
+- **Primary Backend**: Vercel Serverless (Fast, Global Edge Network)
+- **Backup Backend**: Render (Full container instance)
+- **Automatic Failover**: Frontend automatically detects API failures (503/429/Network Error) and switches to the backup seamlessly in real-time.
+- **Zero Downtime**: Ensure portfolio availability even during platform outages.
+
 ## 🛠 Tech Stack
 
 ### Frontend
@@ -40,7 +48,7 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
 - FastAPI (Python)
 - PostgreSQL (Neon), SQLAlchemy
 - Firebase Admin SDK
-- Hosted on Render
+- **Hosting**: Vercel (Primary) + Render (Backup)
 
 ## 📦 Project Structure
 
