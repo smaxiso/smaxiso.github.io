@@ -280,54 +280,6 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     </ReactMarkdown>
                 </div>
 
-                {/* Related Posts Section */}
-                {relatedPosts.length > 0 && (
-                    <div className="mt-16 mb-12">
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-8 text-center">
-                            You Might Also Like
-                        </h2>
-                        <div className={`grid gap-6 ${relatedPosts.length === 1 ? 'md:grid-cols-1 max-w-2xl mx-auto' : relatedPosts.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
-                            {relatedPosts.map((relatedPost) => (
-                                <Link
-                                    key={relatedPost.id}
-                                    href={`/blog/${relatedPost.slug}`}
-                                    className="group block bg-white/40 backdrop-blur-sm rounded-2xl border border-white/50 overflow-hidden hover:bg-white/60 hover:shadow-lg transition-all"
-                                >
-                                    {relatedPost.cover_image && (
-                                        <div className="aspect-video overflow-hidden bg-slate-100">
-                                            <img
-                                                src={relatedPost.cover_image}
-                                                alt={relatedPost.title}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            />
-                                        </div>
-                                    )}
-                                    <div className="p-5 space-y-3">
-                                        {relatedPost.tags && (
-                                            <div className="flex flex-wrap gap-2">
-                                                {relatedPost.tags.split(',').slice(0, 2).map(tag => (
-                                                    <span key={tag} className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
-                                                        #{tag.trim()}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        )}
-                                        <h3 className="font-bold text-lg text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
-                                            {relatedPost.title}
-                                        </h3>
-                                        <p className="text-sm text-slate-600 line-clamp-2">
-                                            {relatedPost.excerpt}
-                                        </p>
-                                        <div className="text-blue-600 font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                                            Read more <span aria-hidden="true">&rarr;</span>
-                                        </div>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
                 <div className="mt-12 pt-8 border-t border-slate-200">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                         <div className="text-slate-500 italic text-center md:text-left">
@@ -400,6 +352,54 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                         `}</style>
                     </div>
                 </div>
+
+                {/* Related Posts Section */}
+                {relatedPosts.length > 0 && (
+                    <div className="mt-16 mb-12">
+                        <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-8 text-center">
+                            You Might Also Like
+                        </h2>
+                        <div className={`grid gap-6 ${relatedPosts.length === 1 ? 'md:grid-cols-1 max-w-2xl mx-auto' : relatedPosts.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
+                            {relatedPosts.map((relatedPost) => (
+                                <Link
+                                    key={relatedPost.id}
+                                    href={`/blog/${relatedPost.slug}`}
+                                    className="group block bg-white/40 backdrop-blur-sm rounded-2xl border border-white/50 overflow-hidden hover:bg-white/60 hover:shadow-lg transition-all"
+                                >
+                                    {relatedPost.cover_image && (
+                                        <div className="aspect-video overflow-hidden bg-slate-100">
+                                            <img
+                                                src={relatedPost.cover_image}
+                                                alt={relatedPost.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="p-5 space-y-3">
+                                        {relatedPost.tags && (
+                                            <div className="flex flex-wrap gap-2">
+                                                {relatedPost.tags.split(',').slice(0, 2).map(tag => (
+                                                    <span key={tag} className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                                                        #{tag.trim()}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+                                        <h3 className="font-bold text-lg text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                                            {relatedPost.title}
+                                        </h3>
+                                        <p className="text-sm text-slate-600 line-clamp-2">
+                                            {relatedPost.excerpt}
+                                        </p>
+                                        <div className="text-blue-600 font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                                            Read more <span aria-hidden="true">&rarr;</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </article>
         </main>
     );
