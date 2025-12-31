@@ -6,6 +6,17 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "/assets/sumit_kumar.pdf",
+        "headers": [
+          {
+            "key": "Content-Disposition",
+            "value": "attachment"
+          }
+        ]
+      }
     ]
   }
 }
