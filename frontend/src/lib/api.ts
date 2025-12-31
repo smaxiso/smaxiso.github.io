@@ -98,6 +98,43 @@ export async function updateConfig(config: Partial<SiteConfig>, token: string): 
     return res.json();
 }
 
+
+export async function createSocial(social: Partial<SocialLink>, token: string): Promise<SocialLink> {
+    const res = await fetchWithFailover(`/socials/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(social),
+    });
+    if (!res.ok) throw new Error('Failed to create social link');
+    return res.json();
+}
+
+export async function updateSocial(id: number, social: Partial<SocialLink>, token: string): Promise<SocialLink> {
+    const res = await fetchWithFailover(`/socials/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(social),
+    });
+    if (!res.ok) throw new Error('Failed to update social link');
+    return res.json();
+}
+
+export async function deleteSocial(id: number, token: string): Promise<void> {
+    const res = await fetchWithFailover(`/socials/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    if (!res.ok) throw new Error('Failed to delete social link');
+}
+
 export async function getProjects(): Promise<Project[]> {
     const res = await fetchWithFailover(`/projects`);
     if (!res.ok) throw new Error('Failed to fetch projects');

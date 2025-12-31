@@ -1,13 +1,15 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { SocialLink } from '@/context/ProfileContext'
+import { SocialLink, getSocials, createSocial, updateSocial, deleteSocial } from '@/lib/api'
 import { Trash2, Plus, Edit2 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { IconPicker } from './IconPicker'
 import { SOCIAL_PLATFORM_PRESETS, detectPlatformFromUrl } from '@/lib/iconLibrary'
+import { useToast } from '@/context/ToastContext'
 
 export function SocialsEditor() {
     const { user } = useAuth()
+    const { showToast } = useToast()
     const [socials, setSocials] = useState<SocialLink[]>([])
     const [loading, setLoading] = useState(true)
     const [editing, setEditing] = useState<SocialLink | null>(null)
@@ -17,28 +19,30 @@ export function SocialsEditor() {
     const hasChanges = editing && original && JSON.stringify(editing) !== JSON.stringify(original)
 
     useEffect(() => {
-        fetchSocials()
+        loadSocials()
     }, [])
 
-    const fetchSocials = () => {
-        fetch(process.env.NEXT_PUBLIC_API_URL + '/socials')
-            .then(res => res.json())
+    const loadSocials = () => {
+        getSocials()
             .then(data => {
                 setSocials(data)
                 setLoading(false)
             })
+            .catch(() => setLoading(false))
     }
 
     const handleDelete = async (id: number) => {
         if (!confirm("Delete this link?")) return
-        const token = await user?.getIdToken()
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/socials/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        fetchSocials()
+        try {
+            const token = await user?.getIdToken()
+            if (!token) return;
+            await deleteSocial(id, token)
+            loadSocials()
+            showToast("Link deleted", "success")
+        } catch (error) {
+            console.error(error)
+            showToast("Failed to delete link", "error")
+        }
     }
 
     const handleAdd = () => {
@@ -85,31 +89,30 @@ export function SocialsEditor() {
     const handleSave = async () => {
         if (!editing) return
 
-        const token = await user?.getIdToken()
-        if (editing.id === 0) {
-            // Create new
-            await fetch(process.env.NEXT_PUBLIC_API_URL + '/socials', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ platform: editing.platform, url: editing.url, icon: editing.icon, is_active: editing.is_active })
-            })
-        } else {
-            // Update existing
-            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/socials/${editing.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ platform: editing.platform, url: editing.url, icon: editing.icon, is_active: editing.is_active })
-            })
-        }
+        try {
+            const token = await user?.getIdToken()
+            if (!token) return;
 
-        setEditing(null)
-        fetchSocials()
+            const payload = {
+                platform: editing.platform,
+                url: editing.url,
+                icon: editing.icon,
+                is_active: editing.is_active
+            };
+
+            if (editing.id === 0) {
+                await createSocial(payload, token)
+            } else {
+                await updateSocial(editing.id, payload, token)
+            }
+
+            setEditing(null)
+            loadSocials()
+            showToast("Social link saved", "success")
+        } catch (error) {
+            console.error(error)
+            showToast("Failed to save link", "error")
+        }
     }
 
     if (loading) return <div className="p-4 text-center">Loading...</div>
