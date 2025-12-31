@@ -45,7 +45,7 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export async function getSkills(): Promise<Skill[]> {
-    const res = await fetch(`${API_URL}/skills`);
+    const res = await fetchWithFailover(`/skills`);
     if (!res.ok) throw new Error('Failed to fetch skills');
     return res.json();
 }
@@ -126,7 +126,7 @@ export async function deleteSkill(id: number, token: string): Promise<void> {
 
 // Guestbook CRUD
 export async function getGuestbookEntries(limit = 50): Promise<GuestbookEntry[]> {
-    const res = await fetch(`${API_URL}/guestbook?limit=${limit}`);
+    const res = await fetchWithFailover(`/guestbook?limit=${limit}`);
     if (!res.ok) throw new Error('Failed to fetch guestbook');
     return res.json();
 }
@@ -147,13 +147,13 @@ export async function submitGuestbookEntry(entry: { name: string, message: strin
 
 // Blog
 export async function getPublishedPosts(): Promise<BlogPost[]> {
-    const res = await fetch(`${API_URL}/blog/`);
+    const res = await fetchWithFailover(`/blog/`);
     if (!res.ok) throw new Error('Failed to fetch posts');
     return res.json();
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost> {
-    const res = await fetch(`${API_URL}/blog/${slug}`);
+    const res = await fetchWithFailover(`/blog/${slug}`);
     if (!res.ok) {
         if (res.status === 404) return null as any; // Handle 404 gracefully in component
         throw new Error('Failed to fetch post');
@@ -269,7 +269,7 @@ export async function deleteMedia(public_id: string, token: string): Promise<voi
 
 // Experience CRUD
 export async function getExperiences(): Promise<Experience[]> {
-    const res = await fetch(`${API_URL}/experience/`);
+    const res = await fetchWithFailover(`/experience/`);
     if (!res.ok) throw new Error('Failed to fetch experiences');
     return res.json();
 }
