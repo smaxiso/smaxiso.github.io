@@ -1,37 +1,7 @@
 'use client'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { siteConfig as fallbackConfig } from '@/config/site'
-
-// Define types matching Backend Pydantic models
-export interface SocialLink {
-    id: number
-    platform: string
-    url: string
-    icon: string
-    is_active: boolean
-}
-
-export interface SiteConfig {
-    id: number
-    site_title: string
-    site_description: string
-    site_author: string
-    site_url: string
-    greeting: string
-    name: string
-    title: string
-    subtitle: string
-    profile_image: string
-    about_title: string
-    about_description: string
-    about_image: string
-    resume_url: string
-    years_experience: number
-    experience_months: number
-    projects_completed: number
-    contact_email: string
-    footer_text: string
-}
+import { getConfig, getSocials, SiteConfig, SocialLink } from '@/lib/api'
 
 interface ProfileContextType {
     config: SiteConfig | null
@@ -52,21 +22,13 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
 
     const fetchData = React.useCallback(async () => {
         try {
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1';
-
             // Fetch Config
-            const configRes = await fetch(`${API_URL}/config`);
-            if (configRes.ok) {
-                const configData = await configRes.json();
-                setConfig(configData);
-            }
+            const configData = await getConfig();
+            setConfig(configData);
 
             // Fetch Socials
-            const socialsRes = await fetch(`${API_URL}/socials`);
-            if (socialsRes.ok) {
-                const socialsData = await socialsRes.json();
-                setSocials(socialsData);
-            }
+            const socialsData = await getSocials();
+            setSocials(socialsData);
         } catch (error) {
             console.error("Failed to fetch site config", error);
         } finally {

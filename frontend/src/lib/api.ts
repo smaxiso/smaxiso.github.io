@@ -1,6 +1,36 @@
 import { Project, Skill, Hobby, GuestbookEntry, BlogPost, Experience } from "@/types";
 import { getAuth } from "firebase/auth";
 
+export interface SiteConfig {
+    id: number;
+    site_title: string;
+    site_description: string;
+    site_author: string;
+    site_url: string;
+    greeting: string;
+    name: string;
+    title: string;
+    subtitle: string;
+    profile_image: string;
+    about_title: string;
+    about_description: string;
+    about_image: string;
+    resume_url: string;
+    years_experience: number;
+    experience_months: number;
+    projects_completed: number;
+    contact_email: string;
+    footer_text: string;
+}
+
+export interface SocialLink {
+    id: number;
+    platform: string;
+    url: string;
+    icon: string;
+    is_active: boolean;
+}
+
 export interface MediaResource {
     public_id: string;
     url: string;
@@ -36,6 +66,36 @@ async function fetchWithFailover(path: string, options?: RequestInit) {
         }
         throw error; // No backup, rethrow
     }
+}
+
+
+export async function getConfig(): Promise<SiteConfig> {
+    const res = await fetchWithFailover(`/config`);
+    if (!res.ok) throw new Error('Failed to fetch config');
+    return res.json();
+}
+
+export async function getSocials(): Promise<SocialLink[]> {
+    const res = await fetchWithFailover(`/socials`);
+    if (!res.ok) throw new Error('Failed to fetch socials');
+    return res.json();
+}
+
+export async function updateConfig(config: Partial<SiteConfig>, token: string): Promise<SiteConfig> {
+    const res = await fetchWithFailover(`/config`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(config),
+    });
+    if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        if (errorData.detail) throw new Error(typeof errorData.detail === 'string' ? errorData.detail : 'Validation error');
+        throw new Error('Failed to update config');
+    }
+    return res.json();
 }
 
 export async function getProjects(): Promise<Project[]> {

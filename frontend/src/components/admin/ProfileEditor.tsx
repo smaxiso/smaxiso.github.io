@@ -1,10 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { SiteConfig } from '@/context/ProfileContext'
+import { SiteConfig } from '@/lib/api' // Import from api
+import { getConfig, updateConfig } from '@/lib/api' // New imports
 import { Loader2 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
-import { uploadFile } from '@/lib/cloudinary' // Replaced Firebase
-// import { storage } from '@/lib/firebase' // Remove this
+import { uploadFile } from '@/lib/cloudinary'
 import { useToast } from '@/context/ToastContext'
 
 export function ProfileEditor() {
@@ -19,13 +19,13 @@ export function ProfileEditor() {
     const hasChanges = config && originalConfig && JSON.stringify(config) !== JSON.stringify(originalConfig)
 
     useEffect(() => {
-        fetch(process.env.NEXT_PUBLIC_API_URL + '/config')
-            .then(res => res.json())
+        getConfig()
             .then(data => {
                 setConfig(data)
                 setOriginalConfig(data)
                 setLoading(false)
             })
+            .catch(() => setLoading(false)) // Handle error
     }, [])
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -33,30 +33,10 @@ export function ProfileEditor() {
         setSaving(true)
         try {
             const token = await user?.getIdToken()
-            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/config', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(config)
-            })
-            if (!res.ok) {
-                const errorData = await res.json().catch(() => ({}));
-                // Handle FastAPI validation errors (422)
-                if (errorData.detail) {
-                    if (Array.isArray(errorData.detail)) {
-                        // FastAPI validation errors
-                        const messages = errorData.detail.map((err: any) =>
-                            `${err.loc.join('.')}: ${err.msg}`
-                        ).join(', ');
-                        throw new Error(messages);
-                    } else if (typeof errorData.detail === 'string') {
-                        throw new Error(errorData.detail);
-                    }
-                }
-                throw new Error("Failed to update profile");
-            }
+            if (!token || !config) return;
+
+            await updateConfig(config, token);
+
             setOriginalConfig(config)
             showToast("Profile updated successfully!", "success")
         } catch (err: any) {
