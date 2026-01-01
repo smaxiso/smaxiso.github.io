@@ -204,7 +204,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                 >
                     <Link
                         href="/blog"
-                        className="pointer-events-auto inline-flex items-center gap-2 text-slate-600 hover:text-blue-600 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-sm transition-all hover:shadow-md group"
+                        className="pointer-events-auto inline-flex items-center gap-2 text-slate-700 hover:text-blue-600 bg-white/90 backdrop-blur-xl px-5 py-2.5 rounded-full border border-slate-200/50 shadow-lg hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-0.5 active:scale-95 active:shadow-sm transition-all duration-300 group"
                     >
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                         Back to Blog
