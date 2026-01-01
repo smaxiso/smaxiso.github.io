@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Book, Briefcase, Home, Mail, User, FileText, Menu, X, Code, FileUser } from "lucide-react";
+import { Book, Briefcase, Home, Mail, User, FileText, Menu, X, Code, FileUser, TrendingUp } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
@@ -60,6 +60,7 @@ export default function Navbar() {
     // Desktop Nav Items
     const desktopNavItems = [
         { href: "/#work", label: "Work" },
+        { href: "/#experience", label: "Experience" },
         { href: "/#about", label: "About" },
         { href: "/#skills", label: "Skills" },
         { href: "/#contact", label: "Contact", icon: Mail },
@@ -69,6 +70,7 @@ export default function Navbar() {
     const mobilePrimaryItems = [
         { href: "/", label: "Home", icon: Home },
         { href: "/#work", label: "Work", icon: Briefcase },
+        { href: "/#experience", label: "Exp.", icon: TrendingUp },
         { href: "/blog", label: "Blog", icon: FileText },
         { href: "/guestbook", label: "Guests", icon: Book },
     ];
