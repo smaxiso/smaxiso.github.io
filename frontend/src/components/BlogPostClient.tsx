@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useScroll, useMotionValueEvent } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { getPostBySlug, getPublishedPosts } from '@/lib/api';
@@ -18,6 +19,38 @@ export default function BlogPostClient({ slug }: { slug: string }) {
     const [post, setPost] = useState<BlogPost | null>(null);
     const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
+
+    // Navbar Visibility Logic (Replicated from Navbar.tsx to sync position)
+    const { scrollY } = useScroll();
+    const [isNavbarHidden, setIsNavbarHidden] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
+    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        const previous = lastScrollY;
+        const diff = latest - previous;
+        const isScrollingDown = diff > 0;
+        const isScrollingUp = diff < 0;
+
+        // Reset timer on any scroll
+        if (timer) clearTimeout(timer);
+
+        if (latest < 100) {
+            setIsNavbarHidden(false);
+        } else if (isScrollingDown) {
+            setIsNavbarHidden(true);
+        } else if (isScrollingUp) {
+            setIsNavbarHidden(false);
+            // Set auto-hide timer for 3 seconds if we stop scrolling up
+            const newTimer = setTimeout(() => {
+                if (window.scrollY > 100) {
+                    setIsNavbarHidden(true);
+                }
+            }, 3000);
+            setTimer(newTimer);
+        }
+        setLastScrollY(latest);
+    });
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -165,7 +198,10 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     }}
                 />
 
-                <div className="sticky top-4 md:top-24 z-30 mb-8 pointer-events-none">
+                <div
+                    className="sticky top-4 transition-[top] duration-300 ease-in-out z-30 mb-8 pointer-events-none md:top-[var(--sticky-top)]"
+                    style={{ '--sticky-top': isNavbarHidden ? '24px' : '96px' } as React.CSSProperties}
+                >
                     <Link
                         href="/blog"
                         className="pointer-events-auto inline-flex items-center gap-2 text-slate-600 hover:text-blue-600 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-sm transition-all hover:shadow-md group"
