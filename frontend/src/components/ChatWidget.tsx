@@ -12,8 +12,14 @@ interface Message {
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
+import { usePathname } from "next/navigation";
+
 export default function ChatWidget() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+
+    if (pathname?.startsWith('/admin')) return null;
+
     const [messages, setMessages] = useState<Message[]>([
         { role: "assistant", content: "Hi! I'm Sumit's AI Assistant. Ask me anything about his projects, skills, or experience!" }
     ]);
