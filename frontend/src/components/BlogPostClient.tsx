@@ -165,7 +165,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     }}
                 />
 
-                <div className="sticky top-4 md:top-28 z-30 mb-8 pointer-events-none">
+                <div className="sticky top-4 md:top-24 z-30 mb-8 pointer-events-none">
                     <Link
                         href="/blog"
                         className="pointer-events-auto inline-flex items-center gap-2 text-slate-600 hover:text-blue-600 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-sm transition-all hover:shadow-md group"
