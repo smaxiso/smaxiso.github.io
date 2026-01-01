@@ -427,8 +427,29 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                         <p className="text-sm text-slate-600 line-clamp-2">
                                             {relatedPost.excerpt}
                                         </p>
-                                        <div className="text-blue-600 font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                                            Read more <span aria-hidden="true">&rarr;</span>
+                                        <div className="flex items-center justify-between mt-2">
+                                            <div className="text-blue-600 font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                                                Read more <span aria-hidden="true">&rarr;</span>
+                                            </div>
+                                            <button
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    const url = `${window.location.origin}/blog/${relatedPost.slug}`;
+                                                    const shareText = `Check out this blog: "${relatedPost.title}"`;
+
+                                                    if (navigator.share) {
+                                                        navigator.share({ title: relatedPost.title, text: shareText, url }).catch(console.error);
+                                                    } else {
+                                                        navigator.clipboard.writeText(url);
+                                                        toast.success('Link copied!');
+                                                    }
+                                                }}
+                                                className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all z-10"
+                                                title="Share"
+                                            >
+                                                <Share2 className="w-4 h-4" />
+                                            </button>
                                         </div>
                                     </div>
                                 </Link>
