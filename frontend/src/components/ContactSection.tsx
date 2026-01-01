@@ -12,7 +12,7 @@ export function ContactSection() {
                 <div className="absolute top-1/2 left-0 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
             </div>
 
-            <div className="container px-4 md:px-6 relative z-10">
+            <div className="container max-w-5xl px-4 md:px-6 mx-auto relative z-10">
                 <div className="text-center mb-16 space-y-4">
                     <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-slate-900">Get In Touch</h2>
                     <p className="mx-auto max-w-[600px] text-slate-600 text-lg">

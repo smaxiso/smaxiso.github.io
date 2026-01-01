@@ -80,7 +80,7 @@ export function Projects({ projects }: ProjectsProps) {
                 <div className="absolute bottom-40 right-0 w-80 h-80 bg-purple-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
             </div>
 
-            <div className="container px-4 md:px-6 relative z-10">
+            <div className="container max-w-5xl px-4 md:px-6 mx-auto relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

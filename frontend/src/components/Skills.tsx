@@ -109,7 +109,7 @@ export function Skills({ skills }: SkillsProps) {
 
     return (
         <section id="skills" className="py-20 relative overflow-hidden bg-white">
-            <div className="container px-4 md:px-6 relative z-10">
+            <div className="container max-w-5xl px-4 md:px-6 mx-auto relative z-10">
                 <div className="text-center mb-16 space-y-4">
                     <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-slate-800">Technical Skills</h2>
                     <p className="mx-auto max-w-[700px] text-slate-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">

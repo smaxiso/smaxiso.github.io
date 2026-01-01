@@ -37,7 +37,7 @@ export function ProjectsSection() {
     if (loading) {
         return (
             <section id="work" className="py-20 relative overflow-hidden bg-slate-50">
-                <div className="container px-4 md:px-6 relative z-10">
+                <div className="container max-w-5xl px-4 md:px-6 mx-auto relative z-10">
                     <div className="text-center mb-12">
                         <div className="h-12 w-80 bg-slate-200 animate-pulse rounded mx-auto mb-4"></div>
                         <div className="h-6 w-96 bg-slate-100 animate-pulse rounded mx-auto"></div>

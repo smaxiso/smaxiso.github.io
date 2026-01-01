@@ -21,7 +21,7 @@ export function SkillsSection() {
     if (loading) {
         return (
             <section id="skills" className="py-20 relative overflow-hidden bg-white">
-                <div className="container px-4 md:px-6 relative z-10">
+                <div className="container max-w-5xl px-4 md:px-6 mx-auto relative z-10">
                     <div className="text-center mb-16 space-y-4">
                         <div className="h-12 w-64 bg-slate-200 animate-pulse rounded mx-auto"></div>
                         <div className="h-6 w-96 bg-slate-100 animate-pulse rounded mx-auto"></div>
