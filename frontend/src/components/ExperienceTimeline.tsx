@@ -301,10 +301,7 @@ function MobileTimelineNode({ exp, index }: { exp: Experience; index: number }) 
         </motion.div>
     );
 }
-            </div >
-        </section >
-    );
-}
+
 
 // Helper function to format dates
 function formatDate(dateStr: string): string {
