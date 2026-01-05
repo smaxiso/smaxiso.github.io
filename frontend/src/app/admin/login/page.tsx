@@ -26,7 +26,7 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="flex min-h-screen items-center justify-center">
+        <div className="light flex min-h-screen items-center justify-center bg-slate-50">
             <div className="w-full max-w-md space-y-8 p-10 bg-white rounded-xl shadow-lg">
                 <div className="text-center">
                     <h2 className="mt-6 text-3xl font-bold text-gray-900">Admin Login</h2>

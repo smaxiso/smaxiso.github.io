@@ -27,6 +27,7 @@ export default function AnimatedCounter({
         hasAnimated.current = true;
         const startTime = Date.now();
         const startValue = 0;
+        let animationFrame: number;
 
         const animate = () => {
             const now = Date.now();
@@ -40,13 +41,23 @@ export default function AnimatedCounter({
             setCount(current);
 
             if (progress < 1) {
-                requestAnimationFrame(animate);
+                animationFrame = requestAnimationFrame(animate);
             } else {
+                // Ensure we always end with the exact value
                 setCount(end);
             }
         };
 
-        requestAnimationFrame(animate);
+        animationFrame = requestAnimationFrame(animate);
+
+        // Cleanup and force final value
+        return () => {
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+            }
+            // Guarantee the final value is set
+            setCount(end);
+        };
     }, [isInView, end, duration]);
 
     return (

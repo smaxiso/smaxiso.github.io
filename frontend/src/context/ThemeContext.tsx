@@ -22,6 +22,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         // Only run on client side
         if (typeof window === "undefined") return;
 
+        // Skip theme application on admin pages
+        const isAdminPage = window.location.pathname.startsWith('/admin');
+        if (isAdminPage) {
+            document.documentElement.classList.remove("dark");
+            return;
+        }
+
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
         const applyTheme = (newTheme: Theme) => {

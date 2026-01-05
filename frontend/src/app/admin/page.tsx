@@ -51,11 +51,11 @@ export default function AdminPage() {
     if (!user) return null;
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="light min-h-screen bg-slate-50">
             <div className="sticky top-0 bg-white border-b border-slate-200 z-10">
                 <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Admin</h1>
+                        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900">Admin</h1>
                         <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm">
                             <a
                                 href="/"
