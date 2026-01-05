@@ -8,7 +8,7 @@ export function Hero() {
     const siteConfig = useSiteConfig();
 
     return (
-        <section className="min-h-screen flex items-center justify-center pt-16 pb-20 md:pb-0 relative overflow-hidden">
+        <section className="min-h-screen flex items-center justify-center pt-16 pb-20 md:pb-0 relative overflow-hidden bg-white dark:bg-black transition-colors duration-300">
             {/* Background Elements - Professional Muted Tones */}
             <div className="absolute inset-0 -z-10">
                 <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -30,13 +30,13 @@ export function Hero() {
                             transition={{ delay: 0.2 }}
                             className="inline-block"
                         >
-                            <span className="px-4 py-2 rounded-full glass-card text-blue-700 text-sm font-bold tracking-wider uppercase shadow-sm border border-blue-100/50">
+                            <span className="px-4 py-2 rounded-full glass-card dark:!bg-black dark:text-white dark:!border-white/15 dark:!shadow-[0_0_15px_rgba(255,255,255,0.07)] text-blue-700 text-sm font-bold tracking-wider uppercase shadow-sm border border-blue-100/50">
                                 {siteConfig.home.greeting}
                             </span>
                         </motion.div>
 
                         <div className="space-y-2">
-                            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
+                            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
                                 {siteConfig.home.name}
                             </h1>
                             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 pb-2">
@@ -45,7 +45,7 @@ export function Hero() {
                         </div>
                     </div>
 
-                    <p className="text-lg md:text-xl text-slate-600 max-w-[600px] mx-auto md:mx-0 leading-relaxed font-normal">
+                    <p className="text-lg md:text-xl text-slate-600 dark:text-gray-400 max-w-[600px] mx-auto md:mx-0 leading-relaxed font-normal">
                         {siteConfig.home.subtitle}
                     </p>
 
@@ -54,7 +54,7 @@ export function Hero() {
                             <span className="mr-2">View My Work</span>
                             <i className='bx bx-right-arrow-alt text-xl transition-transform group-hover:translate-x-1'></i>
                         </a>
-                        <a href="#contact" className="inline-flex h-10 md:h-12 items-center justify-center rounded-full glass-card px-6 font-medium text-slate-900 transition-all duration-300 hover:scale-105 hover:bg-white/80 hover:shadow-lg hover:border-blue-200 text-sm md:text-base">
+                        <a href="#contact" className="inline-flex h-10 md:h-12 items-center justify-center rounded-full glass-card dark:glass-none dark:bg-white dark:text-black dark:border-white/10 px-6 font-medium text-slate-900 transition-all duration-300 hover:scale-105 hover:bg-white/80 dark:hover:bg-gray-200 hover:shadow-lg hover:border-blue-200 text-sm md:text-base">
                             Contact Me
                         </a>
                     </div>
@@ -66,7 +66,7 @@ export function Hero() {
                                 href={social.url}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="text-2xl text-slate-400 hover:text-blue-600 transition-all hover:-translate-y-1 hover:scale-110"
+                                className="text-2xl text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all hover:-translate-y-1 hover:scale-110"
                             >
                                 <i className={social.icon}></i>
                             </a>
@@ -80,7 +80,7 @@ export function Hero() {
                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
                     transition={{ duration: 0.8, type: "spring" }}
                 >
-                    <div className="relative aspect-square rounded-[2.5rem] overflow-hidden glass-card p-4 transition-transform duration-500 hover:scale-[1.02] hover:rotate-1">
+                    <div className="relative aspect-square rounded-[2.5rem] overflow-hidden glass-card dark:bg-neutral-900/30 dark:border-white/10 p-4 transition-transform duration-500 hover:scale-[1.02] hover:rotate-1">
                         <div className="relative w-full h-full rounded-[2rem] overflow-hidden shadow-inner">
                             <Image
                                 src={siteConfig.home.profileImage}
@@ -96,13 +96,13 @@ export function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1 }}
-                        className="absolute -bottom-3 right-0 md:-bottom-6 md:-right-6 glass-card px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl flex items-center gap-2 md:gap-3 animate-pulse-slow z-20 shadow-lg border border-white/60"
+                        className="absolute -bottom-3 right-0 md:-bottom-6 md:-right-6 glass-card dark:!bg-neutral-900 dark:border-neutral-800 px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl flex items-center gap-2 md:gap-3 animate-pulse-slow z-20 shadow-lg border border-white/60"
                     >
                         <div className="relative">
                             <div className="w-2 h-2 md:w-3 md:h-3 bg-emerald-500 rounded-full"></div>
                             <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75"></div>
                         </div>
-                        <span className="font-medium text-[10px] md:text-sm text-slate-600 whitespace-nowrap">Open to Work</span>
+                        <span className="font-medium text-[10px] md:text-sm text-slate-600 dark:text-white whitespace-nowrap">Open to Work</span>
                     </motion.div>
                 </motion.div>
             </div>

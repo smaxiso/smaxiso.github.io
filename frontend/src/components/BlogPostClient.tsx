@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useScroll, useMotionValueEvent } from 'framer-motion';
+import { useScroll, useMotionValueEvent, motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { getPostBySlug, getPublishedPosts } from '@/lib/api';
@@ -139,14 +139,17 @@ export default function BlogPostClient({ slug }: { slug: string }) {
         }
     };
 
+    // Reading Progress
+    const { scrollYProgress } = useScroll();
+
     if (loading) return (
-        <div className="min-h-screen pt-32 pb-20 container max-w-3xl mx-auto px-4">
-            <div className="h-10 w-3/4 bg-slate-200 rounded-lg animate-pulse mb-6"></div>
-            <div className="h-6 w-1/2 bg-slate-200 rounded-lg animate-pulse mb-12"></div>
+        <div className="min-h-screen pt-32 pb-20 container max-w-3xl mx-auto px-4 dark:bg-black">
+            <div className="h-10 w-3/4 bg-slate-200 dark:bg-neutral-800 rounded-lg animate-pulse mb-6"></div>
+            <div className="h-6 w-1/2 bg-slate-200 dark:bg-neutral-800 rounded-lg animate-pulse mb-12"></div>
             <div className="space-y-4">
-                <div className="h-4 bg-slate-200 rounded animate-pulse"></div>
-                <div className="h-4 bg-slate-200 rounded animate-pulse"></div>
-                <div className="h-4 w-5/6 bg-slate-200 rounded animate-pulse"></div>
+                <div className="h-4 bg-slate-200 dark:bg-neutral-800 rounded animate-pulse"></div>
+                <div className="h-4 bg-slate-200 dark:bg-neutral-800 rounded animate-pulse"></div>
+                <div className="h-4 w-5/6 bg-slate-200 dark:bg-neutral-800 rounded animate-pulse"></div>
             </div>
         </div>
     );
@@ -154,15 +157,21 @@ export default function BlogPostClient({ slug }: { slug: string }) {
     if (!post) return null;
 
     return (
-        <main className="min-h-screen pt-24 pb-48 md:pb-32 relative bg-slate-50/50">
+        <main className="min-h-screen pt-24 pb-48 md:pb-32 relative bg-slate-50/50 dark:bg-black transition-colors duration-300">
+            {/* Reading Progress Bar */}
+            <motion.div
+                className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-50"
+                style={{ scaleX: scrollYProgress }}
+            />
+
             {post.cover_image && (
                 <div className="absolute top-0 left-0 right-0 h-[400px] w-full -z-10">
                     <img
                         src={post.cover_image}
                         alt="Cover"
-                        className="w-full h-full object-cover opacity-90 mask-gradient"
+                        className="w-full h-full object-cover opacity-90 dark:opacity-40 mask-gradient"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50 dark:to-black"></div>
                 </div>
             )}
 
@@ -204,7 +213,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                 >
                     <Link
                         href="/blog"
-                        className="pointer-events-auto inline-flex items-center gap-2 text-slate-700 hover:text-blue-600 bg-white/90 backdrop-blur-xl px-4 py-2 rounded-full border border-slate-200/60 shadow-lg hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group"
+                        className="pointer-events-auto inline-flex items-center gap-2 text-slate-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl px-4 py-2 rounded-full border border-slate-200/60 dark:border-neutral-800 shadow-lg hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group"
                     >
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                         Blog
@@ -212,8 +221,8 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                 </div>
 
                 <header className="mb-12 text-left">
-                    <div className="flex items-center justify-start gap-4 text-sm text-slate-500 mb-4">
-                        <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1 rounded-full border border-slate-100">
+                    <div className="flex items-center justify-start gap-4 text-sm text-slate-500 dark:text-gray-400 mb-4">
+                        <span className="flex items-center gap-1.5 bg-white/60 dark:bg-neutral-900/60 px-3 py-1 rounded-full border border-slate-100 dark:border-neutral-800">
                             <Calendar className="w-4 h-4" />
                             {(() => {
                                 const dateStr = post.created_at.endsWith('Z') ? post.created_at : `${post.created_at}Z`;
@@ -221,7 +230,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                             })()}
                         </span>
                         {post.updated_at && post.updated_at !== post.created_at && (
-                            <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1 rounded-full border border-slate-100 text-slate-400 text-xs">
+                            <span className="hidden sm:flex items-center gap-1.5 bg-white/60 dark:bg-neutral-900/60 px-3 py-1 rounded-full border border-slate-100 dark:border-neutral-800 text-slate-400 text-xs">
                                 <HistoryIcon className="w-3.5 h-3.5" />
                                 Updated: {(() => {
                                     const updateStr = post.updated_at.endsWith('Z') ? post.updated_at : `${post.updated_at}Z`;
@@ -229,13 +238,13 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                 })()}
                             </span>
                         )}
-                        <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1 rounded-full border border-slate-100">
+                        <span className="flex items-center gap-1.5 bg-white/60 dark:bg-neutral-900/60 px-3 py-1 rounded-full border border-slate-100 dark:border-neutral-800">
                             <Clock className="w-4 h-4" />
                             {Math.ceil(post.content.length / 1000)} min read
                         </span>
                     </div>
 
-                    <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+                    <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
                         {post.title}
                     </h1>
 
@@ -243,7 +252,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                         {post.tags && (
                             <div className="flex flex-wrap justify-start gap-2">
                                 {post.tags.split(',').map(tag => (
-                                    <span key={tag} className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                                    <span key={tag} className="text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1 rounded-full border border-transparent dark:border-blue-800/30">
                                         #{tag.trim()}
                                     </span>
                                 ))}
@@ -260,22 +269,22 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     </div>
                 </header>
 
-                <div className="prose prose-sm md:prose-lg prose-slate prose-headings:font-bold prose-headings:text-slate-800 prose-a:text-blue-600 hover:prose-a:text-blue-700 max-w-none bg-white/40 backdrop-blur-sm p-4 md:p-10 rounded-2xl md:rounded-3xl border border-white/50 shadow-sm overflow-x-hidden break-words selection:bg-blue-100 selection:text-blue-900">
+                <div className="prose prose-sm md:prose-lg prose-slate dark:prose-invert prose-headings:font-bold prose-headings:text-slate-800 dark:prose-headings:text-gray-100 prose-a:text-blue-600 dark:prose-a:text-blue-400 hover:prose-a:text-blue-700 dark:hover:prose-a:text-blue-300 max-w-none bg-white/40 dark:bg-neutral-900/30 backdrop-blur-sm p-4 md:p-10 rounded-2xl md:rounded-3xl border border-white/50 dark:border-neutral-800 shadow-sm overflow-x-hidden break-words selection:bg-blue-100 dark:selection:bg-blue-900/30 selection:text-blue-900 dark:selection:text-blue-200">
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
                             a: ({ node, ...props }) => (
-                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline decoration-blue-300 hover:decoration-blue-800 transition-all font-medium" />
+                                <a {...props} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline decoration-blue-300 dark:decoration-blue-700 hover:decoration-blue-800 transition-all font-medium" />
                             ),
-                            h1: ({ node, ...props }) => <h2 {...props} className="text-2xl md:text-3xl font-bold mt-12 mb-6 text-slate-900 border-b border-slate-200 pb-4" />,
-                            h2: ({ node, ...props }) => <h3 {...props} className="text-xl md:text-2xl font-bold mt-10 mb-5 text-slate-800" />,
-                            h3: ({ node, ...props }) => <h4 {...props} className="text-lg md:text-xl font-bold mt-8 mb-4 text-slate-700" />,
-                            blockquote: ({ node, ...props }) => <blockquote {...props} className="border-l-4 border-blue-400 pl-6 py-2 my-8 italic text-slate-600 bg-blue-50/50 rounded-r-lg" />,
+                            h1: ({ node, ...props }) => <h2 {...props} className="text-2xl md:text-3xl font-bold mt-12 mb-6 text-slate-900 dark:text-white border-b border-slate-200 dark:border-neutral-800 pb-4" />,
+                            h2: ({ node, ...props }) => <h3 {...props} className="text-xl md:text-2xl font-bold mt-10 mb-5 text-slate-800 dark:text-gray-100" />,
+                            h3: ({ node, ...props }) => <h4 {...props} className="text-lg md:text-xl font-bold mt-8 mb-4 text-slate-700 dark:text-gray-200" />,
+                            blockquote: ({ node, ...props }) => <blockquote {...props} className="border-l-4 border-blue-400 pl-6 py-2 my-8 italic text-slate-600 dark:text-gray-400 bg-blue-50/50 dark:bg-blue-900/10 rounded-r-lg" />,
                             code: ({ className, children, ...props }: any) => {
                                 const match = /language-(\w+)/.exec(className || '');
                                 const isInline = !match;
                                 return !isInline ? (
-                                    <div className="rounded-xl overflow-hidden my-6 shadow-lg border border-slate-200/50">
+                                    <div className="rounded-xl overflow-hidden my-6 shadow-lg border border-slate-200/50 dark:border-neutral-800">
                                         <div className="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-white/10">
                                             <div className="flex gap-1.5">
                                                 <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
@@ -300,15 +309,15 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                         </SyntaxHighlighter>
                                     </div>
                                 ) : (
-                                    <code className={`${className} bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded-md font-mono text-[0.9em] border border-slate-200/50 break-words`} {...props}>
+                                    <code className={`${className} bg-slate-100 dark:bg-neutral-800 text-slate-800 dark:text-gray-200 px-1.5 py-0.5 rounded-md font-mono text-[0.9em] border border-slate-200/50 dark:border-neutral-700 break-words`} {...props}>
                                         {children}
                                     </code>
                                 );
                             },
-                            img: ({ node, ...props }) => <img {...props} className="rounded-xl shadow-lg my-8 w-full object-cover border border-white/20" />,
-                            hr: ({ node, ...props }) => <hr {...props} className="my-12 border-slate-200 border-t-2 opacity-50" />,
+                            img: ({ node, ...props }) => <img {...props} className="rounded-xl shadow-lg my-8 w-full object-cover border border-white/20 dark:border-neutral-800" />,
+                            hr: ({ node, ...props }) => <hr {...props} className="my-12 border-slate-200 dark:border-neutral-800 border-t-2 opacity-50" />,
                             ul: ({ node, ...props }) => <ul {...props} className="list-disc pl-6 space-y-2 my-6 marker:text-blue-400" />,
-                            ol: ({ node, ...props }) => <ol {...props} className="list-decimal pl-6 space-y-2 my-6 marker:text-blue-400 font-medium text-slate-700" />,
+                            ol: ({ node, ...props }) => <ol {...props} className="list-decimal pl-6 space-y-2 my-6 marker:text-blue-400 font-medium text-slate-700 dark:text-gray-300" />,
                             li: ({ node, ...props }) => <li {...props} className="pl-1" />,
                         }}
                     >
@@ -316,9 +325,9 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     </ReactMarkdown>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-slate-200">
+                <div className="mt-12 pt-8 border-t border-slate-200 dark:border-neutral-800">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                        <div className="text-slate-500 italic text-center md:text-left">
+                        <div className="text-slate-500 dark:text-gray-500 italic text-center md:text-left">
                             Thanks for reading!
                         </div>
 
@@ -333,7 +342,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                             </button>
 
                             {/* Desktop Fallbacks */}
-                            <div className="flex items-center gap-2 pl-3 border-l border-slate-200">
+                            <div className="flex items-center gap-2 pl-3 border-l border-slate-200 dark:border-neutral-800">
                                 <a
                                     href={`https://wa.me/?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}" ${typeof window !== 'undefined' ? window.location.href : ''}`)}`}
                                     target="_blank"
@@ -342,7 +351,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                         navigator.clipboard.writeText(window.location.href);
                                         toast.success('Link copied to clipboard!');
                                     }}
-                                    className="p-2 text-slate-400 hover:text-green-500 hover:bg-green-50 rounded-full transition-all"
+                                    className="p-2 text-slate-400 dark:text-gray-500 hover:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-full transition-all"
                                     aria-label="Share on WhatsApp"
                                 >
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -357,7 +366,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                         navigator.clipboard.writeText(window.location.href);
                                         toast.success('Link copied to clipboard!');
                                     }}
-                                    className="p-2 text-slate-400 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-all"
+                                    className="p-2 text-slate-400 dark:text-gray-500 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-full transition-all"
                                     aria-label="Share on LinkedIn"
                                 >
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -372,7 +381,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                         navigator.clipboard.writeText(window.location.href);
                                         toast.success('Link copied to clipboard!');
                                     }}
-                                    className="p-2 text-slate-400 hover:text-blue-400 hover:bg-blue-50 rounded-full transition-all"
+                                    className="p-2 text-slate-400 dark:text-gray-500 hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-full transition-all"
                                     aria-label="Share on Twitter"
                                 >
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -392,7 +401,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                 {/* Related Posts Section */}
                 {relatedPosts.length > 0 && (
                     <div className="mt-16 mb-12">
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-8 text-center">
+                        <h2 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-white mb-8 text-center">
                             You Might Also Like
                         </h2>
                         <div className={`grid gap-6 ${relatedPosts.length === 1 ? 'md:grid-cols-1 max-w-2xl mx-auto' : relatedPosts.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'}`}>
@@ -400,10 +409,10 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                 <Link
                                     key={relatedPost.id}
                                     href={`/blog/${relatedPost.slug}`}
-                                    className="group block bg-white/40 backdrop-blur-sm rounded-2xl border border-white/50 overflow-hidden hover:bg-white/60 hover:shadow-lg transition-all"
+                                    className="group block bg-white/40 dark:bg-neutral-900/40 backdrop-blur-sm rounded-2xl border border-white/50 dark:border-neutral-800 overflow-hidden hover:bg-white/60 dark:hover:bg-neutral-900/60 hover:shadow-lg transition-all"
                                 >
                                     {relatedPost.cover_image && (
-                                        <div className="aspect-video overflow-hidden bg-slate-100">
+                                        <div className="aspect-video overflow-hidden bg-slate-100 dark:bg-neutral-800">
                                             <img
                                                 src={relatedPost.cover_image}
                                                 alt={relatedPost.title}
@@ -415,20 +424,20 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                         {relatedPost.tags && (
                                             <div className="flex flex-wrap gap-2">
                                                 {relatedPost.tags.split(',').slice(0, 2).map(tag => (
-                                                    <span key={tag} className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                                                    <span key={tag} className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-full">
                                                         #{tag.trim()}
                                                     </span>
                                                 ))}
                                             </div>
                                         )}
-                                        <h3 className="font-bold text-lg text-slate-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+                                        <h3 className="font-bold text-lg text-slate-800 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
                                             {relatedPost.title}
                                         </h3>
-                                        <p className="text-sm text-slate-600 line-clamp-2">
+                                        <p className="text-sm text-slate-600 dark:text-gray-400 line-clamp-2">
                                             {relatedPost.excerpt}
                                         </p>
                                         <div className="flex items-center justify-between mt-2">
-                                            <div className="text-blue-600 font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                                            <div className="text-blue-600 dark:text-blue-400 font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
                                                 Read more <span aria-hidden="true">&rarr;</span>
                                             </div>
                                             <button
@@ -445,7 +454,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                                         toast.success('Link copied!');
                                                     }
                                                 }}
-                                                className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all z-10"
+                                                className="p-1.5 text-slate-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-full transition-all z-10"
                                                 title="Share"
                                             >
                                                 <Share2 className="w-4 h-4" />

@@ -7,11 +7,25 @@
   --muted-foreground: #64748b;
   --border: #e2e8f0;
   --ring: #3b82f6;
-  
+
   /* Glassmorphism Tokens */
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.5);
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #f8fafc;
+  --muted: #0f172a;
+  --muted-foreground: #94a3b8;
+  --border: #1e293b;
+  --ring: #3b82f6;
+
+  /* Glassmorphism Tokens Dark */
+  --glass-bg: rgba(0, 0, 0, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 @theme inline {
@@ -21,12 +35,15 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
-  --font-sans: var(--font-inter); 
+  --font-sans: var(--font-inter);
 }
+
+/* Enable class-based dark mode for Tailwind v4 */
+@variant dark (&:where(.dark, .dark *));
 
 body {
   background-color: var(--background);
-  background-image: 
+  background-image:
     radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
     radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
     radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
@@ -46,36 +63,43 @@ body {
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
+
 .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
+
 .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Custom Scrollbar - Chrome/Safari/Edge */
 ::-webkit-scrollbar {
   width: 10px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(148, 163, 184, 0.5); /* Slate 400 with opacity */
+  background-color: rgba(148, 163, 184, 0.5);
+  /* Slate 400 with opacity */
   border-radius: 20px;
   border: 2px solid transparent;
   background-clip: content-box;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(71, 85, 105, 0.7); /* Slate 600 */
+  background-color: rgba(71, 85, 105, 0.7);
+  /* Slate 600 */
 }
 
 /* Firefox Scrollbar */
@@ -86,6 +110,7 @@ body {
 
 /* Custom Selection Color */
 ::selection {
-  background-color: #3b82f6; /* Blue 500 */
+  background-color: #3b82f6;
+  /* Blue 500 */
   color: #ffffff;
 }

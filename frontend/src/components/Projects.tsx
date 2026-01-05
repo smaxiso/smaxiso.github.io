@@ -73,7 +73,7 @@ export function Projects({ projects }: ProjectsProps) {
     const currentProject = projects[currentIndex];
 
     return (
-        <section id="work" className="py-20 relative overflow-hidden bg-slate-50">
+        <section id="work" className="py-20 relative overflow-hidden bg-slate-50 dark:bg-black transition-colors duration-300">
             {/* Background Elements */}
             <div className="absolute inset-0 -z-10 pointer-events-none">
                 <div className="absolute top-40 left-0 w-96 h-96 bg-blue-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
@@ -87,8 +87,8 @@ export function Projects({ projects }: ProjectsProps) {
                     viewport={{ once: true }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">My Work / Projects</h2>
-                    <p className="text-slate-600 max-w-2xl mx-auto">
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">My Work / Projects</h2>
+                    <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
                         Showcase of my professional work, internships, and side projects.
                     </p>
                 </motion.div>
@@ -103,7 +103,7 @@ export function Projects({ projects }: ProjectsProps) {
                     </div>
                     <div className="relative">
                         {/* Main Carousel */}
-                        <div className="relative h-[450px] md:h-[500px] lg:h-[600px] rounded-xl md:rounded-2xl overflow-hidden bg-white backdrop-blur-sm border border-slate-200">
+                        <div className="relative h-[450px] md:h-[500px] lg:h-[600px] rounded-xl md:rounded-2xl overflow-hidden bg-white dark:bg-neutral-900 backdrop-blur-sm border border-slate-200 dark:border-neutral-800">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={currentIndex}
@@ -127,14 +127,14 @@ export function Projects({ projects }: ProjectsProps) {
                                         </div>
 
                                         {/* Project Details */}
-                                        <div className="p-5 md:p-8 lg:p-12 flex flex-col justify-center bg-white overflow-y-auto">
+                                        <div className="p-5 md:p-8 lg:p-12 flex flex-col justify-center bg-white dark:bg-neutral-900 overflow-y-auto">
                                             <span className="text-xs md:text-sm text-blue-600 font-semibold mb-2">
                                                 {currentProject?.category}
                                             </span>
-                                            <h4 className="text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 mb-3 md:mb-4 line-clamp-2">
+                                            <h4 className="text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white mb-3 md:mb-4 line-clamp-2">
                                                 {currentProject?.title}
                                             </h4>
-                                            <p className="text-slate-600 text-sm md:text-base mb-4 md:mb-6 line-clamp-3 md:line-clamp-4">
+                                            <p className="text-slate-600 dark:text-gray-400 text-sm md:text-base mb-4 md:mb-6 line-clamp-3 md:line-clamp-4">
                                                 {currentProject?.description}
                                             </p>
 
@@ -142,7 +142,7 @@ export function Projects({ projects }: ProjectsProps) {
                                                 {currentProject?.technologies.slice(0, 5).map((tech, i) => (
                                                     <span
                                                         key={i}
-                                                        className="px-2 md:px-3 py-0.5 md:py-1 bg-blue-100 text-blue-700 text-[10px] md:text-sm rounded-full"
+                                                        className="px-2 md:px-3 py-0.5 md:py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-[10px] md:text-sm rounded-full"
                                                     >
                                                         {tech}
                                                     </span>
@@ -167,7 +167,7 @@ export function Projects({ projects }: ProjectsProps) {
                                                         href={currentProject.repository}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 border border-slate-300 text-slate-700 text-sm md:text-base rounded-lg hover:bg-slate-50 transition-colors"
+                                                        className="inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 border border-slate-300 dark:border-neutral-700 text-slate-700 dark:text-slate-300 text-sm md:text-base rounded-lg hover:bg-slate-50 dark:hover:bg-neutral-800 transition-colors"
                                                     >
                                                         <i className='bx bxl-github text-base md:text-lg'></i>
                                                         <span className="hidden sm:inline">View Code</span>
@@ -186,14 +186,14 @@ export function Projects({ projects }: ProjectsProps) {
                                 className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 md:p-3 bg-black/50 hover:bg-black/70 rounded-full transition-colors z-10"
                                 aria-label="Previous project"
                             >
-                                <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
+                                <ChevronLeft className="w-4 h-4 md:w-6 md:h-6 text-white" />
                             </button>
                             <button
                                 onClick={nextProject}
                                 className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 md:p-3 bg-black/50 hover:bg-black/70 rounded-full transition-colors z-10"
                                 aria-label="Next project"
                             >
-                                <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
+                                <ChevronRight className="w-4 h-4 md:w-6 md:h-6 text-white" />
                             </button>
 
                             {/* Pause/Play Button */}
@@ -202,7 +202,7 @@ export function Projects({ projects }: ProjectsProps) {
                                 className="absolute bottom-2 md:bottom-4 right-2 md:right-4 p-2 md:p-3 bg-black/50 hover:bg-black/70 rounded-full transition-colors z-10"
                                 aria-label={isPaused ? "Play autoplay" : "Pause autoplay"}
                             >
-                                {isPaused ? <Play className="w-4 h-4 md:w-5 md:h-5" /> : <Pause className="w-4 h-4 md:w-5 md:h-5" />}
+                                {isPaused ? <Play className="w-4 h-4 md:w-5 md:h-5 text-white" /> : <Pause className="w-4 h-4 md:w-5 md:h-5 text-white" />}
                             </button>
                         </div>
 
@@ -216,7 +216,7 @@ export function Projects({ projects }: ProjectsProps) {
                                         "h-1.5 md:h-2 rounded-full transition-all",
                                         index === currentIndex
                                             ? "w-6 md:w-8 bg-blue-500"
-                                            : "w-1.5 md:w-2 bg-slate-600 hover:bg-slate-500"
+                                            : "w-1.5 md:w-2 bg-slate-600 dark:bg-slate-400 hover:bg-slate-500"
                                     )}
                                     aria-label={`Go to project ${index + 1} `}
                                 />
@@ -229,8 +229,8 @@ export function Projects({ projects }: ProjectsProps) {
                 {/* Category Tabs */}
                 <div className="relative mb-12">
                     {/* Scroll gradient indicators */}
-                    <div className="absolute left-0 top-0 bottom-4 w-8 bg-gradient-to-r from-slate-50 to-transparent pointer-events-none z-10 md:hidden" />
-                    <div className="absolute right-0 top-0 bottom-4 w-8 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none z-10 md:hidden" />
+                    <div className="absolute left-0 top-0 bottom-4 w-8 bg-gradient-to-r from-slate-50 to-transparent dark:from-black pointer-events-none z-10 md:hidden" />
+                    <div className="absolute right-0 top-0 bottom-4 w-8 bg-gradient-to-l from-slate-50 to-transparent dark:from-black pointer-events-none z-10 md:hidden" />
 
                     <div className="overflow-x-auto pb-4 scrollbar-hide scroll-smooth">
                         <div className="flex gap-2 md:gap-4 md:justify-center min-w-max md:min-w-0 px-8 md:px-0">
@@ -243,7 +243,7 @@ export function Projects({ projects }: ProjectsProps) {
                                         "px-4 py-2 md:px-6 md:py-2.5 rounded-full text-sm md:text-base font-medium transition-all duration-300 whitespace-nowrap flex-shrink-0",
                                         activeCategory === category
                                             ? "bg-blue-600 text-white shadow-lg shadow-blue-200 scale-105"
-                                            : "glass-card text-slate-600 hover:bg-white/80 hover:text-blue-600"
+                                            : "glass-card dark:!bg-neutral-900 dark:!backdrop-blur-none dark:text-white dark:!border-white/15 dark:hover:!bg-neutral-800 text-slate-600 hover:bg-white/80 hover:text-blue-600"
                                     )}
                                 >
                                     {category}
@@ -275,14 +275,14 @@ export function Projects({ projects }: ProjectsProps) {
                                 layout
                                 key={project.id}
                                 onClick={() => handleProjectClick(project)}
-                                className="group relative overflow-hidden rounded-2xl glass-card transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex flex-col h-full border border-white/40 cursor-pointer"
+                                className="group relative overflow-hidden rounded-2xl glass-card dark:bg-neutral-900 border border-white/40 dark:border-white/10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex flex-col h-full cursor-pointer"
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3 }}
                             >
                                 {project.image && (
-                                    <div className="relative aspect-video overflow-hidden border-b border-white/20">
+                                    <div className="relative aspect-video overflow-hidden border-b border-white/20 dark:border-white/10">
                                         <div className="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition-colors z-10 duration-500"></div>
 
                                         {/* Category Sticker */}
@@ -300,23 +300,24 @@ export function Projects({ projects }: ProjectsProps) {
                                         />
                                     </div>
                                 )}
-                                <div className="p-4 sm:p-6 flex flex-col flex-1 relative bg-white/30 backdrop-blur-sm">
+                                <div className="p-4 sm:p-6 flex flex-col flex-1 relative bg-white/30 dark:bg-neutral-800/80 backdrop-blur-sm">
                                     {/* Date display moved to a cleaner spot */}
                                     {project.startDate && (
                                         <div className="mb-2 flex items-center gap-2">
-                                            <span className="text-[10px] sm:text-xs font-medium text-slate-500 bg-slate-100/50 px-2 py-0.5 rounded-full border border-slate-200/50">
-                                                {project.startDate} — <span className={!project.endDate ? "text-green-600 font-bold" : ""}>{project.endDate || 'Present'}</span>
+                                            <span className="text-[10px] sm:text-xs font-medium text-slate-500 dark:text-gray-400 bg-slate-100/50 dark:bg-neutral-700/50 px-2 py-0.5 rounded-full border border-slate-200/50 dark:border-neutral-600">
+                                                {project.startDate} — <span className={!project.endDate ? "text-green-600 dark:text-green-400 font-bold" : ""}>{project.endDate || 'Present'}</span>
                                             </span>
                                         </div>
                                     )}
 
-                                    <h3 className="text-xl font-bold mb-2 text-slate-800 group-hover:text-blue-700 transition-colors">
+                                    <h3 className="text-xl font-bold mb-2 text-slate-800 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
                                         {project.title}
                                     </h3>
 
-                                    <p className="text-slate-600 text-sm mb-6 line-clamp-3 leading-relaxed">
+                                    <p className="text-slate-600 dark:text-gray-300 text-sm mb-6 line-clamp-3 leading-relaxed">
                                         {project.description}
                                     </p>
+
 
                                     <div className="flex flex-wrap gap-2 mb-6 mt-auto">
                                         {project.technologies.filter(Boolean).slice(0, 4).map(tech => (

@@ -108,11 +108,11 @@ export function Skills({ skills }: SkillsProps) {
     }));
 
     return (
-        <section id="skills" className="py-20 relative overflow-hidden bg-white">
+        <section id="skills" className="py-20 relative overflow-hidden bg-white dark:bg-black transition-colors duration-300">
             <div className="container max-w-5xl px-4 md:px-6 mx-auto relative z-10">
                 <div className="text-center mb-16 space-y-4">
-                    <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-slate-800">Technical Skills</h2>
-                    <p className="mx-auto max-w-[700px] text-slate-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-slate-800 dark:text-white">Technical Skills</h2>
+                    <p className="mx-auto max-w-[700px] text-slate-600 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                         Technologies and tools I work with professionally
                     </p>
                 </div>
@@ -128,9 +128,9 @@ export function Skills({ skills }: SkillsProps) {
                             className="relative"
                         >
                             {/* Subtle background glow */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-slate-50/50 rounded-2xl blur-3xl" />
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-slate-50/50 dark:from-blue-900/10 dark:to-slate-800/10 rounded-2xl blur-3xl" />
 
-                            <div className="relative bg-white backdrop-blur-sm rounded-2xl p-6 md:p-10 shadow-lg border border-slate-200/60">
+                            <div className="relative bg-white dark:bg-neutral-900/50 backdrop-blur-sm rounded-2xl p-6 md:p-10 shadow-lg border border-slate-200/60 dark:border-neutral-800">
                                 <div className="relative">
                                     <ResponsiveContainer width="100%" height={320} className="md:!h-[400px]">
                                         <RadarChart data={animatedData}>
@@ -154,12 +154,12 @@ export function Skills({ skills }: SkillsProps) {
                                             <PolarAngleAxis
                                                 dataKey="category"
                                                 tick={{
-                                                    fill: "#475569",
+                                                    fill: "#475569", // Will need custom component/styling for full dark mode support on SVGs, but consistent color often works. Better to use standard slate-400 for both.
                                                     fontSize: 11,
                                                     fontWeight: 600,
                                                     fontFamily: 'Inter, system-ui, sans-serif'
                                                 }}
-                                                className="text-[10px] md:text-[12px]"
+                                                className="text-[10px] md:text-[12px] fill-slate-600 dark:fill-slate-400"
                                                 tickLine={false}
                                             />
 
@@ -175,6 +175,7 @@ export function Skills({ skills }: SkillsProps) {
                                                 stroke="#cbd5e1"
                                                 strokeOpacity={0.3}
                                                 tickCount={5}
+                                                className="fill-slate-500 dark:fill-slate-500"
                                             />
 
                                             {/* Main radar area - professional styling */}
@@ -199,17 +200,17 @@ export function Skills({ skills }: SkillsProps) {
                                             {/* Clean, minimal tooltip */}
                                             <Tooltip
                                                 contentStyle={{
-                                                    backgroundColor: "#ffffff",
-                                                    border: "1px solid #e2e8f0",
+                                                    backgroundColor: "var(--background)",
+                                                    borderColor: "var(--border)",
+                                                    color: "var(--foreground)",
                                                     borderRadius: "8px",
-                                                    color: "#1e293b",
                                                     padding: "8px 12px",
                                                     boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
                                                     fontSize: "13px",
                                                     fontFamily: 'Inter, system-ui, sans-serif'
                                                 }}
                                                 labelStyle={{
-                                                    color: "#475569",
+                                                    color: "var(--muted-foreground)",
                                                     fontWeight: 600,
                                                     marginBottom: "2px",
                                                     fontSize: "13px"
@@ -221,9 +222,9 @@ export function Skills({ skills }: SkillsProps) {
 
                                     {/* Professional legend */}
                                     <div className="mt-6 flex justify-center">
-                                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-full border border-slate-200">
+                                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-50 dark:bg-neutral-800 rounded-full border border-slate-200 dark:border-neutral-700">
                                             <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                                            <span className="text-xs md:text-sm font-medium text-slate-700">Skill Proficiency Level</span>
+                                            <span className="text-xs md:text-sm font-medium text-slate-700 dark:text-slate-300">Skill Proficiency Level</span>
                                         </div>
                                     </div>
                                 </div>
@@ -242,14 +243,14 @@ export function Skills({ skills }: SkillsProps) {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            className="bg-white rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-shadow overflow-hidden"
+                            className="bg-white dark:bg-neutral-900 rounded-2xl shadow-lg border border-slate-200 dark:border-neutral-800 hover:shadow-xl transition-shadow overflow-hidden"
                         >
                             {/* Category Header - Clickable on mobile */}
                             <button
                                 onClick={() => toggleCategory(category)}
-                                className="w-full flex items-center justify-between p-5 md:p-6 md:pb-4 md:border-b md:border-slate-200 md:mb-6 text-left group md:cursor-default"
+                                className="w-full flex items-center justify-between p-5 md:p-6 md:pb-4 md:border-b md:border-slate-200 dark:md:border-neutral-800 md:mb-6 text-left group md:cursor-default"
                             >
-                                <h3 className="text-base md:text-lg font-bold text-slate-900">
+                                <h3 className="text-base md:text-lg font-bold text-slate-900 dark:text-white">
                                     {category}
                                 </h3>
                                 {/* Chevron for mobile only */}
@@ -276,18 +277,18 @@ export function Skills({ skills }: SkillsProps) {
                                             className="flex items-center justify-between group"
                                         >
                                             <div className="flex items-center gap-2.5 md:gap-3 flex-1 min-w-0">
-                                                <div className="p-1.5 md:p-2 bg-blue-50 rounded-lg text-blue-600 text-base md:text-lg group-hover:bg-blue-100 transition-colors flex-shrink-0">
+                                                <div className="p-1.5 md:p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-blue-600 dark:text-blue-400 text-base md:text-lg group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40 transition-colors flex-shrink-0">
                                                     <i className={skill.icon}></i>
                                                 </div>
-                                                <span className="font-medium text-slate-800 text-xs md:text-sm truncate">
+                                                <span className="font-medium text-slate-800 dark:text-slate-200 text-xs md:text-sm truncate">
                                                     {skill.name}
                                                 </span>
                                             </div>
                                             {skill.level && (
-                                                <span className={`text-[9px] md:text-[10px] font-semibold px-1.5 md:px-2 py-0.5 md:py-1 rounded-full flex-shrink-0 ml-1.5 md:ml-2 whitespace-nowrap ${Number(skill.level) >= 90 ? 'bg-purple-100 text-purple-700' :
-                                                    Number(skill.level) >= 80 ? 'bg-blue-100 text-blue-700' :
-                                                        Number(skill.level) >= 60 ? 'bg-green-100 text-green-700' :
-                                                            'bg-slate-100 text-slate-600'
+                                                <span className={`text-[9px] md:text-[10px] font-semibold px-1.5 md:px-2 py-0.5 md:py-1 rounded-full flex-shrink-0 ml-1.5 md:ml-2 whitespace-nowrap ${Number(skill.level) >= 90 ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300' :
+                                                    Number(skill.level) >= 80 ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' :
+                                                        Number(skill.level) >= 60 ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300' :
+                                                            'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
                                                     }`}>
                                                     {getProficiencyLabel(skill.level)}
                                                 </span>

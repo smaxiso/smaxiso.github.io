@@ -25,10 +25,10 @@ export default function ExperienceTimeline({ initialData = [] }: ExperienceTimel
     if (experiences.length === 0) return null;
 
     return (
-        <section id="experience" className="py-24 bg-white">
+        <section id="experience" className="py-24 bg-white dark:bg-black transition-colors duration-300">
             <div className="container max-w-5xl px-6 mx-auto">
                 <div className="mb-20 text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight">
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                         Experience
                     </h2>
                     <div className="h-1 w-20 bg-blue-600 rounded-full mx-auto"></div>
@@ -36,10 +36,10 @@ export default function ExperienceTimeline({ initialData = [] }: ExperienceTimel
 
                 <div className="relative">
                     {/* Center Vertical Line (Desktop) */}
-                    <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-200 -translate-x-1/2" />
+                    <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-200 dark:bg-neutral-800 -translate-x-1/2" />
 
                     {/* Left Line (Mobile) */}
-                    <div className="md:hidden absolute left-0 top-2 bottom-0 w-px bg-slate-200" />
+                    <div className="md:hidden absolute left-0 top-2 bottom-0 w-px bg-slate-200 dark:bg-neutral-800" />
 
                     <div className="space-y-12 md:space-y-24">
                         {experiences.map((exp, index) => (
@@ -62,10 +62,10 @@ function TimelineItem({ exp, index }: { exp: Experience; index: number }) {
 
             {/* Desktop Date Side (Opposite to Content) */}
             <div className={`hidden md:block w-[45%] pt-1 ${isEven ? 'text-right pr-12' : 'text-left pl-12'}`}>
-                <div className="text-sm font-bold text-slate-900">
+                <div className="text-sm font-bold text-slate-900 dark:text-gray-100">
                     {formatDate(exp.start_date)}
                 </div>
-                <div className="text-xs text-slate-500 font-medium mt-1 uppercase tracking-wider">
+                <div className="text-xs text-slate-500 dark:text-gray-500 font-medium mt-1 uppercase tracking-wider">
                     {exp.end_date ? formatDate(exp.end_date) : "Present"}
                 </div>
             </div>
@@ -73,8 +73,8 @@ function TimelineItem({ exp, index }: { exp: Experience; index: number }) {
             {/* Center Node */}
             <div className="absolute left-[-5px] md:left-1/2 top-2 z-10 md:-translate-x-1/2">
                 <div className={`rounded-full transition-all duration-300 ${isPresent
-                    ? "w-4 h-4 bg-green-500 border-4 border-white shadow-[0_0_0_4px_rgba(34,197,94,0.2)]"
-                    : `w-3 h-3 bg-white border-[3px] ${isOpen ? 'border-blue-600 scale-125' : 'border-slate-300 group-hover:border-slate-400'}`
+                    ? "w-4 h-4 bg-green-500 border-4 border-white dark:border-black shadow-[0_0_0_4px_rgba(34,197,94,0.2)] dark:shadow-[0_0_0_4px_rgba(34,197,94,0.1)]"
+                    : `w-3 h-3 bg-white dark:bg-black border-[3px] ${isOpen ? 'border-blue-600 scale-125' : 'border-slate-300 dark:border-neutral-700 group-hover:border-slate-400 dark:group-hover:border-neutral-500'}`
                     }`} />
             </div>
 
@@ -85,35 +85,35 @@ function TimelineItem({ exp, index }: { exp: Experience; index: number }) {
                     className="cursor-pointer group/card"
                 >
                     {/* Mobile Date */}
-                    <div className="md:hidden text-xs font-mono text-slate-500 mb-2">
+                    <div className="md:hidden text-xs font-mono text-slate-500 dark:text-gray-500 mb-2">
                         {formatDate(exp.start_date)} — {exp.end_date ? formatDate(exp.end_date) : "Present"}
                     </div>
 
                     <div className={`flex flex-col gap-1 ${isEven ? 'md:items-start' : 'md:items-end'}`}>
                         <div className="flex items-center gap-3">
                             {/* Arrow visibility logic based on side */}
-                            <h3 className="text-xl font-bold text-slate-900 group-hover/card:text-blue-600 transition-colors">
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover/card:text-blue-600 dark:group-hover/card:text-blue-400 transition-colors">
                                 {exp.title}
                             </h3>
                             {/* Desktop Chevron only, mobile handled below */}
                             <ChevronDown
-                                className={`hidden md:block w-5 h-5 text-slate-400 transition-transform duration-300 ${isOpen ? "rotate-180 text-blue-600" : ""}`}
+                                className={`hidden md:block w-5 h-5 text-slate-400 dark:text-neutral-600 transition-transform duration-300 ${isOpen ? "rotate-180 text-blue-600 dark:text-blue-400" : ""}`}
                             />
                         </div>
 
-                        <div className="text-lg text-slate-600 font-medium mt-1">
+                        <div className="text-lg text-slate-600 dark:text-gray-400 font-medium mt-1">
                             {exp.company}
                         </div>
                     </div>
 
                     {/* Mobile Chevron */}
                     <div className="md:hidden mt-2">
-                        <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${isOpen ? "rotate-180 text-blue-600" : ""}`} />
+                        <ChevronDown className={`w-5 h-5 text-slate-400 dark:text-neutral-600 transition-transform duration-300 ${isOpen ? "rotate-180 text-blue-600 dark:text-blue-400" : ""}`} />
                     </div>
 
                     {/* Pre-description teaser (collapsed) */}
                     {!isOpen && exp.description && (
-                        <p className={`mt-3 text-sm text-slate-500 line-clamp-2 leading-relaxed ${isEven ? 'md:text-left' : 'md:text-right'}`}>
+                        <p className={`mt-3 text-sm text-slate-500 dark:text-neutral-500 line-clamp-2 leading-relaxed ${isEven ? 'md:text-left' : 'md:text-right'}`}>
                             {/* Strip markdown for teaser */}
                             {exp.description.replace(/\*\*/g, "").slice(0, 120)}...
                         </p>
@@ -131,12 +131,12 @@ function TimelineItem({ exp, index }: { exp: Experience; index: number }) {
                         >
                             <div className={`pt-6 pb-2 ${isEven ? 'md:text-left' : 'md:text-right'}`}>
                                 {/* Description with Bold Formatting */}
-                                <div className="prose prose-slate max-w-none">
+                                <div className="prose prose-slate dark:prose-invert max-w-none">
                                     {exp.description && exp.description.split('\n\n').map((paragraph, idx) => (
-                                        <p key={idx} className="whitespace-pre-line text-slate-600 leading-7 mb-4">
+                                        <p key={idx} className="whitespace-pre-line text-slate-600 dark:text-gray-400 leading-7 mb-4">
                                             {paragraph.split(/(\*\*.*?\*\*)/g).map((part, i) =>
                                                 part.startsWith('**') && part.endsWith('**') ? (
-                                                    <strong key={i} className="text-slate-900 font-bold">
+                                                    <strong key={i} className="text-slate-900 dark:text-gray-100 font-bold">
                                                         {part.slice(2, -2)}
                                                     </strong>
                                                 ) : (
@@ -153,7 +153,7 @@ function TimelineItem({ exp, index }: { exp: Experience; index: number }) {
                                         {exp.technologies.map((tech, i) => (
                                             <span
                                                 key={i}
-                                                className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full border border-transparent hover:border-slate-300 transition-colors"
+                                                className="px-3 py-1 bg-slate-100 dark:bg-neutral-900 text-slate-600 dark:text-neutral-400 text-xs font-medium rounded-full border border-transparent hover:border-slate-300 dark:hover:border-neutral-700 transition-colors"
                                             >
                                                 {tech}
                                             </span>
