@@ -88,7 +88,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: 100 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="w-full max-w-4xl h-full sm:h-auto sm:max-h-[85vh] bg-white dark:bg-neutral-900 rounded-none sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col glass-card border-0 sm:border border-white/20 dark:border-white/10 relative"
+                            className="w-full max-w-4xl h-full sm:h-auto sm:max-h-[85vh] bg-white dark:bg-black rounded-none sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col glass-card border-0 sm:border border-white/20 dark:border-white/10 relative"
                         >
                             {/* Close Button */}
                             <button
@@ -101,7 +101,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                             {/* Scrollable Content Area */}
                             <div className="overflow-y-auto custom-scrollbar flex-1">
                                 {/* Hero Image */}
-                                <div className="relative h-48 sm:h-64 md:h-80 w-full bg-slate-100 dark:bg-neutral-800">
+                                <div className="relative h-48 sm:h-64 md:h-80 w-full bg-slate-100 dark:bg-neutral-900">
                                     <Image
                                         src={project.image_url}
                                         alt={project.title}
@@ -117,7 +117,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                                 </div>
 
                                 {/* Content Details */}
-                                <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                                <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-left bg-white dark:bg-black">
                                     {/* Left: Description */}
                                     <div className="md:col-span-2 space-y-6">
                                         {/* Metadata Row */}
@@ -126,7 +126,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                                                 {project.category}
                                             </span>
                                             {project.start_date && (
-                                                <div className="flex items-center gap-1 text-xs sm:text-sm text-slate-500 dark:text-gray-400 bg-slate-100 dark:bg-neutral-800 px-3 py-1 rounded-full border border-slate-200 dark:border-neutral-700">
+                                                <div className="flex items-center gap-1 text-xs sm:text-sm text-slate-500 dark:text-gray-300 bg-slate-100 dark:bg-neutral-900 px-3 py-1 rounded-full border border-slate-200 dark:border-neutral-800">
                                                     <Calendar size={14} />
                                                     <span>
                                                         {new Date(project.start_date).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}
@@ -146,7 +146,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                                             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
                                                 About the Project
                                             </h3>
-                                            <p className="text-slate-600 dark:text-gray-300 leading-relaxed text-base sm:text-lg whitespace-pre-wrap">
+                                            <p className="text-slate-600 dark:text-gray-400 leading-relaxed text-base sm:text-lg whitespace-pre-wrap">
                                                 {project.description}
                                             </p>
                                         </div>
@@ -157,10 +157,10 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                                                 Technologies
                                             </h3>
                                             <div className="flex flex-wrap gap-2">
-                                                {project.technologies.map((tech) => (
+                                                {project.technologies.filter(Boolean).map((tech) => (
                                                     <span
                                                         key={tech}
-                                                        className="px-3 py-1.5 bg-slate-100 dark:bg-neutral-800 text-slate-700 dark:text-gray-300 text-sm font-medium rounded-lg border border-slate-200 dark:border-neutral-700 hover:bg-blue-50 dark:hover:bg-neutral-700 hover:text-blue-700 dark:hover:text-white hover:border-blue-200 dark:hover:border-neutral-600 transition-colors"
+                                                        className="px-3 py-1.5 bg-slate-100 dark:bg-neutral-900 text-slate-700 dark:text-gray-300 text-sm font-medium rounded-lg border border-slate-200 dark:border-neutral-800 hover:bg-blue-50 dark:hover:bg-neutral-800 hover:text-blue-700 dark:hover:text-white hover:border-blue-200 dark:hover:border-neutral-700 transition-colors"
                                                     >
                                                         {tech}
                                                     </span>
@@ -171,7 +171,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
 
                                     {/* Right: Actions */}
                                     <div className="space-y-4">
-                                        <div className="bg-slate-50 dark:bg-neutral-800 p-6 rounded-xl border border-slate-200 dark:border-neutral-700 sticky top-0">
+                                        <div className="bg-slate-50 dark:bg-neutral-900 p-6 rounded-xl border border-slate-200 dark:border-neutral-800 sticky top-0">
                                             <h3 className="font-bold text-slate-900 dark:text-white mb-4">Links</h3>
                                             <div className="space-y-3">
                                                 {project.project_url && (
@@ -190,7 +190,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                                                         href={project.github_url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-black text-slate-700 dark:text-white border border-slate-200 dark:border-neutral-700 rounded-xl font-medium hover:bg-slate-50 dark:hover:bg-neutral-900 hover:text-black dark:hover:text-gray-200 transition-all"
+                                                        className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-black text-slate-700 dark:text-white border border-slate-200 dark:border-neutral-800 rounded-xl font-medium hover:bg-slate-50 dark:hover:bg-neutral-900 hover:text-black dark:hover:text-gray-200 transition-all"
                                                     >
                                                         <Github size={18} />
                                                         View Code

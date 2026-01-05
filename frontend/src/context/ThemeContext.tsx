@@ -22,30 +22,39 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         // Only run on client side
         if (typeof window === "undefined") return;
 
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+        const applyTheme = (newTheme: Theme) => {
+            setThemeState(newTheme);
+            if (newTheme === "dark") {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+        };
+
+        const handleSystemChange = (e: MediaQueryListEvent) => {
+            if (!localStorage.getItem("theme")) {
+                applyTheme(e.matches ? "dark" : "light");
+            }
+        };
+
         // Check localStorage first
         const stored = localStorage.getItem("theme") as Theme | null;
         console.log("[ThemeProvider] Initial check - Stored:", stored);
 
         if (stored) {
-            setThemeState(stored);
-            if (stored === "dark") {
-                document.documentElement.classList.add("dark");
-            } else {
-                document.documentElement.classList.remove("dark");
-            }
+            applyTheme(stored);
             console.log("[ThemeProvider] Applied stored theme:", stored);
         } else {
             // Check system preference
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            const systemTheme = prefersDark ? "dark" : "light";
-            setThemeState(systemTheme);
-            if (systemTheme === "dark") {
-                document.documentElement.classList.add("dark");
-            } else {
-                document.documentElement.classList.remove("dark");
-            }
+            const systemTheme = mediaQuery.matches ? "dark" : "light";
+            applyTheme(systemTheme);
             console.log("[ThemeProvider] Applied system theme:", systemTheme);
         }
+
+        mediaQuery.addEventListener("change", handleSystemChange);
+        return () => mediaQuery.removeEventListener("change", handleSystemChange);
     }, []);
 
     const setTheme = (newTheme: Theme) => {

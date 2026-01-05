@@ -244,7 +244,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                         </span>
                     </div>
 
-                    <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+                    <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-br dark:from-white dark:to-neutral-400 mb-6 leading-tight pb-1">
                         {post.title}
                     </h1>
 
@@ -269,7 +269,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     </div>
                 </header>
 
-                <div className="prose prose-sm md:prose-lg prose-slate dark:prose-invert prose-headings:font-bold prose-headings:text-slate-800 dark:prose-headings:text-gray-100 prose-a:text-blue-600 dark:prose-a:text-blue-400 hover:prose-a:text-blue-700 dark:hover:prose-a:text-blue-300 max-w-none bg-white/40 dark:bg-neutral-900/30 backdrop-blur-sm p-4 md:p-10 rounded-2xl md:rounded-3xl border border-white/50 dark:border-neutral-800 shadow-sm overflow-x-hidden break-words selection:bg-blue-100 dark:selection:bg-blue-900/30 selection:text-blue-900 dark:selection:text-blue-200">
+                <div className="prose prose-sm md:prose-lg prose-slate dark:prose-invert prose-headings:font-bold prose-headings:text-slate-800 dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-li:text-gray-300 dark:prose-strong:text-white prose-a:text-blue-600 dark:prose-a:text-blue-400 hover:prose-a:text-blue-700 dark:hover:prose-a:text-blue-300 max-w-none bg-white/40 dark:bg-neutral-900/30 backdrop-blur-sm p-4 md:p-10 rounded-2xl md:rounded-3xl border border-white/50 dark:border-neutral-800 shadow-sm overflow-x-hidden break-words selection:bg-blue-100 dark:selection:bg-blue-900/30 selection:text-blue-900 dark:selection:text-blue-200">
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
@@ -316,9 +316,11 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                             },
                             img: ({ node, ...props }) => <img {...props} className="rounded-xl shadow-lg my-8 w-full object-cover border border-white/20 dark:border-neutral-800" />,
                             hr: ({ node, ...props }) => <hr {...props} className="my-12 border-slate-200 dark:border-neutral-800 border-t-2 opacity-50" />,
-                            ul: ({ node, ...props }) => <ul {...props} className="list-disc pl-6 space-y-2 my-6 marker:text-blue-400" />,
+                            ul: ({ node, ...props }) => <ul {...props} className="list-disc pl-6 space-y-2 my-6 marker:text-blue-400 text-slate-700 dark:text-gray-300" />,
                             ol: ({ node, ...props }) => <ol {...props} className="list-decimal pl-6 space-y-2 my-6 marker:text-blue-400 font-medium text-slate-700 dark:text-gray-300" />,
-                            li: ({ node, ...props }) => <li {...props} className="pl-1" />,
+                            li: ({ node, ...props }) => <li {...props} className="pl-1 text-slate-700 dark:text-gray-300" />,
+                            strong: ({ node, ...props }) => <strong {...props} className="font-bold text-slate-900 dark:text-white" />,
+                            p: ({ node, ...props }) => <p {...props} className="mb-4 leading-relaxed text-slate-700 dark:text-gray-300" />,
                         }}
                     >
                         {post.content}

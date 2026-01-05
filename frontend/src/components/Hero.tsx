@@ -59,19 +59,49 @@ export function Hero() {
                         </a>
                     </div>
 
-                    <div className="flex gap-6 justify-center md:justify-start pt-8">
-                        {siteConfig.home.socialLinks.map((social) => (
-                            <a
+                    <motion.div
+                        className="flex gap-6 justify-center md:justify-start pt-8"
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                            visible: { transition: { staggerChildren: 0.1, delayChildren: 0.4 } }
+                        }}
+                    >
+                        {siteConfig.home.socialLinks.map((social, index) => (
+                            <motion.a
                                 key={social.platform}
                                 href={social.url}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="text-2xl text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all hover:-translate-y-1 hover:scale-110"
+                                className="text-2xl text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                variants={{
+                                    hidden: { opacity: 0, y: 30, scale: 0.5, filter: "blur(5px)" },
+                                    visible: {
+                                        opacity: 1,
+                                        y: 0,
+                                        scale: 1,
+                                        filter: "blur(0px)",
+                                        transition: { type: "spring", stiffness: 200, damping: 15 }
+                                    }
+                                }}
+                                whileHover={{ scale: 1.2, y: -2 }}
                             >
-                                <i className={social.icon}></i>
-                            </a>
+                                <motion.div
+                                    animate={{ y: [0, -8, 0] }}
+                                    transition={{
+                                        duration: 3, // Fixed smoother duration
+                                        repeat: Infinity,
+                                        ease: "easeInOut",
+                                        delay: index * 0.2, // Keep delay for staggered effect
+                                        repeatType: "mirror" // Smoother easing return
+                                    }}
+                                    style={{ willChange: "transform", transform: "translateZ(0)" }} // Force hardware acceleration
+                                >
+                                    <i className={social.icon}></i>
+                                </motion.div>
+                            </motion.a>
                         ))}
-                    </div>
+                    </motion.div>
                 </motion.div>
 
                 <motion.div
