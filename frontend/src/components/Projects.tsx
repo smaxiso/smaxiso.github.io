@@ -1,6 +1,6 @@
 'use client'
 import { motion, AnimatePresence } from "framer-motion"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { Project } from "@/types"
 import { cn } from "@/lib/utils"
@@ -62,13 +62,13 @@ export function Projects({ projects }: ProjectsProps) {
     };
 
     // Auto-advance carousel
-    useState(() => {
-        if (isPaused) return;
+    useEffect(() => {
+        if (isPaused || selectedProject) return;
         const interval = setInterval(() => {
             nextProject();
         }, 5000);
         return () => clearInterval(interval);
-    });
+    }, [isPaused, selectedProject, projects.length]);
 
     const currentProject = projects[currentIndex];
 
@@ -275,7 +275,7 @@ export function Projects({ projects }: ProjectsProps) {
                                 layout
                                 key={project.id}
                                 onClick={() => handleProjectClick(project)}
-                                className="group relative overflow-hidden rounded-2xl glass-card dark:bg-neutral-900 border border-white/40 dark:border-white/10 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex flex-col h-full cursor-pointer"
+                                className="group relative overflow-hidden rounded-2xl glass-card dark:bg-neutral-900 dark:!bg-black border border-white/40 dark:border-white/15 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex flex-col h-full cursor-pointer"
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
@@ -300,7 +300,7 @@ export function Projects({ projects }: ProjectsProps) {
                                         />
                                     </div>
                                 )}
-                                <div className="p-4 sm:p-6 flex flex-col flex-1 relative bg-white/30 dark:bg-neutral-800/80 backdrop-blur-sm">
+                                <div className="p-4 sm:p-6 flex flex-col flex-1 relative bg-white/30 dark:!bg-black backdrop-blur-sm">
                                     {/* Date display moved to a cleaner spot */}
                                     {project.startDate && (
                                         <div className="mb-2 flex items-center gap-2">

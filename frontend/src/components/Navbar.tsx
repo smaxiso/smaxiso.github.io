@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Book, Briefcase, Home, Mail, User, FileText, Menu, X, Code, FileUser, TrendingUp } from "lucide-react";
+import { Book, Briefcase, Home, Mail, User, FileText, Menu, X, Code, FileUser, TrendingUp, Moon, Sun } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function Navbar() {
     const pathname = usePathname();
+    const { theme, toggleTheme } = useTheme();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { scrollY } = useScroll();
     const [hidden, setHidden] = useState(false);
@@ -163,10 +165,27 @@ export default function Navbar() {
                                         );
                                     })}
                                     {/* Theme Toggle for Mobile */}
-                                    <div className="flex items-center gap-3 px-4 py-3">
-                                        <ThemeToggle />
-                                        <span className="text-sm font-medium text-slate-300">Theme</span>
-                                    </div>
+                                    <button
+                                        onClick={() => {
+                                            toggleTheme();
+                                            setTimeout(() => setIsMobileMenuOpen(false), 150);
+                                        }}
+                                        className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition-all w-full text-left"
+                                    >
+                                        <div className="relative p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100">
+                                            <div className="relative w-5 h-5">
+                                                <Sun
+                                                    className={`absolute inset-0 transition-all duration-300 ${theme === "light" ? "rotate-0 opacity-100" : "rotate-90 opacity-0"}`}
+                                                    size={20}
+                                                />
+                                                <Moon
+                                                    className={`absolute inset-0 transition-all duration-300 ${theme === "dark" ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"}`}
+                                                    size={20}
+                                                />
+                                            </div>
+                                        </div>
+                                        <span className="text-sm font-medium">Theme</span>
+                                    </button>
                                 </div>
                             </motion.div>
                         </>
