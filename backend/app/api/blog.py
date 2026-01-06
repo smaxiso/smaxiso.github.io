@@ -112,6 +112,19 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     if db_post.cover_image:
         delete_cloudinary_image(db_post.cover_image)
 
+    # Delete images used within content
+    if db_post.content:
+        import re
+        # Regex to find markdown images: ![alt](url) or <img src="url">
+        url_pattern = re.compile(r'(?:!\[.*?\]\((https?://[^)]+)\))|(?:src=["\'](https?://[^"\']+)["\'])')
+        matches = url_pattern.findall(db_post.content)
+        
+        for match in matches:
+            # Match returns tuple (markdown_url, html_url), filter empty
+            img_url = next((m for m in match if m), None)
+            if img_url:
+                delete_cloudinary_image(img_url)
+
     db.delete(db_post)
     db.commit()
     return {"message": "Post deleted"}
