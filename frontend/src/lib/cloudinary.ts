@@ -40,13 +40,84 @@ export const uploadToCloudinary = async (file: File): Promise<string> => {
     }
 };
 
+// Helper to compress image
+const compressImage = async (file: File): Promise<File> => {
+    // Threshold: 1MB. If smaller, return original
+    if (file.size <= 1024 * 1024) return file;
+
+    // Only compress images
+    if (!file.type.startsWith('image/')) return file;
+
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            // Max dimension: 1920px
+            const MAX_DIM = 1920;
+            if (width > MAX_DIM || height > MAX_DIM) {
+                if (width > height) {
+                    height = Math.round((height * MAX_DIM) / width);
+                    width = MAX_DIM;
+                } else {
+                    width = Math.round((width * MAX_DIM) / height);
+                    height = MAX_DIM;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                resolve(file); // Fail safe
+                return;
+            }
+
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Compress to JPEG with 0.8 quality
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    resolve(file);
+                    return;
+                }
+                // Convert blob to File
+                const compressedFile = new File([blob], file.name, {
+                    type: 'image/jpeg',
+                    lastModified: Date.now(),
+                });
+
+                // If compressed is somehow larger (rare), use original
+                if (compressedFile.size > file.size) {
+                    resolve(file);
+                } else {
+                    resolve(compressedFile);
+                }
+
+                URL.revokeObjectURL(img.src);
+            }, 'image/jpeg', 0.8);
+        };
+        img.onerror = (err) => {
+            console.error("Compression error:", err);
+            resolve(file); // Fail safe
+        };
+    });
+};
+
 // Simplified version using 'auto' resource type directly (cleaner)
 export const uploadFile = async (file: File): Promise<string> => {
     const cloudName = "dehpzaqrd";
     const uploadPreset = "smaxiso";
 
+    // Compress before upload
+    const fileToUpload = await compressImage(file);
+
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", fileToUpload);
     formData.append("upload_preset", uploadPreset);
 
     // Use 'auto' to support images, pdfs, raw files
