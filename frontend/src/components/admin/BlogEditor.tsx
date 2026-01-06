@@ -254,7 +254,7 @@ export function BlogEditor() {
         setUploading(true);
         try {
             const url = await uploadFile(file);
-            const markdown = `![Image](${url})`;
+            const markdown = `![${file.name}](${url})`;
             insertAtCursor(markdown);
             toast.success('Image inserted!', { id: toastId });
         } catch (error) {
