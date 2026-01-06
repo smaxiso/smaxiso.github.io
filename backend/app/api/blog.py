@@ -2,10 +2,40 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from datetime import datetime
+import os
+import requests
 
 from app.database import get_db
 from app.models import schemas, pydantic_models
 from app.utils import delete_cloudinary_image
+
+# GitHub Auto-Rebuild Configuration
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+GITHUB_REPO_OWNER = 'smaxiso'
+GITHUB_REPO_NAME = 'smaxiso.github.io'
+
+def trigger_github_rebuild():
+    """Trigger GitHub Actions to rebuild and deploy the site"""
+    if not GITHUB_TOKEN:
+        print("WARNING: GITHUB_TOKEN not set, skipping auto-rebuild")
+        return
+    
+    try:
+        url = f"https://api.github.com/repos/{GITHUB_REPO_OWNER}/{GITHUB_REPO_NAME}/dispatches"
+        headers = {
+            "Accept": "application/vnd.github.v3+json",
+            "Authorization": f"token {GITHUB_TOKEN}"
+        }
+        data = {"event_type": "rebuild-blog"}
+        
+        response = requests.post(url, headers=headers, json=data, timeout=10)
+        
+        if response.status_code == 204:
+            print("✅ GitHub Actions rebuild triggered successfully")
+        else:
+            print(f"⚠️ GitHub trigger failed with status {response.status_code}: {response.text}")
+    except Exception as e:
+        print(f"❌ Error triggering GitHub rebuild: {e}")
 
 router = APIRouter()
 
@@ -66,6 +96,11 @@ def create_post(post: pydantic_models.BlogPostCreate, db: Session = Depends(get_
     db.add(db_post)
     db.commit()
     db.refresh(db_post)
+    
+    # Trigger rebuild if published
+    if post.published:
+        trigger_github_rebuild()
+    
     return db_post
 
 # Admin: Update Post
@@ -99,6 +134,11 @@ def update_post(id: int, post: pydantic_models.BlogPostCreate, db: Session = Dep
     
     db.commit()
     db.refresh(db_post)
+    
+    # Trigger rebuild if published
+    if post.published:
+        trigger_github_rebuild()
+    
     return db_post
 
 # Admin: Delete Post
