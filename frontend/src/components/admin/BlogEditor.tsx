@@ -412,7 +412,27 @@ export function BlogEditor() {
                     <div>
                         <div className="flex justify-between items-center mb-1">
                             <label className="block text-sm font-medium">Content (Markdown)</label>
-                            <span className="text-xs text-slate-400">Drag & drop or paste images directly</span>
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs text-slate-400 hidden sm:inline">Drag & drop or paste images directly</span>
+                                <label className="cursor-pointer bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg px-3 py-1 flex items-center gap-1 transition-colors text-xs font-medium text-blue-700">
+                                    <span>📷</span>
+                                    <span>Insert Image</span>
+                                    <input
+                                        type="file"
+                                        className="hidden"
+                                        accept="image/*"
+                                        onChange={async (e) => {
+                                            const file = e.target.files?.[0];
+                                            if (file) {
+                                                await uploadAndInsertImage(file);
+                                                // Reset input so same file can be selected again
+                                                e.target.value = '';
+                                            }
+                                        }}
+                                        disabled={uploading}
+                                    />
+                                </label>
+                            </div>
                         </div>
                         <div
                             className={`relative rounded-lg transition-all ${isDragging ? 'ring-2 ring-blue-500 bg-blue-50' : ''}`}

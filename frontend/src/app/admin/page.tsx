@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ProjectsEditor } from '@/components/admin/ProjectsEditor';
@@ -23,16 +23,24 @@ export default function AdminPage() {
     const { user, loading, logout } = useAuth();
     const { showToast } = useToast();
     const router = useRouter();
-    const [activeTab, setActiveTab] = useState('projects');
+    const searchParams = useSearchParams();
 
-    useEffect(() => {
-        const savedTab = localStorage.getItem('adminActiveTab');
-        if (savedTab) setActiveTab(savedTab);
-    }, []);
+    // Derived State from URL
+    const tabParam = searchParams.get('tab');
+    const modeParam = searchParams.get('mode');
+
+    // Priority: mode='editor' forces 'blog' tab, otherwise use tab param, default to 'projects'
+    const activeTab = modeParam === 'editor' ? 'blog' : (tabParam || 'projects');
 
     const handleTabChange = (value: string) => {
-        setActiveTab(value);
-        localStorage.setItem('adminActiveTab', value);
+        const params = new URLSearchParams(searchParams.toString());
+        params.set('tab', value);
+
+        // Clean up editor params when switching tabs
+        params.delete('mode');
+        params.delete('id');
+
+        router.push(`?${params.toString()}`);
     };
 
     useEffect(() => {
