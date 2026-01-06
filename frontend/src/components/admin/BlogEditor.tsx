@@ -53,14 +53,61 @@ export function BlogEditor() {
         if (token) fetchPosts();
     }, [token]);
 
+    // Restore State from URL & LocalStorage
     useEffect(() => {
         const mode = searchParams.get('mode');
+        const idParam = searchParams.get('id');
+
         if (mode === 'editor') {
             setIsEditing(true);
+
+            // If we have posts loaded, try to find the post
+            if (posts.length > 0 || idParam === 'new') {
+                const draftKey = `blog_draft_${idParam || 'new'}`;
+                const savedDraft = localStorage.getItem(draftKey);
+
+                let basePost = initialPostState;
+
+                if (idParam && idParam !== 'new') {
+                    const found = posts.find(p => p.id === parseInt(idParam));
+                    if (found) basePost = found;
+                }
+
+                // Conflict Resolution: Draft > DB
+                if (savedDraft) {
+                    try {
+                        const parsed = JSON.parse(savedDraft);
+                        setCurrentPost(parsed);
+                        if (JSON.stringify(parsed) !== JSON.stringify(basePost)) {
+                            toast('Restored unsaved draft', { icon: '📂' });
+                        }
+                    } catch (e) {
+                        setCurrentPost(basePost);
+                    }
+                } else {
+                    setCurrentPost(basePost);
+                }
+
+                setOriginalPost(basePost);
+            }
         } else {
             setIsEditing(false);
+            setCurrentPost(initialPostState);
         }
-    }, [searchParams]);
+    }, [searchParams, posts]);
+
+    // Auto-Save Draft
+    useEffect(() => {
+        if (!isEditing) return;
+
+        const draftKey = `blog_draft_${currentPost.id || 'new'}`;
+
+        // Only save if different from original
+        if (JSON.stringify(currentPost) !== JSON.stringify(originalPost)) {
+            localStorage.setItem(draftKey, JSON.stringify(currentPost));
+        }
+    }, [currentPost, isEditing, originalPost]);
+
 
     const fetchPosts = async () => {
         try {
@@ -74,13 +121,15 @@ export function BlogEditor() {
     };
 
     const openEditor = (post?: BlogPost) => {
-        const postToEdit = post || initialPostState;
-        setCurrentPost(postToEdit);
-        setOriginalPost(postToEdit);
-        router.push('?mode=editor');
+        // Just push URL, useEffect handles the rest
+        const id = post ? post.id : 'new';
+        router.push(`?mode=editor&id=${id}`);
     };
 
     const closeEditor = () => {
+        // Clear draft on explicit cancel
+        const draftKey = `blog_draft_${currentPost.id || 'new'}`;
+        localStorage.removeItem(draftKey);
         router.back();
     };
 
@@ -129,7 +178,12 @@ export function BlogEditor() {
                 toast.success('Post created!');
             }
 
-            closeEditor();
+            // Clear draft on success
+            const draftKey = `blog_draft_${currentPost.id || 'new'}`;
+            localStorage.removeItem(draftKey);
+
+            // Helper to return to list
+            router.push('/admin'); // Force URL reset
             await fetchPosts();
         } catch (error: any) {
             console.error(error);
