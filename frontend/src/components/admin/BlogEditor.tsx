@@ -279,17 +279,93 @@ export function BlogEditor() {
                         />
                     </div>
 
+    // Drag & Drop State
+                    const [isDragging, setIsDragging] = useState(false);
+
+    const insertAtCursor = (textToInsert: string) => {
+        const textarea = document.getElementById('content-editor') as HTMLTextAreaElement;
+                    if (!textarea) return;
+
+                    const start = textarea.selectionStart;
+                    const end = textarea.selectionEnd;
+                    const text = currentPost.content || '';
+                    const newText = text.substring(0, start) + textToInsert + text.substring(end);
+        
+        setCurrentPost(prev => ({...prev, content: newText }));
+
+        // Restore cursor position after the inserted text
+        setTimeout(() => {
+                        textarea.selectionStart = textarea.selectionEnd = start + textToInsert.length;
+                    textarea.focus();
+        }, 0);
+    };
+
+    const handleEditorPaste = async (e: React.ClipboardEvent) => {
+        const items = e.clipboardData.items;
+                    for (let i = 0; i < items.length; i++) {
+            if (items[i].type.indexOf('image') !== -1) {
+                        e.preventDefault();
+                    const file = items[i].getAsFile();
+                    if (file) await uploadAndInsertImage(file);
+            }
+        }
+    };
+
+    const handleEditorDrop = async (e: React.DragEvent) => {
+                        e.preventDefault();
+                    setIsDragging(false);
+                    const files = e.dataTransfer.files;
+        if (files && files.length > 0 && files[0].type.startsWith('image/')) {
+                        await uploadAndInsertImage(files[0]);
+        }
+    };
+
+    const uploadAndInsertImage = async (file: File) => {
+        const toastId = toast.loading('Uploading image...');
+                    setUploading(true);
+                    try {
+            const url = await uploadFile(file);
+                    const markdown = `![Image](${url})`;
+                    insertAtCursor(markdown);
+                    toast.success('Image inserted!', {id: toastId });
+        } catch (error) {
+                        console.error(error);
+                    toast.error('Failed to upload image', {id: toastId });
+        } finally {
+                        setUploading(false);
+        }
+    };
+
+                    return (
+                    // ... (rest of render until textarea)
                     <div>
                         <div className="flex justify-between items-center mb-1">
                             <label className="block text-sm font-medium">Content (Markdown)</label>
-                            <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noreferrer" className="text-xs text-blue-600 hover:underline">Markdown Cheat Sheet</a>
+                            <span className="text-xs text-slate-400">Drag & drop or paste images directly</span>
                         </div>
-                        <textarea
-                            value={currentPost.content || ''}
-                            onChange={(e) => setCurrentPost(prev => ({ ...prev, content: e.target.value }))}
-                            className="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none h-96 font-mono text-sm"
-                            required
-                        />
+                        <div
+                            className={`relative rounded-lg transition-all ${isDragging ? 'ring-2 ring-blue-500 bg-blue-50' : ''}`}
+                            onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                            onDragLeave={() => setIsDragging(false)}
+                            onDrop={handleEditorDrop}
+                        >
+                            <textarea
+                                id="content-editor"
+                                value={currentPost.content || ''}
+                                onChange={(e) => setCurrentPost(prev => ({ ...prev, content: e.target.value }))}
+                                onPaste={handleEditorPaste}
+                                className={`w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none h-96 font-mono text-sm ${isDragging ? 'bg-blue-50/50' : ''}`}
+                                required
+                                placeholder="Write your post here... (Drag & Drop images works!)"
+                            />
+                            {isDragging && (
+                                <div className="absolute inset-0 flex items-center justify-center bg-blue-500/10 pointer-events-none rounded-lg">
+                                    <div className="bg-white px-4 py-2 rounded-full shadow-sm text-blue-600 font-bold border border-blue-100">
+                                        Drop image to upload
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-2">
