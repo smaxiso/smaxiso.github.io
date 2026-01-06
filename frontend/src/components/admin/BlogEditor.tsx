@@ -154,6 +154,63 @@ export function BlogEditor() {
         return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
     };
 
+    // Drag & Drop State
+    const [isDragging, setIsDragging] = useState(false);
+
+    const insertAtCursor = (textToInsert: string) => {
+        const textarea = document.getElementById('content-editor') as HTMLTextAreaElement;
+        if (!textarea) return;
+
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = currentPost.content || '';
+        const newText = text.substring(0, start) + textToInsert + text.substring(end);
+
+        setCurrentPost(prev => ({ ...prev, content: newText }));
+
+        // Restore cursor position after the inserted text
+        setTimeout(() => {
+            textarea.selectionStart = textarea.selectionEnd = start + textToInsert.length;
+            textarea.focus();
+        }, 0);
+    };
+
+    const handleEditorPaste = async (e: React.ClipboardEvent) => {
+        const items = e.clipboardData.items;
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].type.indexOf('image') !== -1) {
+                e.preventDefault();
+                const file = items[i].getAsFile();
+                if (file) await uploadAndInsertImage(file);
+            }
+        }
+    };
+
+    const handleEditorDrop = async (e: React.DragEvent) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const files = e.dataTransfer.files;
+        if (files && files.length > 0 && files[0].type.startsWith('image/')) {
+            await uploadAndInsertImage(files[0]);
+        }
+    };
+
+    const uploadAndInsertImage = async (file: File) => {
+        const toastId = toast.loading('Uploading image...');
+        setUploading(true);
+        try {
+            const url = await uploadFile(file);
+            const markdown = `![Image](${url})`;
+            insertAtCursor(markdown);
+            toast.success('Image inserted!', { id: toastId });
+        } catch (error) {
+            console.error(error);
+            toast.error('Failed to upload image', { id: toastId });
+        } finally {
+            setUploading(false);
+        }
+    };
+
     // Render Logic - Conditional Returns happen AFTER all hooks
     if (loading) return <div>Loading posts...</div>;
 
@@ -279,65 +336,7 @@ export function BlogEditor() {
                         />
                     </div>
 
-    // Drag & Drop State
-                    const [isDragging, setIsDragging] = useState(false);
 
-    const insertAtCursor = (textToInsert: string) => {
-        const textarea = document.getElementById('content-editor') as HTMLTextAreaElement;
-                    if (!textarea) return;
-
-                    const start = textarea.selectionStart;
-                    const end = textarea.selectionEnd;
-                    const text = currentPost.content || '';
-                    const newText = text.substring(0, start) + textToInsert + text.substring(end);
-        
-        setCurrentPost(prev => ({...prev, content: newText }));
-
-        // Restore cursor position after the inserted text
-        setTimeout(() => {
-                        textarea.selectionStart = textarea.selectionEnd = start + textToInsert.length;
-                    textarea.focus();
-        }, 0);
-    };
-
-    const handleEditorPaste = async (e: React.ClipboardEvent) => {
-        const items = e.clipboardData.items;
-                    for (let i = 0; i < items.length; i++) {
-            if (items[i].type.indexOf('image') !== -1) {
-                        e.preventDefault();
-                    const file = items[i].getAsFile();
-                    if (file) await uploadAndInsertImage(file);
-            }
-        }
-    };
-
-    const handleEditorDrop = async (e: React.DragEvent) => {
-                        e.preventDefault();
-                    setIsDragging(false);
-                    const files = e.dataTransfer.files;
-        if (files && files.length > 0 && files[0].type.startsWith('image/')) {
-                        await uploadAndInsertImage(files[0]);
-        }
-    };
-
-    const uploadAndInsertImage = async (file: File) => {
-        const toastId = toast.loading('Uploading image...');
-                    setUploading(true);
-                    try {
-            const url = await uploadFile(file);
-                    const markdown = `![Image](${url})`;
-                    insertAtCursor(markdown);
-                    toast.success('Image inserted!', {id: toastId });
-        } catch (error) {
-                        console.error(error);
-                    toast.error('Failed to upload image', {id: toastId });
-        } finally {
-                        setUploading(false);
-        }
-    };
-
-                    return (
-                    // ... (rest of render until textarea)
                     <div>
                         <div className="flex justify-between items-center mb-1">
                             <label className="block text-sm font-medium">Content (Markdown)</label>
