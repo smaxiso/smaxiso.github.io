@@ -9,7 +9,8 @@ export function SkillsSection({ initialData }: { initialData?: Skill[] }) {
     const [loading, setLoading] = useState(!initialData);
 
     useEffect(() => {
-        if (initialData) return;
+        // Hybrid Mode: Always fetch fresh data to update UI if backend has changes
+        // if (initialData) return; // Removed to enable live updates
 
         getSkills().then(data => {
             setSkills(data);

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Experience } from "@/types";
+import { getExperiences } from "@/lib/api";
 import { ChevronDown, ArrowRight } from "lucide-react";
 
 interface ExperienceTimelineProps {
@@ -13,7 +14,13 @@ export default function ExperienceTimeline({ initialData = [] }: ExperienceTimel
     const [experiences, setExperiences] = useState<Experience[]>(initialData);
 
     useEffect(() => {
-        // If no server data, we could fetch client side, but for now assumption is SSR is primary
+        // Hybrid Mode: Always fetch fresh data
+        getExperiences().then(data => {
+            const sorted = data.sort((a, b) => (a.order || 0) - (b.order || 0));
+            setExperiences(sorted);
+        }).catch(err => console.error("Failed to fetch fresh experiences:", err));
+
+        // Initial sort (if data provided by SSR)
         if (initialData.length > 0) {
             const sorted = [...initialData].sort((a, b) => (a.order || 0) - (b.order || 0));
             setExperiences(sorted);

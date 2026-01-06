@@ -9,7 +9,8 @@ export function ProjectsSection({ initialData }: { initialData?: Project[] }) {
     const [loading, setLoading] = useState(!initialData);
 
     useEffect(() => {
-        if (initialData) return;
+        // Hybrid Mode: Always fetch fresh data to update UI if backend has changes
+        // if (initialData) return; // Removed to enable live updates
 
         getProjects().then(data => {
             // Sort projects: Present (no endDate) first, then by endDate desc, then startDate desc
