@@ -33,7 +33,7 @@ export default function ScrollButtons() {
 
             const newTimer = setTimeout(() => {
                 setIsScrolling(false);
-            }, 2000); // Hide after 2 seconds of inactivity
+            }, 4000); // Hide after 4 seconds of inactivity
             setTimer(newTimer);
         };
 

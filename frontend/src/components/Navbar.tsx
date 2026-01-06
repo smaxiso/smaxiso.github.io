@@ -57,13 +57,13 @@ export default function Navbar() {
             // Show on scroll up
             setHidden(false);
 
-            // Set auto-hide timer for 3 seconds if we stop scrolling up
+            // Set auto-hide timer for 5 seconds if we stop scrolling up
             const newTimer = setTimeout(() => {
                 // Check if we are still not at top
                 if (window.scrollY > 100) {
                     setHidden(true);
                 }
-            }, 3000);
+            }, 5000);
             setTimer(newTimer);
         }
 

@@ -41,12 +41,12 @@ export default function BlogPostClient({ slug }: { slug: string }) {
             setIsNavbarHidden(true);
         } else if (isScrollingUp) {
             setIsNavbarHidden(false);
-            // Set auto-hide timer for 3 seconds if we stop scrolling up
+            // Set auto-hide timer for 5 seconds if we stop scrolling up
             const newTimer = setTimeout(() => {
                 if (window.scrollY > 100) {
                     setIsNavbarHidden(true);
                 }
-            }, 3000);
+            }, 5000);
             setTimer(newTimer);
         }
         setLastScrollY(latest);
@@ -207,18 +207,25 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                     }}
                 />
 
-                <div
+                <motion.div
+                    initial={{ opacity: 1, y: 0 }}
+                    animate={{
+                        opacity: isNavbarHidden ? 0 : 1,
+                        y: isNavbarHidden ? -20 : 0
+                    }}
+                    transition={{ duration: 0.3 }}
                     className="sticky top-4 transition-[top] duration-300 ease-in-out z-30 mb-8 pointer-events-none md:top-[var(--sticky-top)]"
                     style={{ '--sticky-top': isNavbarHidden ? '24px' : '96px' } as React.CSSProperties}
                 >
                     <Link
                         href="/blog"
-                        className="pointer-events-auto inline-flex items-center gap-2 text-slate-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl px-4 py-2 rounded-full border border-slate-200/60 dark:border-white/10 shadow-lg hover:shadow-xl dark:shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group"
+                        className="pointer-events-auto inline-flex items-center gap-2 text-slate-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl px-4 py-2 rounded-full border border-slate-200/60 dark:border-white/10 shadow-lg hover:shadow-xl dark:shadow-[0_0_25px_rgba(255,255,255,0.15)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group"
                     >
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        Back to Blogs
+                        <span className="md:hidden">Blogs</span>
+                        <span className="hidden md:inline">Back to Blogs</span>
                     </Link>
-                </div>
+                </motion.div>
 
                 <header className="mb-12 text-left">
                     <div className="flex items-center justify-start gap-4 text-sm text-slate-500 dark:text-gray-400 mb-4">
