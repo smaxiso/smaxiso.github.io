@@ -4,11 +4,13 @@ import { Projects } from './Projects';
 import { getProjects } from '@/lib/api';
 import { Project } from '@/types';
 
-export function ProjectsSection() {
-    const [projects, setProjects] = useState<Project[]>([]);
-    const [loading, setLoading] = useState(true);
+export function ProjectsSection({ initialData }: { initialData?: Project[] }) {
+    const [projects, setProjects] = useState<Project[]>(initialData || []);
+    const [loading, setLoading] = useState(!initialData);
 
     useEffect(() => {
+        if (initialData) return;
+
         getProjects().then(data => {
             // Sort projects: Present (no endDate) first, then by endDate desc, then startDate desc
             const sorted = data.sort((a, b) => {
@@ -32,7 +34,7 @@ export function ProjectsSection() {
             console.error(err);
             setLoading(false);
         });
-    }, []);
+    }, [initialData]);
 
     if (loading) {
         return (

@@ -15,10 +15,28 @@ export default function Navbar() {
     const { scrollY } = useScroll();
     const [hidden, setHidden] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
-
-    // Auto-hide timer ref
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+    const [activeSection, setActiveSection] = useState('home');
 
+    // Update active section on scroll
+    useEffect(() => {
+        if (pathname !== '/') return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                    setActiveSection(entry.target.id);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach((section) => observer.observe(section));
+
+        return () => observer.disconnect();
+    }, [pathname]);
+
+    // Update active section based on scroll position for finer control
     useMotionValueEvent(scrollY, "change", (latest) => {
         const previous = lastScrollY;
         const diff = latest - previous;
@@ -31,6 +49,7 @@ export default function Navbar() {
         if (latest < 100) {
             // Always show at top
             setHidden(false);
+            if (pathname === '/') setActiveSection('home');
         } else if (isScrollingDown) {
             // Hide immediately on scroll down
             setHidden(true);
@@ -51,38 +70,37 @@ export default function Navbar() {
         setLastScrollY(latest);
 
         // UX Improvement: Clear URL hash when scrolling to top
-        // This prevents "Refresh -> Jump to Bottom" if user previously validated a hash link but scrolled up
         if (latest < 50 && typeof window !== 'undefined' && window.location.hash) {
             window.history.replaceState(null, '', window.location.pathname);
         }
     });
 
-    if (pathname === '/resume' || pathname === '/admin') return null;
+    if (pathname === '/resume' || pathname?.startsWith('/admin')) return null;
 
     // Desktop Nav Items
     const desktopNavItems = [
-        { href: "/#work", label: "Work" },
-        { href: "/#experience", label: "Experience" },
-        { href: "/#about", label: "About" },
-        { href: "/#skills", label: "Skills" },
-        { href: "/#contact", label: "Contact", icon: Mail },
+        { href: "/#about", label: "About", id: "about" },
+        { href: "/#experience", label: "Experience", id: "experience" },
+        { href: "/#skills", label: "Skills", id: "skills" },
+        { href: "/#work", label: "Work", id: "work" },
+        { href: "/#contact", label: "Contact", icon: Mail, id: "contact" },
     ];
 
     // Mobile Bottom Bar Items (Primary)
     const mobilePrimaryItems = [
-        { href: "/", label: "Home", icon: Home },
-        { href: "/#work", label: "Work", icon: Briefcase },
-        { href: "/#experience", label: "Exp.", icon: TrendingUp },
-        { href: "/blog", label: "Blog", icon: FileText },
-        { href: "/guestbook", label: "Guests", icon: Book },
+        { href: "/", label: "Home", icon: Home, id: "home" },
+        { href: "/#work", label: "Work", icon: Briefcase, id: "work" },
+        { href: "/#experience", label: "Exp.", icon: TrendingUp, id: "experience" },
+        { href: "/blog", label: "Blog", icon: FileText, id: "blog" },
+        { href: "/guestbook", label: "Guests", icon: Book, id: "guestbook" },
     ];
 
     // Mobile Menu Items (Secondary)
     const mobileSecondaryItems = [
-        { href: "/#about", label: "About", icon: User },
-        { href: "/#skills", label: "Skills", icon: Code },
-        { href: "/resume", label: "Resume", icon: FileUser },
-        { href: "/#contact", label: "Contact", icon: Mail },
+        { href: "/#about", label: "About", icon: User, id: "about" },
+        { href: "/#skills", label: "Skills", icon: Code, id: "skills" },
+        { href: "/resume", label: "Resume", icon: FileUser, id: "resume" },
+        { href: "/#contact", label: "Contact", icon: Mail, id: "contact" },
     ];
 
     return (
@@ -99,29 +117,43 @@ export default function Navbar() {
                     className="pointer-events-auto bg-black/60 backdrop-blur-xl border border-white/20 rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl"
                 >
                     <div className="flex items-center gap-6 text-sm font-medium text-slate-200">
-                        {desktopNavItems.map(item => (
-                            <Link key={item.label} href={item.href} className="hover:text-blue-400 transition-colors">
-                                {item.label}
-                            </Link>
-                        ))}
+                        {desktopNavItems.map(item => {
+                            const isActive = activeSection === item.id && pathname === '/';
+                            return (
+                                <Link
+                                    key={item.label}
+                                    href={item.href}
+                                    className={`transition-colors relative ${isActive ? 'text-blue-400 font-bold' : 'hover:text-blue-400'}`}
+                                >
+                                    {isActive && (
+                                        <motion.span
+                                            layoutId="desktop-active"
+                                            className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-400 rounded-full"
+                                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                        />
+                                    )}
+                                    {item.label}
+                                </Link>
+                            );
+                        })}
                     </div>
 
                     <div className="w-px h-4 bg-white/20 shrink-0"></div>
 
-                    <Link href="/" className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400 shrink-0">
+                    <Link href="/" onClick={() => setActiveSection('home')} className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400 shrink-0">
                         SK
                     </Link>
 
                     <div className="w-px h-4 bg-white/20 shrink-0"></div>
 
                     <div className="flex items-center gap-6 text-sm font-medium text-slate-200">
-                        <Link href="/guestbook" className="flex items-center gap-2 hover:text-purple-400 transition-colors group">
+                        <Link href="/guestbook" className={`flex items-center gap-2 transition-colors group ${pathname === '/guestbook' ? 'text-blue-400 font-bold' : 'hover:text-purple-400'}`}>
                             <Book className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
                             Guestbook
                         </Link>
-                        <Link href="/blog" className="hover:text-blue-400 transition-colors">Blog</Link>
+                        <Link href="/blog" className={`transition-colors ${pathname.startsWith('/blog') ? 'text-blue-400 font-bold' : 'hover:text-blue-400'}`}>Blog</Link>
                         <Link href="/resume" className="hover:text-blue-400 transition-colors">Resume</Link>
-                        <Link href="/#contact" className="hover:text-blue-400 transition-colors">Contact</Link>
+                        <Link href="/#contact" className={`transition-colors ${activeSection === 'contact' && pathname === '/' ? 'text-blue-400 font-bold' : 'hover:text-blue-400'}`}>Contact</Link>
                         <ThemeToggle />
                     </div>
                 </motion.div>
@@ -197,7 +229,15 @@ export default function Navbar() {
                     <div className="flex justify-between items-center w-full max-w-sm mx-auto">
                         {mobilePrimaryItems.map((item) => {
                             const Icon = item.icon;
-                            const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+                            let isActive = false;
+
+                            if (pathname === '/') {
+                                // Home page: check activeScroll section
+                                isActive = activeSection === item.id;
+                            } else {
+                                // Other pages: matching path
+                                isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+                            }
 
                             return (
                                 <Link

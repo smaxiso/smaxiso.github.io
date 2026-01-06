@@ -8,8 +8,12 @@ export default function ScrollButtons() {
     const [isVisible, setIsVisible] = useState(false);
     const [isAtBottom, setIsAtBottom] = useState(false);
 
+    const [isScrolling, setIsScrolling] = useState(false);
+    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
     useEffect(() => {
-        const toggleVisibility = () => {
+        const handleScroll = () => {
+            // Show buttons while scrolling
             if (window.scrollY > 300) {
                 setIsVisible(true);
             } else {
@@ -22,11 +26,23 @@ export default function ScrollButtons() {
             } else {
                 setIsAtBottom(false);
             }
+
+            // Reset hiding timer
+            setIsScrolling(true);
+            if (timer) clearTimeout(timer);
+
+            const newTimer = setTimeout(() => {
+                setIsScrolling(false);
+            }, 2000); // Hide after 2 seconds of inactivity
+            setTimer(newTimer);
         };
 
-        window.addEventListener("scroll", toggleVisibility);
-        return () => window.removeEventListener("scroll", toggleVisibility);
-    }, []);
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            if (timer) clearTimeout(timer);
+        };
+    }, [timer]);
 
     const scrollToTop = () => {
         window.scrollTo({
@@ -46,7 +62,7 @@ export default function ScrollButtons() {
         <div className="fixed bottom-24 md:bottom-6 right-6 flex flex-col gap-3 z-40">
             <AnimatePresence>
                 {/* Scroll to Top */}
-                {isVisible && (
+                {isVisible && isScrolling && (
                     <motion.button
                         key="scroll-to-top"
                         initial={{ opacity: 0, scale: 0.5, y: 20 }}
@@ -61,7 +77,7 @@ export default function ScrollButtons() {
                 )}
 
                 {/* Scroll to Bottom */}
-                {!isAtBottom && (
+                {!isAtBottom && isScrolling && (
                     <motion.button
                         key="scroll-to-bottom"
                         initial={{ opacity: 0, scale: 0.5, y: -20 }}

@@ -4,11 +4,13 @@ import { Skills } from './Skills';
 import { getSkills } from '@/lib/api';
 import { Skill } from '@/types';
 
-export function SkillsSection() {
-    const [skills, setSkills] = useState<Skill[]>([]);
-    const [loading, setLoading] = useState(true);
+export function SkillsSection({ initialData }: { initialData?: Skill[] }) {
+    const [skills, setSkills] = useState<Skill[]>(initialData || []);
+    const [loading, setLoading] = useState(!initialData);
 
     useEffect(() => {
+        if (initialData) return;
+
         getSkills().then(data => {
             setSkills(data);
             setLoading(false);
@@ -16,7 +18,7 @@ export function SkillsSection() {
             console.error(err);
             setLoading(false);
         });
-    }, []);
+    }, [initialData]);
 
     if (loading) {
         return (
