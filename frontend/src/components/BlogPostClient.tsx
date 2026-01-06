@@ -321,7 +321,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
                                     </code>
                                 );
                             },
-                            img: ({ node, ...props }) => <img {...props} className="rounded-xl shadow-lg my-8 w-full object-cover border border-white/20 dark:border-neutral-800" />,
+                            img: ({ node, ...props }) => <img {...props} className="rounded-xl shadow-lg my-8 w-full h-auto max-w-full object-cover border border-white/20 dark:border-neutral-800" />,
                             hr: ({ node, ...props }) => <hr {...props} className="my-12 border-slate-200 dark:border-neutral-800 border-t-2 opacity-50" />,
                             ul: ({ node, ...props }) => <ul {...props} className="list-disc pl-6 space-y-2 my-6 marker:text-blue-400 text-slate-700 dark:text-gray-300" />,
                             ol: ({ node, ...props }) => <ol {...props} className="list-decimal pl-6 space-y-2 my-6 marker:text-blue-400 font-medium text-slate-700 dark:text-gray-300" />,

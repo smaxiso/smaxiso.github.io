@@ -51,10 +51,28 @@ def audit_media(db: Session = Depends(get_db), user=Depends(verify_token)):
         for p in projects:
             used_urls.add(p.image)
             
-        # Blog Posts
-        posts = db.query(schemas.BlogPost).filter(schemas.BlogPost.cover_image.isnot(None)).all()
+        # Blog Posts (Cover + Content Images)
+        posts = db.query(schemas.BlogPost).filter(
+            (schemas.BlogPost.cover_image.isnot(None)) | (schemas.BlogPost.content.isnot(None))
+        ).all()
+        
+        # Regex to find markdown images: ![alt](url) or <img src="url">
+        # Simplified for URLs starting with http/https
+        import re
+        url_pattern = re.compile(r'(?:!\[.*?\]\((https?://[^)]+)\))|(?:src=["\'](https?://[^"\']+)["\'])')
+
         for p in posts:
-            used_urls.add(p.cover_image)
+            if p.cover_image:
+                used_urls.add(p.cover_image)
+            
+            if p.content:
+                # Find all matches
+                matches = url_pattern.findall(p.content)
+                for match in matches:
+                    # Match returns tuple (markdown_url, html_url), filter empty
+                    img_url = next((m for m in match if m), None)
+                    if img_url:
+                        used_urls.add(img_url)
             
         # 3. Analyze Resources
         analyzed_resources = []
@@ -87,8 +105,10 @@ def audit_media(db: Session = Depends(get_db), user=Depends(verify_token)):
                         if proj: usage_list.append(f"Project: {proj.title}")
                         
                         # Check posts
-                        post = next((p for p in posts if p.cover_image == used_url), None)
-                        if post: usage_list.append(f"Blog: {post.title}")
+                        # Check cover_image OR content for the URL
+                        matched_posts = [p for p in posts if (p.cover_image == used_url) or (p.content and used_url in p.content)]
+                        for post in matched_posts:
+                            usage_list.append(f"Blog: {post.title}")
                     
                     # Break early if found (unless we want ALL usages, but one is enough to mark active)
                     # Let's keep scanning to show comprehensive usage if possible, but for performance maybe break?
