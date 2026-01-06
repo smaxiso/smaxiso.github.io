@@ -146,10 +146,7 @@ export default function Navbar() {
                     <div className="w-px h-4 bg-white/20 shrink-0"></div>
 
                     <div className="flex items-center gap-6 text-sm font-medium text-slate-200">
-                        <Link href="/guestbook" className={`flex items-center gap-2 transition-colors group ${pathname === '/guestbook' ? 'text-blue-400 font-bold' : 'hover:text-purple-400'}`}>
-                            <Book className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
-                            Guestbook
-                        </Link>
+                        <Link href="/guestbook" className={`transition-colors ${pathname === '/guestbook' ? 'text-blue-400 font-bold' : 'hover:text-purple-400'}`}>Guestbook</Link>
                         <Link href="/blog" className={`transition-colors ${pathname.startsWith('/blog') ? 'text-blue-400 font-bold' : 'hover:text-blue-400'}`}>Blog</Link>
                         <Link href="/resume" className="hover:text-blue-400 transition-colors">Resume</Link>
                         <Link href="/#contact" className={`transition-colors ${activeSection === 'contact' && pathname === '/' ? 'text-blue-400 font-bold' : 'hover:text-blue-400'}`}>Contact</Link>
