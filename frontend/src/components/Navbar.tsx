@@ -83,7 +83,6 @@ export default function Navbar() {
         { href: "/#experience", label: "Experience", id: "experience" },
         { href: "/#skills", label: "Skills", id: "skills" },
         { href: "/#work", label: "Work", id: "work" },
-        { href: "/#contact", label: "Contact", icon: Mail, id: "contact" },
     ];
 
     // Mobile Bottom Bar Items (Primary)
@@ -153,6 +152,7 @@ export default function Navbar() {
                         </Link>
                         <Link href="/blog" className={`transition-colors ${pathname.startsWith('/blog') ? 'text-blue-400 font-bold' : 'hover:text-blue-400'}`}>Blog</Link>
                         <Link href="/resume" className="hover:text-blue-400 transition-colors">Resume</Link>
+                        <Link href="/#contact" className={`transition-colors ${activeSection === 'contact' && pathname === '/' ? 'text-blue-400 font-bold' : 'hover:text-blue-400'}`}>Contact</Link>
                         <ThemeToggle />
                     </div>
                 </motion.div>
