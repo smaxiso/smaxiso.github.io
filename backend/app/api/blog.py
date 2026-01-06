@@ -97,7 +97,7 @@ def create_post(post: pydantic_models.BlogPostCreate, db: Session = Depends(get_
     db.commit()
     db.refresh(db_post)
     
-    # Trigger rebuild if published
+    # Trigger rebuild ONLY if published (affects public site)
     if post.published:
         trigger_github_rebuild()
     
@@ -129,14 +129,21 @@ def update_post(id: int, post: pydantic_models.BlogPostCreate, db: Session = Dep
             delete_cloudinary_image(db_post.cover_image)
         db_post.cover_image = post.cover_image
 
+    # Store original published state before update
+    was_published = db_post.published
+    
     db_post.published = post.published
     db_post.updated_at = datetime.utcnow().isoformat()
     
     db.commit()
     db.refresh(db_post)
     
-    # Trigger rebuild if published
-    if post.published:
+    # Smart trigger: Rebuild if:
+    # 1. Currently published (updating live content)
+    # 2. Was published but now unpublished (removing from public site)
+    should_rebuild = post.published or (was_published and not post.published)
+    
+    if should_rebuild:
         trigger_github_rebuild()
     
     return db_post
@@ -167,4 +174,8 @@ def delete_post(id: int, db: Session = Depends(get_db)):
 
     db.delete(db_post)
     db.commit()
+    
+    # Always trigger rebuild on delete (post might have been published)
+    trigger_github_rebuild()
+    
     return {"message": "Post deleted"}

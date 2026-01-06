@@ -1,31 +1,14 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { getPublishedPosts } from '@/lib/api';
-import { BlogPost } from '@/types';
 import { format } from 'date-fns';
-import { Calendar, Clock, Tag, Share2 } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { Calendar, Tag } from 'lucide-react';
 
-export default function BlogPage() {
-    const [posts, setPosts] = useState<BlogPost[]>([]);
-    const [loading, setLoading] = useState(true);
+// Force static generation with revalidation
+export const revalidate = 3600; // Revalidate every hour
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const data = await getPublishedPosts();
-                setPosts(data);
-            } catch (error) {
-                console.error('Failed to fetch posts:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPosts();
-    }, []);
+export default async function BlogPage() {
+    // Server-side data fetching at build time
+    const posts = await getPublishedPosts();
 
     return (
         <main className="min-h-screen pt-24 pb-20 px-4 md:px-6 relative overflow-hidden dark:bg-black transition-colors duration-300">
@@ -37,43 +20,22 @@ export default function BlogPage() {
 
             <div className="container mx-auto max-w-4xl">
                 <div className="text-center mb-16 space-y-4">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400"
-                    >
+                    <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
                         Tech Blog
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-slate-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto"
-                    >
+                    </h1>
+                    <p className="text-slate-600 dark:text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
                         Thoughts on engineering, design, and building products.
-                    </motion.p>
+                    </p>
                 </div>
 
-                {loading ? (
-                    <div className="grid gap-6">
-                        {[1, 2, 3].map((n) => (
-                            <div key={n} className="h-48 rounded-2xl bg-white/40 dark:bg-neutral-800/50 animate-pulse" />
-                        ))}
-                    </div>
-                ) : posts.length === 0 ? (
+                {posts.length === 0 ? (
                     <div className="text-center p-12 glass-card dark:glass-none dark:bg-neutral-900 dark:border-neutral-800 rounded-2xl">
                         <p className="text-slate-500 dark:text-gray-400 text-lg">No posts published yet. Stay tuned!</p>
                     </div>
                 ) : (
                     <div className="grid gap-8">
-                        {posts.map((post, index) => (
-                            <motion.article
-                                key={post.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                                className="group"
-                            >
+                        {posts.map((post) => (
+                            <article key={post.id} className="group">
                                 <Link href={`/blog/${post.slug}`} className="block glass-card dark:!bg-black dark:!border-white/10 border border-white/50 p-4 md:p-8 rounded-2xl hover:bg-white/60 dark:hover:!bg-neutral-900/50 transition-all hover:shadow-lg dark:hover:!shadow-[0_0_20px_rgba(255,255,255,0.05)] relative">
                                     <div className="flex flex-col-reverse md:flex-row md:items-start gap-4 md:gap-6">
                                         <div className="flex-1 space-y-3">
@@ -109,26 +71,6 @@ export default function BlogPage() {
                                                 <div className="text-blue-600 dark:text-blue-400 font-medium text-sm md:text-base flex items-center gap-1 group-hover:gap-2 transition-all">
                                                     Read more <span aria-hidden="true">&rarr;</span>
                                                 </div>
-
-                                                <button
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        e.stopPropagation();
-                                                        const url = `${window.location.origin}/blog/${post.slug}`;
-                                                        const shareText = `Check out this blog: "${post.title}"`;
-
-                                                        if (navigator.share) {
-                                                            navigator.share({ title: post.title, text: shareText, url }).catch(console.error);
-                                                        } else {
-                                                            navigator.clipboard.writeText(url);
-                                                            toast.success('Link copied!');
-                                                        }
-                                                    }}
-                                                    className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-500 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 rounded-full transition-all z-10"
-                                                    title="Share"
-                                                >
-                                                    <Share2 className="w-5 h-5" />
-                                                </button>
                                             </div>
                                         </div>
 
@@ -143,7 +85,7 @@ export default function BlogPage() {
                                         )}
                                     </div>
                                 </Link>
-                            </motion.article>
+                            </article>
                         ))}
                     </div>
                 )}
