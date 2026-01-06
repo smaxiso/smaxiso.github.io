@@ -21,7 +21,10 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
 - **AI Chatbot 🤖**: RAG-powered assistant (Gemini 1.5 + Pinecone) that answers questions using my Resume, GitHub, and Portfolio data.
 - **Sections**: Hero, About, Skills, Projects, Blog, Guestbook, Contact
 - **Tech Blog**: 
+  - **⚡ Blazing Fast SSG**: Pre-rendered static pages (~100-200ms loads)
   - Markdown support with syntax highlighting
+  - **Responsive Images**: Mobile-first with auto-scaling
+  - Drag & drop + paste image uploads (mobile-friendly)
   - Related posts with intelligent tag matching
   - Multi-channel sharing (native share, WhatsApp, LinkedIn, Twitter)
   - Auto-copy to clipboard on social share
@@ -39,8 +42,11 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
 - 🧠 **Knowledge Base Manager**: One-click ingestion to sync Resume & GitHub data with AI
 - 💼 **Content Management**: Projects, Skills, Blog Posts, Guestbook, Profile, Social Links, Resumes
 - 📝 **Blog Editor**: 
-  - Drag & drop image uploads
+  - **State Persistence**: Auto-save drafts with deep linking (no data loss on refresh)
+  - **Smart Image Upload**: Drag & drop, paste, or mobile file picker
+  - **Client-side Compression**: Auto-resize (max 1920px) and compress (80% quality) before upload
   - Markdown editor with live preview
+  - **Media Manager**: Audit and cleanup unused Cloudinary images
   - Search & sort functionality
   - Always-visible action icons (View, Edit, Delete)
   - Creation date display with local timezone
@@ -112,8 +118,20 @@ To add users, edit `backend/app/auth.py`.
 
 ## 🚢 Deployment
 
-- **Frontend**: Automatic via GitHub Actions → Firebase Hosting
-- **Backend**: Automatic via GitHub → Render
+### Automated CI/CD Pipeline
+- **Frontend**: 
+  - GitHub Actions → Build & Deploy to Firebase Hosting
+  - **Auto-trigger**: On git push OR blog publish from admin
+  - **Smart Triggers**: Only rebuilds when public content actually changes
+- **Backend**: 
+  - Primary: Vercel (auto-deploy from `main` branch)
+  - Backup: Render (auto-deploy from `main` branch)
+
+### Performance Optimizations
+- **SSG (Static Site Generation)**: All blog pages pre-rendered at build time
+- **Revalidation**: 1-hour cache refresh for blog pages
+- **Image Optimization**: Client-side compression before upload
+- **Load Times**: ~100-200ms for all blog pages
 
 ## 👤 Author
 

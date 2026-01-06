@@ -91,6 +91,9 @@ CLOUDINARY_API_SECRET=your_api_secret
 # AI (RAG)
 GEMINI_API_KEY=your_gemini_key
 PINECONE_API_KEY=your_pinecone_key
+
+# Auto-Deploy (GitHub Actions trigger)
+GITHUB_TOKEN=ghp_your_personal_access_token
 ```
 
 **Production DATABASE_URL** (Neon):
@@ -245,9 +248,9 @@ if LOCAL_DEV_MODE:
 | GET | `/api/v1/blog` | ❌ | List published posts |
 | GET | `/api/v1/blog/{slug}` | ❌ | Get post by slug |
 | GET | `/api/v1/blog/admin/all` | ✅ | List all posts (incl. drafts) |
-| POST | `/api/v1/blog` | ✅ | Create post |
-| PUT | `/api/v1/blog/{id}` | ✅ | Update post |
-| DELETE | `/api/v1/blog/{id}` | ✅ | Delete post (auto-deletes image) |
+| POST | `/api/v1/blog` | ✅ | Create post (triggers rebuild if published) |
+| PUT | `/api/v1/blog/{id}` | ✅ | Update post (triggers rebuild if published/unpublishing) |
+| DELETE | `/api/v1/blog/{id}` | ✅ | Delete post + images (triggers rebuild) |
 
 ### Guestbook
 | Method | Endpoint | Auth | Description |
@@ -261,8 +264,14 @@ if LOCAL_DEV_MODE:
 ### Media
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/api/v1/media/audit` | ✅ | Scan Cloudinary assets and check usage |
+| GET | `/api/v1/media/audit` | ✅ | Scan Cloudinary + DB for orphaned/active images |
 | DELETE | `/api/v1/media/{public_id}` | ✅ | Delete specific asset |
+
+**Media Audit Logic:**
+- Scans all Cloudinary assets
+- Checks usage in: `SiteConfig`, `Project.image`, `BlogPost.cover_image`, and `BlogPost.content` (inline images)
+- Returns list with `status`: `"active"` or `"orphaned"`
+- Used by Admin Media Manager to show which images can be safely deleted
 
 ## 🔧 Router Configuration
 
@@ -308,6 +317,12 @@ uvicorn main:app --host 0.0.0.0 --port $PORT
 - `DATABASE_URL`: Supported.
 - `FIREBASE_CREDENTIALS_JSON`: **Required**. Use minified JSON string of service account (Vercel cannot read local files).
 - `GEMINI_API_KEY`, `PINECONE_API_KEY`, `CLOUDINARY_*`: Same as Render.
+- `GITHUB_TOKEN`: **Required for auto-deploy**. Personal Access Token with `repo` scope to trigger GitHub Actions.
+
+**Auto-Deploy Integration**:
+- When blog posts are published/updated/deleted, backend triggers GitHub Actions via `repository_dispatch`
+- GitHub Actions rebuilds and redeploys the frontend to Firebase Hosting
+- Smart triggers: only rebuilds when public content actually changes
 
 **Limitations**:
 - **Background Tasks**: Not supported (max 10s execution). Ingestion must be triggered elsewhere.
