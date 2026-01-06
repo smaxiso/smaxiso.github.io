@@ -250,16 +250,34 @@ export function BlogEditor() {
     };
 
     const uploadAndInsertImage = async (file: File) => {
+        // 1. Insert Placeholder
+        const placeholder = `![${file.name}](uploading...)`;
+        insertAtCursor(placeholder);
+
         const toastId = toast.loading('Uploading image...');
         setUploading(true);
+
         try {
+            // 2. Upload
             const url = await uploadFile(file);
-            const markdown = `![${file.name}](${url})`;
-            insertAtCursor(markdown);
+            const finalMarkdown = `![${file.name}](${url})`;
+
+            // 3. Replace Placeholder with Final URL
+            setCurrentPost(prev => {
+                const newContent = prev.content ? prev.content.replace(placeholder, finalMarkdown) : '';
+                return { ...prev, content: newContent };
+            });
+
             toast.success('Image inserted!', { id: toastId });
         } catch (error) {
             console.error(error);
             toast.error('Failed to upload image', { id: toastId });
+
+            // On error, maybe remove placeholder?
+            setCurrentPost(prev => {
+                const newContent = prev.content ? prev.content.replace(placeholder, '') : '';
+                return { ...prev, content: newContent };
+            });
         } finally {
             setUploading(false);
         }
