@@ -20,6 +20,7 @@ export interface SiteConfig {
     experience_months: number;
     projects_completed: number;
     contact_email: string;
+    show_work_badge: boolean;
     footer_text: string;
 }
 

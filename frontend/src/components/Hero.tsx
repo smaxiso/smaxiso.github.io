@@ -121,19 +121,21 @@ export function Hero() {
                             />
                         </div>
                     </div>
-                    {/* Floating Badge */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1 }}
-                        className="absolute -bottom-3 right-0 md:-bottom-6 md:-right-6 glass-card dark:!bg-neutral-900 dark:border-neutral-800 px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl flex items-center gap-2 md:gap-3 animate-pulse-slow z-20 shadow-lg border border-white/60"
-                    >
-                        <div className="relative">
-                            <div className="w-2 h-2 md:w-3 md:h-3 bg-emerald-500 rounded-full"></div>
-                            <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75"></div>
-                        </div>
-                        <span className="font-medium text-[10px] md:text-sm text-slate-600 dark:text-white whitespace-nowrap">Open to Work</span>
-                    </motion.div>
+                    {/* Floating Badge - Conditionally Rendered */}
+                    {siteConfig?.show_work_badge && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1 }}
+                            className="absolute -bottom-3 right-0 md:-bottom-6 md:-right-6 glass-card dark:!bg-neutral-900 dark:border-neutral-800 px-3 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl flex items-center gap-2 md:gap-3 animate-pulse-slow z-20 shadow-lg border border-white/60"
+                        >
+                            <div className="relative">
+                                <div className="w-2 h-2 md:w-3 md:h-3 bg-emerald-500 rounded-full"></div>
+                                <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75"></div>
+                            </div>
+                            <span className="font-medium text-[10px] md:text-sm text-slate-600 dark:text-white whitespace-nowrap">Open to Work</span>
+                        </motion.div>
+                    )}
                 </motion.div>
             </div>
         </section>

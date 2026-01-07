@@ -76,6 +76,9 @@ class SiteConfig(Base):
     # Contact
     contact_email = Column(String)
     
+    # Work Status
+    show_work_badge = Column(Boolean, default=True)
+    
     # Footer
     footer_text = Column(String)
 

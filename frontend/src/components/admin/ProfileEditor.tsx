@@ -53,6 +53,11 @@ export function ProfileEditor() {
         setConfig({ ...config, [e.target.name]: val })
     }
 
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!config) return
+        setConfig({ ...config, [e.target.name]: e.target.checked })
+    }
+
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: keyof SiteConfig) => {
         if (!e.target.files || e.target.files.length === 0 || !config) return
         const file = e.target.files[0]
@@ -92,6 +97,22 @@ export function ProfileEditor() {
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Hero Subtitle</label>
                         <textarea name="subtitle" value={config.subtitle} onChange={handleChange} rows={3} className="w-full p-2 border rounded" />
+                    </div>
+                    <div className="flex items-center gap-3 p-3 border rounded bg-slate-50 dark:bg-neutral-900">
+                        <input
+                            type="checkbox"
+                            id="show_work_badge"
+                            name="show_work_badge"
+                            checked={config.show_work_badge ?? true}
+                            onChange={handleCheckboxChange}
+                            className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                        />
+                        <label htmlFor="show_work_badge" className="text-sm font-medium cursor-pointer flex-1">
+                            Show "Open to Work" Badge
+                        </label>
+                        <span className="text-xs text-slate-500 dark:text-gray-400">
+                            {config.show_work_badge ? '✓ Visible' : '✗ Hidden'}
+                        </span>
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Profile Image</label>
