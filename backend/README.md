@@ -153,10 +153,14 @@ SQLAlchemy auto-creates tables on startup via:
 schemas.Base.metadata.create_all(bind=engine)
 ```
 
-**Manual column addition** (if needed):
+### Migrations
+
+**Run database migrations** (e.g., adding new columns):
 ```bash
-python -c "from app.database import SessionLocal; from sqlalchemy import text; db = SessionLocal(); db.execute(text('ALTER TABLE table_name ADD COLUMN column_name TYPE')); db.commit(); db.close()"
+python scripts/run_migration.py
 ```
+
+This script is idempotent (safe to run multiple times) and automatically checks if changes already exist.
 
 ### Seeding
 

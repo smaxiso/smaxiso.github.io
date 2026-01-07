@@ -48,6 +48,9 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
   - Markdown editor with live preview
   - **Media Manager**: Audit and cleanup unused Cloudinary images
   - Search & sort functionality
+- 🎨 **Profile Customization**:
+  - Toggle "Open to Work" badge on/off from admin panel
+  - No code changes needed to show/hide badge
   - Always-visible action icons (View, Edit, Delete)
   - Creation date display with local timezone
 - 🎨 **Visual Icon Picker**: 70+ categorized icons with search
