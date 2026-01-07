@@ -88,6 +88,7 @@ export const useSiteConfig = () => {
             profileImage: config.profile_image,
             socialLinks: socials
         },
+        show_work_badge: config.show_work_badge ?? true,  // Add work badge toggle
         about: {
             title: config.about_title,
             description: config.about_description,

@@ -56,6 +56,7 @@ export const siteConfig = {
             },
         ]
     },
+    show_work_badge: true,  // Work badge visible by default
     about: {
         title: "Data Engineer (AI/ML)",
         description: "I'm Sumit Kumar, a data-driven problem solver with experience in building large-scale ETL systems, developing real-time data pipelines, and working with high-impact data products across FinTech and cybersecurity domains.",
