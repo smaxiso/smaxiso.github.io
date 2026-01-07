@@ -14,11 +14,11 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import toast from 'react-hot-toast';
 
-export default function BlogPostClient({ slug }: { slug: string }) {
+export default function BlogPostClient({ slug, initialPost }: { slug: string; initialPost?: BlogPost }) {
     const router = useRouter();
-    const [post, setPost] = useState<BlogPost | null>(null);
+    const [post, setPost] = useState<BlogPost | null>(initialPost || null);
     const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(!initialPost); // Only show loading if no initial data
 
     // Navbar Visibility Logic (Replicated from Navbar.tsx to sync position)
     const { scrollY } = useScroll();
@@ -53,6 +53,15 @@ export default function BlogPostClient({ slug }: { slug: string }) {
     });
 
     useEffect(() => {
+        return () => {
+            if (timer) clearTimeout(timer);
+        };
+    }, [timer]);
+
+    // Fetch post data only if not provided (dev mode fallback)
+    useEffect(() => {
+        if (initialPost) return; // Skip if we already have the data
+
         const fetchPost = async () => {
             if (!slug) return;
             try {
@@ -70,7 +79,7 @@ export default function BlogPostClient({ slug }: { slug: string }) {
             }
         };
         fetchPost();
-    }, [slug, router]);
+    }, [slug, router, initialPost]);
 
     // Fetch related posts
     useEffect(() => {

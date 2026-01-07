@@ -93,6 +93,15 @@ export default async function Page({
 }: {
     params: Promise<{ slug: string }>;
 }) {
-    const slug = (await params).slug
-    return <BlogPostClient slug={slug} />
+    const slug = (await params).slug;
+
+    // Fetch post data server-side during static generation
+    const post = await getPostBySlug(slug);
+
+    if (!post) {
+        // Redirect to 404 if post doesn't exist
+        return null; // Next.js will show 404
+    }
+
+    return <BlogPostClient slug={slug} initialPost={post} />;
 }
