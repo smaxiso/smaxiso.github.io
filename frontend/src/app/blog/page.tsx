@@ -69,11 +69,13 @@ export default async function BlogPage() {
                                             {post.excerpt}
                                         </p>
 
-                                        <div className="pt-2 flex items-center justify-between">
-                                            <Link href={`/blog/${post.slug}`} className="text-blue-600 dark:text-blue-400 font-medium text-sm md:text-base flex items-center gap-1 group-hover:gap-2 transition-all">
+                                        <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0">
+                                            <Link href={`/blog/${post.slug}`} className="text-blue-600 dark:text-blue-400 font-medium text-sm md:text-base flex items-center gap-1 group-hover:gap-2 transition-all w-fit">
                                                 Read more <span aria-hidden="true">&rarr;</span>
                                             </Link>
-                                            <BlogCardShare slug={post.slug} title={post.title} />
+                                            <div className="self-end sm:self-auto">
+                                                <BlogCardShare slug={post.slug} title={post.title} />
+                                            </div>
                                         </div>
                                     </div>
 
