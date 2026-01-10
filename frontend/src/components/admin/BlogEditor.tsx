@@ -182,8 +182,8 @@ export function BlogEditor() {
             const draftKey = `blog_draft_${currentPost.id || 'new'}`;
             localStorage.removeItem(draftKey);
 
-            // Helper to return to list
-            router.push('/admin'); // Force URL reset
+            // Helper to return to list (preserve blog tab)
+            router.push('/admin?tab=blog'); // Stay on Blog tab
             await fetchPosts();
         } catch (error: any) {
             console.error(error);
@@ -481,7 +481,7 @@ export function BlogEditor() {
                         <button
                             type="submit"
                             disabled={!hasChanges && !uploading && !saving}
-                            className={`px-6 py-2 bg-blue-600 text-white rounded-lg transition-all shadow-sm flex items-center gap-2 font-medium ${(!hasChanges || uploading || saving) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700 hover:shadow-md active:scale-95'}`}
+                            className={`px-6 py-2 bg-blue-600 text-white rounded-lg transition-all shadow-sm flex items-center gap-2 font-medium ${(!hasChanges || uploading || saving) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-blue-700 hover:shadow-md active:scale-95'}`}
                         >
                             {uploading ? (
                                 <><span>Uploading...</span></>
