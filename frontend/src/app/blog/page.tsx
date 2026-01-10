@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getPublishedPosts } from '@/lib/api';
-import { format } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 import { Calendar, Tag } from 'lucide-react';
 
 // Force static generation with revalidation
@@ -44,7 +44,7 @@ export default async function BlogPage() {
                                                     <Calendar className="w-3.5 h-3.5 md:w-4 md:h-4 text-slate-400 dark:text-gray-500" />
                                                     {(() => {
                                                         const dateStr = post.created_at.endsWith('Z') ? post.created_at : `${post.created_at}Z`;
-                                                        return format(new Date(dateStr), 'MMMM d, yyyy, h:mm a');
+                                                        return formatInTimeZone(new Date(dateStr), 'Asia/Kolkata', 'MMMM d, yyyy, h:mm a');
                                                     })()}
                                                 </span>
                                                 {post.tags && (

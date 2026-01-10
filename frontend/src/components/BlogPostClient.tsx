@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { getPostBySlug, getPublishedPosts } from '@/lib/api';
 import { BlogPost } from '@/types';
-import { format } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 import { Share2, ArrowLeft, Calendar, Clock, Tag, History as HistoryIcon } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -242,7 +242,7 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                             <Calendar className="w-4 h-4" />
                             {(() => {
                                 const dateStr = post.created_at.endsWith('Z') ? post.created_at : `${post.created_at}Z`;
-                                return format(new Date(dateStr), 'MMMM d, yyyy, h:mm a');
+                                return formatInTimeZone(new Date(dateStr), 'Asia/Kolkata', 'MMMM d, yyyy, h:mm a');
                             })()}
                         </span>
                         {post.updated_at && post.updated_at !== post.created_at && (
@@ -250,7 +250,7 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                                 <HistoryIcon className="w-3.5 h-3.5" />
                                 Updated: {(() => {
                                     const updateStr = post.updated_at.endsWith('Z') ? post.updated_at : `${post.updated_at}Z`;
-                                    return format(new Date(updateStr), 'MMM d, yyyy, h:mm a');
+                                    return formatInTimeZone(new Date(updateStr), 'Asia/Kolkata', 'MMM d, yyyy, h:mm a');
                                 })()}
                             </span>
                         )}
