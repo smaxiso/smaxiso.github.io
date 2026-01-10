@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getPublishedPosts } from '@/lib/api';
 import { formatInTimeZone } from 'date-fns-tz';
 import { Calendar, Tag } from 'lucide-react';
+import BlogCardShare from '@/components/BlogCardShare';
 
 // Force static generation with revalidation
 export const revalidate = 3600; // Revalidate every hour
@@ -71,6 +72,7 @@ export default async function BlogPage() {
                                                 <div className="text-blue-600 dark:text-blue-400 font-medium text-sm md:text-base flex items-center gap-1 group-hover:gap-2 transition-all">
                                                     Read more <span aria-hidden="true">&rarr;</span>
                                                 </div>
+                                                <BlogCardShare slug={post.slug} title={post.title} />
                                             </div>
                                         </div>
 
