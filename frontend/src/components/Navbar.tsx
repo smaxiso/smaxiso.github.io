@@ -46,6 +46,11 @@ export default function Navbar() {
         // Reset timer on any scroll
         if (timer) clearTimeout(timer);
 
+        // Optimization: Skip hide/show logic on mobile (since bottom bar is fixed)
+        // We only care about activeSection updates if needed, but intersection observer handles that mostly.
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        if (isMobile) return;
+
         if (latest < 100) {
             // Always show at top
             setHidden(false);

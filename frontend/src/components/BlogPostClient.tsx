@@ -35,6 +35,10 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
         // Reset timer on any scroll
         if (timer) clearTimeout(timer);
 
+        // Optimization: Skip hide/show logic on mobile to prevent jitter
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        if (isMobile) return;
+
         if (latest < 100) {
             setIsNavbarHidden(false);
         } else if (isScrollingDown) {
@@ -152,7 +156,7 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
     const { scrollYProgress } = useScroll();
 
     if (loading) return (
-        <div className="min-h-screen pt-32 pb-20 container max-w-3xl mx-auto px-4 dark:bg-black">
+        <div className="min-h-dvh pt-32 pb-20 container max-w-3xl mx-auto px-4 dark:bg-black">
             <div className="h-10 w-3/4 bg-slate-200 dark:bg-neutral-800 rounded-lg animate-pulse mb-6"></div>
             <div className="h-6 w-1/2 bg-slate-200 dark:bg-neutral-800 rounded-lg animate-pulse mb-12"></div>
             <div className="space-y-4">
@@ -166,7 +170,7 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
     if (!post) return null;
 
     return (
-        <main className="min-h-screen pt-24 pb-48 md:pb-32 relative bg-slate-50/50 dark:bg-black transition-colors duration-300">
+        <main className="min-h-dvh pt-24 pb-48 md:pb-32 relative bg-slate-50/50 dark:bg-black transition-colors duration-300">
             {/* Reading Progress Bar */}
             <motion.div
                 className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-50"

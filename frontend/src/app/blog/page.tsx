@@ -12,7 +12,7 @@ export default async function BlogPage() {
     const posts = await getPublishedPosts();
 
     return (
-        <main className="min-h-screen pt-24 pb-20 px-4 md:px-6 relative overflow-hidden dark:bg-black transition-colors duration-300">
+        <main className="min-h-dvh pt-24 pb-20 px-4 md:px-6 relative overflow-hidden dark:bg-black transition-colors duration-300">
             {/* Background Elements */}
             <div className="absolute inset-0 -z-10 pointer-events-none">
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
