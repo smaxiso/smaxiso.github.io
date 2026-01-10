@@ -69,24 +69,29 @@ export default async function BlogPage() {
                                             {post.excerpt}
                                         </p>
 
-                                        <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0">
+                                        <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0 mt-auto">
                                             <Link href={`/blog/${post.slug}`} className="text-blue-600 dark:text-blue-400 font-medium text-sm md:text-base flex items-center gap-1 group-hover:gap-2 transition-all w-fit">
                                                 Read more <span aria-hidden="true">&rarr;</span>
                                             </Link>
-                                            <div className="w-full sm:w-auto">
+                                            <div className={`w-full sm:w-auto ${post.cover_image ? 'md:hidden' : ''}`}>
                                                 <BlogCardShare slug={post.slug} title={post.title} />
                                             </div>
                                         </div>
                                     </div>
 
                                     {post.cover_image && (
-                                        <Link href={`/blog/${post.slug}`} className="w-full md:w-48 aspect-video md:aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 dark:bg-neutral-800 flex-shrink-0 self-start border border-slate-100 dark:border-neutral-800 block">
-                                            <img
-                                                src={post.cover_image}
-                                                alt={post.title}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            />
-                                        </Link>
+                                        <div className="flex flex-col gap-4 flex-shrink-0 w-full md:w-48 self-start">
+                                            <Link href={`/blog/${post.slug}`} className="w-full aspect-video md:aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 dark:bg-neutral-800 border border-slate-100 dark:border-neutral-800 block">
+                                                <img
+                                                    src={post.cover_image}
+                                                    alt={post.title}
+                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                />
+                                            </Link>
+                                            <div className="hidden md:flex justify-center w-full">
+                                                <BlogCardShare slug={post.slug} title={post.title} />
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
                             </article>
