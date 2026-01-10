@@ -36,57 +36,57 @@ export default async function BlogPage() {
                 ) : (
                     <div className="grid gap-8">
                         {posts.map((post) => (
-                            <article key={post.id} className="group">
-                                <Link href={`/blog/${post.slug}`} className="block glass-card dark:!bg-black dark:!border-white/10 border border-white/50 p-4 md:p-8 rounded-2xl hover:bg-white/60 dark:hover:!bg-neutral-900/50 transition-all hover:shadow-lg dark:hover:!shadow-[0_0_20px_rgba(255,255,255,0.05)] relative">
-                                    <div className="flex flex-col-reverse md:flex-row md:items-start gap-4 md:gap-6">
-                                        <div className="flex-1 space-y-3">
-                                            <div className="flex flex-wrap items-center gap-2 md:gap-4 text-xs md:text-sm text-slate-500 dark:text-gray-400 mb-2">
-                                                <span className="flex items-center gap-1 shrink-0">
-                                                    <Calendar className="w-3.5 h-3.5 md:w-4 md:h-4 text-slate-400 dark:text-gray-500" />
-                                                    {(() => {
-                                                        const dateStr = post.created_at.endsWith('Z') ? post.created_at : `${post.created_at}Z`;
-                                                        return formatInTimeZone(new Date(dateStr), 'Asia/Kolkata', 'MMMM d, yyyy, h:mm a');
-                                                    })()}
-                                                </span>
-                                                {post.tags && (
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {post.tags.split(',').slice(0, 3).map(tag => (
-                                                            <span key={tag} className="flex items-center gap-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-300 border border-blue-100 dark:border-blue-900/30 px-2 py-0.5 rounded-full text-[10px] md:text-xs font-medium whitespace-nowrap">
-                                                                <Tag className="w-3 h-3" />
-                                                                {tag.trim()}
-                                                            </span>
-                                                        ))}
-                                                    </div>
-                                                )}
-                                            </div>
+                            <article key={post.id} className="group relative block glass-card dark:bg-black dark:border-white/10 border border-white/50 p-4 md:p-8 rounded-2xl hover:bg-white/60 dark:hover:bg-neutral-900/50 transition-all hover:shadow-lg dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+                                <div className="flex flex-col-reverse md:flex-row md:items-start gap-4 md:gap-6">
+                                    <div className="flex-1 space-y-3">
+                                        <div className="flex flex-wrap items-center gap-2 md:gap-4 text-xs md:text-sm text-slate-500 dark:text-gray-400 mb-2">
+                                            <span className="flex items-center gap-1 shrink-0">
+                                                <Calendar className="w-3.5 h-3.5 md:w-4 md:h-4 text-slate-400 dark:text-gray-500" />
+                                                {(() => {
+                                                    const dateStr = post.created_at.endsWith('Z') ? post.created_at : `${post.created_at}Z`;
+                                                    return formatInTimeZone(new Date(dateStr), 'Asia/Kolkata', 'MMMM d, yyyy, h:mm a');
+                                                })()}
+                                            </span>
+                                            {post.tags && (
+                                                <div className="flex flex-wrap gap-2">
+                                                    {post.tags.split(',').slice(0, 3).map(tag => (
+                                                        <span key={tag} className="flex items-center gap-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-300 border border-blue-100 dark:border-blue-900/30 px-2 py-0.5 rounded-full text-[10px] md:text-xs font-medium whitespace-nowrap">
+                                                            <Tag className="w-3 h-3" />
+                                                            {tag.trim()}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
 
+                                        <Link href={`/blog/${post.slug}`} className="block">
                                             <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-br dark:from-white dark:to-neutral-400 group-hover:text-blue-600 dark:group-hover:text-transparent dark:group-hover:from-blue-200 dark:group-hover:to-blue-500 transition-colors line-clamp-2 pb-1">
                                                 {post.title}
                                             </h2>
+                                        </Link>
 
-                                            <p className="text-sm md:text-base text-slate-600 dark:text-gray-300 leading-relaxed line-clamp-3">
-                                                {post.excerpt}
-                                            </p>
+                                        <p className="text-sm md:text-base text-slate-600 dark:text-gray-300 leading-relaxed line-clamp-3">
+                                            {post.excerpt}
+                                        </p>
 
-                                            <div className="pt-2 flex items-center justify-between">
-                                                <div className="text-blue-600 dark:text-blue-400 font-medium text-sm md:text-base flex items-center gap-1 group-hover:gap-2 transition-all">
-                                                    Read more <span aria-hidden="true">&rarr;</span>
-                                                </div>
-                                                <BlogCardShare slug={post.slug} title={post.title} />
-                                            </div>
+                                        <div className="pt-2 flex items-center justify-between">
+                                            <Link href={`/blog/${post.slug}`} className="text-blue-600 dark:text-blue-400 font-medium text-sm md:text-base flex items-center gap-1 group-hover:gap-2 transition-all">
+                                                Read more <span aria-hidden="true">&rarr;</span>
+                                            </Link>
+                                            <BlogCardShare slug={post.slug} title={post.title} />
                                         </div>
-
-                                        {post.cover_image && (
-                                            <div className="w-full md:w-48 aspect-video md:aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 dark:bg-neutral-800 flex-shrink-0 self-start border border-slate-100 dark:border-neutral-800">
-                                                <img
-                                                    src={post.cover_image}
-                                                    alt={post.title}
-                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                />
-                                            </div>
-                                        )}
                                     </div>
-                                </Link>
+
+                                    {post.cover_image && (
+                                        <Link href={`/blog/${post.slug}`} className="w-full md:w-48 aspect-video md:aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 dark:bg-neutral-800 flex-shrink-0 self-start border border-slate-100 dark:border-neutral-800 block">
+                                            <img
+                                                src={post.cover_image}
+                                                alt={post.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                        </Link>
+                                    )}
+                                </div>
                             </article>
                         ))}
                     </div>
