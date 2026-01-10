@@ -69,10 +69,7 @@ export default function Navbar() {
 
         setLastScrollY(latest);
 
-        // UX Improvement: Clear URL hash when scrolling to top
-        if (latest < 50 && typeof window !== 'undefined' && window.location.hash) {
-            window.history.replaceState(null, '', window.location.pathname);
-        }
+
     });
 
     if (pathname === '/resume' || pathname?.startsWith('/admin')) return null;
