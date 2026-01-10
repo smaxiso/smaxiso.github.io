@@ -37,7 +37,7 @@ export default async function BlogPage() {
                     <div className="grid gap-8">
                         {posts.map((post) => (
                             <article key={post.id} className="group relative block glass-card dark:bg-black dark:border-white/10 border border-white/50 p-4 md:p-8 rounded-2xl hover:bg-white/60 dark:hover:bg-neutral-900/50 transition-all hover:shadow-lg dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.05)]">
-                                <div className="flex flex-col-reverse md:flex-row md:items-start gap-4 md:gap-6">
+                                <div className="flex flex-col-reverse md:flex-row md:items-stretch gap-4 md:gap-6">
                                     <div className="flex-1 space-y-3">
                                         <div className="flex flex-wrap items-center gap-2 md:gap-4 text-xs md:text-sm text-slate-500 dark:text-gray-400 mb-2">
                                             <span className="flex items-center gap-1 shrink-0">
@@ -80,7 +80,7 @@ export default async function BlogPage() {
                                     </div>
 
                                     {post.cover_image && (
-                                        <div className="flex flex-col gap-4 flex-shrink-0 w-full md:w-48 self-start">
+                                        <div className="flex flex-col gap-4 flex-shrink-0 w-full md:w-48">
                                             <Link href={`/blog/${post.slug}`} className="w-full aspect-video md:aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 dark:bg-neutral-800 border border-slate-100 dark:border-neutral-800 block">
                                                 <img
                                                     src={post.cover_image}
@@ -88,7 +88,7 @@ export default async function BlogPage() {
                                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                 />
                                             </Link>
-                                            <div className="hidden md:flex justify-center w-full">
+                                            <div className="hidden md:flex justify-center w-full mt-auto">
                                                 <BlogCardShare slug={post.slug} title={post.title} />
                                             </div>
                                         </div>
