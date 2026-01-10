@@ -362,11 +362,11 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                             {/* Desktop Fallbacks */}
                             <div className="flex items-center gap-2 pl-3 border-l border-slate-200 dark:border-neutral-800">
                                 <a
-                                    href={`https://wa.me/?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}" ${typeof window !== 'undefined' ? window.location.href : ''}`)}`}
+                                    href={`https://wa.me/?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}" https://smaxiso.web.app/blog/${slug}`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={() => {
-                                        navigator.clipboard.writeText(window.location.href);
+                                        navigator.clipboard.writeText(`https://smaxiso.web.app/blog/${slug}`);
                                         toast.success('Link copied to clipboard!');
                                     }}
                                     className="p-2 text-slate-400 dark:text-gray-500 hover:text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-full transition-all"
@@ -377,11 +377,11 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                                     </svg>
                                 </a>
                                 <a
-                                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
+                                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://smaxiso.web.app/blog/${slug}`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={() => {
-                                        navigator.clipboard.writeText(window.location.href);
+                                        navigator.clipboard.writeText(`https://smaxiso.web.app/blog/${slug}`);
                                         toast.success('Link copied to clipboard!');
                                     }}
                                     className="p-2 text-slate-400 dark:text-gray-500 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-full transition-all"
@@ -392,11 +392,11 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                                     </svg>
                                 </a>
                                 <a
-                                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}"`)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
+                                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Hey, check out this blog by smaxiso: "${post.title}"`)}&url=${encodeURIComponent(`https://smaxiso.web.app/blog/${slug}`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={() => {
-                                        navigator.clipboard.writeText(window.location.href);
+                                        navigator.clipboard.writeText(`https://smaxiso.web.app/blog/${slug}`);
                                         toast.success('Link copied to clipboard!');
                                     }}
                                     className="p-2 text-slate-400 dark:text-gray-500 hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-full transition-all"
