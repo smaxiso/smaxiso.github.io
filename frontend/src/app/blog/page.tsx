@@ -73,7 +73,7 @@ export default async function BlogPage() {
                                             <Link href={`/blog/${post.slug}`} className="text-blue-600 dark:text-blue-400 font-medium text-sm md:text-base flex items-center gap-1 group-hover:gap-2 transition-all w-fit">
                                                 Read more <span aria-hidden="true">&rarr;</span>
                                             </Link>
-                                            <div className="self-end sm:self-auto">
+                                            <div className="w-full sm:w-auto">
                                                 <BlogCardShare slug={post.slug} title={post.title} />
                                             </div>
                                         </div>

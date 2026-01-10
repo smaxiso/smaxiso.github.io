@@ -37,7 +37,7 @@ export default function BlogCardShare({ slug, title }: BlogCardShareProps) {
     };
 
     return (
-        <div className="flex items-center gap-2" onClick={(e) => e.preventDefault()}>
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start" onClick={(e) => e.preventDefault()}>
             {/* WhatsApp */}
             <a
                 href={`https://wa.me/?text=${encodeURIComponent(`Check out "${title}" by Sumit: ${url}`)}`}
