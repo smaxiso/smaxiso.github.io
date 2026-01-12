@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from typing import List
 from datetime import datetime
 import os
@@ -82,20 +83,27 @@ def create_post(post: pydantic_models.BlogPostCreate, db: Session = Depends(get_
         raise HTTPException(status_code=400, detail="Slug already exists")
 
     current_time = datetime.utcnow().isoformat()
-    db_post = schemas.BlogPost(
-        title=post.title,
-        slug=post.slug,
-        content=post.content,
-        excerpt=post.excerpt,
-        tags=post.tags,
-        cover_image=post.cover_image,
-        published=post.published,
-        created_at=current_time,
-        updated_at=current_time
-    )
-    db.add(db_post)
-    db.commit()
-    db.refresh(db_post)
+    try:
+        db_post = schemas.BlogPost(
+            title=post.title,
+            slug=post.slug,
+            content=post.content,
+            excerpt=post.excerpt,
+            tags=post.tags,
+            cover_image=post.cover_image,
+            published=post.published,
+            created_at=current_time,
+            updated_at=current_time
+        )
+        db.add(db_post)
+        db.commit()
+        db.refresh(db_post)
+    except IntegrityError as e:
+        db.rollback()
+        error_msg = str(e).lower()
+        if 'unique' in error_msg and 'slug' in error_msg:
+            raise HTTPException(status_code=400, detail="Slug already exists (database constraint)")
+        raise HTTPException(status_code=500, detail="Database error")
     
     # Trigger rebuild ONLY if published (affects public site)
     if post.published:
@@ -135,8 +143,15 @@ def update_post(id: int, post: pydantic_models.BlogPostCreate, db: Session = Dep
     db_post.published = post.published
     db_post.updated_at = datetime.utcnow().isoformat()
     
-    db.commit()
-    db.refresh(db_post)
+    try:
+        db.commit()
+        db.refresh(db_post)
+    except IntegrityError as e:
+        db.rollback()
+        error_msg = str(e).lower()
+        if 'unique' in error_msg and 'slug' in error_msg:
+            raise HTTPException(status_code=400, detail="Slug already exists (database constraint)")
+        raise HTTPException(status_code=500, detail="Database error")
     
     # Smart trigger: Rebuild if:
     # 1. Currently published (updating live content)

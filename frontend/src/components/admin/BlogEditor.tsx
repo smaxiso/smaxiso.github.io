@@ -6,8 +6,10 @@ import { BlogPost } from '@/types';
 import { getAllPosts, createPost, updatePost, deletePost } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { uploadFile } from '@/lib/cloudinary';
-import { Trash2, Edit, Plus, FileText, Check, X, Eye } from 'lucide-react';
+import { Trash2, Edit, Plus, FileText, Check, X, Eye, AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useCallback } from 'react';
+import debounce from 'lodash.debounce';
 
 export function BlogEditor() {
     const router = useRouter();
@@ -22,6 +24,20 @@ export function BlogEditor() {
     const [saving, setSaving] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'title'>('newest');
+
+    // Slug validation state
+    const [slugValidation, setSlugValidation] = useState<{
+        checking: boolean;
+        isDuplicate: boolean;
+        message: string;
+    }>({
+        checking: false,
+        isDuplicate: false,
+        message: ''
+    });
+
+    // Track if slug was manually edited (to prevent auto-overwrite)
+    const [isSlugManuallyEdited, setIsSlugManuallyEdited] = useState(false);
 
     // Initial State
     const initialPostState: Partial<BlogPost> = {
@@ -107,6 +123,63 @@ export function BlogEditor() {
             localStorage.setItem(draftKey, JSON.stringify(currentPost));
         }
     }, [currentPost, isEditing, originalPost]);
+
+    // Reset manual edit flag when opening new/existing post
+    useEffect(() => {
+        setIsSlugManuallyEdited(false);
+        setSlugValidation({ checking: false, isDuplicate: false, message: '' });
+    }, [currentPost.id]);
+
+    // Debounced slug availability check
+    const checkSlugAvailability = useCallback(
+        debounce((slug: string, currentPostId?: number) => {
+            if (!slug) {
+                setSlugValidation({ checking: false, isDuplicate: false, message: '' });
+                return;
+            }
+
+            setSlugValidation({ checking: true, isDuplicate: false, message: 'Checking...' });
+
+            // Check against local posts array
+            const duplicate = posts.find(p =>
+                p.slug === slug && p.id !== currentPostId
+            );
+
+            if (duplicate) {
+                setSlugValidation({
+                    checking: false,
+                    isDuplicate: true,
+                    message: `Already used by "${duplicate.title}"`
+                });
+            } else {
+                setSlugValidation({
+                    checking: false,
+                    isDuplicate: false,
+                    message: '✓ Available'
+                });
+            }
+        }, 500),
+        [posts]
+    );
+
+    // Title change handler with auto-slug generation
+    const handleTitleChange = (newTitle: string) => {
+        setCurrentPost({ ...currentPost, title: newTitle });
+
+        // Auto-generate slug from title ONLY if user hasn't manually edited it
+        if (!isSlugManuallyEdited) {
+            const autoSlug = generateSlug(newTitle);
+            setCurrentPost(prev => ({ ...prev, title: newTitle, slug: autoSlug }));
+            checkSlugAvailability(autoSlug, currentPost.id);
+        }
+    };
+
+    // Slug change handler with manual tracking
+    const handleSlugChange = (newSlug: string) => {
+        setIsSlugManuallyEdited(true); // Mark as manually edited
+        setCurrentPost({ ...currentPost, slug: newSlug });
+        checkSlugAvailability(newSlug, currentPost.id);
+    };
 
 
     const fetchPosts = async () => {
@@ -306,30 +379,42 @@ export function BlogEditor() {
                             <input
                                 type="text"
                                 value={currentPost.title}
-                                onChange={(e) => {
-                                    const newTitle = e.target.value;
-                                    setCurrentPost(prev => {
-                                        const shouldUpdateSlug = !prev.slug || prev.slug === generateSlug(prev.title || '');
-                                        return {
-                                            ...prev,
-                                            title: newTitle,
-                                            slug: shouldUpdateSlug ? generateSlug(newTitle) : prev.slug
-                                        };
-                                    });
-                                }}
+                                onChange={(e) => handleTitleChange(e.target.value)}
                                 className="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
                                 required
                             />
                         </div>
                         <div>
                             <label className="block text-sm font-medium mb-1">Slug (URL)</label>
-                            <input
-                                type="text"
-                                value={currentPost.slug}
-                                onChange={(e) => setCurrentPost(prev => ({ ...prev, slug: e.target.value }))}
-                                className="w-full p-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    value={currentPost.slug}
+                                    onChange={(e) => handleSlugChange(e.target.value)}
+                                    className={`w-full p-2 rounded-lg border ${slugValidation.isDuplicate
+                                        ? 'border-red-500 focus:ring-red-500'
+                                        : 'border-slate-300 focus:ring-blue-500'
+                                        } focus:ring-2 outline-none pr-10`}
+                                    required
+                                />
+                                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                                    {slugValidation.checking && (
+                                        <div className="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+                                    )}
+                                    {!slugValidation.checking && slugValidation.isDuplicate && (
+                                        <AlertCircle className="h-5 w-5 text-red-500" />
+                                    )}
+                                    {!slugValidation.checking && !slugValidation.isDuplicate && currentPost.slug && (
+                                        <Check className="h-5 w-5 text-green-500" />
+                                    )}
+                                </div>
+                            </div>
+                            {slugValidation.message && (
+                                <p className={`text-sm mt-1 ${slugValidation.isDuplicate ? 'text-red-500' : 'text-green-600'
+                                    }`}>
+                                    {slugValidation.message}
+                                </p>
+                            )}
                         </div>
                     </div>
 
@@ -480,8 +565,8 @@ export function BlogEditor() {
                         </button>
                         <button
                             type="submit"
-                            disabled={!hasChanges && !uploading && !saving}
-                            className={`px-6 py-2 bg-blue-600 text-white rounded-lg transition-all shadow-sm flex items-center gap-2 font-medium ${(!hasChanges || uploading || saving) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-blue-700 hover:shadow-md active:scale-95'}`}
+                            disabled={!hasChanges || uploading || saving || slugValidation.isDuplicate || !currentPost.slug}
+                            className={`px-6 py-2 bg-blue-600 text-white rounded-lg transition-all shadow-sm flex items-center gap-2 font-medium ${(!hasChanges || uploading || saving || slugValidation.isDuplicate || !currentPost.slug) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-blue-700 hover:shadow-md active:scale-95'}`}
                         >
                             {uploading ? (
                                 <><span>Uploading...</span></>
@@ -493,7 +578,7 @@ export function BlogEditor() {
                         </button>
                     </div>
                 </form>
-            </div>
+            </div >
         );
     }
 
