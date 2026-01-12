@@ -151,6 +151,8 @@ Output: `out/` directory (static HTML/CSS/JS)
 
 ### Blog Editor
 - Markdown editor with live preview
+- **Real-time Slug Validation**: Duplicate detection with visual feedback as you type
+- Auto-slug generation from title (with manual override)
 - Cover image upload (Cloudinary)
 - Tag management
 - Published/Draft status toggle
