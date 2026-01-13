@@ -256,7 +256,7 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                     </div>
                 </header>
 
-                <div className="prose prose-sm md:prose-lg prose-slate dark:prose-invert prose-headings:font-bold prose-headings:text-slate-800 dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-li:text-gray-300 dark:prose-strong:text-white prose-a:text-blue-600 dark:prose-a:text-blue-400 hover:prose-a:text-blue-700 dark:hover:prose-a:text-blue-300 max-w-none bg-white/40 dark:bg-neutral-900/30 backdrop-blur-sm p-4 md:p-10 rounded-2xl md:rounded-3xl border border-white/50 dark:border-neutral-800 shadow-sm overflow-x-hidden break-words selection:bg-blue-100 dark:selection:bg-blue-900/30 selection:text-blue-900 dark:selection:text-blue-200">
+                <div className="prose prose-sm md:prose-lg prose-slate dark:prose-invert prose-headings:font-bold prose-headings:text-slate-800 dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-li:text-gray-300 dark:prose-strong:text-white prose-a:text-blue-600 dark:prose-a:text-blue-400 hover:prose-a:text-blue-700 dark:hover:prose-a:text-blue-300 max-w-none bg-white/40 dark:bg-neutral-900/30 backdrop-blur-sm px-4 pb-4 pt-1 md:px-10 md:pb-10 md:pt-1.5 rounded-2xl md:rounded-3xl border border-white/50 dark:border-neutral-800 shadow-sm overflow-x-hidden break-words selection:bg-blue-100 dark:selection:bg-blue-900/30 selection:text-blue-900 dark:selection:text-blue-200">
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
@@ -315,18 +315,24 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                 </div>
 
                 {post.tags && (
-                    <div className="w-full mx-auto mb-12 mt-16 px-1 py-1 sm:px-6 sm:py-6 bg-slate-50/50 dark:bg-neutral-900/30 border border-slate-200/60 dark:border-neutral-800 rounded-3xl text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                        className="w-full mx-auto mb-12 mt-16 px-1 py-1 sm:px-6 sm:py-6 bg-gradient-to-b from-slate-50/50 to-white/50 dark:from-neutral-900/30 dark:to-black/30 border border-slate-200/60 dark:border-neutral-800 rounded-3xl text-center backdrop-blur-sm"
+                    >
                         <span className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-gray-500 mb-4 block">
                             Topics
                         </span>
                         <div className="flex flex-wrap justify-center gap-2">
                             {post.tags.split(',').map(tag => (
-                                <span key={tag} className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-neutral-800 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-slate-200 dark:border-neutral-700 shadow-sm">
+                                <span key={tag} className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-neutral-800 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-slate-200 dark:border-neutral-700 shadow-sm hover:scale-105 hover:border-blue-200 dark:hover:border-blue-800 transition-all duration-300 cursor-default">
                                     #{tag.trim()}
                                 </span>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
                 )}
 
                 <BlogReactions slug={slug} />
