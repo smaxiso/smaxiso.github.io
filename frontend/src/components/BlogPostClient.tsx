@@ -249,18 +249,8 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                         {post.title}
                     </h1>
 
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                        {post.tags && (
-                            <div className="flex flex-wrap justify-start gap-2">
-                                {post.tags.split(',').map(tag => (
-                                    <span key={tag} className="text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1 rounded-full border border-transparent dark:border-blue-800/30">
-                                        #{tag.trim()}
-                                    </span>
-                                ))}
-                            </div>
-                        )}
-
-                        <div className="flex items-center gap-2 self-start sm:self-auto">
+                    <div className="flex items-center justify-end mb-8">
+                        <div className="flex items-center gap-2">
                             <span className="text-sm font-medium text-slate-500 dark:text-gray-400 mr-2 hidden sm:inline">Share:</span>
                             <BlogCardShare slug={slug} title={post.title} />
                         </div>
@@ -324,6 +314,16 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                         {post.content}
                     </ReactMarkdown>
                 </div>
+
+                {post.tags && (
+                    <div className="flex flex-wrap justify-center gap-2 mb-8 mt-12">
+                        {post.tags.split(',').map(tag => (
+                            <span key={tag} className="text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-neutral-800 px-4 py-1.5 rounded-full border border-slate-200 dark:border-neutral-700 hover:border-slate-300 dark:hover:border-neutral-600 transition-colors cursor-default">
+                                #{tag.trim()}
+                            </span>
+                        ))}
+                    </div>
+                )}
 
                 <BlogReactions slug={slug} />
 
