@@ -134,6 +134,19 @@ class BlogPost(BlogPostBase):
     id: int
     created_at: str
     updated_at: Optional[str] = None
+    updated_at: Optional[str] = None
+    model_config = ConfigDict(from_attributes=True)
+
+class BlogReactionBase(BaseModel):
+    slug: str
+    reaction_type: str
+    count: int
+
+class BlogReactionCreate(BlogReactionBase):
+    pass
+
+class BlogReaction(BlogReactionBase):
+    id: int
     model_config = ConfigDict(from_attributes=True)
 
 

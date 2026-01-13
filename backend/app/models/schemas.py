@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, JSON, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, JSON, Boolean, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -126,3 +126,14 @@ class Experience(Base):
     description = Column(Text, nullable=True)
     technologies = Column(JSON, nullable=True)  # List of strings
     order = Column(Integer, default=0)  # For custom ordering (lower = shown first)
+
+class BlogReaction(Base):
+    __tablename__ = "blog_reactions"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    slug = Column(String, index=True) # e.g. "leetcode-vs-production"
+    reaction_type = Column(String)    # e.g. "heart", "rocket", "mindblown"
+    count = Column(Integer, default=0)
+    
+    # Composite unique index to ensure one row per slug+type
+    __table_args__ = (UniqueConstraint('slug', 'reaction_type', name='uix_slug_reaction'),)

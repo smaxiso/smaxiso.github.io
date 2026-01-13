@@ -14,6 +14,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import toast from 'react-hot-toast';
 import BlogCardShare from './BlogCardShare';
+import BlogReactions from './BlogReactions';
+import BlogComments from './BlogComments';
 
 export default function BlogPostClient({ slug, initialPost }: { slug: string; initialPost?: BlogPost }) {
     const router = useRouter();
@@ -323,7 +325,9 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                     </ReactMarkdown>
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-slate-200 dark:border-neutral-800">
+                <BlogReactions slug={slug} />
+
+                <div className="mt-8 pt-8 border-t border-slate-200 dark:border-neutral-800">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                         <div className="text-slate-500 dark:text-gray-500 italic text-center md:text-left">
                             Thanks for reading!
@@ -340,6 +344,8 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                         `}</style>
                     </div>
                 </div>
+
+                <BlogComments />
 
                 {/* Related Posts Section */}
                 {relatedPosts.length > 0 && (

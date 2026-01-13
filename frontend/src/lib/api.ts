@@ -45,7 +45,7 @@ export interface MediaResource {
     usage: string[];
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
 const BACKUP_API_URL = process.env.NEXT_PUBLIC_BACKUP_API_URL;
 
 async function fetchWithFailover(path: string, options?: RequestInit) {
