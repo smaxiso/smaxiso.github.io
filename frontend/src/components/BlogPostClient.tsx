@@ -316,12 +316,17 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                 </div>
 
                 {post.tags && (
-                    <div className="flex flex-wrap justify-center gap-2 mb-8 mt-12">
-                        {post.tags.split(',').map(tag => (
-                            <span key={tag} className="text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-neutral-800 px-4 py-1.5 rounded-full border border-slate-200 dark:border-neutral-700 hover:border-slate-300 dark:hover:border-neutral-600 transition-colors cursor-default">
-                                #{tag.trim()}
-                            </span>
-                        ))}
+                    <div className="max-w-xl mx-auto mb-12 mt-16 px-6 py-6 bg-slate-50/50 dark:bg-neutral-900/30 border border-slate-200/60 dark:border-neutral-800 rounded-3xl text-center">
+                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-gray-500 mb-4 block">
+                            Topics
+                        </span>
+                        <div className="flex flex-wrap justify-center gap-2">
+                            {post.tags.split(',').map(tag => (
+                                <span key={tag} className="text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-neutral-800 px-4 py-1.5 rounded-full border border-slate-200 dark:border-neutral-700 shadow-sm">
+                                    #{tag.trim()}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                 )}
 
