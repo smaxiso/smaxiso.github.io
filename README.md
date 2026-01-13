@@ -28,6 +28,9 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
   - Related posts with intelligent tag matching
   - Multi-channel sharing (native share, WhatsApp, LinkedIn, Twitter)
   - Auto-copy to clipboard on social share
+  - **Social Engagement 🚀**:
+    - **Reactions**: Custom DB-backed emoji reactions (Heart, Rocket, Fire, etc.) with animated interaction.
+    - **Comments**: Giscus (GitHub Discussions) integration for developer-focused community discussions.
   - Local timezone display for all dates
 
 ### SEO & Discoverability

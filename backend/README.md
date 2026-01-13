@@ -145,6 +145,13 @@ Interactive docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 - URL (Firebase Storage or local path)
 - is_active (only one active resume)
 - created_at
+- is_active
+
+#### BlogReaction
+- slug (string, index)
+- reaction_type (string, e.g., "heart")
+- count (integer)
+- unique_constraint(slug, reaction_type)
 
 ### Migrations
 
@@ -255,6 +262,12 @@ if LOCAL_DEV_MODE:
 | POST | `/api/v1/blog` | ✅ | Create post (triggers rebuild if published) |
 | PUT | `/api/v1/blog/{id}` | ✅ | Update post (triggers rebuild if published/unpublishing) |
 | DELETE | `/api/v1/blog/{id}` | ✅ | Delete post + images (triggers rebuild) |
+
+### Reactions
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/v1/reactions/{slug}` | ❌ | Get reaction counts for a post |
+| POST | `/api/v1/reactions/{slug}/{type}` | ❌ | Increment reaction count (e.g. "heart") |
 
 ### Guestbook
 | Method | Endpoint | Auth | Description |

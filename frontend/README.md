@@ -196,6 +196,8 @@ Uses Firebase Authentication with Google Sign-in.
 - **SkillsSection**: Tech stack showcase
 - **ProjectsSection**: Portfolio grid
 - **BlogSection**: Tech blog listing with search/filter
+- **BlogReactions**: Animated emoji reaction bar with DB persistence
+- **BlogComments**: Giscus integration for comments
 - **GuestbookSection**: Public guestbook with signatures
 - **ContactSection**: Contact form
 - **ChatWidget**: AI Assistant floating widget
