@@ -249,7 +249,7 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                         {post.title}
                     </h1>
 
-                    <div className="flex items-center justify-end mb-8">
+                    <div className="flex items-center justify-center sm:justify-end mb-8">
                         <div className="flex items-center gap-2">
                             <BlogCardShare slug={slug} title={post.title} />
                         </div>
