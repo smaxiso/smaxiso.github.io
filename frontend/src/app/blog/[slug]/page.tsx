@@ -39,7 +39,7 @@ export async function generateMetadata({
                 title,
                 description,
                 url,
-                siteName: 'Sumit Kumar - Portfolio',
+                siteName: 'Sumit Kumar',
                 images: [
                     {
                         url: image,
