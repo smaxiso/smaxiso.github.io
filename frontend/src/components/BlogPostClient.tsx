@@ -322,7 +322,7 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                         </span>
                         <div className="flex flex-wrap justify-center gap-2">
                             {post.tags.split(',').map(tag => (
-                                <span key={tag} className="text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-neutral-800 px-4 py-1.5 rounded-full border border-slate-200 dark:border-neutral-700 shadow-sm">
+                                <span key={tag} className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-neutral-800 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full border border-slate-200 dark:border-neutral-700 shadow-sm">
                                     #{tag.trim()}
                                 </span>
                             ))}
