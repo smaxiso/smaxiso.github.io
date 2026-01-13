@@ -316,7 +316,7 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                 </div>
 
                 {post.tags && (
-                    <div className="w-full mx-auto mb-12 mt-16 px-6 py-6 bg-slate-50/50 dark:bg-neutral-900/30 border border-slate-200/60 dark:border-neutral-800 rounded-3xl text-center">
+                    <div className="w-full mx-auto mb-12 mt-16 px-4 py-4 sm:px-6 sm:py-6 bg-slate-50/50 dark:bg-neutral-900/30 border border-slate-200/60 dark:border-neutral-800 rounded-3xl text-center">
                         <span className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-gray-500 mb-4 block">
                             Topics
                         </span>
