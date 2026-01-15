@@ -9,13 +9,63 @@ import remarkGfm from 'remark-gfm';
 import { getPostBySlug, getPublishedPosts } from '@/lib/api';
 import { BlogPost } from '@/types';
 import { formatInTimeZone } from 'date-fns-tz';
-import { ArrowLeft, Calendar, Clock, Tag, History as HistoryIcon, Share2 } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Tag, History as HistoryIcon, Share2, Copy, Check } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import toast from 'react-hot-toast';
 import BlogCardShare from './BlogCardShare';
 import BlogReactions from './BlogReactions';
 import BlogComments from './BlogComments';
+
+// CodeBlock component with copy state management
+function CodeBlock({ code, language }: { code: string; language?: string }) {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(code);
+        toast.success('Code copied to clipboard!');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    return (
+        <div className="rounded-xl overflow-hidden my-6 shadow-lg border border-slate-200/50 dark:border-neutral-800">
+            <div className="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-white/10">
+                <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                </div>
+                <span className="ml-auto text-xs text-slate-400 font-mono opacity-50">{language}</span>
+                <button
+                    onClick={handleCopy}
+                    className={`ml-2 p-1.5 rounded transition-all ${copied
+                            ? 'text-green-400 bg-green-500/10'
+                            : 'text-slate-400 hover:text-white hover:bg-white/10'
+                        }`}
+                    title={copied ? 'Copied!' : 'Copy code'}
+                    aria-label="Copy code to clipboard"
+                >
+                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                </button>
+            </div>
+            <SyntaxHighlighter
+                style={vscDarkPlus}
+                language={language}
+                PreTag="div"
+                customStyle={{
+                    margin: 0,
+                    borderRadius: '0 0 0.75rem 0.75rem',
+                    padding: '1.5rem',
+                    background: '#1e1e1e',
+                }}
+            >
+                {code}
+            </SyntaxHighlighter>
+        </div>
+    );
+}
+
 
 export default function BlogPostClient({ slug, initialPost }: { slug: string; initialPost?: BlogPost }) {
     const router = useRouter();
@@ -270,36 +320,17 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                             code: ({ className, children, ...props }: any) => {
                                 const match = /language-(\w+)/.exec(className || '');
                                 const isInline = !match;
-                                return !isInline ? (
-                                    <div className="rounded-xl overflow-hidden my-6 shadow-lg border border-slate-200/50 dark:border-neutral-800">
-                                        <div className="bg-[#1e1e1e] px-4 py-2 flex items-center gap-2 border-b border-white/10">
-                                            <div className="flex gap-1.5">
-                                                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-                                                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                                                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-                                            </div>
-                                            <span className="ml-auto text-xs text-slate-400 font-mono opacity-50">{match?.[1]}</span>
-                                        </div>
-                                        <SyntaxHighlighter
-                                            style={vscDarkPlus}
-                                            language={match?.[1]}
-                                            PreTag="div"
-                                            customStyle={{
-                                                margin: 0,
-                                                borderRadius: '0 0 0.75rem 0.75rem',
-                                                padding: '1.5rem',
-                                                background: '#1e1e1e', // Match VS Code Dark
-                                            }}
-                                            {...props}
-                                        >
-                                            {String(children).replace(/\n$/, '')}
-                                        </SyntaxHighlighter>
-                                    </div>
-                                ) : (
-                                    <code className={`${className} bg-slate-100 dark:bg-neutral-800 text-slate-800 dark:text-gray-200 px-1.5 py-0.5 rounded-md font-mono text-[0.9em] border border-slate-200/50 dark:border-neutral-700 break-words`} {...props}>
-                                        {children}
-                                    </code>
-                                );
+                                const codeContent = String(children).replace(/\n$/, '');
+
+                                if (isInline) {
+                                    return (
+                                        <code className={`${className} bg-slate-100 dark:bg-neutral-800 text-slate-800 dark:text-gray-200 px-1.5 py-0.5 rounded-md font-mono text-[0.9em] border border-slate-200/50 dark:border-neutral-700 break-words`} {...props}>
+                                            {children}
+                                        </code>
+                                    );
+                                }
+
+                                return <CodeBlock code={codeContent} language={match?.[1]} />;
                             },
                             img: ({ node, ...props }) => <img {...props} className="rounded-xl shadow-lg my-8 w-full h-auto max-w-full object-cover border border-white/20 dark:border-neutral-800" />,
                             hr: ({ node, ...props }) => <hr {...props} className="my-12 border-slate-200 dark:border-neutral-800 border-t-2 opacity-50" />,
