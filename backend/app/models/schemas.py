@@ -79,6 +79,11 @@ class SiteConfig(Base):
     # Work Status
     show_work_badge = Column(Boolean, default=True)
     
+    # Education
+    education_degree = Column(String, nullable=True)
+    education_institution = Column(String, nullable=True)
+    education_years = Column(String, nullable=True)
+    
     # Footer
     footer_text = Column(String)
 

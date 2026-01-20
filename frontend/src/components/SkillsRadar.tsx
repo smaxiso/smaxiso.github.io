@@ -13,6 +13,15 @@ export default function SkillsRadar() {
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [animationProgress, setAnimationProgress] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect mobile screen size
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         async function fetchSkills() {
@@ -132,7 +141,7 @@ export default function SkillsRadar() {
                             <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl opacity-10 blur-xl animate-pulse" />
 
                             <div className="relative">
-                                <ResponsiveContainer width="100%" height={500}>
+                                <ResponsiveContainer width="100%" height={isMobile ? 350 : 500}>
                                     <RadarChart data={animatedData}>
                                         <defs>
                                             <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -149,7 +158,7 @@ export default function SkillsRadar() {
                                         />
                                         <PolarAngleAxis
                                             dataKey="category"
-                                            tick={{ fill: "#475569", fontSize: 13, fontWeight: 600 }}
+                                            tick={{ fill: "#475569", fontSize: isMobile ? 10 : 13, fontWeight: 600 }}
                                             className="dark:fill-blue-200"
                                         />
                                         <PolarRadiusAxis

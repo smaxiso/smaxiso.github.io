@@ -81,6 +81,9 @@ class SiteConfigBase(BaseModel):
     experience_months: int = 0
     projects_completed: int
     contact_email: str
+    education_degree: Optional[str] = None
+    education_institution: Optional[str] = None
+    education_years: Optional[str] = None
     footer_text: str
 
 class SiteConfigUpdate(SiteConfigBase):

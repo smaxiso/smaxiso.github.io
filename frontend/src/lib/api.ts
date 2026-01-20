@@ -21,6 +21,9 @@ export interface SiteConfig {
     projects_completed: number;
     contact_email: string;
     show_work_badge: boolean;
+    education_degree: string;
+    education_institution: string;
+    education_years: string;
     footer_text: string;
 }
 
