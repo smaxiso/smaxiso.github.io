@@ -182,7 +182,7 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                                                         className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 text-white rounded-xl font-medium shadow-lg shadow-blue-600/20 hover:bg-blue-700 hover:shadow-xl hover:-translate-y-0.5 transition-all"
                                                     >
                                                         <ExternalLink size={18} />
-                                                        Live Demo
+                                                        Visit Site
                                                     </a>
                                                 )}
                                                 {project.github_url && (

@@ -1,15 +1,108 @@
 'use client'
-import { motion } from "framer-motion"
+import { motion, useAnimation } from "framer-motion"
 import Image from "next/image"
 import { useSiteConfig } from "@/context/ProfileContext"
 import { cn } from "@/lib/utils"
+import { useState, useEffect } from "react"
+import { HeroBackground } from "./HeroBackground"
+
+function Typewriter({ text, speed = 50 }: { text: string; speed?: number }) {
+    const [displayText, setDisplayText] = useState('');
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    useEffect(() => {
+        if (currentIndex < text.length) {
+            const timeout = setTimeout(() => {
+                setDisplayText(prev => prev + text[currentIndex]);
+                setCurrentIndex(prev => prev + 1);
+            }, speed);
+            return () => clearTimeout(timeout);
+        }
+    }, [currentIndex, text, speed]);
+
+    return (
+        <span>
+            {displayText}
+            <span className="animate-pulse">|</span>
+        </span>
+    );
+}
+
+function HackerGreeting({ text }: { text: string }) {
+    const [displayText, setDisplayText] = useState('');
+    const [showCursor, setShowCursor] = useState(true);
+    const [isTypingDone, setIsTypingDone] = useState(false);
+
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+        let timeout: NodeJS.Timeout;
+
+        const startTyping = () => {
+            let currentIndex = 0;
+            setIsTypingDone(false);
+            setShowCursor(true);
+            setDisplayText('');
+
+            interval = setInterval(() => {
+                if (currentIndex <= text.length) {
+                    setDisplayText(text.slice(0, currentIndex));
+                    currentIndex++;
+                } else {
+                    clearInterval(interval);
+                    setIsTypingDone(true);
+                    setShowCursor(false);
+
+                    // Wait 3 seconds then restart
+                    timeout = setTimeout(() => {
+                        startTyping();
+                    }, 3000);
+                }
+            }, 200);
+        };
+
+        startTyping();
+
+        return () => {
+            clearInterval(interval);
+            clearTimeout(timeout);
+        };
+    }, [text]);
+
+    return (
+        <span className="font-mono inline-flex items-center gap-2">
+            <span>{displayText}</span>
+            {showCursor && <span className="animate-pulse">_</span>}
+            {isTypingDone && (
+                <motion.span
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
+                    transition={{
+                        duration: 2.5,
+                        ease: "easeInOut",
+                        repeat: Infinity,
+                        repeatDelay: 1
+                    }}
+                    style={{ originX: 0.7, originY: 0.7 }}
+                    className="inline-block"
+                >
+                    👋
+                </motion.span>
+            )}
+        </span>
+    );
+}
 
 export function Hero() {
     const siteConfig = useSiteConfig();
 
+    // Extract text part from greeting (remove emoji if present to avoid double emoji)
+    // Assuming greeting is "Hi There! 👋" -> we typed "Hi There!" and then animate the wave.
+    const textToType = siteConfig.home.greeting.replace(/\s*👋.*/, '');
+
     return (
         <section className="min-h-screen flex items-center justify-center pt-16 pb-20 md:pb-0 relative overflow-hidden bg-white dark:bg-black transition-colors duration-300">
             {/* Background Elements - Professional Muted Tones */}
+            <HeroBackground />
             <div className="absolute inset-0 -z-10">
                 <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
                 <div className="absolute top-20 right-10 w-72 h-72 bg-indigo-400/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
@@ -30,22 +123,20 @@ export function Hero() {
                             transition={{ delay: 0.2 }}
                             className="inline-block"
                         >
-                            <span className="px-4 py-2 rounded-full glass-card dark:!bg-black dark:text-white dark:!border-white/15 dark:!shadow-[0_0_15px_rgba(255,255,255,0.07)] text-blue-700 text-sm font-bold tracking-wider uppercase shadow-sm border border-blue-100/50">
-                                {siteConfig.home.greeting}
+                            <span className="px-5 py-2 rounded-full glass-card dark:!bg-black dark:text-white dark:!border-white/15 dark:!shadow-[0_0_15px_rgba(255,255,255,0.07)] text-blue-700 text-sm font-bold tracking-wider uppercase shadow-sm border border-blue-100/50 inline-flex items-center">
+                                <HackerGreeting text=" HI THERE" /> <span className="text-slate-400 dark:text-slate-500 ml-1">I AM</span>
                             </span>
                         </motion.div>
 
-                        <div className="space-y-2">
-                            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
-                                {siteConfig.home.name}
-                            </h1>
-                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 pb-2">
-                                {siteConfig.home.title}
-                            </h2>
+                        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.2] pb-1">
+                            {siteConfig.home.name}
+                        </h1>
+                        <div className="text-2xl sm:text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 min-h-[1.5em] flex items-center py-1">
+                            <Typewriter text={siteConfig.home.title} speed={50} />
                         </div>
                     </div>
 
-                    <p className="text-lg md:text-xl text-slate-600 dark:text-gray-400 max-w-[600px] mx-auto md:mx-0 leading-relaxed font-normal">
+                    <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-gray-400 max-w-[600px] mx-auto md:mx-0 leading-relaxed font-normal break-words px-2 md:px-0">
                         {siteConfig.home.subtitle}
                     </p>
 
