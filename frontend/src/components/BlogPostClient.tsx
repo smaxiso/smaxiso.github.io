@@ -40,8 +40,8 @@ function CodeBlock({ code, language }: { code: string; language?: string }) {
                 <button
                     onClick={handleCopy}
                     className={`ml-2 p-1.5 rounded transition-all ${copied
-                            ? 'text-green-400 bg-green-500/10'
-                            : 'text-slate-400 hover:text-white hover:bg-white/10'
+                        ? 'text-green-400 bg-green-500/10'
+                        : 'text-slate-400 hover:text-white hover:bg-white/10'
                         }`}
                     title={copied ? 'Copied!' : 'Copy code'}
                     aria-label="Copy code to clipboard"
@@ -219,7 +219,7 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                 </div>
             )}
 
-            <article className="container mx-auto max-w-3xl px-4">
+            <article className="container mx-auto max-w-3xl lg:max-w-4xl xl:max-w-5xl px-4 transition-all duration-300">
                 {/* JSON-LD Structured Data for SEO */}
                 <script
                     type="application/ld+json"
@@ -306,7 +306,7 @@ export default function BlogPostClient({ slug, initialPost }: { slug: string; in
                     </div>
                 </header>
 
-                <div className="prose prose-sm md:prose-lg prose-slate dark:prose-invert prose-headings:font-bold prose-headings:text-slate-800 dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-li:text-gray-300 dark:prose-strong:text-white prose-a:text-blue-600 dark:prose-a:text-blue-400 hover:prose-a:text-blue-700 dark:hover:prose-a:text-blue-300 max-w-none bg-white/40 dark:bg-neutral-900/30 backdrop-blur-sm px-4 pb-4 pt-px md:px-10 md:pb-10 md:pt-0.5 rounded-2xl md:rounded-3xl border border-white/50 dark:border-neutral-800 shadow-sm overflow-x-hidden break-words selection:bg-blue-100 dark:selection:bg-blue-900/30 selection:text-blue-900 dark:selection:text-blue-200">
+                <div className="prose prose-sm md:prose-lg prose-slate dark:prose-invert prose-headings:font-bold prose-headings:text-slate-800 dark:prose-headings:text-white dark:prose-p:text-gray-300 dark:prose-li:text-gray-300 dark:prose-strong:text-white prose-a:text-blue-600 dark:prose-a:text-blue-400 hover:prose-a:text-blue-700 dark:hover:prose-a:text-blue-300 max-w-none bg-white/40 dark:bg-neutral-900/30 backdrop-blur-sm p-4 md:p-10 rounded-2xl md:rounded-3xl border border-white/50 dark:border-neutral-800 shadow-sm overflow-x-hidden break-words selection:bg-blue-100 dark:selection:bg-blue-900/30 selection:text-blue-900 dark:selection:text-blue-200">
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
