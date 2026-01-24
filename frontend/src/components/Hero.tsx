@@ -11,6 +11,11 @@ function Typewriter({ text, speed = 50 }: { text: string; speed?: number }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
+        setDisplayText('');
+        setCurrentIndex(0);
+    }, [text]);
+
+    useEffect(() => {
         if (currentIndex < text.length) {
             const timeout = setTimeout(() => {
                 setDisplayText(prev => prev + text[currentIndex]);
@@ -109,7 +114,7 @@ export function Hero() {
                 <div className="absolute -bottom-8 left-20 w-72 h-72 bg-slate-300/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
             </div>
 
-            <div className="container px-4 md:px-6 flex flex-col md:flex-row items-center gap-12 md:gap-20">
+            <div className="container max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-12 md:gap-20">
                 <motion.div
                     className="flex-1 space-y-8 text-center md:text-left z-10"
                     initial={{ opacity: 0, x: -50 }}
