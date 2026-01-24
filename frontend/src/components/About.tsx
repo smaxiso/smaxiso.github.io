@@ -8,7 +8,7 @@ export function About() {
     const siteConfig = useSiteConfig();
     return (
         <section id="about" className="py-20 bg-white dark:bg-black transition-colors duration-300">
-            <div className="container px-4 md:px-6">
+            <div className="container max-w-7xl mx-auto px-4 md:px-6">
                 <div className="grid gap-12 lg:grid-cols-2 items-center">
                     {/* Desktop Image - Hidden on Mobile */}
                     <motion.div
