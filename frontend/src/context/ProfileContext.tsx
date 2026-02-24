@@ -96,9 +96,12 @@ export const useSiteConfig = () => {
             stats: [
                 {
                     label: "Years Experience",
-                    number: config.experience_months > 0
-                        ? +(config.years_experience + (config.experience_months / 12)).toFixed(1)
-                        : config.years_experience
+                    number: (() => {
+                        const start = new Date(2021, 6); // July 2021 (month is 0-indexed)
+                        const now = new Date();
+                        const months = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+                        return Math.floor(months / 6) * 0.5; // rounds to nearest 0.5
+                    })()
                 },
                 { label: "Projects Completed", number: config.projects_completed }
             ]
