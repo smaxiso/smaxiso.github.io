@@ -21,6 +21,12 @@ export default function AnimatedCounter({
     const isInView = useInView(ref, { once: true });
     const hasAnimated = useRef(false);
 
+    // Reset so it re-animates when the real API value arrives (e.g. after fallback load)
+    useEffect(() => {
+        hasAnimated.current = false;
+        setCount(0);
+    }, [end]);
+
     useEffect(() => {
         if (!isInView || hasAnimated.current) return;
 
