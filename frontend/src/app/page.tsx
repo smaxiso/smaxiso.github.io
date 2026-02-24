@@ -10,6 +10,9 @@ import { getExperiences, getSkills, getProjects } from "@/lib/api";
 // Revalidate every hour
 export const revalidate = 3600;
 
+import { LeadershipImpact } from "@/components/LeadershipImpact";
+import { ArchitectureShowcase } from "@/components/ArchitectureShowcase";
+
 export default async function Home() {
   const experiencesData = getExperiences();
   const skillsData = getSkills();
@@ -40,6 +43,8 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col font-[family-name:var(--font-inter)]">
       <Hero />
       <About />
+      <LeadershipImpact />
+      <ArchitectureShowcase />
       <EducationSection />
       <ExperienceTimeline initialData={experiences} />
       <SkillsSection initialData={skills} />

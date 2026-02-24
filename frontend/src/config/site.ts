@@ -11,7 +11,7 @@ export const siteConfig = {
         greeting: "Hi there! 👋",
         name: "Sumit Kumar",
         title: "Data Engineer (GenAI/ML)",
-        subtitle: "Passionate about building scalable data pipelines, real-time analytics systems, and exploring machine learning solutions for cybersecurity and financial wellness domains.",
+        subtitle: "Building large-scale data platforms, real-time pipelines, and AI-driven analytics systems across fintech and retail domains using AWS, Kafka, and Spark ecosystems.",
         profileImage: "https://res.cloudinary.com/dehpzaqrd/image/upload/v1766744888/ja0wzypaoovwigm0qzfw.jpg",
         socialLinks: [
             {
@@ -58,8 +58,8 @@ export const siteConfig = {
     },
     show_work_badge: true,  // Work badge visible by default
     about: {
-        title: "Data Engineer (GenAI/ML)",
-        description: "I'm Sumit Kumar, a data-driven problem solver with experience in building large-scale ETL systems, developing real-time data pipelines, and working with high-impact data products across FinTech and cybersecurity domains.",
+        title: "Data Engineering Lead",
+        description: "Data engineering lead focused on building scalable data platforms, real-time pipelines, and AI-driven analytics systems. Experienced in designing robust data solutions across fintech and retail domains. Strong focus on end-to-end ownership — from data ingestion to analytics enablement.",
         image: "https://res.cloudinary.com/dehpzaqrd/image/upload/v1766728626/smaxiso_portfolio/about/yyjt7kw7dyo38ca3qm2u.jpg",
         stats: [
             { label: "Years Experience", number: 4 },
