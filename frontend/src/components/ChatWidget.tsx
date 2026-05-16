@@ -56,9 +56,12 @@ export default function ChatWidget() {
         setIsLoading(true);
 
         try {
-            // Fix for Double Path Issue: Check if API_URL already has /api/v1
-            const baseUrl = API_URL.endsWith('/api/v1') ? API_URL : `${API_URL}/api/v1`;
-            const response = await fetch(`${baseUrl}/chat`, {
+            // Robust URL construction
+            const cleanBaseUrl = API_URL.replace(/\/+$/, ""); // Remove trailing slashes
+            const apiPath = cleanBaseUrl.endsWith('/api/v1') ? "" : "/api/v1";
+            const fullUrl = `${cleanBaseUrl}${apiPath}/chat`;
+            
+            const response = await fetch(fullUrl, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
