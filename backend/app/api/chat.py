@@ -9,16 +9,10 @@ from dotenv import load_dotenv
 
 router = APIRouter()
 
-# Load env variables explicitly if needed, typically main.py does this
-# but for safety in this module:
-API_KEY = os.getenv("GEMINI_API_KEY")
-PINECONE_KEY = os.getenv("PINECONE_API_KEY")
+# Load environment variables
+load_dotenv()
+
 INDEX_NAME = "portfolio-index"
-
-if API_KEY:
-    genai.configure(api_key=API_KEY)
-
-pc = Pinecone(api_key=PINECONE_KEY) if PINECONE_KEY else None
 
 class Message(BaseModel):
     role: str
@@ -29,104 +23,124 @@ class ChatRequest(BaseModel):
     history: list[Message] = []
 
 def get_embedding(text: str):
+    """Generates a 768-dimensional embedding using Gemini."""
     try:
-        # 'retrieval_query' optimizes for query side
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            print("❌ GEMINI_API_KEY is missing")
+            return None
+            
+        genai.configure(api_key=api_key)
+        
         result = genai.embed_content(
             model="models/text-embedding-004",
             content=text,
             task_type="retrieval_query"
         )
-        return result['embedding']
+        embedding = result.get('embedding')
+        if embedding:
+            print(f"✅ Generated embedding. Dimension: {len(embedding)}")
+        return embedding
     except Exception as e:
-        print(f"Embedding error: {e}")
+        print(f"❌ Embedding error: {e}")
         return None
 
 def generate_stream(prompt: str):
-    model = genai.GenerativeModel('gemini-flash-latest')
-    response = model.generate_content(prompt, stream=True)
-    for chunk in response:
-        if chunk.text:
-            yield chunk.text
+    """Streams the response from Gemini."""
+    try:
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            yield "Error: Gemini API key not configured."
+            return
 
-# In-memory rate limiter: {ip: [timestamp1, timestamp2]}
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-flash-latest')
+        response = model.generate_content(prompt, stream=True)
+        for chunk in response:
+            if chunk.text:
+                yield chunk.text
+    except Exception as e:
+        print(f"❌ Stream generation error: {e}")
+        yield f"Sorry, I encountered an error during generation: {str(e)}"
+
+# In-memory rate limiter
 RATE_LIMITS = {}
-RATE_LIMIT_DURATION = 60 # seconds
-RATE_LIMIT_MAX_REQUESTS = 10 
+RATE_LIMIT_DURATION = 60 
+RATE_LIMIT_MAX_REQUESTS = 15 
 
 def check_rate_limit(request: Request):
-    client_ip = request.client.host
+    client_ip = request.client.host if request.client else "unknown"
     now = __import__("time").time()
     
-    # Initialize info
     if client_ip not in RATE_LIMITS:
         RATE_LIMITS[client_ip] = []
     
-    # Clean up old timestamps
     RATE_LIMITS[client_ip] = [t for t in RATE_LIMITS[client_ip] if now - t < RATE_LIMIT_DURATION]
     
-    # Check limit
     if len(RATE_LIMITS[client_ip]) >= RATE_LIMIT_MAX_REQUESTS:
-        raise HTTPException(status_code=429, detail="Rate limit exceeded. Try again later.")
+        raise HTTPException(status_code=429, detail="Rate limit exceeded.")
     
-    # Record request
     RATE_LIMITS[client_ip].append(now)
 
 @router.post("/chat")
 async def chat_endpoint(request: ChatRequest, req: Request):
     try:
-        # 0. Check Rate Limit
+        # 1. Rate Limit
         check_rate_limit(req)
 
-        if not API_KEY or not PINECONE_KEY:
-            raise HTTPException(status_code=500, detail="AI Services not configured")
-
         user_query = request.message
+        context_str = ""
         
-        # 1. Embed Query
-        query_vector = get_embedding(user_query)
-        if not query_vector:
-            raise HTTPException(status_code=500, detail="Failed to embed query")
+        # 2. Attempt Context Retrieval (RAG)
+        pinecone_key = os.getenv("PINECONE_API_KEY")
+        if pinecone_key:
+            try:
+                pc = Pinecone(api_key=pinecone_key)
+                query_vector = get_embedding(user_query)
+                
+                if query_vector:
+                    index = pc.Index(INDEX_NAME)
+                    results = index.query(
+                        vector=query_vector,
+                        top_k=4,
+                        include_metadata=True
+                    )
+                    
+                    context_parts = []
+                    for match in results.matches:
+                        if match.score > 0.30: # Inclusive threshold
+                            meta = match.metadata
+                            text = meta.get("text", "")
+                            context_parts.append(f"---\n{text}\n---")
+                    
+                    context_str = "\n".join(context_parts)
+                    if context_str:
+                        print(f"🧠 Retrieved {len(context_parts)} context chunks from Pinecone")
+                    else:
+                        print("ℹ️ No relevant context found in Pinecone for this query")
+            except Exception as pine_err:
+                print(f"⚠️ Pinecone error (continuing without context): {pine_err}")
+        else:
+            print("⚠️ PINECONE_API_KEY missing - falling back to base LLM knowledge")
 
-        # 2. Retrieve Context
-        index = pc.Index(INDEX_NAME)
-        results = index.query(
-            vector=query_vector,
-            top_k=4,
-            include_metadata=True
-        )
-
-        # 3. Construct Context String & Check Relevance
-        context_parts = []
-        
-        for match in results.matches:
-            if match.score > 0.35: # Lowered threshold for better recall
-                meta = match.metadata
-                text = meta.get("text", "")
-                context_parts.append(f"---\n{text}\n---")
-        
-        context_str = "\n".join(context_parts)
-
-        # 4. Construct History String
+        # 3. Construct History String
         history_str = ""
         if request.history:
-            # Limit history to lookback of last 6 messages to save context window
             recent_history = request.history[-6:] 
             history_str = "\n".join([f"{msg.role.upper()}: {msg.content}" for msg in recent_history])
         
-        # 5. System Prompt
+        # 4. System Prompt
         system_prompt = f"""
         You are 'AI Sumit', a virtual assistant for Sumit Kumar's portfolio.
-        Your goal is to answer questions about Sumit's skills, projects, experience, and background based on the provided context.
+        Your goal is to answer questions about Sumit's skills, projects, and background.
         
         Rules:
-        - If the user asks about something NOT in the context (like "Who is Messi?" or "Write me code"), politely refuse and say you can only discuss Sumit's work.
-        - If the answer is in the context, answer clearly and professionally.
-        - Be concise. Keep answers under 4-5 sentences unless asked for details.
-        - Use a friendly, professional tone.
-        - Use Markdown for emphasis (bold, lists) where appropriate.
+        - If the user asks something irrelevant, politely steer back to Sumit's work.
+        - Use the context below if helpful. If no context is provided, use your general knowledge to answer professionally.
+        - Be concise and friendly. Use Markdown.
         
-        Context:
-        {context_str}
+        Context from Sumit's Knowledge Base:
+        {context_str if context_str else "No specific context found. Answer based on general knowledge."}
 
         Conversation History:
         {history_str}
@@ -136,8 +150,11 @@ async def chat_endpoint(request: ChatRequest, req: Request):
         Answer:
         """
 
-        # 6. Generate Response (Streaming)
         return StreamingResponse(generate_stream(system_prompt), media_type="text/plain")
+
     except Exception as e:
-        print(f"Chat error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        print(f"🔥 Critical Chat Error: {e}")
+        # Final fallback - still return a stream so the UI doesn't break
+        def error_fallback():
+            yield "I'm having a little trouble connecting to my brain right now, but I'll be back soon! Please try again in a moment."
+        return StreamingResponse(error_fallback(), media_type="text/plain")
