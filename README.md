@@ -5,12 +5,12 @@ A full-stack portfolio website with a powerful admin dashboard for content manag
 [![Live Site](https://img.shields.io/badge/Live-smaxiso.web.app-blue)](https://smaxiso.web.app)
 [![Admin Portal](https://img.shields.io/badge/Admin-Portal-green)](https://smaxiso.web.app/admin)
 
-## 🌐 Live URLs
+## 🌐 Live Infrastructure
 
 - **Portfolio**: [https://smaxiso.web.app](https://smaxiso.web.app)
 - **Admin Dashboard**: [https://smaxiso.web.app/admin](https://smaxiso.web.app/admin)
-- **Backend API (Primary)**: [https://smaxiso-github-io.vercel.app/api/v1](https://smaxiso-github-io.vercel.app/api/v1)
-- **Backend API (Backup)**: [https://smaxiso-portfolio-backend.onrender.com/api/v1](https://smaxiso-portfolio-backend.onrender.com/api/v1)
+- **Primary Backend (Vercel)**: [API Endpoint](https://smaxiso-github-io.vercel.app/api/v1) | [Interactive Swagger Docs](https://smaxiso-github-io.vercel.app/docs)
+- **Backup Backend (Render)**: [API Endpoint](https://smaxiso-portfolio-backend.onrender.com/api/v1) | [Interactive ReDoc](https://smaxiso-portfolio-backend.onrender.com/redoc)
 
 ## ✨ Features
 
