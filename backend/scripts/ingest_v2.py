@@ -16,17 +16,20 @@ from scripts.ingestors.github import ingest_github
 # Load Env
 load_dotenv()
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
-INDEX_NAME = "portfolio-index" # Make sure this matches your existing index name
+INDEX_NAME = "portfolio-index" # Synchronized with chat.py
 
-if not GEMINI_API_KEY or not PINECONE_API_KEY:
-    print("Error: Missing API Keys in .env")
-    sys.exit(1)
+def get_services():
+    """Lazy configuration for production safety"""
+    gemini_key = os.getenv("GEMINI_API_KEY")
+    pinecone_key = os.getenv("PINECONE_API_KEY")
+    
+    if not gemini_key or not pinecone_key:
+        print("❌ Error: Missing API Keys in environment")
+        return None, None
 
-# Configure Services
-genai.configure(api_key=GEMINI_API_KEY)
-pc = Pinecone(api_key=PINECONE_API_KEY)
+    genai.configure(api_key=gemini_key)
+    pc = Pinecone(api_key=pinecone_key)
+    return genai, pc
 
 def get_embedding(text):
     try:
@@ -43,6 +46,12 @@ def get_embedding(text):
 def main():
     print("🚀 Starting Knowledge Base Ingestion...")
     
+    # Initialize services
+    genai_client, pc = get_services()
+    if not genai_client or not pc:
+        print("❌ Ingestion aborted due to missing services")
+        return
+
     all_chunks = []
     
     # 1. Resume

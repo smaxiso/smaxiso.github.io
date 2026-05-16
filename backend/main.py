@@ -48,19 +48,25 @@ schemas.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 # Enable CORS
+# Enable CORS - Broad for debugging, restrictive for prod
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://smaxiso.web.app",
-        "https://smaxiso.firebaseapp.com",
-        "https://smaxiso.github.io"
-    ],
+    allow_origins=["*"], # Temporarily broad to debug the CORS/500 issue
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Global error handler to ensure CORS headers are sent even on crashes
+@app.exception_handler(Exception)
+async def global_exception_handler(request, exc):
+    from fastapi.responses import JSONResponse
+    print(f"🔥 Global Crash: {exc}")
+    return JSONResponse(
+        status_code=500,
+        content={"message": "Internal Server Error", "detail": str(exc)},
+        headers={"Access-Control-Allow-Origin": "*"}
+    )
 
 # Include routers - ORDER MATTERS!
 # Specific routes must come before catch-all routes

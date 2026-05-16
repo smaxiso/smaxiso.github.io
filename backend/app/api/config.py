@@ -12,8 +12,17 @@ router = APIRouter()
 def get_site_config(db: Session = Depends(get_db)):
     config = db.query(schemas.SiteConfig).filter(schemas.SiteConfig.id == 1).first()
     if not config:
-        # Return default structure/errors or seed on fly (preferred: seed script handles this)
-        raise HTTPException(status_code=404, detail="Config not initialized")
+        # Auto-seed a basic config if it's missing
+        new_config = schemas.SiteConfig(
+            id=1,
+            name="Sumit Kumar",
+            title="Full Stack Developer & AI Engineer",
+            subtitle="Building the future of software with AI"
+        )
+        db.add(new_config)
+        db.commit()
+        db.refresh(new_config)
+        return new_config
     return config
 
 @router.put("/config", response_model=pydantic_models.SiteConfig)
