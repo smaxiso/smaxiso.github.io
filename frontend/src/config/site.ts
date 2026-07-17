@@ -1,7 +1,7 @@
 export const siteConfig = {
     site: {
         title: "Sumit Kumar - Data Engineer (GenAI/ML) | Portfolio",
-        description: "Experienced Data Engineer & Machine Learning specialist with 4+ years in FinTech & Cybersecurity.",
+        description: "Experienced Data Engineer & Gen AI Specialist driving data engineering excellence, Agentic AI, and GenAI systems across FinTech, Cybersecurity, and Retail.",
         author: "Sumit Kumar",
         url: "https://smaxiso.github.io",
         image: "/og-image.png",
@@ -11,7 +11,7 @@ export const siteConfig = {
         greeting: "Hi there! 👋",
         name: "Sumit Kumar",
         title: "Data Engineer (GenAI/ML)",
-        subtitle: "Building large-scale data platforms, real-time pipelines, and AI-driven analytics systems across fintech and retail domains using AWS, Kafka, and Spark ecosystems.",
+        subtitle: "Architecting enterprise data platforms, robust ingestion engines, and autonomous Agentic AI pipelines across fintech and retail domains using AWS, Redshift, Kafka, and Generative AI ecosystems.",
         profileImage: "https://res.cloudinary.com/dehpzaqrd/image/upload/v1766744888/ja0wzypaoovwigm0qzfw.jpg",
         socialLinks: [
             {
@@ -59,11 +59,11 @@ export const siteConfig = {
     show_work_badge: true,  // Work badge visible by default
     about: {
         title: "Data Engineering Lead",
-        description: "Data engineering lead focused on building scalable data platforms, real-time pipelines, and AI-driven analytics systems. Experienced in designing robust data solutions across fintech and retail domains. Strong focus on end-to-end ownership — from data ingestion to analytics enablement.",
+        description: "Data engineering lead focused on building highly-scalable data platforms, real-time pipelines, and autonomous AI systems. Experienced in driving data engineering excellence across fintech and retail domains—from Redshift bulk ingestion engines to LLM-driven Agentic AI architectures.",
         image: "https://res.cloudinary.com/dehpzaqrd/image/upload/v1766728626/smaxiso_portfolio/about/yyjt7kw7dyo38ca3qm2u.jpg",
         stats: [
-            { label: "Years Experience", number: 4 },
-            { label: "Projects Completed", number: 15 }
+            { label: "Years Experience", number: 5 },
+            { label: "Projects Completed", number: 19 }
         ]
     }
 }
