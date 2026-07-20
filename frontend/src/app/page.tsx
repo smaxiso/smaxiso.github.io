@@ -6,6 +6,7 @@ import { SkillsSection } from "@/components/SkillsSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { ContactSection } from "@/components/ContactSection";
 import { getExperiences, getSkills, getProjects } from "@/lib/api";
+import { fallbackExperiences, fallbackProjects } from "@/lib/fallbackData";
 
 // Revalidate every hour
 export const revalidate = 3600;
@@ -19,9 +20,9 @@ export default async function Home() {
   const projectsData = getProjects();
 
   const [experiences, skills, projects] = await Promise.all([
-    experiencesData.catch(() => []),
+    experiencesData.catch(() => fallbackExperiences),
     skillsData.catch(() => []),
-    projectsData.catch(() => []),
+    projectsData.catch(() => fallbackProjects),
   ]);
 
   // Sort projects on server side
